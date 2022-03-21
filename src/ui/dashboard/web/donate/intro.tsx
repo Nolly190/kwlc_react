@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, {useEffect, useState} from 'react';
 import ListMenuIcon from "../../../../components/list-menu-icon";
 import { loadDonations } from '../../../../controller/donation.controller';
@@ -70,7 +71,7 @@ const RenderDonationItem = ({img, title, description, href}) => {
                 <p>
                     {description}...
                 </p>
-                <a href={href} className="btn">See more</a>
+                <Link href={href}><a className="btn">See more</a></Link>
             </div>
         </div>
     );

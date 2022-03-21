@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { HomeAboutArea } from './AboutArea';
-import Header from './header';
 import HeroBanner from './heroBanner';
 import HomeTimer from './homeTimer';
 import HomeServiceArea from './serviceArea';
@@ -11,7 +10,6 @@ import HomeFamilyArea from './familySection';
 import LocationArea from './locationArea';
 import HomePageFooter from './../footer';
 import Layout from "../layout";
-import AltHomePageHeader from './AltHeader';
 import Autocomplete from "react-google-autocomplete";
 
 
@@ -28,7 +26,7 @@ export default function HomePage() {
   // );
   return (
     <>
-      <div className="bg_secondary_color" style={{height: "12rem"}}>
+      <div className="bg_secondary_color">
         <Head>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
           <link href="/styles/css/style.css" rel="stylesheet" />
@@ -36,8 +34,6 @@ export default function HomePage() {
           <link href="/icofont/icofont/fontawesome-all.min" rel="stylesheet" />
           
         </Head>
-            <AltHomePageHeader />
-        {/* <Header /> */}
         <div className="main_container home-container">
           <HeroBanner/>
           <HomeTimer />

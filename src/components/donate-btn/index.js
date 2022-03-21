@@ -1,11 +1,11 @@
+import {AiFillGift} from "react-icons/ai"
+
 export default function DonateBtn({label="Donate", withImg=true, style={}, className="", labelStyle={color: "white"}}) {
     return (
         <button className={!className ? "btn " : className} style={{...style, }}>
             {
-                withImg &&
-                <img
-                    src="/assets/images/heart(1) 1donor-hand.png" height={20} width={20}
-                />
+                withImg && <AiFillGift/>
+                
             }
             
             {/* <i className="fa fa-gift" aria-hidden="true"></i> */}

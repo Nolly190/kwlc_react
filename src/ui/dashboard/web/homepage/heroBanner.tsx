@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import AltHomePageHeader from './AltHeader';
 
 export default function HeroBanner() {
     const [slideState, setSlideState] = useState(0);
@@ -30,6 +31,7 @@ export default function HeroBanner() {
     }
     return (
         <section className="hero-banner-area">
+            <AltHomePageHeader/>
             <div className="banner_content">
                 <div className="slide">
                     <button onClick={moveToTheBackSlide} className="button-none">&#x2190;</button>

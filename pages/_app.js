@@ -6,10 +6,15 @@ import './../public/icofont/icofont.css'
 // import './../styles/css/events.css'
 // import './../styles/css/bootstrap/css/bootstrap.min.css'
 import '../styles/globals.css'
+import { ChakraProvider } from '@chakra-ui/react'
 
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  return (
+    <ChakraProvider>
+      <Component {...pageProps} />
+    </ChakraProvider>
+  )
 }
 
 

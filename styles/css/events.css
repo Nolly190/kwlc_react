@@ -729,7 +729,7 @@ form{
     flex-direction: column;
 }
 
-input, textarea{
+.footerInput{
     margin-bottom: 1rem;
     border: none;
     padding: .75rem 1rem;

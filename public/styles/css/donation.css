@@ -1,19 +1,11 @@
 /*========================================*/
-
-
 /*------------ [Google_Font] -----------*/
-
-
 /*========================================*/
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap');
 
 /*========================================*/
-
-
 /*------------ [_Root] -------------------*/
-
-
 /*========================================*/
 
 :root {
@@ -63,23 +55,21 @@ html {
 
 
 /*========================================*/
-
-
 /*--------------- [_Buttons] -------------*/
-
-
 /*========================================*/
 
 
 /*Btn Style Max*/
 
 .button {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: var(--text-primary-color);
     color: var(--white-color);
-    padding: 1rem;
+    /* padding: 1rem; */
     width: 9rem;
-    height: 3.5rem;
+    /* height: 3.5rem; */
     border-radius: .625rem;
     font-size: var(--mfont-reg);
     font-weight: var(--font-semi);
@@ -97,7 +87,7 @@ html {
     color: var(--text-primary-color);
     padding: 1rem;
     width: 8rem;
-    height: 3.5rem;
+    /* height: 3.5rem; */
     border-radius: .625rem;
     font-size: var(--mfont-reg);
     font-weight: var(--font-semi);
@@ -125,8 +115,8 @@ html {
 @media screen and (min-width: 768px) {
     .button {
         padding: 1rem;
-        width: 8rem;
-        height: 3.5rem;
+        width: 10rem;
+        /* height: 3.5rem; */
         font-size: var(--font-tiny);
         font-weight: var(--font-semi);
     }
@@ -134,15 +124,11 @@ html {
 
 
 /*========================================*/
-
-
 /*--------------- [_Utility] -------------*/
-
-
 /*========================================*/
 
 body {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background-color: var(--white-color);
     color: var(--text-primary-color);
@@ -406,9 +392,9 @@ hr {
     color: var(--text-primary-color);
 }
 
-.nav_item:hover {
+/* .nav_item:hover {
     color: var(--text-secondary-color);
-}
+} */
 
 .nav_item .btn {
     color: var(--white-color);
@@ -429,7 +415,7 @@ hr {
 
 .nav_link {
     cursor: pointer;
-    color: var(--white-color);
+    color: var(--black-color);
     font-size: var(--mfont-reg);
     font-weight: 600;
 }
@@ -452,67 +438,13 @@ hr {
     background: var(--white-color);
 }
 
-
-/* MENU BARS START */
-
-.nav_toggle {
-    cursor: pointer;
-    width: 2.1875rem;
-    position: relative;
-    z-index: 2;
-}
-
-.nav_toggle .bar {
-    width: 100%;
-    background: var(--text-primary-color);
-    height: 4px;
-    margin-bottom: 4px;
-    transition: .3s ease-in-out;
-}
-
-.nav_tog .bar {
-    width: 100%;
-    background: var(--white-color);
-    height: 4px;
-    margin-top: 3px;
-}
-
-.nav_tog {
-    cursor: pointer;
-    width: 1.75rem;
-    padding: 0 0 1.5rem;
-}
-
-.bg_white {
-    background: var(--white-color);
-}
-
-.change {
+.mobileHead{
     display: block;
 }
 
-.b1 {
-    transform: translateY(0px);
+.menuRight{
+    display: none;
 }
-
-.b3 {
-    transform: translateZ(4px);
-}
-
-.change #bar2 {
-    opacity: 0;
-}
-
-.change #bar1 {
-    transform: translateY(9px) rotate(45deg);
-    background: black;
-}
-
-.change #bar3 {
-    transform: translateY(-7px) rotateZ(-45deg);
-    background: black;
-}
-
 
 /*-----DROP DOWN MENU-------*/
 
@@ -531,7 +463,7 @@ hr {
 }
 
 .dropdown_menu {
-    border-bottom: 1px #767676 solid;
+    /* border-bottom: 1px #767676 solid; */
     cursor: pointer;
     padding: 1rem 0 .3rem;
 }
@@ -547,12 +479,15 @@ hr {
         padding: 2rem;
         align-items: center;
     }
+
     .nav-logo {
         display: none;
     }
+
     .top_navbar {
         margin: .75rem 2rem;
     }
+
     .nav_alt .nav-list {
         display: flex;
         justify-content: space-between;
@@ -560,23 +495,29 @@ hr {
         align-items: center;
         margin-top: 2rem;
     }
+
     .nav_alt .nav_link {
         color: var(--white-color);
     }
+
     .nav-list .nav_tog {
         padding: 0%;
     }
+
     .nav-list .dropdown {
         margin-bottom: 1.5rem;
     }
+
     .nav-list .dropdown_contents {
         right: 5rem;
         top: 7.75rem;
     }
+
     .nav_link {
         font-size: var(--font-tiny);
         color: var(--text-primary-color);
     }
+
     .nav_menu {
         display: block;
         position: relative;
@@ -606,8 +547,12 @@ hr {
         transition: all .5s ease;
         display: none;
     }
-    .nav_toggle {
+    .mobileHead{
         display: none;
+    }
+    
+    .menuRight{
+        display: flex;
     }
     .nav-list .dropdown_menu .nav_link {
         color: var(--text-primary-color);
@@ -1314,13 +1259,15 @@ hr {
 }
 
 .btn-container .button {
-    width: 12rem;
+    width: 10rem;
+    padding: 0%;
     height: 3.5rem;
     margin-right: 2rem;
 }
 
 .btn-container .btn {
     width: 10rem;
+    padding: 0%;
     height: 3.5rem;
 }
 
@@ -1615,11 +1562,12 @@ hr {
 }
 
 @media screen and (min-width: 768px) {
-    .btn-container .button {
+    /* .btn-container .button {
         width: 14rem;
         height: 3.5rem;
         margin-right: 2rem;
-    }
+    } */
+
     .latest_card {
         width: 48%;
         display: flex;
@@ -2097,8 +2045,7 @@ form {
     flex-direction: column;
 }
 
-input,
-textarea {
+.footerInput {
     margin-bottom: 1rem;
     border: none;
     padding: .75rem 1rem;

@@ -46,9 +46,9 @@ const [items, setItems] = useState(_tmp);
                 </div>
                 <div className="contact_info">
                 <form action="">
-                    <input type="text" placeholder="Name" id="" />
-                    <input type="email" placeholder="Email" id="" />
-                    <textarea placeholder="Message" id="" cols={30} rows={10}></textarea>
+                    <input type="text" placeholder="Name" id="" className="footerInput"/>
+                    <input type="email" placeholder="Email" id="" className="footerInput"/>
+                    <textarea placeholder="Message" id="" cols={30} rows={10} className="footerInput"></textarea>
                 </form>
                 <button className="button">Send</button>
                 </div>

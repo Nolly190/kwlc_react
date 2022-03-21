@@ -5,12 +5,12 @@ import { DonationsModel } from "../../../../testModel";
 import DonateItemDTO from '../../../../dto/Donate.dto';
 import { loadSingleDonation, navigateToHome } from '../../../../controller/donation.controller';
 
-
 export default  function DonateContent() {
     const [item, setItem] = useState(new DonateItemDTO());
     
     useEffect(() => {
         const id: string = getParam("id");
+        console.log("id", id)
         if (!id) {
             
             navigateToHome();
@@ -41,7 +41,7 @@ export default  function DonateContent() {
                     <div className="btn-container">
                         <DonateBtn 
                             className={"button"} 
-                            style={{marginLeft: 20, color: "white"}} 
+                            style={{ color: "white"}} 
                             labelStyle={{color: "white"}}
                             
                         />
@@ -51,6 +51,7 @@ export default  function DonateContent() {
                             labelStyle={{color: "black"}}
                             withImg={false}
                         />
+                        
                     </div>
                 </div>
             </div>
@@ -104,7 +105,7 @@ export default  function DonateContent() {
     );
 }
 
-const DonantionItem = ({img, title, target, raised}) => {
+export const DonantionItem = ({img, title, target, raised}) => {
     return (
         <div className="latest_card">
             <div className="image">

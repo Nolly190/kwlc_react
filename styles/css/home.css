@@ -578,9 +578,9 @@ hr{
 
 }
 
-.bg_secondary_color {
-    /* background-color: var(--bg-secondary-color); */
-}
+/* .bg_secondary_color {
+    background-color: var(--bg-secondary-color);
+} */
 
 /*========================================*/
 /*--------------- [Main Body Container] -------------*/
