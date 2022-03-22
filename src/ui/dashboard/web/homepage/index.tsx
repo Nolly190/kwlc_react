@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { HomeAboutArea } from './AboutArea';
-import Header from './header';
 import HeroBanner from './heroBanner';
 import HomeTimer from './homeTimer';
 import HomeServiceArea from './serviceArea';
@@ -11,7 +10,6 @@ import HomeFamilyArea from './familySection';
 import LocationArea from './locationArea';
 import HomePageFooter from './../footer';
 import Layout from "../layout";
-import AltHomePageHeader from './AltHeader';
 import Autocomplete from "react-google-autocomplete";
 
 
@@ -36,10 +34,8 @@ export default function HomePage() {
           <link href="/icofont/icofont/fontawesome-all.min" rel="stylesheet" />
           
         </Head>
-        {/* <Header /> */}
-        <AltHomePageHeader />
         <div className="main_container home-container">
-          <HeroBanner />
+          <HeroBanner/>
           <HomeTimer />
           <HomeServiceArea />
           <HomeAboutArea />

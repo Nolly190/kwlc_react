@@ -8,7 +8,6 @@ import {
 import { urls } from "../urls";
 import { LoginAccessDTO, LoginDTO } from "../dto/login.dto";
 import { apiStringStatus } from "./apiStatus.enum";
-import { HashlidEncoDecode } from "../encodeDecode";
 import { ResponseDTO } from "../dto/response.dto";
 import { statusEnum } from "../enums/util.enum";
 import { DonationItemDTO } from "../dto/Donate.dto";
@@ -19,15 +18,13 @@ export async function getLiveStreamsApi(): Promise<ResponseDTO> {
    const response = new ResponseDTO();
    
    try {
-      let res = await getRequest(urls.baseUrl, urls.liveStream);
-      // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
+      let res = await getRequest(urls.baseUrl, urls.liveStream);      
       let data:LiveStreamDTO[];
       if (res.status) {
 
          //save user profile info
          data = res.data.data;
-         
-         // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
+                  
          response.data = data;
          response.code = statusEnum.ok;
       }
@@ -45,16 +42,14 @@ export async function createStreamApi(requestData: LiveStreamDTO,id: number): Pr
    
    try {
       let res = await Request(urls.baseUrl, urls.liveStream + "/" + id, requestData, false);
-      //alert(JSON.stringify(res));
-      // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
+      //alert(JSON.stringify(res));      
       let data: LiveStreamDTO;
       if (res.status) {
 
          
          //save user profile info
          data = res.data;
-         
-         // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
+                  
          response.data = data;
          response.code = statusEnum.ok;
       }

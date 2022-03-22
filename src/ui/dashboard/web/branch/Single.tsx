@@ -42,7 +42,7 @@ const SingleBranch = () => {
                         <div className="col">
                             <div className="profile">
                                 <div className="image">
-                                    <img src="/images/profile.jpg" alt="" srcSet="" />
+                                    <img src="/images/profile.jpg" alt="Pastor Profile" srcSet="" />
                                 </div>
                                 <div className="profile-info">
                                     <h5>{item.leadPastor}</h5>

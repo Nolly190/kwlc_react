@@ -8,7 +8,6 @@ import {
 import { urls } from "../urls";
 import { LoginAccessDTO, LoginDTO } from "../dto/login.dto";
 import { apiStringStatus } from "./apiStatus.enum";
-import { HashlidEncoDecode } from "../encodeDecode";
 import { ResponseDTO } from "../dto/response.dto";
 import { statusEnum } from "../enums/util.enum";
 import { DonationItemDTO } from "../dto/Donate.dto";
@@ -18,14 +17,11 @@ export async function getDonationApi(): Promise<ResponseDTO> {
    
    try {
       let res = await getRequest(urls.baseUrl, urls.donation);
-      //alert(JSON.stringify(res));
-      // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
+      //alert(JSON.stringify(res));      
       let data: DonationItemDTO[];
       if (res.status) {         
          //save user profile info
-         data = res.data.data;
-         
-         // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
+         data = res.data.data;                  
          response.data = data;
          response.code = statusEnum.ok;
       }
@@ -44,16 +40,14 @@ export async function getSingleDonationApi(id: number): Promise<ResponseDTO> {
    
    try {
       let res = await getRequest(urls.baseUrl, urls.donation + "/" + id);
-      //alert(JSON.stringify(res));
-      // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
+      //alert(JSON.stringify(res));      
       let data: DonationItemDTO;
       if (res.status) {
 
          
          //save user profile info
          data = res.data;
-         
-         // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
+                  
          response.data = data;
          response.code = statusEnum.ok;
       }
@@ -71,14 +65,12 @@ export async function createDonationApi(requestData: DonationItemDTO, branchId: 
    
    try {
       let res = await Request(urls.baseUrl, urls.donation + "/" + branchId, requestData, false);
-      //alert(JSON.stringify(res));
-      // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
+      //alert(JSON.stringify(res));      
       let data: DonationItemDTO;
       if (res.status) {
          //save user profile info
          data = res.data;
-         
-         // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
+                  
          response.data = data;
          response.code = statusEnum.ok;
       }

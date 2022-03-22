@@ -1,7 +1,7 @@
 import moment from "moment";
 import { loginApi } from "./api/auth.api";
 import { LoginAccessDTO, LoginDTO, LoginModelDTO } from "./dto/login.dto";
-import { CryptoEncodeDecode, HashlidEncoDecode } from "./encodeDecode";
+import { CryptoEncodeDecode } from "./encodeDecode";
 import { statusEnum } from "./enums/util.enum";
 import { urls } from "./urls";
 
@@ -354,13 +354,11 @@ export function toTitleCase(str) {
 
 let username: string = "";
 let password: string = "";
-let hashlidEncoDecode: HashlidEncoDecode;
 let cryptoEncodeDecode: CryptoEncodeDecode;
 let localStorage;
 
 export const initApp = (
     userData: LoginModelDTO, 
-    hashids: HashlidEncoDecode,
     localStorageObj: any,
     _cryptoEncodeDecode: CryptoEncodeDecode,
     ) => {
@@ -369,10 +367,7 @@ export const initApp = (
          username = userData.username;
          password = userData.password;
          WebLogin({username, password});
-       }
-      if (hashlidEncoDecode) {
-         hashlidEncoDecode = hashids;
-      }
+       }     
       if (localStorageObj) {
          localStorage = localStorageObj;
       }

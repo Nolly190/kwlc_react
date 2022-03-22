@@ -5,7 +5,7 @@ import NavBar from './admin.navbar';
 import HomePageFooter from './admin.footer';
 import { initApp, saltConst } from '../../../utils';
 import { LoginModelDTO } from '../../../dto/login.dto';
-import { CryptoEncodeDecode, HashlidEncoDecode } from '../../../encodeDecode';
+import { CryptoEncodeDecode } from '../../../encodeDecode';
 import AdminNavItem from '../../../components/admin-nav-item';
 // import "./../../../../public/assets/view.v1/admin/js/charts";
 
@@ -17,7 +17,6 @@ const AdminLayout: React.FC<LayoutProps> = (
   useEffect(() => {
     const az = localStorage;
     initApp(
-      undefined,
       undefined,
       az,
       new CryptoEncodeDecode(saltConst),

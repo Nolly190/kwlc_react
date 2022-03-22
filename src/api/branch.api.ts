@@ -9,7 +9,6 @@ import {
 import { urls } from "../urls";
 import { LoginAccessDTO, LoginDTO } from "../dto/login.dto";
 import { apiStringStatus } from "./apiStatus.enum";
-import { HashlidEncoDecode } from "../encodeDecode";
 import { ResponseDTO } from "../dto/response.dto";
 import { statusEnum } from "../enums/util.enum";
 import { DonationItemDTO } from "../dto/Donate.dto";
@@ -19,15 +18,13 @@ export async function getBranchesApi(): Promise<ResponseDTO> {
    const response = new ResponseDTO();
    
    try {
-      let res = await getRequest(urls.baseUrl, urls.getAllBranch);
-      // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
+      let res = await getRequest(urls.baseUrl, urls.getAllBranch);      
       let data:BranchDTO[];
       if (res.status) {
 
          //save user profile info
          data = res.data.data;
-         
-         // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
+                  
          response.data = data;
          response.code = statusEnum.ok;
       }
@@ -45,16 +42,14 @@ export async function getSingleBranchApi(id: number): Promise<ResponseDTO> {
    
    try {
       let res = await getRequest(urls.baseUrl, urls.getBranch + "/" + id);
-      //alert(JSON.stringify(res));
-      // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
+      //alert(JSON.stringify(res));     
       let data: BranchDTO;
       if (res.status) {
 
          
          //save user profile info
          data = res.data;
-         
-         // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
+                  
          response.data = data;
          // showMessage(getMessage(res), res.status, localStorage);
          response.code = statusEnum.ok;
@@ -72,14 +67,12 @@ export async function createBranchApi(requetData: BranchDTO): Promise<ResponseDT
    
    try {
       let res = await Request(urls.baseUrl, urls.createBranch, requetData, false);
-      //alert(JSON.stringify(res));
-      // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
+      //alert(JSON.stringify(res));      
       let data: BranchDTO;
       if (res.status) {
          //save user profile info
          data = res.data;
-         
-         // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
+                  
          response.data = data;
          // showMessage(getMessage(res), res.status, localStorage);
          response.code = statusEnum.ok;

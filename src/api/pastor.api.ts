@@ -8,7 +8,6 @@ import {
 import { urls } from "../urls";
 import { LoginAccessDTO, LoginDTO } from "../dto/login.dto";
 import { apiStringStatus } from "./apiStatus.enum";
-import { HashlidEncoDecode } from "../encodeDecode";
 import { ResponseDTO } from "../dto/response.dto";
 import { statusEnum } from "../enums/util.enum";
 import { DonationItemDTO } from "../dto/Donate.dto";
@@ -20,15 +19,13 @@ export async function getAllPastorsApi(): Promise<ResponseDTO> {
    const response = new ResponseDTO();
    
    try {
-      let res = await getRequest(urls.baseUrl, urls.allPastor);
-      // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
+      let res = await getRequest(urls.baseUrl, urls.allPastor);      
       let data:UserDTO[];
       if (res.status) {
 
          //save user profile info
          data = res.data.data;
-         
-         // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
+                  
          response.data = data;
          response.code = statusEnum.ok;
       }
@@ -47,8 +44,7 @@ export async function registerUser(requestData: UserDTO): Promise<ResponseDTO> {
    
    try {
       let res = await getRequest(urls.baseUrl, urls.v1 + urls.registerUser, undefined, "get", JSON.stringify(requestData), true);
-      //alert(JSON.stringify(res));
-      // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
+      //alert(JSON.stringify(res));      
       let data: UserDTO;
       if (res.status) {
 

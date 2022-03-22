@@ -47,7 +47,7 @@ const BranchItem:FC<branchItem> = ({title, description, timers, onClick}) => {
 
             <div className="branch_card">
                 <div className="col">
-                    <h4>{title}</h4>
+                    <h3>{title}</h3>
                 </div>
                 <div className="col">
                     <span><i className="fa fa-home" aria-hidden="true"></i></span>
@@ -74,7 +74,7 @@ const BranchItem:FC<branchItem> = ({title, description, timers, onClick}) => {
                             }} 
                             onClick={(e) => handleClick(e)}
                         >
-                            <h5>See More</h5>
+                            <h4>See More</h4>
                         </a>
                     </div>
                 </div>
