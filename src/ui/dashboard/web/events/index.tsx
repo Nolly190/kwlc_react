@@ -1,5 +1,4 @@
 import Layout from "../layout";
-import NavBar from "../navbar";
 import EventFinder from "./eventFinder";
 import Head from 'next/head'
 import EventList from "./list";

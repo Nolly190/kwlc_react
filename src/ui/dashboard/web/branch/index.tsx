@@ -7,7 +7,7 @@ import BranchSearch from "./Search";
 export default function Branches() {
     return (
         <Layout
-            externalStyles={["/styles/css/style.css"]}
+            externalStyles={["/styles/css/donation.css"]}
             navbar={"web"}
             title="Church Branches"
             withFooter={false}

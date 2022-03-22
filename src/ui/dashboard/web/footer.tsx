@@ -19,7 +19,7 @@ const [items, setItems] = useState(_tmp);
     <footer className="footer_container">
             <div className="footer_col col_address">
                 <div className="footer_header logo_text">
-                    <div className="footer_logo"><img src="images/KWLCLogo.svg" alt="KWLC Logo"/></div>
+                    <div className="footer_logo"><img src="/images/KWLClogo.svg" alt="KWLC Logo"/></div>
                     <h5 className="section_subtitle">Kingdom Ways Living Church</h5>
                 </div>
                 <div className="contact_info">

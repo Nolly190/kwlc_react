@@ -18,7 +18,7 @@ export const NavMenu = ({alt=false}) => {
             <li className="nav_item">
                 <a href={"/web/"} className="nav_link">Home</a></li>
             <li className="nav_item">
-                <a href={"/web/payment"} className="nav_link">About</a>
+                <a href={"/web/branches"} className="nav_link">Branches</a>
             </li>
             <li className="nav_item">
                 <a href={"/web/donations"} className="nav_link">Donations</a>
@@ -32,7 +32,7 @@ export const NavMenu = ({alt=false}) => {
                 </li>
             }
             <li className="nav_item">
-                <a href={"/web/livestream"} className="nav_link">Events</a>
+                <a href={"/web/events"} className="nav_link">Events</a>
             </li>
             <li className="nav_item">
                 <a href={"/web/blog"} className="nav_link">Blog</a>
@@ -47,16 +47,16 @@ export const NavMenu = ({alt=false}) => {
                     <MenuButton><HamburgerIcon color={"white"}/></MenuButton>
                     <MenuList>
                         <MenuItem>
-                        <li className="dropdown_menu"><a href={"/web/404/"}className="nav_link">Branches</a></li>
+                        <li className="dropdown_menu"><a href={"/web/404/"}className="nav_link">About Us </a></li>
                         </MenuItem>
                         <MenuItem>
-                        <li className="dropdown_menu"><a href={"/web/404/"}className="nav_link">Stream</a></li>
+                        <li className="dropdown_menu"><a href={"/web/livestream/"}className="nav_link">Stream</a></li>
                         </MenuItem>
                         <MenuItem>
                         <li className="dropdown_menu"><a href="#" className="nav_link">Our Team</a></li>
                         </MenuItem>
                         <MenuItem>
-                        <li className="dropdown_menu"><a href={"/web/branches"} className="nav_link">Payment</a></li>
+                        <li className="dropdown_menu"><a href={"/web/Payment"} className="nav_link">Payment</a></li>
                         </MenuItem>
                     </MenuList>
                 </Menu>   
