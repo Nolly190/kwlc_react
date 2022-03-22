@@ -594,7 +594,7 @@ hr {
 
 .hero-banner-area {
     width: 100vw;
-    height: 100vh;
+    height: 40vh;
     position: relative;
     z-index: -1;
 }
@@ -1683,9 +1683,9 @@ hr {
 /* --------------------------- */
 
 
-/* .eachBranch section {
-    margin-top: 0.5rem !important;
-} */
+.eachBranch  .hero-banner-area{
+    height: 40vh;
+}
 
 .eachBranch .hero-banner-area-text {
     font-size: var(--font-reg) !important;
@@ -1695,7 +1695,6 @@ hr {
 /* hero content section*/
 
 .eachBranch .hero-content {
-    /* width: 90%; */
     padding: 2rem;
     margin: auto;
 }
@@ -2138,7 +2137,7 @@ textarea {
 
 .banner_content {
     width: 80%;
-    height: 80vh;
+    height: 40vh;
     margin: 0 auto;
     display: flex;
     align-items: center;
