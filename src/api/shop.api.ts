@@ -138,23 +138,3 @@ export async function deleteShopItemApi(id: number): Promise<ResponseDTO> {
    }
    return response.getResponse();
 }
-
-export async function deleteShopItemApi(id: number): Promise<ResponseDTO> {
-   const response = new ResponseDTO();
-   
-   try {
-      let res = await Request(urls.baseUrl, urls.product + "/" + id, null,true, 'delete');
-      let data: ShopDTO;
-      if (res.status) {
-         data = res.data;
-         response.data = data;
-         response.status = true;
-      }
-   }
-   catch(e) {
-      response.code = statusEnum.error;
-      response.message = e.toString();
-   }
-   
-   return response;
-}

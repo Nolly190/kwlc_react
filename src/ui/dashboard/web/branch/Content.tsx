@@ -5,6 +5,7 @@ import { loadBranchData } from "../../../../controller/branch.controller";
 
 export default function BranchContent() {
   const [items, setItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
   const router = useRouter();
   const [searchItem, setSearchItem] = useState("");
   const [locationItem, setLocationItem] = useState("All Branches");
@@ -13,18 +14,27 @@ export default function BranchContent() {
     loadBranchData(setItems, items);
   }, []);
 
+  useEffect(() => {
+    setFilteredItems(items);
+  }, [items]);
+
   const handleChange = (value: string) => {
     setSearchItem(value);
   };
 
-  console.log("item", items);
+  console.log("locationItem", items);
 
   const handleFilter = () => {
-    const filteredItems = items.filter((x) =>
-      x.location?.toLowerCase().includes(searchItem.toLowerCase())
-    );
-    setItems(filteredItems);
-    setLocationItem(searchItem.charAt(0).toUpperCase() + searchItem.slice(1));
+    if (searchItem === "") {
+      setFilteredItems(items);
+      setLocationItem("All Branches");
+    } else {
+      const filteredArray = items.filter((x) =>
+        x.location?.toLowerCase().includes(searchItem.toLowerCase())
+      );
+      setFilteredItems(filteredArray);
+      setLocationItem(searchItem.charAt(0).toUpperCase() + searchItem.slice(1));
+    }
   };
 
   return (
@@ -68,8 +78,8 @@ export default function BranchContent() {
         </span>
 
         <div className="branch_box">
-          {items && items.length > 0 ? (
-            items.map((x, index) => {
+          {filteredItems && filteredItems.length > 0 ? (
+            filteredItems.map((x, index) => {
               return (
                 <BranchItem
                   key={index}

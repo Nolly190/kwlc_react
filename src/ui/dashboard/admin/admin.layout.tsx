@@ -5,7 +5,7 @@ import NavBar from "./admin.navbar";
 import HomePageFooter from "./admin.footer";
 import { initApp, Logout, saltConst } from "../../../utils";
 import { LoginModelDTO } from "../../../dto/login.dto";
-import { CryptoEncodeDecode, HashlidEncoDecode } from "../../../encodeDecode";
+import { CryptoEncodeDecode } from "../../../encodeDecode";
 import AdminNavItem from "../../../components/admin-nav-item";
 import styled from "styled-components";
 import mediaQueries from "../../../mediaQueries";
