@@ -4,31 +4,114 @@ import ShopItemDTO, { ShopDTO } from "../dto/ShopItem.dto";
 import ShopItemInformationDTO from "../dto/ShopItemInfo.dto";
 import { statusEnum } from "../enums/util.enum";
 import { ShopItemsModel } from "../testModel"
-import { fakeModel, showMessage } from "../utils"
+import { fakeModel, log, showMessage } from "../utils"
 
-export const initShopTopItems = (setTopItems: Function) => {
+export const initShopTopItems = (setTopItems: Function, setMaxPrice: Function) => {
     if (fakeModel) {
         setTopItems(ShopItemsModel.slice(0,3));
     }
     else {
-
+        initShopLeftItems(setTopItems, setMaxPrice);
     }
 }
 
-export const initShopLeftItems = async (setTopItems: Function) => {
+export const filterShopTopItems = async (setItems: Function, filterPrice: number) => {
+    if (fakeModel) {
+        setItems(ShopItemsModel.slice(0,3));
+    }
+    else {
+        const response: ResponseDTO = await getShopItemsApi();
+        if (!response.status) {
+            showMessage("error", "An error occurred", "Please try again to fetch product(s)");
+            return;
+        }
+
+        const data:ShopDTO[] = response.data;
+        const _data:ShopItemDTO[] = [];
+        
+        data && data.length > 0 && data.map(x => {
+            if (x.price > filterPrice) return;
+            _data.push(new ShopItemDTO({
+                copies: x.quantity,
+                description: x.description,
+                id: x.id,
+                price: x.price,
+                title: x.title,
+                img: (x.productImages.length > 0 ? x.productImages[0].imageUrl : ""),
+                images: (x.productImages.length > 0 ? x.productImages.map(x => x.imageUrl) : []),
+                information: [
+                    {
+                        key: "weight",
+                        value: x.weight,
+                    },
+                    {
+                        key: "dimension",
+                        value: x.dimension,
+                    }
+                ],
+            }));
+        });
+        setItems(_data);
+    }
+}
+
+export const initShopLeftItems = async (setTopItems: Function, setMaxPrice?: Function) => {
     if (fakeModel) {
         setTopItems(ShopItemsModel.slice(0,3));
     }
     else 
     {
         const response: ResponseDTO = await getShopItemsApi();
-        if (response.code < statusEnum.ok) {
+        if (!response.status) {
+            showMessage("error", "An error occurred", "Please try again to fetch product(s)");
+        }
+
+        const data:ShopDTO[] = response.data;
+        const _data:ShopItemDTO[] = [];
+        let maxPrice:number = 0;
+        
+        data && data.length > 0 && data.map(x => {
+            if (x.price > maxPrice) maxPrice = x.price;
+            _data.push(new ShopItemDTO({
+                copies: x.quantity,
+                description: x.description,
+                id: x.id,
+                price: x.price,
+                title: x.title,
+                img: (x.productImages.length > 0 ? x.productImages[0].imageUrl : ""),
+                images: (x.productImages.length > 0 ? x.productImages.map(x => x.imageUrl) : []),
+                information: [
+                    {
+                        key: "weight",
+                        value: x.weight,
+                    },
+                    {
+                        key: "dimension",
+                        value: x.dimension,
+                    }
+                ],
+            }));
+        });
+        
+        setTopItems(_data);
+        if (setMaxPrice) setMaxPrice(maxPrice);
+    }
+}  
+
+export const shopRelatedItems = async (setTopItems: Function, excludeItemId: string) => {
+    if (fakeModel) {
+        setTopItems(ShopItemsModel.slice(0,3));
+    }
+    else {
+        const response: ResponseDTO = await getShopItemsApi();
+        if (!response.status) {
             showMessage("error", "An error occurred", "Please try again to fetch product(s)");
         }
 
         const data:ShopDTO[] = response.data;
         const _data:ShopItemDTO[] = [];
         data && data.length > 0 && data.map(x => {
+            if (x.id.toString() == excludeItemId) return;
             _data.push(new ShopItemDTO({
                 copies: x.quantity,
                 description: x.description,
@@ -52,15 +135,6 @@ export const initShopLeftItems = async (setTopItems: Function) => {
         
         setTopItems(_data);
     }
-}  
-
-export const shopRelatedItems = (setTopItems: Function) => {
-    if (fakeModel) {
-        setTopItems(ShopItemsModel.slice(0,3));
-    }
-    else {
-
-    }
 }
 
 
@@ -73,7 +147,7 @@ export const shopLoadItem = async (setItem: Function, id: string) => {
     }
     else {
         const response = await getSingleShopItemApi(parseInt(id));
-            if (response.code < statusEnum.ok) {
+            if (!response.status) {
                 showMessage("error", "An error occurred", response.message.toString());
                 return response;
             }

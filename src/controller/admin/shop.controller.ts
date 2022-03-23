@@ -1,13 +1,13 @@
 import moment from "moment";
 import { getSingleDonationApi } from "../../api/donate.api";
-import { createShopItemApi, editShopItemApi, getShopItemsApi, getSingleShopItemApi } from "../../api/shop.api";
+import { createShopItemApi, deleteShopItemApi, editShopItemApi, getShopItemsApi, getSingleShopItemApi } from "../../api/shop.api";
 import { DonationItemDTO } from "../../dto/Donate.dto";
 import { ShopDTO } from "../../dto/ShopItem.dto";
 import { statusEnum } from "../../enums/util.enum";
 import { CRUDBL } from "../../interfaces/CRUDBL.interface";
-import { CREATION_ERROR, CREATION_OK, CREATION_PENDING, UPDATE_ERROR, UPDATE_OK, UPDATE_PENDING } from "../../strings";
+import { CREATION_ERROR, CREATION_OK, CREATION_PENDING, DELETE_ERROR, DELETE_OK, DELETE_PENDING, UPDATE_ERROR, UPDATE_OK, UPDATE_PENDING } from "../../strings";
 import { DonationsModel, ShopItemsModel } from "../../testModel";
-import { fakeModel, showAdminMessage,log } from "../../utils";
+import { fakeModel, showAdminMessage,log, showConfirmDialog } from "../../utils";
 
 
 export interface ISetShopItem {
@@ -104,8 +104,24 @@ export class ShopController implements CRUDBL {
             showAdminMessage("success", UPDATE_PENDING(this.keyTitle));
         }
     }
-    async delete() {
-
+    async delete(id: number) {
+        const result = showConfirmDialog('Confirm Delete');
+        if (result) {
+            deleteShopItemApi(id).then((response) => {
+                console.log("response", response);
+                if (response.status) {
+                    showAdminMessage("success", DELETE_OK(this.keyTitle));
+                    
+                }
+                else {
+                    showAdminMessage("error", DELETE_ERROR(this.keyTitle));
+                }
+            });
+            showAdminMessage("success", DELETE_PENDING(this.keyTitle));
+        }
+        else {
+            showAdminMessage("success", "Action cancelled");
+        }
     }
     async bulk() {
         
