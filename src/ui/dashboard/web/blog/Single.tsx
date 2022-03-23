@@ -19,7 +19,7 @@ export default function BlogDetail() {
     const getBlog = () => {
         const id = getParam("id");
         if (!id) {
-            window.location.href = "/admin/";
+            router.push("/admin/";
         }
         else {
             loadBlog(setItem, parseInt(id));

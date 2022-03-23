@@ -45,7 +45,7 @@ export default function EditDonation() {
     const getBranch = ()  => {
         const idParam = getParam("id");
         if (!idParam) {
-            window.location.href = "/admin/";
+            router.push("/admin/";
         }
         else {
             setId(parseInt(idParam));

@@ -5,17 +5,38 @@
 // import './../styles/css/home.css'
 // import './../styles/css/events.css'
 // import './../styles/css/bootstrap/css/bootstrap.min.css'
-import '../styles/globals.css'
-import { ChakraProvider } from '@chakra-ui/react'
-
+import "../styles/globals.css";
+import { ChakraProvider } from "@chakra-ui/react";
+import { initUtilFunc } from "../src/utils";
+import { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
+import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+  useEffect(() => {
+    initUtilFunc(window.localStorage, router);
+  }, []);
+
   return (
-    <ChakraProvider>
+    <>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={4000}
+        // hideProgressBar
+        newestOnTop={true}
+        // closeOnClick={false}
+        rtl={false}
+        pauseOnVisibilityChange={false}
+        draggable={false}
+        pauseOnHover={true}
+        limit={1}
+      />
+      <ChakraProvider>
         <Component {...pageProps} />
-    </ChakraProvider>
-  )
+      </ChakraProvider>
+    </>
+  );
 }
 
-
-export default MyApp
+export default MyApp;

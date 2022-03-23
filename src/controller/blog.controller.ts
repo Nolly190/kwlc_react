@@ -1,4 +1,5 @@
 import moment from "moment";
+import { toast } from "react-toastify";
 import { getBlogApi, getSingleBlogApi } from "../api/blog.api";
 import { ResponseDTO } from "../dto/response.dto";
 import { statusEnum } from "../enums/util.enum";
@@ -15,11 +16,11 @@ export async function loadBlogData(setList: Function) {
         else {
             const response: ResponseDTO = await getBlogApi();
             if (response.code < statusEnum.ok) {
-                throw new Error(response.extra_data.toString());
+                toast.error(response.message);
             }
 
-            const data:BlogItemDTO[] = response.data;
-            const branchData:BlogDTO[] = [];
+            const data: BlogItemDTO[] = response.data?.data;
+            const branchData: BlogDTO[] = [];
             data && data.length > 0 && data.map(x => {
                 branchData.push(new BlogDTO({
                     by: x.authorName,
@@ -48,10 +49,10 @@ export async function loadBlogData(setList: Function) {
             setList(branchData);
         }
     }
-    catch(e) {
+    catch (e) {
         console.error(e);
     }
-    
+
 }
 
 export async function loadBlog(setItem: Function, id: number) {
@@ -63,11 +64,11 @@ export async function loadBlog(setItem: Function, id: number) {
         else {
             const response: ResponseDTO = await getSingleBlogApi(id);
             if (response.code < statusEnum.ok) {
-                throw new Error(response.extra_data.toString());
+                toast.error(response.message);
             }
 
-            const data:BlogItemDTO = response.data;
-            const branchData:BlogDTO[] = [];
+            const data: BlogItemDTO = response.data?.data;
+            const branchData: BlogDTO[] = [];
 
             setItem(new BlogDTO({
                 by: data.authorName,
@@ -86,8 +87,8 @@ export async function loadBlog(setItem: Function, id: number) {
             }));
         }
     }
-    catch(e) {
+    catch (e) {
         console.error(e);
     }
-    
+
 }

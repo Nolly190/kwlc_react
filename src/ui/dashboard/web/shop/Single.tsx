@@ -12,7 +12,7 @@ export default function ProductDetail() {
     
     useEffect(() => {
         const id = getParam("id");
-        if (!id) { window.location.href = "/web/";}
+        if (!id) { router.push("/web/";}
         shopLoadItem(setItem, id);
         shopRelatedItems(setRelatedItem, id);
     }, []);

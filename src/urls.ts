@@ -31,13 +31,15 @@ export const urls = {
     liveStream: "LiveStream",
     updateLiveStream: "UpdateLiveStream/",
 
+    createReport: "Report/Create",
+
+    baseUrl: "https://kwlc-web.herokuapp.com/api/",
+    v1: "v1/",
 
     ...{
         // baseUrl: "http://nolly19o-001-site10.itempurl.com/api/",
         // baseUrl: "http://localhost:8010/proxy/api/",
-        baseUrl: "https://kwlc-web.herokuapp.com/api/",
-        v1: "v1/",
         "login": "User/Login/Login",
     },
-    
+
 };

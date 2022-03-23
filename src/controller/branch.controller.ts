@@ -1,4 +1,5 @@
 import moment from "moment";
+import { toast } from "react-toastify";
 import { getBranchesApi, getSingleBranchApi } from "../api/branch.api";
 import { BranchDTO, BranchItemDTO, BranchMediaDTO } from "../dto/Branch.dto";
 import { ResponseDTO } from "../dto/response.dto";
@@ -10,25 +11,26 @@ import { BlogDTO } from "./../dto/Blog.dto";
 export async function loadBranchData(setList: Function, items: BranchItemDTO[]) {
     try {
         if (fakeModel) {
-            const data:BranchItemDTO[] = BranchesModel;
+            const data: BranchItemDTO[] = BranchesModel;
             const branchData = [];
             setList(data);
         }
         else {
             const response: ResponseDTO = await getBranchesApi();
+
             if (response.code < statusEnum.ok) {
-                throw new Error(response.extra_data.toString());
+                toast.error(response.message);
             }
-            const data:BranchDTO[] = response.data;
-            const branchData:BranchItemDTO[] = [];
+            const data: BranchDTO[] = response.data?.data;
+            const branchData: BranchItemDTO[] = [];
             data && data.length > 0 && data.forEach(async (i) => {
-                
+
                 const innerResponse: ResponseDTO = await getSingleBranchApi((i.id));
                 // if (innerResponse.code < statusEnum.ok) {
                 //     return;
                 // }
-                const innerData:BranchDTO = innerResponse.data;
-                
+                const innerData: BranchDTO = innerResponse.data;
+
                 const record = new BranchItemDTO({
                     title: i.name,
                     timers: innerData?.services ?? [],
@@ -40,18 +42,18 @@ export async function loadBranchData(setList: Function, items: BranchItemDTO[]) 
                     location: i.location,
                     phoneNo: [],
                 });
-    
+
                 branchData.push(record);
                 items = items.concat([record]);
                 setList(items);
-                
+
             });
             // console.log("branchData", branchData);
             // setList(branchData);
         }
     }
-    catch(e) {
-        log("earlydev",e);
+    catch (e) {
+        log("earlydev", e);
     }
 }
 
@@ -61,20 +63,20 @@ export const loadSingleBranch = async (setItem: Function, id: string) => {
         if (item.length > 0) {
             setItem(item[0]);
         }
-        else {}
+        else { }
     }
     else {
         const response: ResponseDTO = await getSingleBranchApi(parseInt(id));
         if (response.code < statusEnum.ok) {
-            throw new Error(response.extra_data.toString());
+            toast.error(response.message)
         }
-        const i:BranchDTO = response.data;
-        
+        const i: BranchDTO = response.data;
+
         setItem(new BranchItemDTO({
             description: i.location,
             id: i.id,
-            image: i.mediaVm.length > 0 ? i.mediaVm[0] : new BranchMediaDTO(),
-            images: i.mediaVm.length > 0 ? i.mediaVm : [],
+            image: i.mediaVm?.length > 0 ? i.mediaVm[0] : new BranchMediaDTO(),
+            images: i.mediaVm?.length > 0 ? i.mediaVm : [],
             raised: 0,
             target: 0,
             title: i.name,
@@ -85,5 +87,5 @@ export const loadSingleBranch = async (setItem: Function, id: string) => {
             location: i.location,
         }));
     }
-    
+
 }

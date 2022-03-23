@@ -5,21 +5,21 @@ import { LiveStreamDTO } from "../../../../dto/LiveStream.dto";
 import { getParam } from "../../../../utils";
 
 export default function PreviousLiveStreamContent() {
-  
   const liveStreamItems: LiveStreamDTO[] = [];
   const [items, setItems] = useState(liveStreamItems);
-  
+
   useEffect(() => {
-      const id = getParam("id");
-      if (!id) {
-        // window.location.href = "/web/";
-      }else {}
-      loadPreviousLiveStreamWeb(setItems);
-  },[]);
-    return (
-        <>
-          <hr />
-          <div className="sectionTwo">
+    const id = getParam("id");
+    if (!id) {
+      // router.push("/web/";
+    } else {
+    }
+    loadPreviousLiveStreamWeb(setItems);
+  }, []);
+  return (
+    <>
+      <hr />
+      <div className="sectionTwo">
         <div className="header">
           <h3>Previous sundays</h3>
           <form action="">
@@ -28,25 +28,23 @@ export default function PreviousLiveStreamContent() {
           </form>
         </div>
         <div className="row prevSundays">
-          {
-            items.length > 0 ? 
-            items.map((x, index) => {
-              return (
-                <LiveStreamMDItem
-                  key={index} 
-                  datetime={x.dateOfStream}
-                  id={x.id}
-                  preacher={x.preacher}
-                  title={x.title}
-                  videoUrl={x.liveStreamUrl}
-                  views={x.views}
-                  onEnd={() => {}}
-                  onError={() => {}}
-                />
-              );
-            })
-            : undefined
-          }
+          {items.length > 0
+            ? items.map((x, index) => {
+                return (
+                  <LiveStreamMDItem
+                    key={index}
+                    datetime={x.dateOfStream}
+                    id={x.id}
+                    preacher={x.preacher}
+                    title={x.title}
+                    videoUrl={x.liveStreamUrl}
+                    views={x.views}
+                    onEnd={() => {}}
+                    onError={() => {}}
+                  />
+                );
+              })
+            : undefined}
           {/* <div className="column one">
             <div className="row">
               <div className="vid">
@@ -103,7 +101,6 @@ export default function PreviousLiveStreamContent() {
         </div>
         <div className="copyright">Kingdom Ways Living Church 2021</div>
       </div>
-        </>
-    );
+    </>
+  );
 }
-
