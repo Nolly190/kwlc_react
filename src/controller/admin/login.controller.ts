@@ -1,7 +1,7 @@
 import { loginApi } from "../../api/auth.api";
 import { ResponseDTO } from "../../dto/response.dto";
 import { statusEnum } from "../../enums/util.enum";
-import { fakeModel, showAdminMessage, showMessage, writeToLocalStorage } from "../../utils";
+import { fakeModel, log, showAdminMessage, showMessage, writeToLocalStorage } from "../../utils";
 
 export async function loginUser(username: string, password: string){
     const response = new ResponseDTO();
@@ -19,14 +19,13 @@ export async function loginUser(username: string, password: string){
         }
         else {
             const result = await loginApi({username, password});
-            if (result.code < statusEnum.ok) {
-                response.code = result.code;
-                response.extra_data = result.extra_data;
+            if (!result.status) {
+                showAdminMessage("error","login failed.");
             }
             else {
-                response.code = statusEnum.successful;
                 showAdminMessage("success","login ok");
-                writeToLocalStorage("userData", (JSON.stringify(result.data)));
+                log('earlydev', 'token result.data', result.data);
+                writeToLocalStorage("userData", JSON.stringify(result.data));
                 setTimeout(() => {
                     window.location.href = "/admin/";
                 }, 1500);
@@ -34,7 +33,7 @@ export async function loginUser(username: string, password: string){
         }
     }
     catch(e) {
-        console.log(e);
+        log('earlydev',e);
         response.extra_data = e.toString();
     }
 }

@@ -24,7 +24,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/ui/dashboard/web/homepage/TopNavBar.ts", "src/ui/dashboard/web/homepage/TopNavBar.js", "pages/web/donations.js", "pages/web/donate.js"  ],
+, "src/ui/dashboard/web/homepage/TopNavBar.ts", "src/ui/dashboard/web/homepage/TopNavBar.js", "pages/web/donations.js", "pages/web/donate.js", "src/context-providers/ShopContext.provider.ts"  ],
   "exclude": [
     "node_modules"
   ],

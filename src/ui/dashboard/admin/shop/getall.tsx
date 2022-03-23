@@ -90,15 +90,7 @@ export default function GetAllShopItems() {
                                                     <td className="text-primary">
                                                     <a 
                                                         onClick={() => {
-                                                            alert('delete');
-                                                            return;
-                                                            const result = prompt('Confirm Delete');
-                                                            if (result) {
-                                                                //"/questionnaire/delete/[id]" 
-                                                            }
-                                                            else {
-
-                                                            }
+                                                            controller.delete(x.id);
                                                         }}
                                                         className="btn btn-primary pull-right text-white" 
                                                         >

@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { LayoutProps } from "../../../types/appTypes";
 import NavBar from './admin.navbar';
 import HomePageFooter from './admin.footer';
-import { initApp, saltConst } from '../../../utils';
+import { initApp, log, saltConst } from '../../../utils';
 import { LoginModelDTO } from '../../../dto/login.dto';
 import { CryptoEncodeDecode } from '../../../encodeDecode';
 import AdminNavItem from '../../../components/admin-nav-item';
@@ -16,10 +16,12 @@ const AdminLayout: React.FC<LayoutProps> = (
   }: LayoutProps) => {
   useEffect(() => {
     const az = localStorage;
+    const cryptoEncodeDecode = new CryptoEncodeDecode(saltConst);
+    log('earlydev', 'token cryptoEncodeDecodeO', cryptoEncodeDecode);
     initApp(
       undefined,
       az,
-      new CryptoEncodeDecode(saltConst),
+      cryptoEncodeDecode,
     );
     
   }, []);

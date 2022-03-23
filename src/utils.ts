@@ -40,7 +40,7 @@ export async function checkUserLoggedIn(): Promise<Boolean> {
     }
 }
 
-export const log = (period="earlydev", message?: any, ...optionalParams: any[]) => {
+export const log = (period="earlydev", message: any, ...optionalParams: any) => {
    
    if (period == "earlydev") {
       //only log the stage/period you want
@@ -93,6 +93,7 @@ export function showConfirmDialog(title:string, description: string = "", option
 }
 export function showPrompt() {
    const result = prompt('Confirm Delete');
+   return result;
 }
 
 export function uuidv4() {
@@ -120,9 +121,6 @@ export async function Request(
     if (token != "") {
         token = "Bearer " + token;
         headers["Authorization"] = token;
-    }
-    else {
-      //  await Login({username, password});
     }
 
     log("earlydev","headers: ", headers);
@@ -326,21 +324,18 @@ export const WebLogin = async ({username, password}) => {
 
 const getToken = async (): Promise<string> => {
    let token = "";
-   // token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJOb2xseSIsImp0aSI6IjA1ZWVhMjMxLTA2YzYtNDRmYS05NTkzLWZiMzZmM2E0ZTIxZSIsImVtYWlsIjoibm9sbHkxOTBAZ21haWwuY29tIiwiVXNlcklkIjoiMSIsInJvbGVzIjpbIkFkbWluIiwiU3VwZXJBZG1pbiJdLCJwZXJtaXNzaW9ucyI6WyJDYW5Bc3NpZ25BZG1pblRvQnJhbmNoIiwiQ2FuVmlld0Rhc2hib2FyZCIsIlN1cGVyQWRtaW4iXSwiZXhwIjoxNjQ0MTAzODM4LCJpc3MiOiJLd2xjIiwiYXVkIjoiU2VjdXJlQXBpVXNlciJ9.ckrRT3K51EKfmixAmCVYk-x0Lx0e-5L2ohPtUR7qPtQ";
-   // return token;
     
     let rawData: string = getFromLocalStorage("userData");
     
     if (rawData) {
       
-      const result:any = JSON.parse(JSON.parse(rawData));
+      const result:any = JSON.parse(rawData);
         
       const markerSymbolInfo = result as LoginAccessDTO;
   
       token = markerSymbolInfo.token;
     }
-   //  const result = eval(JSON.parse(rawData));
-    return token;
+   return token;
 }
 
 export function toTitleCase(str) {
@@ -359,7 +354,7 @@ let localStorage;
 
 export const initApp = (
     userData: LoginModelDTO, 
-    localStorageObj: any,
+    localStorageObj: Storage,
     _cryptoEncodeDecode: CryptoEncodeDecode,
     ) => {
     if (!fakeModel)  {
@@ -371,7 +366,8 @@ export const initApp = (
       if (localStorageObj) {
          localStorage = localStorageObj;
       }
-      if (cryptoEncodeDecode) {
+      log('earlydev', 'token cryptoEncodeDecode', _cryptoEncodeDecode);
+      if (_cryptoEncodeDecode) {
          cryptoEncodeDecode = _cryptoEncodeDecode;
       }
     }
