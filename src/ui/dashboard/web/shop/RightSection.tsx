@@ -1,16 +1,28 @@
-import React,{ useState, useEffect } from "react";
+import React,{ useState, useEffect, FC, useContext } from "react";
 import ShopTopProductItem from "../../../../components/shop-top-product";
-import { initShopTopItems } from "../../../../controller/shop.controller";
+import { filterShopTopItems, initShopTopItems } from "../../../../controller/shop.controller";
 import ShopItemDTO from "../../../../dto/ShopItem.dto";
+import { WebShopInterface } from "../../../../types/webShopInterface";
+import { ShopContext } from "../../../../context-providers/ShopContext.provider";
 
-export default function ShopRightSection () {
+export default function ShopRightSection ({onFilter}: WebShopInterface) {
+    const _shopContext = useContext(ShopContext);
+
     const emptyTopItems: ShopItemDTO[] = [];
     
     const [topItems, setTopItems] = useState(emptyTopItems);
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(0);
+    const [filterPrice, setFilterPrice] = useState(0);
 
     useEffect(() => {
-        initShopTopItems(setTopItems);
+        initShopTopItems(setTopItems, setMaxPrice);
     }, []);
+
+    const onFilterClick = async () => {
+        onFilter(minPrice, filterPrice);
+        filterShopTopItems(_shopContext.setItems,filterPrice);
+    }
 
     return (
         <>
@@ -24,19 +36,19 @@ export default function ShopRightSection () {
                 <div className="line_filter">
                     <input
                     type="range"
-                    min="1"
-                    max="100"
-                    value="50"
+                    min={0}
+                    max={maxPrice}
+                    value={filterPrice}
                     className="slider"
                     id="myRange"
                     onChange={(e) => {
-                        console.log(e.target);
+                        setFilterPrice(parseInt(e.target.value));
                     }}
                     />
                 </div>
                 <div className="filter">
-                    <button className="button">Filter</button>
-                    <div className="filterValue">Price <span >N0- N50</span></div>
+                    <button className="button" onClick={() => onFilterClick()}>Filter</button>
+                    <div className="filterValue">Price <span >N{minPrice}- N{(filterPrice > 0 ? filterPrice : maxPrice)}</span></div>
                 </div>
 
                 <h3>TOP PRODUCTS</h3>
