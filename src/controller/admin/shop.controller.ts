@@ -6,7 +6,7 @@ import { DonationItemDTO } from "../../dto/Donate.dto";
 import { ShopDTO } from "../../dto/ShopItem.dto";
 import { statusEnum } from "../../enums/util.enum";
 import { CRUDBL } from "../../interfaces/CRUDBL.interface";
-import { CREATION_ERROR, CREATION_OK, CREATION_PENDING, UPDATE_ERROR, UPDATE_OK, UPDATE_PENDING } from "../../strings";
+import { CREATION_ERROR, CREATION_OK, CREATION_PENDING, DELETE_ERROR, DELETE_OK, DELETE_PENDING, UPDATE_ERROR, UPDATE_OK, UPDATE_PENDING } from "../../strings";
 import { DonationsModel, ShopItemsModel } from "../../testModel";
 import { fakeModel, showAdminMessage, log, showConfirmDialog } from "../../utils";
 

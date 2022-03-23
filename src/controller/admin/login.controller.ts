@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { loginApi } from "../../api/auth.api";
 import { ResponseDTO } from "../../dto/response.dto";
 import { statusEnum } from "../../enums/util.enum";
-import { fakeModel, showAdminMessage, showMessage, writeToLocalStorage } from "../../utils";
+import { fakeModel, log, showAdminMessage, showMessage, writeToLocalStorage } from "../../utils";
 
 export async function loginUser(username: string, password: string) {
     const response = new ResponseDTO();

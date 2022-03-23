@@ -1,7 +1,7 @@
 import Layout from "../layout";
 import DonateBanner from "./Banner";
 import DonateContent from "./Content";
-import BranchContent from "./Content";
+// import BranchContent from "./Content";
 
 export default function Donate() {
     return (

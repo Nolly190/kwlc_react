@@ -1,12 +1,12 @@
 // import './../styles/css/styles.css'
-import "./../public/icofont/icofont.min.css";
-import "./../public/icofont/icofont.css";
-import "react-toastify/dist/ReactToastify.css";
+// import './../public/icofont/icofont.min.css'
+// import './../public/icofont/icofont.css'
 // import './../public/icofont/font-awesome.min.css'
 // import './../styles/css/home.css'
 // import './../styles/css/events.css'
 // import './../styles/css/bootstrap/css/bootstrap.min.css'
 import "../styles/globals.css";
+import { ChakraProvider } from "@chakra-ui/react";
 import { initUtilFunc } from "../src/utils";
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
@@ -32,7 +32,9 @@ function MyApp({ Component, pageProps }) {
         pauseOnHover={true}
         limit={1}
       />
-      <Component {...pageProps} />
+      <ChakraProvider>
+        <Component {...pageProps} />
+      </ChakraProvider>
     </>
   );
 }

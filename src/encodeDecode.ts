@@ -1,4 +1,3 @@
-import Hashids from 'hashids';
 import { saltConst } from './utils';
 import CryptoJS from "crypto-js";
 
@@ -20,34 +19,10 @@ export class EncodeDecode {
     }
 }
 
-export class HashlidEncoDecode extends EncodeDecode {
-    constructor(salt: string) {
-        super(salt);
-        this.hashids = new Hashids(salt);
-    }
-    
-    hashids: Hashids;
-
-
-    encode(value: string) {
-        const encode = this.hashids.encodeHex(value);
-        return encode;
-    }
-    
-    decode(value: string) {
-        const decodedValue = this.hashids.decodeHex(value);
-        if (decodedValue.length > 0) {
-            return decodedValue;
-        }
-        return value;
-    }
-}
-
 export class CryptoEncodeDecode extends EncodeDecode {
     constructor(salt: string) {
         super(salt);
         this.salt = salt;
-        // this.cryptoJs = new CryptoJS(); 
     }
 
     

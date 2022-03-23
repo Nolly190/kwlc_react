@@ -1,7 +1,7 @@
 import moment from "moment";
 import { loginApi } from "./api/auth.api";
-import { LoginAccessDTO, LoginModelDTO } from "./dto/login.dto";
-import { CryptoEncodeDecode, HashlidEncoDecode } from "./encodeDecode";
+import { LoginAccessDTO, LoginDTO, LoginModelDTO } from "./dto/login.dto";
+import { CryptoEncodeDecode } from "./encodeDecode";
 import { statusEnum } from "./enums/util.enum";
 import { OfferingEnum, offeringsFormat } from "./types/appTypes";
 
@@ -52,7 +52,7 @@ export async function checkUserLoggedIn(): Promise<Boolean> {
    }
 }
 
-export const log = (period = "earlydev", message?: any, ...optionalParams: any[]) => {
+export const log = (period = "earlydev", message: any, ...optionalParams: any) => {
 
    if (period == "earlydev") {
       //only log the stage/period you want
@@ -105,6 +105,7 @@ export function showConfirmDialog(title: string, description: string = "", optio
 }
 export function showPrompt() {
    const result = prompt('Confirm Delete');
+   return result;
 }
 
 export function uuidv4() {
@@ -354,13 +355,11 @@ export function toTitleCase(str) {
 
 let username: string = "";
 let password: string = "";
-let hashlidEncoDecode: HashlidEncoDecode;
 let cryptoEncodeDecode: CryptoEncodeDecode;
 
 export const initApp = (
    userData: LoginModelDTO,
-   hashids: HashlidEncoDecode,
-   localStorageObj: any,
+   localStorageObj: Storage,
    _cryptoEncodeDecode: CryptoEncodeDecode,
 ) => {
    if (!fakeModel) {
@@ -369,13 +368,11 @@ export const initApp = (
          password = userData.password;
          WebLogin({ username, password });
       }
-      if (hashlidEncoDecode) {
-         hashlidEncoDecode = hashids;
-      }
       if (localStorageObj) {
          localStorage = localStorageObj;
       }
-      if (cryptoEncodeDecode) {
+      log('earlydev', 'token cryptoEncodeDecode', _cryptoEncodeDecode);
+      if (_cryptoEncodeDecode) {
          cryptoEncodeDecode = _cryptoEncodeDecode;
       }
    }

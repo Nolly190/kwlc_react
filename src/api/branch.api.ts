@@ -9,7 +9,6 @@ import {
 import { urls } from "../urls";
 import { LoginAccessDTO, LoginDTO } from "../dto/login.dto";
 import { apiStringStatus } from "./apiStatus.enum";
-import { HashlidEncoDecode } from "../encodeDecode";
 import { ResponseDTO } from "../dto/response.dto";
 import { statusEnum } from "../enums/util.enum";
 import { DonationItemDTO } from "../dto/Donate.dto";
@@ -29,7 +28,6 @@ export async function getBranchesApi(): Promise<ResponseDTO> {
 
          //save user profile info
          data = res.data.data;
-
          response.data = data;
          response.code = statusEnum.ok;
       }

@@ -23,7 +23,7 @@ const AdminLayout: React.FC<LayoutProps> = ({
 
   useEffect(() => {
     const az = localStorage;
-    initApp(undefined, undefined, az, new CryptoEncodeDecode(saltConst));
+    initApp(undefined, az, new CryptoEncodeDecode(saltConst));
   }, []);
 
   return (

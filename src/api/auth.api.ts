@@ -7,8 +7,6 @@ import {
 } from "./../utils"
 import { urls } from "./../urls";
 import { LoginAccessDTO, LoginDTO } from "../dto/login.dto";
-import { apiStringStatus } from "./apiStatus.enum";
-import { HashlidEncoDecode } from "../encodeDecode";
 import { ResponseDTO } from "../dto/response.dto";
 import { statusEnum } from "../enums/util.enum";
 import { DonationItemDTO } from "../dto/Donate.dto";
