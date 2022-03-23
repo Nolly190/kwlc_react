@@ -2302,3 +2302,319 @@ hr {
     margin-right: .55rem;
 }
 /* ------------ONCLICK BRANCH CONTENTS---------- */
+
+
+
+
+/*========================================*/
+/*--------------- [EVENTS CSS] -------------*/
+/*========================================*/
+
+.main_container .section_title {
+    margin-top: 2rem;
+    padding: 2rem;
+}
+
+/* UTILITIES */
+
+
+
+
+/* EVENT SEARCHER */
+
+.event_search {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+}
+
+.search {
+    display: flex;
+    flex-direction: column;
+}
+
+.event_searcher {
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 10px;
+    margin-top: .75rem;
+    padding: 1rem;
+    width: 16rem;
+    height: 3.5rem;
+}
+
+.event_time {
+    margin: 1rem 0;
+}
+
+@media screen and (min-width: 768px) {
+    .grid {
+        grid-template-columns: 48% 48%;
+        grid-template-rows: 24rem;
+        align-items: center;
+        gap: 2rem;
+    }
+    .event_searcher {
+        width: 20rem;
+    }
+}
+
+
+/*  */
+
+.event_item {
+    padding: 2rem 2rem 1rem 2rem;
+}
+
+.intro {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.list_text .section_subtitle {
+    margin-bottom: 1.5rem;
+}
+
+.col .read_more {
+    width: 42%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 0;
+    text-transform: uppercase;
+}
+
+.line_bar {
+    height: 1px;
+    width: 1rem;
+    background: black;
+    margin-right: .55rem;
+}
+
+.list_col .post_col {
+    width: 100%;
+    height: 85%;
+    position: relative;
+}
+
+.blog_img {
+    border-top-left-radius: calc(.25rem - 1px);
+    border-top-right-radius: calc(.25rem - 1px);
+    width: 100%;
+}
+
+.list_col .post_col .content_date {
+    position: sticky;
+    padding: .75rem;
+    color: var(--text-primary-color);
+    background: var(--white-color);
+    /* left: -1.7rem;
+    bottom: 14rem;
+    transform: rotate(270deg); */
+}
+
+@media screen and (min-width: 768px) {
+    .intro {
+        width: 50%;
+    }
+    .blog_posts {
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .list_col .post_col {
+        height: 23.5rem;
+    }
+    .list_col .post_col .content_date {
+        left: -2.2rem;
+        bottom: 9rem;
+    }
+}
+
+
+/*--------------- [Pages Button] -------------*/
+
+.pages_button {
+    display: flex;
+    justify-content: flex-end;
+    margin: 2rem;
+}
+
+.next,
+.previous {
+    border-bottom: 2px solid #000000;
+}
+
+
+/*--------------- [NO EVENTS] -------------*/
+
+.no_events_text {
+    color: var(--text-secondary-color);
+    font-size: var(--font-norm);
+    margin: 3rem 0 3rem 3rem
+}
+
+
+/*========================================*/
+/*--------------- [WEDDING EVENTS] -------------*/
+/*========================================*/
+
+.wedding {
+    margin-top: 0
+}
+
+.hero_banner {
+    background: url('/images/weddingBanner.png');
+    color: var(--white-color);
+    text-align: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.hero_banner img {
+    margin: 1.5rem auto;
+}
+
+.banner_text {
+    padding-top: 2rem;
+}
+
+.banner_content {
+    padding: 1rem;
+}
+
+.banner_content .flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120rem;
+    /* margin-left: 3rem; */
+}
+
+.banner-content .flex:first-of-type {
+    margin-left: 0
+}
+
+.banner_content .flex .content {
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}
+
+
+/* -----Wedding Details---- */
+
+.wedding_details {
+    margin: 2rem;
+}
+
+.wedding_row {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-content: space-between;
+    margin: 3rem 0;
+}
+
+.wedding_img {
+    width: 100%;
+}
+
+.wedding_col {
+    margin-top: 2rem;
+}
+
+.wedding_col .section_subtitle {
+    font-size: var(--mfont-mini);
+    display: flex;
+    line-height: 2rem;
+}
+
+.small_ring {
+    width: 24px;
+    margin: 0 1rem;
+}
+
+.span_content {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0.75rem 0 .5rem 0;
+    width: 100%;
+}
+
+.wedding_span {
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+}
+
+.wedding_span i {
+    margin-right: .5rem;
+}
+
+.wedding_span p {
+    color: #5A5A5A;
+}
+
+.wedding_row .read_more {
+    display: flex;
+    margin-top: 0.5rem;
+    width: 100%;
+    justify-content: flex-end;
+    color: var(--card-primary-color);
+}
+
+.wedding_row .line_bar {
+    background: var(--card-primary-color);
+}
+
+.wedding_details .pages_button {
+    margin: 2rem 0;
+}
+
+#more {
+    color: var(--text-primary-color);
+    display: none;
+}
+
+#myBtn {
+    border: none;
+    background: none;
+    font-weight: var(--font-norm);
+    cursor: pointer;
+}
+
+#dots {
+    color: var(--text-primary-color);
+}
+
+.more_img {
+    width: 200px;
+    margin-right: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+    .wedding_row {
+        grid-template-columns: 38% 58%;
+        gap: 2rem;
+    }
+    .wedding_col .section_subtitle {
+        font-size: 1.875rem;
+    }
+    .span_content {
+        flex-wrap: nowrap;
+    }
+    .wedding_col {
+        margin-top: 0;
+    }
+    .small_ring {
+        width: 45px;
+        height: 40px;
+    }
+    .wedding_span {
+        width: 100%;
+    }
+}

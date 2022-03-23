@@ -15,7 +15,7 @@ export default function Events() {
     return (
         <>
             <Layout 
-                externalStyles={["/styles/css/style.css"]}
+                externalStyles={["/styles/css/donation.css"]}
                 navbar={"web"}
                 title={"Events"}
                 withFooter={false}
