@@ -1,5 +1,5 @@
 export default class UserDTO {
-    public constructor (init?: Partial<UserDTO>) {
+    public constructor(init?: Partial<UserDTO>) {
         Object.assign(this, init);
     }
 

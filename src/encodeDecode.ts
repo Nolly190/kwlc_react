@@ -23,7 +23,6 @@ export class CryptoEncodeDecode extends EncodeDecode {
     constructor(salt: string) {
         super(salt);
         this.salt = salt;
-        // this.cryptoJs = new CryptoJS(); 
     }
 
     

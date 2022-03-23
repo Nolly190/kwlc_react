@@ -1,8 +1,9 @@
 import Layout from "../layout";
 import ShopRightSection from "./RightSection";
 import ShopLeftSection from "./LeftSection";
+import { ShopProvider } from "../../../../context-providers/ShopContext.provider";
 
-export default function Payments() {
+export default function Shop() {
     
     return (
         <>
@@ -18,9 +19,12 @@ export default function Payments() {
                     <div className="row">
                         {/* <ShopFilter />
                         <ShopContent /> */}
-                        
-                        <ShopRightSection />
-                        <ShopLeftSection />
+                        <ShopProvider>
+                            <ShopRightSection onFilter={(minNo, maxNo) => {
+                                console.log("filtered", minNo, maxNo);
+                            }} />
+                            <ShopLeftSection />
+                        </ShopProvider>                        
                     </div>
                     
                 </div>

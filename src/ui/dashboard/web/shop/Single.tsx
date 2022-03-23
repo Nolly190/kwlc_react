@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import ShopItem from "../../../../components/shop-item";
 import { shopLoadItem, shopOpenTab, shopRelatedItems } from "../../../../controller/shop.controller";
 import ShopItemDTO from "../../../../dto/ShopItem.dto";
-import { getParam } from "../../../../utils";
+import { getParam, showMessage } from "../../../../utils";
 import Layout from "../layout";
 
 export default function ProductDetail() {
@@ -12,13 +12,13 @@ export default function ProductDetail() {
     
     useEffect(() => {
         const id = getParam("id");
-        if (!id) { window.location.href = "/web/";}
+        if (!id) { router.push("/web/";}
         shopLoadItem(setItem, id);
-        shopRelatedItems(setRelatedItem);
+        shopRelatedItems(setRelatedItem, id);
     }, []);
 
     const onPurchase =  () => {
-        
+        showMessage('success', 'Item Purchased', '');
     }
     
     return (
@@ -77,10 +77,10 @@ export default function ProductDetail() {
                 <div className="moreInfo">
                     <div className="tabs">
                         <div className="tablinks" onClick={(e) => shopOpenTab(e, 'Description')}>
-                            Description
+                            Additional Information
                         </div>
                         <div className="tablinks active" onClick={(e) => shopOpenTab(e, 'AdditionalInformation')}>
-                            Additional Information
+                            Description
                         </div>
                     </div>
 
@@ -109,7 +109,7 @@ export default function ProductDetail() {
                     <div className="products">
                         {
                             relatedItem.length > 0 ? 
-                                relatedItem.map((x, index) => {
+                                relatedItem.slice(0, 3).map((x, index) => {
                                     return (
                                         <ShopItem
                                             key={x.id}

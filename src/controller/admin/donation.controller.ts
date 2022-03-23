@@ -1,43 +1,44 @@
 import moment from "moment";
+import { toast } from "react-toastify";
 import { editBranchApi, getSingleBranchApi } from "../../api/branch.api";
-import { createDonationApi, editDonationApi, getDonationApi, getSingleDonationApi } from "../../api/donate.api";
+import { closeDonationApi, createDonationApi, editDonationApi, getDonationApi, getSingleDonationApi } from "../../api/donate.api";
 import { BranchDTO } from "../../dto/Branch.dto";
 import DonateItemDTO, { DonationImageDTO, DonationItemDTO } from "../../dto/Donate.dto";
 import { statusEnum } from "../../enums/util.enum";
 import { CRUDBL } from "../../interfaces/CRUDBL.interface";
 import { DonationsModel } from "../../testModel";
 import { ISetDonation } from "../../ui/dashboard/admin/donation/edit";
-import { fakeModel, showAdminMessage,log } from "../../utils";
+import { fakeModel, showAdminMessage, log, showConfirmDialog } from "../../utils";
 
 export class DonationController implements CRUDBL {
-    async create(data:DonationItemDTO, branchId: string) {
+    async create(data: DonationItemDTO) {
         try {
             if (!data.title || data.donationImages.length < 1) {
-                showAdminMessage("error", "Please fill all fields and provide a service time.");
+                toast.error("Please fill all fields and provide a service time.");
                 return;
             }
-            
+
             if (fakeModel) {
                 // console.log(UserData);
                 // setItems(UserData);
-                showAdminMessage("success", "Donation Created");
+                toast.success("Donation Created");
             }
             else {
                 data.donationImages.forEach(x => delete x.id);
-                createDonationApi(data, parseInt(branchId)).then((response) => {
-                    log("earlydev",response);
+                createDonationApi(data).then((response) => {
+                    log("earlydev", response);
                     if (response.code >= statusEnum.ok) {
-                        showAdminMessage("success", "Donation Creation was successful");
-                        
+                        toast.success("Donation Creation was successful");
+
                     }
                     else {
-                        showAdminMessage("error", "Donation Creation failed");
+                        toast.error("Donation Creation failed");
                     }
                 });
-                showAdminMessage("success", "Donation Creation request Sent");
+                // toast.success("Donation Creation request Sent");
             }
         }
-        catch(e) {
+        catch (e) {
             log("earlydev", e);
         }
     }
@@ -52,43 +53,57 @@ export class DonationController implements CRUDBL {
         else {
             const response = await getSingleDonationApi(id);
             if (response.code < statusEnum.ok) {
-                showAdminMessage("error", response.message.toString());
+                toast.error(response.message.toString());
             }
-    
-            const data:DonationItemDTO = response.data;
-            
+
+            const data: DonationItemDTO = response?.data?.data;
+
             set.setDescription(data.description);
             set.setDonationImgs(data.donationImages);
             set.setSummary(data.summary);
             set.setTitle(data.title);
         }
     }
-    async update(data:DonationItemDTO, id: number) {
+    async update(data: DonationItemDTO, id: number) {
         if (fakeModel) {
-            showAdminMessage("success", "Donation update was successful");
+            toast.success("Donation update was successful");
         }
         else {
             // data.donationImages.forEach(x => delete x.id)
-            
+
             editDonationApi(id, data).then((response) => {
-                log("earlydev", "1",response);
+                log("earlydev", "1", response);
                 if (response.code >= statusEnum.ok) {
-                    showAdminMessage("success", "Donation update was successful");
-                    
+                    toast.success("Donation update was successful");
+
                 }
                 else {
-                    showAdminMessage("error", "Donation update failed");
+                    toast.error("Donation update failed");
                 }
             });
-            showAdminMessage("success", "Donation update request Sent");
+            // toast.success("Donation update request Sent");
         }
     }
-    async delete() {
+
+    async delete(id: number, setItems: Function, items: DonateItemDTO[]) {
+        const result = showConfirmDialog('Confirm Delete');
+        if (result) {
+            closeDonationApi(id).then((response) => {
+                if (response.code >= statusEnum.ok) {
+                    toast.success("Donation deleted successfully");
+                    setItems(items.filter(x => x.id != id));
+                }
+                else {
+                    toast.error(response.message.toString());
+                }
+            })
+        }
+    }
+
+    async bulk() {
 
     }
-    async bulk() {
-        
-    }
+
     async list(setItems: Function) {
         if (fakeModel) {
             setItems(DonationsModel);
@@ -96,17 +111,17 @@ export class DonationController implements CRUDBL {
         else {
             const response = await getDonationApi();
             if (response.code < statusEnum.ok) {
-                showAdminMessage("error", response.message.toString());
+                toast.error(response.message.toString());
             }
-    
-            const data:DonateItemDTO[] = response.data;
+
+            const data: DonateItemDTO[] = response?.data?.data;
             setItems(data);
         }
     }
 
     addDonationImage(setImages: Function, images: DonationImageDTO[], image: string, isMainImage: boolean) {
         setImages(images.concat([{
-            imageUrl: image, 
+            imageUrl: image,
             isMainImage: isMainImage,
             id: parseInt(moment(new Date()).format('yyyyMMDDHHmmss')),
         }]));
