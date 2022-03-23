@@ -1,7 +1,8 @@
 import moment from "moment";
+import { toast } from "react-toastify";
 import { editBranchApi, getSingleBranchApi } from "../../api/branch.api";
 import { createDonationApi, editDonationApi, getDonationApi, getSingleDonationApi } from "../../api/donate.api";
-import { createStreamApi, editStreamApi, getLiveStreamApi, getLiveStreamsApi } from "../../api/livestream";
+import { createStreamApi, editStreamApi, getLiveStreamApi, getLiveStreamsApi, stopLivestreamApi } from "../../api/livestream";
 import { BranchDTO } from "../../dto/Branch.dto";
 import DonateItemDTO, { DonationImageDTO, DonationItemDTO } from "../../dto/Donate.dto";
 import { LiveStreamDTO } from "../../dto/LiveStream.dto";
@@ -10,43 +11,43 @@ import { CRUDBL } from "../../interfaces/CRUDBL.interface";
 import { BranchesModel, DonationsModel, LiveStreamData } from "../../testModel";
 import { ISetDonation } from "../../ui/dashboard/admin/donation/edit";
 import { ISetLivestream } from "../../ui/dashboard/admin/livestream/edit";
-import { fakeModel, showAdminMessage,log, youtubeParser } from "../../utils";
+import { fakeModel, showAdminMessage, log, youtubeParser, showConfirmDialog } from "../../utils";
 
 export class LiveStreamController implements CRUDBL {
-    async create(data:LiveStreamDTO, branchId: string) {
+    async create(data: LiveStreamDTO, branchId: string) {
         try {
             if (!data.title || !data.description) {
-                showAdminMessage("error", "Please fill all fields.");
+                toast.error("Please fill all fields.");
                 return;
             }
-            
+
             if (fakeModel) {
                 // console.log(UserData);
                 // setItems(UserData);
-                showAdminMessage("success", "Stream Created");
+                toast.success("Stream Created");
             }
             else {
                 let _url = youtubeParser(data.liveStreamUrl);
-                if (_url == ''){
-                    showAdminMessage("error", "Youtube video link expected.");
+                if (_url == '') {
+                    toast.error("Youtube video link expected.");
                 }
                 else {
                     data.liveStreamUrl = _url;
                     createStreamApi(data, parseInt(branchId)).then((response) => {
-                        log("earlydev",response);
+                        log("earlydev", response);
                         if (response.code >= statusEnum.ok) {
-                            showAdminMessage("success", "Stream Creation was successful");
-                            
+                            toast.success("Stream Creation was successful");
+
                         }
                         else {
-                            showAdminMessage("error", "Stream Creation failed");
+                            toast.error("Stream Creation failed");
                         }
                     });
-                    showAdminMessage("success", "Stream Creation request Sent");
+                    // toast.success("Stream Creation request Sent");
                 }
             }
         }
-        catch(e) {
+        catch (e) {
             log("earlydev", e);
         }
     }
@@ -62,11 +63,11 @@ export class LiveStreamController implements CRUDBL {
         else {
             const response = await getLiveStreamApi(id);
             if (response.code < statusEnum.ok) {
-                showAdminMessage("error", response.message.toString());
+                toast.error(response.message.toString());
             }
-    
-            const data:LiveStreamDTO = response.data;
-            
+
+            const data: LiveStreamDTO = response?.data?.data;
+
             set.setDescription(data.description);
             set.setUrl(data.liveStreamUrl);
             set.setTitle(data.title);
@@ -74,37 +75,50 @@ export class LiveStreamController implements CRUDBL {
             // set.setBranch(data);
         }
     }
-    async update(data:LiveStreamDTO, id: number) {
+    async update(data: LiveStreamDTO, id: number) {
         if (fakeModel) {
-            showAdminMessage("success", "Stream update was successful");
+            toast.success("Stream update was successful");
         }
         else {
             // data.donationImages.forEach(x => delete x.id)
             let _url = youtubeParser(data.liveStreamUrl);
-            if (_url == ''){
-                showAdminMessage("error", "Youtube video link expected.");
+            if (_url == '') {
+                toast.error("Youtube video link expected.");
             }
             else {
                 data.liveStreamUrl = _url;
                 editStreamApi(data, id).then((response) => {
-                    log("earlydev", "1",response);
+                    log("earlydev", "1", response);
                     if (response.code >= statusEnum.ok) {
-                        showAdminMessage("success", "Stream update was successful");
-                        
+                        toast.success("Stream update was successful");
+
                     }
                     else {
-                        showAdminMessage("error", "Stream update failed");
+                        toast.error("Stream update failed");
                     }
                 });
-                showAdminMessage("success", "Stream update request Sent");
+                // toast.success("Stream update request Sent");
             }
         }
     }
-    async delete() {
 
+    async delete(id: number, setItems: Function, items: LiveStreamDTO[]) {
+        const result = showConfirmDialog('Confirm Delete');
+        if (result) {
+            stopLivestreamApi(id).then((response) => {
+                if (response.code >= statusEnum.ok) {
+                    toast.success("Livestream stopped successfully");
+                    setItems(items.filter(x => x.id != id));
+                }
+                else {
+                    toast.error(response.message.toString());
+                }
+            })
+        }
     }
+
     async bulk() {
-        
+
     }
     async list(setItems: Function) {
         if (fakeModel) {
@@ -113,17 +127,17 @@ export class LiveStreamController implements CRUDBL {
         else {
             const response = await getLiveStreamsApi();
             if (response.code < statusEnum.ok) {
-                showAdminMessage("error", response.message.toString());
+                toast.error(response.message.toString());
             }
-    
-            const data:LiveStreamDTO[] = response.data;
+
+            const data: LiveStreamDTO[] = response?.data?.data;
             setItems(data);
         }
     }
 
     addDonationImage(setImages: Function, images: DonationImageDTO[], image: string, isMainImage: boolean) {
         setImages(images.concat([{
-            imageUrl: image, 
+            imageUrl: image,
             isMainImage: isMainImage,
             id: parseInt(moment(new Date()).format('yyyyMMDDHHmmss')),
         }]));

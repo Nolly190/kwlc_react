@@ -15,113 +15,114 @@ import { DonationItemDTO } from "../dto/Donate.dto";
 import { BranchDTO, BranchItemDTO } from "../dto/Branch.dto";
 import { ShopDTO } from "../dto/ShopItem.dto";
 import UserDTO from "../dto/User.dto";
+import request from "../request";
 
 export async function getAllPastorsApi(): Promise<ResponseDTO> {
    const response = new ResponseDTO();
-   
+
    try {
-      let res = await getRequest(urls.baseUrl, urls.allPastor);
+      let res = await request.get(`${urls.baseUrl}${urls.allPastor}`);
       // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
-      let data:UserDTO[];
+      let data: UserDTO[];
       if (res.status) {
 
          //save user profile info
          data = res.data.data;
-         
+
          // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
          response.data = data;
          response.code = statusEnum.ok;
       }
       // showMessage(getMessage(res), res.status, localStorage);
    }
-   catch(e) {
+   catch (e) {
       response.message = e.toString();
       response.code = statusEnum.error;
    }
-   
+
    return response.getResponse();
 }
 
 export async function registerUser(requestData: UserDTO): Promise<ResponseDTO> {
    const response = new ResponseDTO();
-   
+
    try {
-      let res = await getRequest(urls.baseUrl, urls.v1 + urls.registerUser, undefined, "get", JSON.stringify(requestData), true);
+      let res = await request.post(`${urls.baseUrl}${urls.v1}${urls.registerUser}`, JSON.stringify(requestData));
       //alert(JSON.stringify(res));
       // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
       let data: UserDTO;
       if (res.status) {
 
-         
+
          //save user profile info
          data = res.data;
-         
+
          // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
          response.data = data;
          response.code = statusEnum.successful;
       }
       // showMessage(getMessage(res), res.status, localStorage);
-      
+
    }
-   catch(e) {
+   catch (e) {
       response.message = e.toString();
       response.code = statusEnum.error;
    }
-   
+
    return response.getResponse();
 }
 
 export async function editUser(requestData: UserDTO): Promise<ResponseDTO> {
    const response = new ResponseDTO();
-   
+
    try {
-      let res = await Request(urls.baseUrl, urls.v1 + urls.registerUser, requestData, false,"put");
+      let res = await request.put(`${urls.baseUrl}${urls.v1}${urls.registerUser}`, requestData);
       //alert(JSON.stringify(res));
       // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
       let data: UserDTO;
       if (res.status) {
 
-         
+
          //save user profile info
          data = res.data;
-         
+
          // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
          response.data = data;
          response.code = statusEnum.ok;
       }
       // showMessage(getMessage(res), res.status, localStorage);
-      
+
    }
-   catch(e) {
+   catch (e) {
       response.message = e.toString();
       response.code = statusEnum.error;
    }
-   
+
    return response.getResponse();
 }
 
 export async function getUserApi(id: number): Promise<ResponseDTO> {
    const response = new ResponseDTO();
-   
+
    try {
-      let res = await getRequest(urls.baseUrl, urls.v1 + urls.getUser + id);
+      let res = await request.get(`${urls.baseUrl}${urls.getUser}/${id}`);
       // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
-      let data:UserDTO[];
+      let data: UserDTO[];
       if (res.status) {
 
          //save user profile info
          data = res.data.data;
-         
+
          // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
          response.data = data;
          response.code = statusEnum.ok;
       }
       // showMessage(getMessage(res), res.status, localStorage);
    }
-   catch(e) {
+   catch (e) {
       response.message = e.toString();
       response.code = statusEnum.error;
    }
-   
+
    return response.getResponse();
 }

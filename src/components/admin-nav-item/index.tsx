@@ -1,10 +1,39 @@
-export default function AdminNavItem({title, iconTitle, url, isActive=false}) {
-    return (
-        <li className={`nav-item ${isActive ? 'active' : ''}`} >
-            <a className="nav-link" href={url}>
-                <i className="material-icons">{iconTitle}</i>
-                <p>{title}</p>
-            </a>
-        </li>
-    );
+import Link from "next/link";
+import { useRouter } from "next/router";
+
+interface props {
+  title: string;
+  iconTitle: string;
+  url?: string;
+  action?: () => void;
+  isActive?: boolean;
 }
+
+const AdminNavItem: React.FC<props> = ({
+  title,
+  iconTitle,
+  url,
+  action,
+  isActive = false,
+}) => {
+  const { pathname } = useRouter();
+  const pathArray = pathname.split("/");
+  const path = `/${pathArray[1]}/${pathArray[2]}`;
+  const active = url === pathname || url === path;
+
+  return (
+    <Link href={url} passHref>
+      <li
+        className={`nav-item ${active || isActive ? "active" : ""}`}
+        onClick={action}
+      >
+        <a className="nav-link">
+          <i className="material-icons">{iconTitle}</i>
+          <p>{title}</p>
+        </a>
+      </li>
+    </Link>
+  );
+};
+
+export default AdminNavItem;

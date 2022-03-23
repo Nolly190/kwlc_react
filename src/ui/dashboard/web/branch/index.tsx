@@ -5,23 +5,21 @@ import BranchContent from "./Content";
 import BranchSearch from "./Search";
 
 export default function Branches() {
-    return (
-        <Layout
-            externalStyles={["/styles/css/style.css"]}
-            navbar={"web"}
-            title="Church Branches"
-            withFooter={false}
-
-        >
-            <div className="branch">
-                
-                <div className="main_container">
-                    <BranchBanner />
-                    {/* <BranchSearch location={"Lagos"} /> */}
-                    <BranchContent />
-                    <HomePageFooter />
-                </div>
-            </div>
-        </Layout>
-    );
+  return (
+    <Layout
+      externalStyles={["/styles/css/style.css"]}
+      navbar={"web"}
+      title="Church Branches"
+      withFooter={false}
+    >
+      <div className="branch">
+        <div className="main_container">
+          <BranchBanner />
+          {/* <BranchSearch location={"Lagos"} /> */}
+          <BranchContent />
+          <HomePageFooter />
+        </div>
+      </div>
+    </Layout>
+  );
 }

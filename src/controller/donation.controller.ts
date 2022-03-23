@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { getDonationApi, getSingleDonationApi } from "../api/donate.api";
 import DonateItemDTO, { DonationItemDTO } from "../dto/Donate.dto";
 import { ResponseDTO } from "../dto/response.dto";
@@ -12,30 +13,31 @@ export const loadDonations = async (setItem: Function, items: DonateItemDTO[]) =
             if (donateItem.length > 0) {
                 setItem(donateItem);
             }
-            else {}
+            else { }
         }
         else {
             const response: ResponseDTO = await getDonationApi();
-            
+
             if (response.code < statusEnum.ok) {
-                throw new Error(response.extra_data.toString());
+                toast.error(response.message);
             }
-            
-            const data:DonationItemDTO[] = response.data;
+
+            const data: DonationItemDTO[] = response.data?.data;
             console.log("data", data);
-            const donationData:DonateItemDTO[] = [];
+            const donationData: DonateItemDTO[] = [];
             // make api call to get individual donation details
-            data.map(async (i, index) => { 
+            data.map(async (i, index) => {
                 const singleResponse = await getSingleDonationApi(i.id);
-                
+                console.log("single", singleResponse)
+
                 if (singleResponse.code >= statusEnum.ok) {
                     //singleResponse.data
                     const _donationData = new DonateItemDTO({
                         description: singleResponse.data.description,
                         id: singleResponse.data.id,
                         // donationImages: singleResponse.data.donationImages.map(x => x.imageUrl),
-                        image: singleResponse.data.donationImages?.filter(x => x.isMainImage)[0]?.imageUrl,
-                        images: singleResponse.data.donationImages.map(x => x.imageUrl),
+                        image: singleResponse?.data?.data.donationImages?.filter(x => x.isMainImage)[0]?.imageUrl,
+                        images: singleResponse?.data?.data.donationImages.map(x => x.imageUrl),
                         raised: 0,
                         target: 0,
                         title: i.title
@@ -49,13 +51,13 @@ export const loadDonations = async (setItem: Function, items: DonateItemDTO[]) =
             //     console.log("setting data", donationData);
             //     setItem(donationData);
             // }
-            
+
         }
     } catch (error) {
         console.error(error);
     }
-    
-    
+
+
 }
 
 export const loadSingleDonation = async (setItem: Function, id: string) => {
@@ -65,20 +67,20 @@ export const loadSingleDonation = async (setItem: Function, id: string) => {
             if (donateItem.length > 0) {
                 setItem(donateItem[0]);
             }
-            else {}
+            else { }
         }
         else {
             const response: ResponseDTO = await getSingleDonationApi(parseInt(id));
             if (response.code < statusEnum.ok) {
-                throw new Error(response.extra_data.toString());
+                toast.error(response.message);
             }
-            const i:DonationItemDTO = response.data;
+            const i: DonationItemDTO = response.data?.data;
             if (!i) throw new Error();
-            
-             setItem(new DonateItemDTO({
+
+            setItem(new DonateItemDTO({
                 description: i.description,
                 id: i.id,
-                image: i.donationImages?.length > 0 ? i.donationImages?.filter(x => x.isMainImage)[0].imageUrl: "",
+                image: i.donationImages?.length > 0 ? i.donationImages?.filter(x => x.isMainImage)[0].imageUrl : "",
                 images: i.donationImages?.length > 0 ? i.donationImages?.map(x => x.imageUrl) : [],
                 raised: 0,
                 target: 0,
@@ -88,9 +90,5 @@ export const loadSingleDonation = async (setItem: Function, id: string) => {
     } catch (error) {
         console.log(error);
     }
-    
-}
 
-export const navigateToHome = () => {
-    window.location.href = "/web/";
 }

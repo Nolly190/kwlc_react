@@ -1,4 +1,13 @@
-import Admin from '../../src/ui/dashboard/admin/home';
+import { useEffect } from "react";
+import Admin from "../../src/ui/dashboard/admin/home";
+import { initUtilFunc } from "../../src/utils";
+import { useRouter } from "next/router";
+
 export default function Login() {
-    return <Admin />
+  const router = useRouter();
+  useEffect(() => {
+    initUtilFunc(window.localStorage, router);
+  }, []);
+
+  return <Admin />;
 }

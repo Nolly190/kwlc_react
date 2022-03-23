@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { getAllPastorsApi } from "../../api/pastor.api";
 import { getAllUsersApi, getUserApi, registerUser } from "../../api/user.api";
 import PastorDTO from "../../dto/Pastor.dto";
@@ -6,27 +7,27 @@ import { statusEnum } from "../../enums/util.enum";
 import { CRUDBL } from "../../interfaces/CRUDBL.interface";
 import { UserData } from "../../testModel";
 import { ISetUser } from "../../ui/dashboard/admin/user/editUser";
-import { fakeModel, showAdminMessage,log } from "../../utils";
+import { fakeModel, showAdminMessage, log } from "../../utils";
 
 export class PastorController implements CRUDBL {
-    async create(data:UserDTO) {
-        
+    async create(data: UserDTO) {
+
     }
-    async read(set:ISetUser, id: number) {
+    async read(set: ISetUser, id: number) {
         if (fakeModel) {
-            
+
         }
         else {
         }
     }
-    async update(data:UserDTO, id: number) {
-        
+    async update(data: UserDTO, id: number) {
+
     }
     async delete() {
 
     }
     async bulk() {
-        
+
     }
     async list(setItems: Function) {
         if (fakeModel) {
@@ -34,11 +35,12 @@ export class PastorController implements CRUDBL {
         }
         else {
             const response = await getAllPastorsApi();
+            console.log("pastor resp", response)
             if (response.code < statusEnum.ok) {
-                showAdminMessage("error", response.extra_data.toString());
+                toast.error(response.message.toString());
             }
-    
-            const data:PastorDTO[] = response.data;
+
+            const data: PastorDTO[] = response?.data?.data;
             setItems(data);
         }
     }
@@ -52,10 +54,10 @@ export class PastorController implements CRUDBL {
 //     else {
 //         const response = await getAllUsersApi();
 //         if (response.code < statusEnum.ok) {
-//             throw new Error(response.extra_data.toString());
+//             toast.error(response.message);
 //         }
 
-//         const data:UserDTO[] = response.data;
+//         const data:UserDTO[] = response?.data?.data;
 //         setItems(data);
 //     }
 // }
@@ -69,10 +71,10 @@ export class PastorController implements CRUDBL {
 //     else {
 //         const response = await getAllUsersApi();
 //         if (response.code < statusEnum.ok) {
-//             throw new Error(response.extra_data.toString());
+//             toast.error(response.message);
 //         }
 
-//         const data:UserDTO[] = response.data;
+//         const data:UserDTO[] = response?.data?.data;
 //         setItems(data);
 //     }
 // }
