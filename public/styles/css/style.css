@@ -2,7 +2,7 @@
 /*------------ [Google_Font] -----------*/
 /*========================================*/
 
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 /*========================================*/
 /*------------ [_Root] bde0feff-------FFC368----*/
@@ -18,7 +18,7 @@
   --card-secondary-color: #0f5545;
   --white-color: #fff;
   /* Font and Typography */
-  --font: "Open Sans", sans-serif;
+  --font: 'Open Sans', sans-serif;
   --mfont-max: 2.5rem;
   --mfont-midi: 1.75rem;
   --mfont-mini: 1.25rem;
@@ -568,7 +568,7 @@ span {
 
 .hero-banner-area {
   height: 100%;
-  background: url("/images/hero-banner.png");
+  background: url('/images/hero-banner.png');
   background-size: cover;
 }
 
@@ -678,7 +678,7 @@ span {
   padding: 0 0.3rem;
   background: var(--text-primary-color);
   color: var(--white-color);
-  font-family: "Kumar One", cursive;
+  font-family: 'Kumar One', cursive;
 }
 
 .timer {
@@ -1067,6 +1067,17 @@ section.location-area {
   margin: 2rem;
 }
 
+.search {
+  background-color: transparent;
+  border: 2px solid #22254b;
+  border-radius: 50px;
+  color: black;
+  font-family: 'Poppins';
+  font-size: 1 rem;
+  padding: 5px;
+  outline: none;
+}
+
 .title_head {
   display: flex;
   align-items: center;
@@ -1088,6 +1099,45 @@ section.location-area {
   .section_img i {
     font-size: var(--font-mini);
   }
+}
+
+/*---------Pagination Styles -----------*/
+.pagination-header {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.paginationBttns {
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBttns a {
+  padding: 10px;
+  margin: 8px;
+  border-radius: 5px;
+  border: 1px solid black;
+  color: black;
+  cursor: pointer;
+}
+
+.paginationBttns a:hover {
+  color: white;
+  background-color: black;
+}
+
+.paginationActive a {
+  color: white;
+  background-color: black;
+}
+
+.paginationDisabled a {
+  color: black;
+  background-color: transparent;
 }
 
 /*--------------- [_Main BLOG] -------------*/
@@ -1202,14 +1252,6 @@ p .blog_span {
   }
 }
 
-/*--------------- [Pages Button] -------------*/
-
-.pages_btn {
-  display: flex;
-  justify-content: space-between;
-  margin: 2rem;
-}
-
 .next,
 .previous {
   border-bottom: 2px solid #000000;
@@ -1285,7 +1327,7 @@ form {
 }
 
 textarea {
-  font-family: "Open Sans";
+  font-family: 'Open Sans';
 }
 
 .contact_col {
@@ -1542,7 +1584,6 @@ blockquote {
     padding: 0.75rem 1rem;
   }
 }
-
 
 /* --------the live page------- */
 /* --------the live page--------- */
