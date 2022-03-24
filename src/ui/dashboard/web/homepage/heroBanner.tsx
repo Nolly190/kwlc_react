@@ -40,7 +40,7 @@ export default function HeroBanner() {
                         transition: "all .3s ease-in-out",
                         transform: `translateX(-${slideState}%)`
                     }}>
-                         <div className="flex">
+                        <div className="flex">
                         <div className="content">
                             <p className="italic_txt">Living Church</p>
                             <h1>Join the prayer today</h1>

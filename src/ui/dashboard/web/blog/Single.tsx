@@ -1,4 +1,5 @@
 import moment from "moment";
+import router from "next/router";
 import { useEffect, useState } from "react";
 import { loadBlog } from "../../../../controller/blog.controller";
 import { BlogAudioDTO } from "../../../../dto/Blog.dto";
@@ -19,7 +20,7 @@ export default function BlogDetail() {
     const getBlog = () => {
         const id = getParam("id");
         if (!id) {
-            router.push("/admin/";
+            router.push("/admin/")
         }
         else {
             loadBlog(setItem, parseInt(id));

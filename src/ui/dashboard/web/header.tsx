@@ -1,5 +1,5 @@
 import {Menu, MenuButton, MenuList, MenuItem, Button, Icon} from "@chakra-ui/react";
-import { HamburgerIcon } from '@chakra-ui/icons'; 
+import { HamburgerIcon } from "@chakra-ui/icons"; 
 import Hamburger from "./homepage/HamburgerMenu";
 
 const HeaderMenu = ({alt=false}) => {
