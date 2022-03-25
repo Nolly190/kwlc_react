@@ -8,7 +8,7 @@ export default function LiveStreamIndex() {
         <>
             <Layout
                 externalStyles={["/styles/css/style.css"]}
-                navbar={"web"}
+                navbar={"false"}
                 title={"Live Events"}
                 withFooter={true}
             >
