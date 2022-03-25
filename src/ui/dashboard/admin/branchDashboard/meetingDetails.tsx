@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 import { createReportApi } from "../../../../api/report.api";
+import { statusEnum } from "../../../../enums/util.enum";
 import { ChurchReportContext } from "./churchReportContext";
 import StyledInput from "./components/styledInput";
 import {
@@ -55,7 +57,12 @@ const MeetingDetails: React.FC<MeetingDetailsProps> = ({
   const handleSubmit = async () => {
     const response = await createReportApi(churchReport);
     console.log(response);
-    // closeModal();
+    if (response.code >= statusEnum.ok) {
+      toast.success("Report uploaded successfully");
+      closeModal();
+    } else {
+      toast.error(response.message);
+    }
   };
 
   return (

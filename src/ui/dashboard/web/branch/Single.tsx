@@ -74,7 +74,7 @@ const SingleBranch = () => {
               <img src="/images/list-icon-1.svg" alt="" srcSet="" />
               <p>{item.location}</p>
             </LocationWrapper>
-
+            
             <ServiceTimeWrapper className="col">
                 <Card>
                     <div className="cards">

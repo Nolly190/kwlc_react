@@ -44,8 +44,6 @@
     "@babel/preset-env": "^7.16.11",
     "@types/react": "^17.0.37",
     "@types/react-modal": "^3.13.1",
-    "@types/styled-components": "^5.1.23",
-    "babel-loader": "^8.2.3",
     "babel-plugin-styled-components": "^2.0.2",
     "eslint": "7",
     "eslint-config-next": "12.0.4",
