@@ -4,6 +4,7 @@ import { LoginAccessDTO, LoginDTO, LoginModelDTO } from "./dto/login.dto";
 import { CryptoEncodeDecode } from "./encodeDecode";
 import { statusEnum } from "./enums/util.enum";
 import { OfferingEnum, offeringsFormat } from "./types/appTypes";
+import { toast } from "react-toastify";
 
 export var localStorage: any = {};
 var routerObject: any
@@ -93,11 +94,15 @@ export function getMessage(result) {
    return message
 }
 
-export async function showMessage(param1, parm2, param3) {
+export async function showMessage(param1, param2, param3) {
+   if (param1 == 'error') toast.error(param2);
+   if (param1 == 'success') toast.success(param2);
+
 }
 
-export async function showAdminMessage(param1, parm2) {
-   alert(`${param1}: ${parm2}`);
+export async function showAdminMessage(param1, param2) {
+   if (param1 == 'error') toast.error(param2);
+   if (param1 == 'success') toast.success(param2);
 }
 
 export function showConfirmDialog(title: string, description: string = "", options: string[] = []) {

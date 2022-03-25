@@ -25,6 +25,8 @@ export const urls = {
     allPastor: "Pastor/GetAll",
     getPastor: "Pastor/Get",
 
+    Payment: "Payment/Payment",
+
 
     slider: "Slider",
 
