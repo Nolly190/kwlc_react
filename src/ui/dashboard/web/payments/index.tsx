@@ -1,5 +1,5 @@
 import Layout from "../layout";
-import NavBar from "../navbar";
+import {NavMenu} from "../navbar";
 import Head from 'next/head'
 import { SingleEventItem } from "../../../../components/event-item";
 import HomePageFooter from "../footer";

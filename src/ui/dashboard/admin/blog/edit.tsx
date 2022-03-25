@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {BranchServiceTimerItem} from "../../../../components/service-timer-item";
 import { BranchController } from "../../../../controller/admin/branch.controller";
@@ -17,6 +18,7 @@ export interface ISetBranch {
 }
 
 export default function EditBranch() {
+    const router = useRouter();
     const _tmp: BranchDTO = new BranchDTO();
     const _tmpServices: BranchServiceDTO[] = [];
     
@@ -43,7 +45,7 @@ export default function EditBranch() {
     const getBranch = ()  => {
         const idParam = getParam("id");
         if (!idParam) {
-            router.push("/admin/";
+            router.push("/admin/");
         }
         else {
             setId(parseInt(idParam));

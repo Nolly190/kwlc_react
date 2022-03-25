@@ -1,12 +1,12 @@
-import moment from "moment";
-import { useRouter } from "next/router";
-import React, { useState, useEffect } from "react";
-import { BranchController } from "../../../../controller/admin/branch.controller";
-import { PastorController } from "../../../../controller/admin/pastor.controller";
-import { BranchDTO } from "../../../../dto/Branch.dto";
-import PastorDTO from "../../../../dto/Pastor.dto";
-import UserDTO from "../../../../dto/User.dto";
-import AdminLayout from "../admin.layout";
+import moment from 'moment';
+import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
+import { BranchController } from '../../../../controller/admin/branch.controller';
+import { PastorController } from '../../../../controller/admin/pastor.controller';
+import { BranchDTO } from '../../../../dto/Branch.dto';
+import PastorDTO from '../../../../dto/Pastor.dto';
+import UserDTO from '../../../../dto/User.dto';
+import AdminLayout from '../admin.layout';
 
 export default function GetAllBlogs() {
   const _tmp: BranchDTO[] = [];
@@ -29,8 +29,8 @@ export default function GetAllBlogs() {
     <>
       <AdminLayout
         externalStyles={[]}
-        navbar={""}
-        title={"Dashboard"}
+        navbar={''}
+        title={'Dashboard'}
         withFooter={false}
         withSideBar={true}
       >
@@ -44,7 +44,7 @@ export default function GetAllBlogs() {
                     <ul className="nav nav-tabs" data-tabs="tabs">
                       <li className="nav-item mr-2">
                         <a
-                          href={"/admin/addbranch"}
+                          href={'/admin/addbranch'}
                           className="nav-link active"
                           data-toggle="tab"
                         >
@@ -53,7 +53,7 @@ export default function GetAllBlogs() {
                       </li>
                       <li className="nav-item">
                         <a
-                          href={"/admin/branch-assign-admin"}
+                          href={'/admin/branch-assign-admin'}
                           className="nav-link active"
                           data-toggle="tab"
                         >
@@ -95,10 +95,10 @@ export default function GetAllBlogs() {
                                 <td>
                                   {branchController.renderPastor(pastors, x.id)}
                                 </td>
-                                <td> {x.isBranchHq ? "Yes" : "No"}</td>
+                                <td> {x.isBranchHq ? 'Yes' : 'No'}</td>
                                 <td>
-                                  {" "}
-                                  {moment(x.dateCreated).format("DD/MMM/yyyy")}
+                                  {' '}
+                                  {moment(x.dateCreated).format('DD/MMM/yyyy')}
                                 </td>
 
                                 <td className="text-primary">

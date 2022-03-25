@@ -140,7 +140,7 @@ export default function AddShopItem() {
                                                     url={x.imageUrl} 
                                                 />
                                             )
-                                        }): "No Donation images Added"
+                                        }): "No images Added"
                                     }
                                 </div>
                             </form>
