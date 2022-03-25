@@ -6,7 +6,7 @@ import {
   MenuList,
   MenuItem,
   Button
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 
 export default function PaymentContent({}) {
@@ -94,6 +94,9 @@ export default function PaymentContent({}) {
                                     </MenuItem>
                                     <MenuItem>
                                         Tithe
+                                    </MenuItem>
+                                    <MenuItem>
+                                        Donation
                                     </MenuItem>
                                     <MenuItem>
                                         Product

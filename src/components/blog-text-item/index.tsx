@@ -13,13 +13,15 @@ export default function BlogTextItem({itemType, image, date, description, id, ti
     else {
         return (
             <a href={href} className="post_col">
-                <h4 className="section_subtitle">{title}</h4>
-                <p><span className="blog_span">{by}</span></p>
-                <p className="text_secondary">{(description.length > 100 ? description.substring(0, 100) : description)}
-                </p>
-                <div className="read_more">
-                    <div className="line"></div>
-                    <h5>Read More</h5>
+                <div className="blogTexts">
+                    <h4 className="section_subtitle">{title}</h4>
+                    <p><span className="blog_span">{by}</span></p>
+                    <p className="text_secondary">{(description.length > 100 ? description.substring(0, 100) : description)}
+                    </p>
+                    <div className="read_more">
+                        <div className="line"></div>
+                        <h5>Read More</h5>
+                    </div>
                 </div>
             </a>
         );
