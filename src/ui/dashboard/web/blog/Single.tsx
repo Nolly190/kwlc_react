@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import moment from 'moment';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
@@ -38,9 +38,10 @@ export default function BlogDetail() {
       loadBlog(setItem, parseInt(id));
       setIdParam(parseInt(id));
     }
+  }
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = React.useRef()
+  const btnRef = useRef()
 
   return (
       <Layout
@@ -264,4 +265,4 @@ export default function BlogDetail() {
         </div>
       </Layout>
   );
-} }
+}
