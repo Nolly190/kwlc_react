@@ -1,3 +1,4 @@
+import React from 'react';
 import moment from 'moment';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
@@ -6,6 +7,18 @@ import { BlogAudioDTO } from '../../../../dto/Blog.dto';
 import { getParam } from '../../../../utils';
 import HomePageFooter from '../footer';
 import Layout from '../layout';
+import { InputGroup,
+  InputLeftElement, 
+  Input,
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  useDisclosure} from '@chakra-ui/react';
+import { DragHandleIcon, SearchIcon } from '@chakra-ui/icons';
 
 export default function BlogDetail() {
   const blogData: BlogAudioDTO = new BlogAudioDTO();
@@ -27,14 +40,16 @@ export default function BlogDetail() {
     }
   };
 
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = React.useRef()
+
   return (
-    <div>
       <Layout
         externalStyles={['/styles/css/donation.css']}
         navbar={'web'}
         title="Blog"
         withFooter={false}
-        withSideBar={false}
+        withSideBar={true}
       >
         {/* <BlogBanner /> */}
         <div className="main_container">
@@ -46,8 +61,78 @@ export default function BlogDetail() {
               <div className="ellipse"></div>
               <h4>Podcast</h4>
             </div>
-            <div className="section_img">
-              <i className="fa fa-list-ul" aria-hidden="true"></i>
+
+            <div className="sideMenu">
+              <Button ref={btnRef} onClick={onOpen}>
+                <DragHandleIcon/>
+              </Button>
+              <Drawer
+                isOpen={isOpen}
+                placement='right'
+                onClose={onClose}
+                finalFocusRef={btnRef}
+              >
+                <DrawerOverlay />
+                <DrawerContent>
+                  <DrawerCloseButton />
+                  <DrawerHeader>Sidebar</DrawerHeader>
+
+                  <DrawerBody>
+                    <Input placeholder='Search here...' />
+                    <aside className="drawerbar">
+                      <div className="about_author">
+                        <div className="author_col">
+                          <img src="/images/ken 2.png" alt="Pastor Ken" />
+                          {/* <div className="signature">
+                                                <img src="images/ksign.png" alt=" Pastor Ken signature"/>
+                                            </div> */}
+                        </div>
+                        <div className="author_bio">
+                          <h4>About Author</h4>
+                          <p className="grey_text">{item.aboutAuthor}</p>
+                        </div>
+                      </div>
+
+                      {/* <!-- Side Container --> */}
+                      <div className="side_containers">
+                        <h4>Category</h4>
+                        <ul>
+                          <li>
+                            <span>{item.blogCategory}</span>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div className="side_containers">
+                        <h4>Latest Post</h4>
+                        <ul>
+                          <li>
+                            <span>18. 11. 2021</span>
+                          </li>
+                          <label>The Faith In christ</label>
+                          <li>
+                            <span>18. 11. 2021</span>
+                          </li>
+                          <label>Prayer the key</label>
+                          <li>
+                            <span>18. 11. 2021</span>
+                          </li>
+                          <label>MyTime Is Now</label>
+                        </ul>
+                      </div>
+
+                      <div className="side_containers">
+                        <h4>Tags</h4>
+                        <span>
+                          Church. Faith. Prayer. Celebrations. christ. Gods word
+                        </span>
+                      </div>
+                    </aside>
+                  </DrawerBody>
+
+                </DrawerContent>
+              </Drawer>
+    
             </div>
           </div>
 
@@ -118,11 +203,14 @@ export default function BlogDetail() {
 
             {/* <!-- SIDEBAR --> */}
             <aside className="sidebar">
-              <div className="search_bar">
-                <label className="search_icon">
-                  <i className="fa fa-search" aria-hidden="true"></i>
-                </label>
-                <input type="text" placeholder="Search service" id="search" />
+              <div className="section_head">
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents='none'
+                    children={<SearchIcon color='gray.300' />}
+                  />
+                  <Input type='tel' placeholder='Search articles' />
+                </InputGroup>
               </div>
               <div className="about_author">
                 <div className="author_col">
@@ -176,6 +264,5 @@ export default function BlogDetail() {
           <HomePageFooter />
         </div>
       </Layout>
-    </div>
   );
 }

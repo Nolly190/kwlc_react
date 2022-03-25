@@ -12,13 +12,13 @@ export default function BlogBanner({ setSearchTerm }) {
         <h4>Podcast</h4>
       </div>
       <div className="section_img">
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents='none'
-              children={<SearchIcon color='gray.300' />}
-            />
-            <Input type='tel' placeholder='Search articles' />
-          </InputGroup>
+        <InputGroup>
+          <InputLeftElement
+            pointerEvents='none'
+            children={<SearchIcon color='gray.300' />}
+          />
+          <Input type='tel' placeholder='Search articles' />
+        </InputGroup>
       </div>
     </div>
   );
