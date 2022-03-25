@@ -314,7 +314,7 @@ span {
   display: flex;
   justify-content: space-between;
   color: var(--white-color);
-  margin: 0.75rem;
+  margin: 0 .75rem;
   z-index: 1;
 }
 
@@ -333,6 +333,7 @@ span {
 
 .divider {
   height: 1px;
+  border: none;
   background: var(--white-color);
   margin-top: 0.3rem;
 }
@@ -1468,7 +1469,6 @@ footer {
     font-weight: var(--font-light);
     margin-bottom: var(--mfont-mini);
   }
-  
   .live .sectionTwo .prevSundays .one .row .column .views {
     font-size: var(--mfont-mini);
     color: var(--white-color);

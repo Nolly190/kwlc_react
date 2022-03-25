@@ -1883,7 +1883,7 @@ footer {
   @media screen and (min-width: 400px) and (max-width: 900px) {
     .contact_info form,
     .col_address {
-      width: 75vw;
+      width: 75%;
     }
     
     .contact_text {
@@ -2480,6 +2480,7 @@ hr {
     justify-content: space-between;
     text-transform: uppercase;
     margin: 1rem;
+    flex-wrap: wrap;
   }
   
   .title_head {
@@ -2724,13 +2725,12 @@ hr {
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    margin-top: 3rem;
+    margin: 3rem 0;
   }
   
   .content_publisher img,
   .author_col img {
     min-width: 30%;
-    /* height: 9.875rem; */
   }
   
   .publisher_info {
@@ -2755,10 +2755,6 @@ hr {
 .sidebar {
     display: none;
 }
-/* 
-.section_head{
-    display: none;
-} */
 
 .sideMenu{
     display: block;
@@ -2799,7 +2795,6 @@ hr {
   .author_col {
     display: grid;
     place-items: center;
-    margin-top: 2rem;
   }
   
   .signature img {
@@ -2863,7 +2858,7 @@ width: 100%;
         height: fit-content;
     }
     .section_head{
-        display: block;
+        display: flex;
     }
     .sideMenu{
         display: none;
@@ -3221,7 +3216,6 @@ width: 100%;
   
   .shop h3 {
     margin-top: var(--mfont-midi);
-    /* font-size: var(--mfont-midi); */
     margin-bottom: var(--mfont-reg);
   }
   
@@ -3235,7 +3229,7 @@ width: 100%;
     font-size: var(--mfont-mini);
     margin: 0%;
     padding: 0%;
-    margin-right: var(--mfont-mini);
+    margin-left: var(--mfont-mini);
   }
   
   .shop .filter .filterValue span {

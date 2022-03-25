@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import moment from 'moment';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
@@ -38,10 +38,10 @@ export default function BlogDetail() {
       loadBlog(setItem, parseInt(id));
       setIdParam(parseInt(id));
     }
-  };
+  }
 
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = React.useRef()
+  const btnRef = useRef()
 
   return (
       <Layout
@@ -78,7 +78,6 @@ export default function BlogDetail() {
                   <DrawerHeader>Sidebar</DrawerHeader>
 
                   <DrawerBody>
-                    <Input placeholder='Search here...' />
                     <aside className="drawerbar">
                       <div className="about_author">
                         <div className="author_col">
@@ -203,15 +202,6 @@ export default function BlogDetail() {
 
             {/* <!-- SIDEBAR --> */}
             <aside className="sidebar">
-              <div className="section_head">
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents='none'
-                    children={<SearchIcon color='gray.300' />}
-                  />
-                  <Input type='tel' placeholder='Search articles' />
-                </InputGroup>
-              </div>
               <div className="about_author">
                 <div className="author_col">
                   <img src="/images/ken 2.png" alt="Pastor Ken" />
@@ -266,3 +256,7 @@ export default function BlogDetail() {
       </Layout>
   );
 }
+function setSearchTerm(value: string) {
+  throw new Error('Function not implemented.');
+}
+

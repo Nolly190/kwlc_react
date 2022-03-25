@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import DonationImageItem from "../../../../components/donation-image";
 import {BranchServiceTimerItem} from "../../../../components/service-timer-item";
@@ -18,6 +19,8 @@ export interface ISetDonation {
 
 
 export default function EditDonation() {
+    const router = useRouter();
+    
     const _tmp: DonateItemDTO[] =  [];
     const _tmpImages: DonationImageDTO[] =  [];
     const _tmpBranches: BranchDTO[] = [];
@@ -45,7 +48,7 @@ export default function EditDonation() {
     const getBranch = ()  => {
         const idParam = getParam("id");
         if (!idParam) {
-            router.push("/admin/";
+            router.push("/admin/");
         }
         else {
             setId(parseInt(idParam));
