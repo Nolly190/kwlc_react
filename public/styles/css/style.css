@@ -2,7 +2,9 @@
 /*------------ [Google_Font] -----------*/
 /*========================================*/
 
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 /*========================================*/
 /*------------ [_Root] bde0feff-------FFC368----*/
@@ -18,7 +20,7 @@
   --card-secondary-color: #0f5545;
   --white-color: #fff;
   /* Font and Typography */
-  --font: "Open Sans", sans-serif;
+  --font: 'Poppins', sans-serif;
   --mfont-max: 2.5rem;
   --mfont-midi: 1.75rem;
   --mfont-mini: 1.25rem;
@@ -291,6 +293,10 @@ span {
 /*========================================*/
 /*--------------- [_Header] -------------*/
 /*========================================*/
+.header_wrap{
+  position: relative;
+  z-index: 1;
+}
 
 /* TOP NAVBAR */
 
@@ -557,7 +563,7 @@ span {
 
 .hero-banner-area {
   height: 100%;
-  background: url("/images/hero-banner.png");
+  background: url('/images/hero-banner.png');
   background-size: cover;
 }
 
@@ -570,6 +576,8 @@ span {
   justify-content: center;
   flex-direction: column;
   color: var(--white-color);
+  position: relative;
+  z-index: 0;
 }
 
 .banner_content h1 {
@@ -683,7 +691,7 @@ span {
   padding: 0 0.3rem;
   background: var(--text-primary-color);
   color: var(--white-color);
-  font-family: "Kumar One", cursive;
+  font-family: 'Kumar One', cursive;
 }
 
 .timer {
@@ -1046,57 +1054,11 @@ section.location-area {
   }
 }
 
-/*========================================*/
-/*--------------- [_Main] -------------*/
-/*========================================*/
-
-.main_container {
-  display: grid;
-  grid-template-columns: 100%;
-  max-width: 100%;
-  height: 100vh;
-}
-
-.home-container {
-  z-index: -1;
-}
-
-.section_head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  text-transform: uppercase;
-  margin: 2rem;
-}
-
-.title_head {
-  display: flex;
-  align-items: center;
-}
-
-.section_img i {
-  font-size: var(--font-midi);
-}
-
-.ellipse {
-  width: 0.625rem;
-  height: 0.625rem;
-  margin: 0 0.5rem;
-  border-radius: 50%;
-  background: var(--text-primary-color);
-}
-
-@media screen and (min-width: 768px) {
-  .section_img i {
-    font-size: var(--font-mini);
-  }
-}
-
 
 /* ------------------------------------- */
-  /*--------------- [_Footer] -------------*/
-  
-  footer {
+/*--------------- [_Footer] -------------*/
+
+footer {
     background: var(--bg-secondary-color);
     display: grid;
     grid-template-columns: 1fr;
@@ -1163,7 +1125,7 @@ section.location-area {
   }
   
   textarea {
-    font-family: "Open Sans";
+    font-family: 'Open Sans';
   }
   
   .contact_col {
@@ -1195,45 +1157,391 @@ section.location-area {
     .col_address {
       width: 75vw;
     }
-    .footer_col {
-      margin: 1rem 2rem 0 1rem;
+    
+    .contact_text {
+      font-size: var(--font-tiny);
+    }
+    
+    .contact_text i {
+      margin-right: 1rem;
+    }
+    
+    .contact_row {
+      display: flex;
+      margin-bottom: 0.75rem;
+    }
+    
+    .label_icon {
+      margin-right: 1.5rem;
+      font-size: var(--font-reg);
+    }
+    
+    /* Input Form */
+    
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .footerInput {
+      margin-bottom: 1rem;
+      border: none;
+      padding: 0.75rem 1rem;
+      outline: none;
+    }
+    
+    textarea {
+      font-family: "Open Sans";
+    }
+    
+    .contact_col {
+      display: flex;
+      flex-direction: column;
+      margin-top: 1rem;
+      font-size: var(--font-tiny);
+    }
+    
+    .contact_span {
+      color: var(--card-secondary-color);
+      font-size: var(--mfont-reg);
+    }
+    
+    .contact_col h4 {
+      font-weight: var(--font-semi);
+    }
+    
+    .txt_icons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 30vw;
+      font-size: var(--font-reg);
     }
   }
   
-  @media screen and (min-width: 900px) {
-    footer {
-      background: var(--bg-secondary-color);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-    }
-    .footer_col {
-      margin: 3rem 2rem 1rem 2rem;
-    }
-    .logo_text {
-      grid-template-columns: 35% 40%;
-    }
-    .txt_icons {
-      width: 35%;
-    }
-    .contact_span {
-      font-size: var(--font-tiny);
-    }
+
+
+  
+
+
+  /* --------the live page------- */
+  /* --------the live page--------- */
+  /* =========the live page======== */
+  
+  .live {
+    background: rgb(56 56 56 / 95%);
+    color: var(--text-secondary-color);
   }
   
-  @media screen and (min-width: 1024px) {
-    footer {
-      background: var(--bg-secondary-color);
-      display: grid;
-      grid-template-columns: 31% 28% 24% 17%;
+  .live h3 {
+    font-size: var(--mfont-midi);
+    color: var(--white-color);
+    font-weight: var(--font-semi);
+    margin: var(--mfont-mini) 0px;
+  }
+  
+  .live hr {
+    height: 0.5px;
+  }
+  
+  .live .livStream {
+    max-width: 80rem;
+    margin: 0%;
+    padding: var(--mfont-mini);
+    margin: auto;
+  }
+  
+  .live .livStream .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0%;
+    padding: 0%;
+  }
+  
+  .live .livStream .left {
+    width: 60%;
+    padding-right: var(--mfont-midi);
+  }
+  
+  .live .livStream video {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+  }
+  
+  .live .livStream .lieViews {
+    display: flex;
+    padding: var(--mfont-mini);
+    align-items: center;
+    color: var(--white-color);
+    font-size: var(--mfont-mini);
+    position: absolute;
+    margin-top: -8rem;
+  }
+  
+  .live .livStream .lieViews .text {
+    color: var(--white-color);
+    background: red;
+    padding: 5px 10px;
+  }
+  
+  .live .livStream .lieViews i {
+    margin: 0px var(--mfont-reg);
+  }
+  
+  .live .livStream .left h4 {
+    font-size: var(--mfont-midi);
+    color: var(--white-color);
+    margin: var(--mfont-mini) 0px;
+  }
+  
+  .live .livStream .left .aboutService p {
+    font-size: var(--mfont-mini);
+    color: var(--text-secondary-color);
+    font-weight: var(--font-light);
+    margin-bottom: var(--mfont-midi);
+  }
+  
+  .live .livStream .right {
+    width: 40%;
+  }
+  
+  .live .previousSundays {
+    height: 450px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .live .previousSundays .row {
+    display: flex;
+    margin: 0%;
+    padding: 0%;
+    max-height: 8.125rem;
+  }
+  
+  .live .previousSundays .first {
+    width: 55%;
+  }
+  
+  .live .previousSundays .first video {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .live .previousSundays .second {
+    padding-left: var(--mfont-mini);
+    width: 45%;
+  }
+  
+  .live .previousSundays .second .title {
+    font-size: var(--mfont-reg);
+    color: var(--white-color);
+    font-weight: var(--font-bold);
+    margin-bottom: 0.75rem;
+  }
+  
+  .live .previousSundays .second .preacher {
+    font-size: var(--mfont-reg);
+    color: var(--text-secondary-color);
+    font-weight: var(--font-light);
+    margin-bottom: 0.75rem;
+  }
+  
+  .live .previousSundays .second .date {
+    font-size: var(--mfont-reg);
+    color: var(--text-secondary-color);
+    font-weight: var(--font-light);
+  }
+  
+  .live .share .text {
+    font-size: var(--mfont-reg);
+    margin-top: var(--mfont-midi);
+    margin-bottom: var(--mfont-mini);
+    font-weight: var(--font-bold);
+  }
+  
+  .live .share .button {
+    width: 100%;
+    margin: 0;
+    height: 3.375rem;
+    background: transparent;
+    border: 1px solid var(--white-color);
+    color: var(--white-color);
+  }
+  
+  /* section two */
+  
+  .live .sectionTwo {
+    max-width: 80rem;
+    margin: auto;
+    padding: var(--mfont-mini);
+  }
+  
+  .live .sectionTwo .header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: var(--mfont-mini) 0px;
+  }
+  
+  .live .sectionTwo .header form {
+    height: 3.125rem;
+    border: 1px solid var(--white-color);
+    width: 21.875rem;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    flex-direction: row;
+    border-radius: 10px;
+  }
+  
+  .live .sectionTwo .header form i {
+    font-size: var(--mfont-mini);
+    color: var(--white-color);
+    margin-right: var(--mfont-reg);
+  }
+  
+  .live .sectionTwo .header form input {
+    font-size: var(--mfont-mini);
+    background: none;
+    border: none;
+    outline: none;
+    margin-bottom: 0%;
+    box-shadow: 0 1px 6px 0 rgb(32 33 36 / 15%);
+  }
+  
+  .live .sectionTwo .header form input::placeholder {
+    color: var(--text-secondary-color);
+  }
+  
+  .live .sectionTwo .prevSundays {
+    margin: 0%;
+    padding: 0%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .live .sectionTwo .prevSundays .one {
+    width: 50%;
+    height: 210px;
+    margin-bottom: 3.5rem;
+  }
+  
+  .live .sectionTwo .prevSundays .one .row {
+    display: flex;
+  }
+  
+  .live .sectionTwo .prevSundays .one .row .vid {
+    width: 60%;
+  }
+  
+  .live .sectionTwo .prevSundays .one .row .vid video {
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .live .sectionTwo .prevSundays .one .row .column {
+    width: 40%;
+    padding-left: var(--mfont-mini);
+  }
+  
+  .live .sectionTwo .prevSundays .one .row .column .title {
+    font-size: var(--mfont-mini);
+    color: var(--white-color);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--mfont-mini);
+  }
+  
+  .live .sectionTwo .prevSundays .one .row .column .preacher {
+    font-size: var(--mfont-mini);
+    color: var(--text-secondary-color);
+    font-weight: var(--font-light);
+    margin-bottom: var(--mfont-midi);
+  }
+  
+  .live .sectionTwo .prevSundays .one .row .column .date {
+    font-size: var(--mfont-mini);
+    color: var(--text-secondary-color);
+    font-weight: var(--font-light);
+    margin-bottom: var(--mfont-mini);
+  }
+  
+  .live .sectionTwo .prevSundays .one .row .column .views {
+    font-size: var(--mfont-mini);
+    color: var(--white-color);
+    font-weight: var(--font-bold);
+    margin-bottom: var(--mfont-mini);
+  }
+  
+  .live .sectionTwo .button {
+    width: 350px;
+    height: 3.375rem;
+    background: transparent;
+    border: 1px solid var(--white-color);
+    color: var(--white-color);
+    margin: auto;
+    margin-top: var(--mfont-midi);
+  }
+  
+  .live .sectionTwo .copyright {
+    font-size: var(--mfont-mini);
+    color: var(--white-color);
+    text-transform: uppercase;
+    text-align: center;
+    margin: auto;
+    margin-top: var(--mfont-max);
+    margin-bottom: var(--mfont-midi);
+  }
+  
+  @media screen and (max-width: 768px) {
+    .live .contact .callUs {
+      margin-top: var(--mfont-midi);
     }
-    .contact_span {
+    .live .livStream .left {
+      width: 100%;
+      padding-right: 0%;
+    }
+    .live .livStream .right {
+      width: 100%;
+    }
+    .live .livStream .left video {
+      height: auto;
+    }
+    .live .livStream .lieViews {
+      margin-top: -12.5rem;
+      font-size: var(--mfont-tiny);
+    }
+    .live .sectionTwo .prevSundays .one {
+      width: 100%;
+      max-height: 8rem;
+      margin-bottom: 2rem;
+    }
+    .live .sectionTwo .prevSundays .one .row .vid video {
+      height: 100%;
+      object-fit: cover;
+    }
+    .live .sectionTwo .prevSundays .one .row .column {
+      padding-left: var(--mfont-tiny);
+    }
+    .live .sectionTwo .prevSundays .one .row .column .title {
       font-size: var(--font-tiny);
     }
-    .logo_text {
-      grid-template-columns: 45% 45%;
+    .live .sectionTwo .prevSundays .one .row .column .preacher {
+      font-size: var(--mfont-tiny);
+      margin-bottom: var(--mfont-tiny);
     }
-    .txt_icons {
-      width: 80%;
+    .live .sectionTwo .prevSundays .one .row .column .date {
+      margin-bottom: var(--mfont-tiny);
+      font-size: var(--mfont-tiny);
+    }
+    .live .sectionTwo .prevSundays .one .row .column .views {
+      font-size: var(--mfont-tiny);
+    }
+    .live .sectionTwo .button {
+      margin-top: var(--font-tiny);
     }
   }
   

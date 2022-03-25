@@ -78,15 +78,15 @@ export const NavMenu = ({ alt = false }) => {
           <MenuList>
             <MenuItem>
               <li className="dropdown_menu">
-                <Link href={"/web/404/"}>
-                  <a className="nav_link">About Us </a>
+                <Link href={"/web/livestream/"}>
+                  <a className="nav_link">Livetream</a>
                 </Link>
               </li>
             </MenuItem>
             <MenuItem>
               <li className="dropdown_menu">
-                <Link href={"/web/livestream/"}>
-                  <a className="nav_link">Stream</a>
+                <Link href={"/web/404/"}>
+                  <a className="nav_link">About Us </a>
                 </Link>
               </li>
             </MenuItem>

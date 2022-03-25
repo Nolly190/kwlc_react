@@ -38,7 +38,7 @@ export default function Hamburger() {
                 <a href={"/web/donations"} className="nav_link">Donations</a>
               </li>
               <li className="nav_item">
-                  <a href={"/web/livestream"} className="nav_link">Events</a>
+                  <a href={"/web/events"} className="nav_link">Events</a>
               </li>
               <li className="nav_item">
                   <a href={"/web/blog"} className="nav_link">Blog</a>
@@ -54,7 +54,7 @@ export default function Hamburger() {
                         <li className="dropdown_menu"><a href={"/web/404/"}className="nav_link">About Us</a></li>
                         </MenuItem>
                         <MenuItem>
-                        <li className="dropdown_menu"><a href={"/web/404/"}className="nav_link">Stream</a></li>
+                        <li className="dropdown_menu"><a href={"/web/livestream/"}className="nav_link">Live stream</a></li>
                         </MenuItem>
                         <MenuItem>
                         <li className="dropdown_menu"><a href="#" className="nav_link">Our Team</a></li>
