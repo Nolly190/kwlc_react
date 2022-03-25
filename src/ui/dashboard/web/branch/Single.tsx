@@ -71,7 +71,7 @@ const SingleBranch = () => {
               <p>{item.location}</p>
             </LocationWrapper>
 
-            <ServiceTimeWrapper className="col">
+            <ServiceTimeWrapper>
               <div className="card row w-100 align-center justify-start cards">
                 <div className="image">
                   <img src="/images/list-icon-2.svg" alt="" srcSet="" />

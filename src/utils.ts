@@ -336,9 +336,7 @@ const getToken = (): string => {
 
       const result: any = JSON.parse(rawData);
 
-      const markerSymbolInfo = result as LoginAccessDTO;
-
-      token = markerSymbolInfo.data.token;
+      token = result?.token;
    }
 
    return token;

@@ -1,70 +1,115 @@
-import {Menu, MenuButton, MenuList, MenuItem, Button, Icon} from "@chakra-ui/react";
-import { HamburgerIcon } from '@chakra-ui/icons'; 
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Button,
+  Icon,
+} from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import Hamburger from "./homepage/HamburgerMenu";
+import Link from "next/link";
 
-const HeaderMenu = ({alt=false}) => {
-    return (
-        <div className="nav_bar ">
-            <div className="menuLeft">
-                <a href={"/web/"} className="nav_link">
-                    <img src="/images/KWLClogo.svg" alt="KWLC Logo"/>
+const HeaderMenu = ({ alt = false }) => {
+  return (
+    <div className="nav_bar ">
+      <div className="menuLeft">
+        <Link href={"/web/"}>
+          <a className="nav_link">
+            <img src="/images/KWLClogo.svg" alt="KWLC Logo" />
+          </a>
+        </Link>
+      </div>
+
+      <div className="menuRight">
+        <ul className="nav_list nav-list">
+          <li className="nav_item">
+            <Link href={"/web/"}>
+              <a className="nav_link">Home</a>
+            </Link>
+          </li>
+          <li className="nav_item">
+            <Link href={"/web/branches"}>
+              <a className="nav_link">Branches</a>
+            </Link>
+          </li>
+          <li className="nav_item">
+            <Link href={"/web/donations"}>
+              <a className="nav_link">Donations</a>
+            </Link>
+          </li>
+
+          <li className="nav_item">
+            <Link href={"/web/events"}>
+              <a className="nav_link">Events</a>
+            </Link>
+          </li>
+          <li className="nav_item">
+            <Link href={"/web/blog"}>
+              <a className="nav_link">Blog</a>
+            </Link>
+          </li>
+          <li className="nav_item">
+            <Link href={"/web/shop"}>
+              <a className="nav_link">Shop</a>
+            </Link>
+          </li>
+
+          {/* <!-------Dropdown menu-------> */}
+          <li className="nav_item">
+            <Menu>
+              <MenuButton>
+                <HamburgerIcon color={"black"} />
+              </MenuButton>
+              <MenuList>
+                <MenuItem>
+                  <li className="dropdown_menu">
+                    <Link href={"/web/404/"}>
+                      <a className="nav_link">About Us</a>
+                    </Link>
+                  </li>
+                </MenuItem>
+                <MenuItem>
+                  <li className="dropdown_menu">
+                    <Link href={"/web/livestream/"}>
+                      <a className="nav_link">Stream</a>
+                    </Link>
+                  </li>
+                </MenuItem>
+                <MenuItem>
+                  <li className="dropdown_menu">
+                    <Link href="#">
+                      <a className="nav_link">Our Team</a>
+                    </Link>
+                  </li>
+                </MenuItem>
+                <MenuItem>
+                  <li className="dropdown_menu">
+                    <Link href={"/web/payment"}>
+                      <a className="nav_link">Payment</a>
+                    </Link>
+                  </li>
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </li>
+          {alt && (
+            <li className="nav_item">
+              <Link href="checkout.html">
+                <a className="nav_link">
+                  <i className="icofont-shopping-cart"></i>
                 </a>
-            </div>
+              </Link>
+            </li>
+          )}
+        </ul>
+      </div>
 
-            <div className="menuRight">
-                <ul className="nav_list nav-list">
-                    <li className="nav_item">
-                        <a href={"/web/"} className="nav_link">Home</a></li>
-                    <li className="nav_item">
-                        <a href={"/web/branches"} className="nav_link">Branches</a>
-                    </li>
-                    <li className="nav_item">
-                        <a href={"/web/donations"} className="nav_link">Donations</a>
-                    </li>
-                    
-                    <li className="nav_item">
-                        <a href={"/web/events"} className="nav_link">Events</a>
-                    </li>
-                    <li className="nav_item">
-                        <a href={"/web/blog"} className="nav_link">Blog</a>
-                    </li>
-                    <li className="nav_item">
-                        <a href={"/web/shop"} className="nav_link">Shop</a>
-                    </li>
-
-                    {/* <!-------Dropdown menu-------> */}
-                    <li className="nav_item">
-                        <Menu>
-                        <MenuButton><HamburgerIcon color={"black"}/></MenuButton>
-                            <MenuList>
-                                <MenuItem>
-                                <li className="dropdown_menu"><a href={"/web/404/"}className="nav_link">About Us</a></li>
-                                </MenuItem>
-                                <MenuItem>
-                                <li className="dropdown_menu"><a href={"/web/livestream/"}className="nav_link">Stream</a></li>
-                                </MenuItem>
-                                <MenuItem>
-                                <li className="dropdown_menu"><a href="#" className="nav_link">Our Team</a></li>
-                                </MenuItem>
-                                <MenuItem>
-                                <li className="dropdown_menu"><a href={"/web/payment"} className="nav_link">Payment</a></li>
-                                </MenuItem>
-                            </MenuList>
-                        </Menu>   
-                    </li>
-                {
-                    alt && 
-                        <li className="nav_item"><a href="checkout.html" className="nav_link"><i className="icofont-shopping-cart"></i></a></li>
-                    }
-                </ul>
-            </div>
-            
-            <div className="mobileHead">
-                <Hamburger/>
-            </div>
-        </div>
-
-    )
-}
+      <div className="mobileHead">
+        <Hamburger />
+      </div>
+    </div>
+  );
+};
 
 export default HeaderMenu;
