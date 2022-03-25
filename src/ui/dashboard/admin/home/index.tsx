@@ -9,7 +9,6 @@ export default function AdminHome() {
 
   useEffect(() => {
     const token = getToken();
-    console.log("token", token);
     if (!token) {
       router.push("/admin/login");
     }

@@ -72,13 +72,11 @@ export class BranchController implements CRUDBL {
                 log("earlydev", "1", response);
                 if (response.code >= statusEnum.ok) {
                     toast.success("Branch update was successful");
-
                 }
                 else {
-                    toast.error("Branch update failed");
+                    toast.error(response?.message);
                 }
             });
-            // toast.success("Branch update request Sent");
         }
     }
     async delete(id: number, setItems: Function, items: BranchDTO[]) {

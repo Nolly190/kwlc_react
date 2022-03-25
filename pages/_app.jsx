@@ -5,6 +5,7 @@
 // import './../styles/css/home.css'
 // import './../styles/css/events.css'
 // import './../styles/css/bootstrap/css/bootstrap.min.css'
+import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { initUtilFunc } from "../src/utils";
