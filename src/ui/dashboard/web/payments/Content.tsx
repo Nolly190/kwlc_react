@@ -1,5 +1,13 @@
 import React, {useEffect} from 'react';
 import DonateBtn from "../../../../components/donate-btn";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Button
+} from "@chakra-ui/react";
+import { ChevronDownIcon } from '@chakra-ui/icons';
 
 export default function PaymentContent({}) {
 
@@ -71,18 +79,50 @@ export default function PaymentContent({}) {
                 <form id="pay-form">
                     <div className="row w-100">
                         <div className="col row">
-                            <label htmlFor="payment-type">Select Action</label>
-                            <select name="payment-type" id="">
-                                <option value="offering" selected>OFFERING</option>
-                                <option value="tithe">TITHE</option>
-                            </select>
+                            <Menu>
+                                <MenuButton 
+                                    as={Button} 
+                                    rightIcon={<ChevronDownIcon color="blackAlpha"/>}
+                                    px={8}
+                                    py={8}
+                                    >
+                                    <h3>Select payment</h3>
+                                </MenuButton>
+                                <MenuList>
+                                    <MenuItem>
+                                        Offering
+                                    </MenuItem>
+                                    <MenuItem>
+                                        Tithe
+                                    </MenuItem>
+                                    <MenuItem>
+                                        Product
+                                    </MenuItem>
+                                    <MenuItem>
+                                        Ticket
+                                    </MenuItem>
+                                </MenuList>
+                            </Menu>
                         </div>
                         <div className="col row">
-                            <label htmlFor="payment-option">Payment option</label>
-                            <select name="payment-option" id="">
-                                <option value="offline" selected>OFFLINE</option>
-                                <option value="online">Online</option>
-                            </select>
+                            <Menu>
+                                <MenuButton 
+                                    as={Button} 
+                                    rightIcon={<ChevronDownIcon color="blackAlpha"/>}
+                                    px={8}
+                                    py={8}
+                                    >
+                                    <h3>Payment option</h3>
+                                </MenuButton>
+                                <MenuList>
+                                    <MenuItem>
+                                        Offline
+                                    </MenuItem>
+                                    <MenuItem>
+                                        Online
+                                    </MenuItem>
+                                </MenuList>
+                            </Menu>
                         </div>
                     </div>
 
@@ -95,7 +135,7 @@ export default function PaymentContent({}) {
                         <div className="input col">
                             <div className="payment row">
                                 <div className="mr-2 span-first">
-                                    <input type="text" style={{background: "#fff", padding: 0}} placeholder="Amount" />
+                                    <input type="text" style={{background: "#fff"}} placeholder="Amount" />
                                 </div>
                                 <div style={{background: "#f1f1f1", padding: 15}} className="row span-last">
                                     <span>#</span><span>1,000</span>
@@ -106,7 +146,7 @@ export default function PaymentContent({}) {
 
                     <div className="btn-container">
                         <button type="button" id="donate" className="button">
-                            <i className="fa fa-gift" aria-hidden="true"></i>
+                            <i className="fa fa-gift" aria-hidden="true" style={{marginRight: ".5rem"}}></i>
                             Pay
                         </button>
                     </div>
@@ -130,14 +170,6 @@ export default function PaymentContent({}) {
                                     <label htmlFor="flutter">
                                         <div className="custom-radio"></div>
                                         Flutter wave
-                                    </label>
-                                </div>
-
-                                <div className="input">
-                                    <input type="radio" name="payment-method" id="paystack" />
-                                    <label htmlFor="paystack">
-                                        <div className="custom-radio"></div>
-                                        Paystack
                                     </label>
                                 </div>
 
@@ -211,3 +243,6 @@ export default function PaymentContent({}) {
         </>
     );
 }
+
+
+        

@@ -44,69 +44,77 @@ const SingleBranch = () => {
           <h3>You're Welcome {item.title}</h3>
 
           <ProfileWrapper>
-            <ProfileInfoWrapper>
-              <img src="/images/profile.jpg" alt="" srcSet="" />
-              <div className="profile-info">
-                <h5>{item.leadPastor}</h5>
-                <p>Lead pastor</p>
-              </div>
-            </ProfileInfoWrapper>
-            <ProfileContentWrapper>
-              <img src="/images/subtractSingleBranch.png" alt="" srcSet="" />
-              <div className="profile-content">
-                <p>Hello people,</p>
-                <span>
-                  My Name is {item.leadPastor}, a pastor in kingdom ways living
-                  church international. It’s my humble pleasure to welcome you
-                  to our world.
-                </span>
-                <span>Welcome! I celebrate you.</span>
-              </div>
-            </ProfileContentWrapper>
+            <div className="profileOne">
+                <ProfileInfoWrapper>
+                    <img src="/images/profile.jpg" alt="" srcSet="" />
+                    <div className="profile-info">
+                        <h5>{item.leadPastor}</h5>
+                        <p>Lead pastor</p>
+                    </div>
+                </ProfileInfoWrapper>
+            </div>
+            <div className="profileTwo">
+                <ProfileContentWrapper>
+                    <img src="/images/subtractSingleBranch.png" alt="" srcSet="" />
+                    <div className="profile-content">
+                        <h4>Hello people,</h4><br/>
+                        <p className="profile_description">
+                        My Name is {item.leadPastor}, a pastor in kingdom ways living
+                        church international. It’s my humble pleasure to welcome you
+                        to our world.
+                        </p><br/>
+                        <p className="greeting">Welcome! I celebrate you.</p>
+                    </div>
+                </ProfileContentWrapper>
+            </div>
           </ProfileWrapper>
 
-          <ServiceWrapper className="w-100 mt-4">
-            <LocationWrapper className="col card">
+          <ServiceWrapper>
+            <LocationWrapper className="col cards">
               <img src="/images/list-icon-1.svg" alt="" srcSet="" />
               <p>{item.location}</p>
             </LocationWrapper>
 
             <ServiceTimeWrapper className="col">
-              <div className="card row w-100 align-center justify-start cards">
-                <div className="image">
-                  <img src="/images/list-icon-2.svg" alt="" srcSet="" />
-                </div>
-                <span>
-                  <p className="inline">
-                    {item.timers?.length > 0
-                      ? item.timers?.map((x, index) => {
-                          return (
-                            <ul key={index} className="inline">
-                              <li>
-                                {x.day} {x.time}
-                              </li>
+                <Card>
+                    <div className="cards">
+                        <div className="image">
+                        <img src="/images/list-icon-2.svg" alt="" srcSet="" />
+                        </div>
+                        <span>
+                        <p className="inline">
+                            {item.timers?.length > 0
+                            ? item.timers?.map((x, index) => {
+                                return (
+                                    <ul key={index} className="inline">
+                                    <li>
+                                        {x.day} {x.time}
+                                    </li>
+                                    </ul>
+                                );
+                                })
+                            : undefined}
+                        </p>
+                        </span>
+                    </div>
+                </Card>
+
+                <Card>
+                    <div className="cards">
+                        <div className="image">
+                        <img src="/images/list-icon-3.svg" alt="" srcSet="" />
+                        </div>
+
+                        <span>
+                        <p className="inline">
+                            {item.phoneNo && item.phoneNo[0]}
+                            <ul className="inline">
+                            <li>{item.phoneNo && item.phoneNo[1]}</li>
                             </ul>
-                          );
-                        })
-                      : undefined}
-                  </p>
-                </span>
-              </div>
-
-              <div className="card row w-100 align-center justify-start cards">
-                <div className="image">
-                  <img src="/images/list-icon-3.svg" alt="" srcSet="" />
-                </div>
-
-                <span>
-                  <p className="inline">
-                    {item.phoneNo && item.phoneNo[0]}
-                    <ul className="inline">
-                      <li>{item.phoneNo && item.phoneNo[1]}</li>
-                    </ul>
-                  </p>
-                </span>
-              </div>
+                        </p>
+                        </span>
+                    </div>
+                </Card>
             </ServiceTimeWrapper>
           </ServiceWrapper>
         </section>
@@ -124,14 +132,23 @@ export default SingleBranch;
 
 const ProfileWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   gap: max(40px, 4vw);
+  margin-bottom: 2rem;
+  
+  @media screen and (min-width: 900px) {
+    flex-wrap: nowrap;
+  }
 `;
 
 const ProfileInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 284px;
-  height: 330px;
+  width: 100%;
+  height: 100%;
+  
 
   & > img {
     height: 249px;
@@ -163,42 +180,94 @@ const ProfileInfoWrapper = styled.div`
     font-style: normal;
     font-weight: normal;
     font-size: var(--mfont-reg);
-    line-height: 22px;
+    line-height: 20px;
     color: #000000;
-  }
+  } 
 `;
 
 const ProfileContentWrapper = styled.div`
   /* position: relative; */
   display: flex;
+  flex-direction: column;
   align-items: center;
-  height: 330px;
+  height: 100%;
 
   & > .profile-content {
     background: #ffffff;
     height: 100%;
-    padding: 3rem;
+    padding: 1rem;
     box-shadow: 0px 4px 20px rgba(119, 182, 213, 0.5);
   }
 
   & > img {
     width: 57px;
     height: 47.63px;
+
+    transform: rotate(90deg);
+    margin: 0.5rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    & > .profile-content{
+        padding: 2rem;
+        height: 332px;
+    }
+
+    & > img {
+        width: 57px;
+        height: 47.63px;
+    }
+  }
+
+  @media screen and (min-width: 900px) {
+    flex-direction: row;
+    align-items: center;
+    & > img {
+        margin: 0%;
+        transform: none;
+    }
   }
 `;
 
 const ServiceWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
+  margin-top: 2rem;
+
+  @media screen and (min-width: 900px) {
+        flex-direction: row;
+    }
 `;
+
+const ServiceTimeWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @media screen and (min-width: 900px) {
+        width: 45%;
+        flex-direction: row;
+        margin-top: 0%;
+    }
+`;
+
+const Card = styled.div`
+    width: 100%;
+    margin-top: 1rem;
+
+    @media screen and (min-width: 900px) {
+        width: 47%;
+        margin-top: auto;
+    }
+`
 
 const LocationWrapper = styled.div`
-  width: 45%;
+  width: 100%;
 
-  & > img {
-    margin-bottom: 1rem !important;
-  }
+  @media screen and (min-width: 900px) {
+        width: 45%;
+    }
 `;
-const ServiceTimeWrapper = styled.div`
-  width: 45%;
-`;
+

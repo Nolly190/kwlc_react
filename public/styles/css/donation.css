@@ -819,7 +819,7 @@ hr {
 
 .payment #pay-form {
   margin-top: 1.5rem;
-  margin-bottom: 10rem;
+  margin-bottom: 6rem;
 }
 
 .payment .w-100 {
@@ -828,6 +828,7 @@ hr {
 
 .payment .row.w-100 {
   justify-content: space-between;
+  align-items: flex-end;
   margin-bottom: 2rem;
 }
 
@@ -862,6 +863,7 @@ hr {
   border: 0;
   outline: 0;
   font-size: var(--font-reg);
+  box-shadow: 0 1px 6px 0 rgb(32 33 36 / 15%);
 }
 
 .payment .input.col:first-of-type {
@@ -870,20 +872,21 @@ hr {
 
 .payment .payment.row {
   border: 0.5px solid #d7d7d7;
+  box-shadow: 0 1px 6px 0 rgb(32 33 36 / 5%);
 }
 
-.payment .mr-2 {
+/* .payment .mr-2 {
   margin-right: 2rem;
-}
+} */
 
 .payment .payment.row span span {
   margin-left: 0.5rem;
 }
 
-.payment .span-first {
+/* .payment .span-first {
   padding: 0.5rem 1rem;
   padding-right: 0.1rem;
-}
+} */
 
 .payment .span-last {
   background: #f1f1f1;
@@ -1695,6 +1698,9 @@ hr {
   }
 }
 
+
+
+
 /* ---------each branch-------- */
 /* --------------------------- */
 
@@ -1708,7 +1714,74 @@ hr {
 
 /* hero content section*/
 
- 
+.eachBranch .hero-content {
+  padding: 2rem;
+  margin: auto;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.eachBranch .hero-content h3 {
+  font-style: normal;
+  font-weight: 800;
+  font-size: var(--font-mini);
+  text-align: center;
+  line-height: 54px;
+  color: #000000;
+  margin-bottom: 3rem;
+}
+
+.eachBranch .cards {
+  background: #e7e8ea;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+}
+
+.eachBranch .cards p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--mfont-reg);
+  line-height: 27px;
+  color: #6c6c6c;
+}
+
+.eachBranch .cards .image {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin: auto 0;
+} 
+
+.eachBranch .inline {
+  display: inline-block;
+}
+
+.eachBranch ul.inline {
+  margin-top: 1rem;
+  font-style: normal;
+  font-weight: normal;
+  font-size: var(--mfont-reg);
+  line-height: 27px;
+  color: #6c6c6c;
+  margin-left: 1.4rem;
+}
+
+.profile_description{
+    font-style: italic;
+}
+
+@media screen and (min-width: 900px) {
+    .profileOne{
+      width: 30%;
+    }
+
+    .profileTwo{
+        width: 70%;
+        margin-top: 0%;
+    }  
+}
 /* ------------------------------------- */
 /*--------------- [_Footer] -------------*/
 
@@ -1851,32 +1924,32 @@ textarea {
 /*-------- Branch Page ---------*/
 
 .hero_wrapper {
-  background: url("/images/branches-hero-image.jpg");
-  background-position: center;
-  background-size: cover;
-  height: 100%;
+    background: url("/images/branches-hero-image.jpg");
+    background-position: center;
+    background-size: cover;
+    height: 100%;
 }
 
 .banner_content {
-  width: 80%;
-  height: 40vh;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  flex-direction: column;
-  color: var(--white-color);
+    width: 100%;
+    height: 50vh;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    color: var(--white-color);
 }
 
 .banner_content h2 {
-  color: var(--white-color);
-  font-size: var(--mfont-midi);
-  font-weight: 600;
+    color: var(--white-color);
+    font-size: var(--mfont-midi);
+    font-weight: 600;
 }
 
 .hero_wrapper h1 {
-  text-align: center;
+    text-align: center;
 }
 
 /* Location search */
@@ -2042,7 +2115,7 @@ hr {
 
 .main_container .section_title {
     margin-top: 2rem;
-    /* padding: 2rem; */
+    padding: 1rem;
 }
 
 /* UTILITIES */
@@ -3064,7 +3137,7 @@ hr {
     }
   }
   
-  /* ===========product page =========== */
+  /* ===========SHOP page =========== */
   /* ---------product page----------- */
   /* ---------------product page----------- */
   
@@ -3727,3 +3800,132 @@ hr {
     }
   }
   
+
+
+  /*---------------------------*/
+  /* EVENT SEARCHER */
+.event_search{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.search{
+    display: flex;
+    flex-direction: column;
+}
+
+.event_searcher{
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 10px;
+    margin-top: .75rem;
+    padding: 1rem 3rem;
+}
+
+.event_time{
+    margin: 1rem 0;
+}
+
+@media screen and (min-width: 716px) {
+    .grid{
+        grid-template-columns: 1fr 1fr;
+        align-items: flex-start;
+        gap: 2rem;
+    }
+}
+
+/*  */
+.intro{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.list_text .section_subtitle{
+    margin-bottom: 1.5rem;
+}
+
+.col .read_more{
+    width: 40%;
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    margin-top: 0;
+    text-transform: uppercase;
+}
+
+.line_bar{
+    height: 1px;
+    width: 1rem;
+    background: black;
+    margin-right: .55rem;
+}
+
+.post_col{
+    width: 100%;
+    height: 13.5rem;
+    position: relative;
+}
+
+.blog_img{
+    border-top-left-radius: calc(.25rem - 1px);
+    border-top-right-radius: calc(.25rem - 1px);
+    width: 100%;
+}
+
+
+.content_date{
+    position: absolute;
+    padding: 0 .5rem;
+    color: var(--text-primary-color);
+    background: var(--white-color);
+    left: -1.7rem;
+    bottom: 5rem;
+    transform: rotate(270deg);
+}
+
+
+@media screen and (min-width: 768px) {
+    .intro{
+        width: 50%;
+    }
+
+    .blog_posts{
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .post_col{
+        height: 22rem;
+    }
+
+    .content_date{
+        left: -2.2rem;
+        bottom: 9rem;
+    }
+
+}
+
+
+/*--------------- [Pages Button] -------------*/
+.pages_button{
+    display: flex;
+    justify-content: flex-end;
+    margin: 2rem;
+}
+
+.next, .previous{
+    border-bottom: 2px solid #000000;
+}
+
+
+/*--------------- [NO EVENTS] -------------*/
+.no_events_text{
+    color: var(--text-secondary-color);
+    font-size: var(--font-norm);
+    margin: 3rem 0 3rem 3rem
+}
