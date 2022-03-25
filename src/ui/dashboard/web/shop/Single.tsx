@@ -1,24 +1,43 @@
 import React, {useState, useEffect} from "react";
 import ShopItem from "../../../../components/shop-item";
-import { shopLoadItem, shopOpenTab, shopRelatedItems } from "../../../../controller/shop.controller";
+import { initPurchase, shopLoadItem, shopOpenTab, shopRelatedItems } from "../../../../controller/shop.controller";
 import ShopItemDTO from "../../../../dto/ShopItem.dto";
 import { getParam, showMessage } from "../../../../utils";
 import Layout from "../layout";
+import { useRouter } from 'next/router'
+import ShopPay from "./Payment";
 
 export default function ProductDetail() {
+    const router = useRouter();
+    
     const [item, setItem] = useState(new ShopItemDTO());
     const [quantity, setQuantity] = useState(1);
     const [relatedItem, setRelatedItem] = useState(new Array<ShopItemDTO>());
+    const [showPurchase, setShowPurchase] = useState(false);
+    const [userEmail, setUserEmail] = useState("");
+    const [userPhone, setUserPhone] = useState("");
+    
     
     useEffect(() => {
         const id = getParam("id");
-        if (!id) { router.push("/web/";}
+        if (!id) { router.push("/web/");}
         shopLoadItem(setItem, id);
         shopRelatedItems(setRelatedItem, id);
     }, []);
 
     const onPurchase =  () => {
-        showMessage('success', 'Item Purchased', '');
+        setShowPurchase(true);
+        // showMessage('success', 'Item Purchased', '');
+    }
+
+    const _initPurchase = (e) => {
+        e.preventDefault();
+        initPurchase(userEmail, userPhone, {
+            copies: quantity,
+            price: (quantity*item.price),
+            id: item.id,
+            title: item.title,
+        });
     }
     
     return (
@@ -53,7 +72,7 @@ export default function ProductDetail() {
                     <div className="column third">
                         <div className="aboutProduct">
                             <h4>{item.title}</h4>
-                            <div className="price">Price: <span>N{item.price}</span></div>
+                            <div className="price">Price: <span>N{(item.price * quantity)}</span></div>
                             <div className="about">
                             {item.description}
                             </div>
@@ -62,7 +81,7 @@ export default function ProductDetail() {
                             <form action="">
                                 Quantity 
                                 <i className="fa fa-chevron-left" onClick={() => {
-                                    if (quantity > 0) setQuantity(quantity-1);
+                                    if (quantity > 1) setQuantity(quantity-1);
                                 }}></i> 
                                 <span>{quantity}</span>
                                 <i className="fa fa-chevron-right" onClick={() => {
@@ -125,7 +144,15 @@ export default function ProductDetail() {
                     </div>
                 </div>
             </div>
-
+            {
+                showPurchase && 
+                <ShopPay 
+                    price={(quantity*item.price) || 0} 
+                    onEmailTextChange={(email) => setUserEmail(email)}
+                    onPhoneTextChange={(phone) => setUserPhone(phone)}
+                    onClick={(e) => _initPurchase(e)}
+                />
+            }
         </Layout>
     );
 }

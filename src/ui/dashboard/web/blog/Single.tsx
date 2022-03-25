@@ -1,4 +1,3 @@
-import React from 'react';
 import moment from 'moment';
 import router from 'next/router';
 import { useEffect, useState } from 'react';
@@ -20,15 +19,6 @@ import { InputGroup,
   useDisclosure} from '@chakra-ui/react';
 import { DragHandleIcon, SearchIcon } from '@chakra-ui/icons';
 
-export default function BlogDetail() {
-  const blogData: BlogAudioDTO = new BlogAudioDTO();
-
-  const [item, setItem] = useState(blogData);
-  const [idParam, setIdParam] = useState(0);
-
-  useEffect(() => {
-    getBlog();
-  }, []);
 
   const getBlog = () => {
     const id = getParam('id');
@@ -37,8 +27,16 @@ export default function BlogDetail() {
     } else {
       loadBlog(setItem, parseInt(id));
       setIdParam(parseInt(id));
+    const getBlog = () => {
+        const id = getParam("id");
+        if (!id) {
+            router.push("/admin/")
+        }
+        else {
+            loadBlog(setItem, parseInt(id));
+            setIdParam(parseInt(id));
+        }
     }
-  };
 
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()

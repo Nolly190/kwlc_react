@@ -1,5 +1,5 @@
 import { toast } from "react-toastify";
-import { getShopItemsApi, getSingleShopItemApi } from "../api/shop.api";
+import { getShopItemsApi, getSingleShopItemApi, initShopItemPurchaseApi } from "../api/shop.api";
 import { ResponseDTO } from "../dto/response.dto";
 import ShopItemDTO, { ShopDTO } from "../dto/ShopItem.dto";
 import ShopItemInformationDTO from "../dto/ShopItemInfo.dto";
@@ -62,8 +62,9 @@ export const initShopLeftItems = async (setTopItems: Function, setMaxPrice?: Fun
     }
     else {
         const response: ResponseDTO = await getShopItemsApi();
-        if (response.code < statusEnum.ok) {
+        if (!response.status) {
             toast.error(response.message)
+            return;
         }
         let maxPrice: number = 0;
         const data: ShopDTO[] = response.data;
@@ -104,6 +105,7 @@ export const shopRelatedItems = async (setTopItems: Function, excludeItemId: str
         const response: ResponseDTO = await getShopItemsApi();
         if (!response.status) {
             showMessage("error", "An error occurred", "Please try again to fetch product(s)");
+            return;
         }
 
         const data: ShopDTO[] = response.data;
@@ -130,6 +132,7 @@ export const shopRelatedItems = async (setTopItems: Function, excludeItemId: str
                 ],
             }));
         });
+        
 
         setTopItems(_data);
     }
@@ -145,9 +148,9 @@ export const shopLoadItem = async (setItem: Function, id: string) => {
     }
     else {
         const response = await getSingleShopItemApi(parseInt(id));
-        if (response.code < statusEnum.ok) {
+        if (!response.status) {
             showMessage("error", "An error occurred", response.message.toString());
-            return response;
+            return;
         }
 
 
@@ -171,6 +174,44 @@ export const shopLoadItem = async (setItem: Function, id: string) => {
             price: data.price,
             title: data.title,
         }));
+    }
+}
+
+export const initPurchase = async (email: string, phone: string, shopItem: ShopItemDTO,) => {
+    if (fakeModel) {
+        showMessage("success", "Purchased", "");
+        return;
+    }
+    else {
+        const response = await initShopItemPurchaseApi({
+            amount: shopItem.price,
+            emailAddress: email,
+            name: shopItem.title,
+            phoneNumber: phone,
+            quantity: shopItem.copies,
+            paymentType: "product",
+            productId: shopItem.id
+        });
+        
+        if (!response.status) {
+            showMessage("error", "An error occurred", response.message.toString());
+            return;
+        }
+        // make api call
+        // open new tab to complete payment
+        if (response.data) {
+            let newWindow = undefined;
+            try {
+                newWindow = window.open(response.data, '_blank');
+            }
+            catch(e) {
+                //
+            }
+            if (newWindow) newWindow.focus();
+            
+            
+        };
+        
     }
 }
 

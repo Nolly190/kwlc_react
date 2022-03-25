@@ -4,6 +4,7 @@ import { BlogDTO } from "../../../../dto/Blog.dto";
 import { getParam, showConfirmDialog } from "../../../../utils";
 import AdminLayout from "../admin.layout";
 import { Editor } from '@tinymce/tinymce-react';
+import { useRouter } from "next/router";
 
 export interface ISetBlog {
     setItem: Function,
@@ -33,6 +34,8 @@ export default function EditBlog() {
     const [item, setItem] = useState(_tmp);
     const [id, setId] = useState(0);
 
+    const router = useRouter();
+
     useEffect(() => {
         getBlog();
     }, []);
@@ -42,7 +45,7 @@ export default function EditBlog() {
     const getBlog = ()  => {
         const idParam = getParam("id");
         if (!idParam) {
-            router.push("/admin/";
+            router.push("/admin/");
         }
         else {
             setId(parseInt(idParam));
