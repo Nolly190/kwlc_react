@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { loadSingleBranch } from "../../../../controller/branch.controller";

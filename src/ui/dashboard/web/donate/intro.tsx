@@ -39,7 +39,7 @@ export default function DonationIntro() {
             <ListMenuIcon onClick={() => console.log("eeee")} />
           </nav>
 
-          <div className="content-container row">
+          <div className="content_container">
             {
               items.length > 0 &&
                 items.map((x, index) => {
@@ -65,7 +65,7 @@ export default function DonationIntro() {
 
 const RenderDonationItem = ({ img, title, description, href }) => {
   return (
-    <div className="col">
+    <div className="content_card">
       <div className="image">
         <img src={img} alt="" srcSet="" />
       </div>
@@ -73,7 +73,7 @@ const RenderDonationItem = ({ img, title, description, href }) => {
         <h5>{title}</h5>
         <p>{description}...</p>
         <Link href={href}>
-          <a className="btn">See more</a>
+          <a className="button">See more</a>
         </Link>
       </div>
     </div>

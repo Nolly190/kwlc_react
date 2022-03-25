@@ -29,7 +29,7 @@ export async function getSliderAPI(): Promise<ResponseDTO> {
          // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
          response.data = data;
       }
-      showMessage(getMessage(res), res.status, localStorage);
+      //showMessage(getMessage(res), res.status, localStorage);
 
       response.code = statusEnum.ok;
    }
@@ -58,7 +58,7 @@ export async function getSingleSliderApi(id: number): Promise<ResponseDTO> {
          response.data = data;
       }
 
-      showMessage(getMessage(res), res.status, localStorage);
+      //showMessage(getMessage(res), res.status, localStorage);
       response.code = statusEnum.ok;
    }
    catch (e) {

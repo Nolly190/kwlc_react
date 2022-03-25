@@ -18,8 +18,6 @@ export function ShopProvider(props) {
     defaultState.setItems = setItems;
   }, [items]);
   
-
-  console.log("re-rendeing", items);
   return (
     <ShopContext.Provider value={{
       items,

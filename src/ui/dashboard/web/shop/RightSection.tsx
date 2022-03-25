@@ -5,6 +5,7 @@ import ShopItemDTO from "../../../../dto/ShopItem.dto";
 import { WebShopInterface } from "../../../../types/webShopInterface";
 import { ShopContext } from "../../../../context-providers/ShopContext.provider";
 
+
 export default function ShopRightSection ({onFilter}: WebShopInterface) {
     const _shopContext = useContext(ShopContext);
 

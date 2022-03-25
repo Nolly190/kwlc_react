@@ -4,14 +4,14 @@ export default class ShopItemDTO {
     public constructor(init?:Partial<ShopItemDTO>) {
         Object.assign(this, init);
     }
-    img: string;
-    title: string;
-    id: number;
-    price: number;
-    copies: number;
-    images: string[] = [];
-    description: string;
-    information: ShopItemInformationDTO[] = [];
+    img?: string;
+    title?: string;
+    id?: number;
+    price?: number;
+    copies?: number;
+    images?: string[] = [];
+    description?: string;
+    information?: ShopItemInformationDTO[] = [];
     // aa = new ShopItemInformationDTO({key: "1", value: ""});
 }
 

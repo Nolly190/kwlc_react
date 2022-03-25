@@ -29,7 +29,7 @@ export async function loginApi(data): Promise<ResponseDTO> {
          // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
          response.data = userData;
       }
-      showMessage(getMessage(res), res.status, localStorage);
+      //showMessage(getMessage(res), res.status, localStorage);
 
       response.data = userData;
       response.code = statusEnum.ok;
