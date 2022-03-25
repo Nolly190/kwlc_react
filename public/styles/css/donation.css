@@ -2480,6 +2480,7 @@ hr {
     justify-content: space-between;
     text-transform: uppercase;
     margin: 1rem;
+    flex-wrap: wrap;
   }
   
   .title_head {
@@ -2755,10 +2756,6 @@ hr {
 .sidebar {
     display: none;
 }
-/* 
-.section_head{
-    display: none;
-} */
 
 .sideMenu{
     display: block;
@@ -2863,7 +2860,7 @@ width: 100%;
         height: fit-content;
     }
     .section_head{
-        display: block;
+        display: flex;
     }
     .sideMenu{
         display: none;
