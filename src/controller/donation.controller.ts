@@ -17,27 +17,28 @@ export const loadDonations = async (setItem: Function, items: DonateItemDTO[]) =
         }
         else {
             const response: ResponseDTO = await getDonationApi();
-
-            if (response.code < statusEnum.ok) {
+            
+            if (!response.status) {
                 toast.error(response.message);
+                return;
             }
+            console.log("responsedto", response);
 
             const data: DonationItemDTO[] = response.data?.data;
-            console.log("data", data);
             const donationData: DonateItemDTO[] = [];
             // make api call to get individual donation details
             data.map(async (i, index) => {
                 const singleResponse = await getSingleDonationApi(i.id);
-                console.log("single", singleResponse)
+                console.log("single", singleResponse.data);
 
-                if (singleResponse.code >= statusEnum.ok) {
+                if (singleResponse.status) {
                     //singleResponse.data
                     const _donationData = new DonateItemDTO({
                         description: singleResponse?.data?.data?.description,
                         id: singleResponse?.data?.data?.id,
                         // donationImages: singleResponse.data.donationImages.map(x => x.imageUrl),
-                        image: singleResponse?.data?.data.donationImages?.filter(x => x.isMainImage)[0]?.imageUrl,
-                        images: singleResponse?.data?.data.donationImages.map(x => x.imageUrl),
+                        image: singleResponse?.data?.donationImages?.filter(x => x.isMainImage)[0]?.imageUrl,
+                        images: singleResponse?.data?.donationImages.map(x => x.imageUrl),
                         raised: 0,
                         target: 0,
                         title: i.title
@@ -73,6 +74,7 @@ export const loadSingleDonation = async (setItem: Function, id: string) => {
             const response: ResponseDTO = await getSingleDonationApi(parseInt(id));
             if (response.code < statusEnum.ok) {
                 toast.error(response.message);
+                return;
             }
             const i: DonationItemDTO = response.data?.data;
             if (!i) throw new Error();

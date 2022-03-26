@@ -5,6 +5,7 @@ import ShopItemDTO from "../../../../dto/ShopItem.dto";
 import { ShopItemsModel } from "../../../../testModel";
 import { fakeModel } from "../../../../utils";
 import { ShopContext } from "./../../../../context-providers/ShopContext.provider";
+import { Button } from "@chakra-ui/react";
 
 export default function ShopLeftSection() {
     const _shopContext = useContext(ShopContext);
@@ -50,7 +51,15 @@ export default function ShopLeftSection() {
                 {/* 1/9 of 15  */}
                 {' '} results
             </div>
-            <div className="default">Default Sorting</div>
+            <div className="default">
+                <Button 
+                    colorScheme='#000' 
+                    variant='outline'
+                    paddingRight='4rem'
+                    >
+                    Default sorting
+                </Button>
+            </div>
           </div>
           <div className="products">
               {

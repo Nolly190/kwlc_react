@@ -36,12 +36,14 @@ export default function DonateContent() {
                 className={"button"}
                 style={{ color: "white" }}
                 labelStyle={{ color: "white" }}
+                onClick={() => alert('clicked, do seomthing')}
               />
               <DonateBtn
                 className={"btn"}
                 label="Share"
                 labelStyle={{ color: "black" }}
                 withImg={false}
+                onClick={() => alert('clicked, do seomthing')}
               />
             </div>
           </div>

@@ -17,9 +17,9 @@ export default function BlogBanner({ setSearchTerm }) {
             pointerEvents='none'
             children={<SearchIcon color='gray.300' />}
           />
-          <Input type='tel' 
-          placeholder='Search articles' 
-          onChange={(event) => {
+          <Input 
+            placeholder='Search articles' 
+            onChange={(event) => {
             setSearchTerm(event.target.value);
           }}
           />

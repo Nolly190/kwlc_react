@@ -20,7 +20,7 @@ export const NavMenu = ({ alt = false }) => {
             <a className="nav_link">
               <Button
                 leftIcon={<Icon as={AiFillGift} />}
-                colorScheme="white"
+                color="white"
                 variant="outline"
               >
                 Donate

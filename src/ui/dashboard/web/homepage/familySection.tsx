@@ -1,3 +1,5 @@
+import { Button, ButtonGroup } from '@chakra-ui/react';
+
 export default function HomeFamilySection() {
     // <!-- family-section-start -->
         return (
@@ -24,7 +26,23 @@ export default function HomeFamilySection() {
 
                 <div className="right_text">
                     <h3>Fellowship with us in any <br/> of our branches </h3>
-                    <a href="#" className="btn">learn more</a>
+                    <Button
+                    size='md'
+                    height='3.2rem'
+                    width='8rem'
+                    fontSize='14px'
+                    padding='.75rem'
+                    margin='1rem 0'
+                    border='1px'
+                    outline='#000'
+                    background='transparent'
+                    color='#000'
+                    borderRadius='1.675rem'
+                    borderColor='black.500'
+                    
+                    >
+                    Learn more
+                    </Button>
                 </div>
             </div>
             <div className="service_posts row justify_two">
@@ -33,7 +51,23 @@ export default function HomeFamilySection() {
                 </div>
                 <div className="right_text">
                     <h3>Join our bible classes today </h3>
-                    <a href="#" className="btn">learn more</a>
+                    <Button
+                    size='md'
+                    height='3.2rem'
+                    width='8rem'
+                    fontSize='14px'
+                    padding='.75rem'
+                    margin='1rem 0'
+                    border='1px'
+                    outline='#000'
+                    background='transparent'
+                    color='#000'
+                    borderRadius='1.675rem'
+                    borderColor='black.500'
+                    
+                    >
+                    Learn more
+                    </Button>
                 </div>
             </div>
         </section>
