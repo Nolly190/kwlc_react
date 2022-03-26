@@ -24,7 +24,7 @@ export const loadDonations = async (setItem: Function, items: DonateItemDTO[]) =
             }
             console.log("responsedto", response);
 
-            const data: DonationItemDTO[] = response.data?.data;
+            const data: DonationItemDTO[] = response.data;
             const donationData: DonateItemDTO[] = [];
             // make api call to get individual donation details
             data.map(async (i, index) => {
@@ -34,8 +34,8 @@ export const loadDonations = async (setItem: Function, items: DonateItemDTO[]) =
                 if (singleResponse.status) {
                     //singleResponse.data
                     const _donationData = new DonateItemDTO({
-                        description: singleResponse?.data?.data?.description,
-                        id: singleResponse?.data?.data?.id,
+                        description: singleResponse?.data?.description,
+                        id: singleResponse?.data?.id,
                         // donationImages: singleResponse.data.donationImages.map(x => x.imageUrl),
                         image: singleResponse?.data?.donationImages?.filter(x => x.isMainImage)[0]?.imageUrl,
                         images: singleResponse?.data?.donationImages.map(x => x.imageUrl),
