@@ -22,7 +22,6 @@ export async function getDonationApi(): Promise<ResponseDTO> {
       if (res.status) {
          
          data = res.data.data['data'];
-         console.log("data", data);
 
          response.data = data;
          response.code = statusEnum.ok;
