@@ -26,7 +26,7 @@ export default function BlogContent({ searchTerm }) {
 
   return (
     <div>
-      <section className="blog_posts row">
+      <section className="blog_posts">
         {list.length > 0
           ? list
               .filter((list) => {

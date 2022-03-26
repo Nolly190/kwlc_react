@@ -6,7 +6,7 @@ import {
   MenuItem,
   Button,
   Icon,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { AiFillGift } from "react-icons/ai";
 import Link from "next/link";
@@ -16,7 +16,7 @@ export const NavMenu = ({ alt = false }) => {
     <ul className="nav_list nav-list">
       {alt && (
         <li className="nav_item">
-          <Link href="/web/donations">
+          <Link href="/web/donate">
             <a className="nav_link">
               <Button
                 leftIcon={<Icon as={AiFillGift} />}
