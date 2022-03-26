@@ -22,14 +22,12 @@ export const loadDonations = async (setItem: Function, items: DonateItemDTO[]) =
                 toast.error(response.message);
                 return;
             }
-            console.log("responsedto", response);
 
             const data: DonationItemDTO[] = response.data;
             const donationData: DonateItemDTO[] = [];
             // make api call to get individual donation details
             data.map(async (i, index) => {
                 const singleResponse = await getSingleDonationApi(i.id);
-                console.log("single", singleResponse.data);
 
                 if (singleResponse.status) {
                     //singleResponse.data
