@@ -70,3 +70,9 @@ export interface SliderImage {
 export interface SliderType {
     sliderImages?: SliderImage[]
 }
+
+export interface PastorsDetailsType {
+    pastorImage?: string,
+    message?: string,
+    name?: string
+}

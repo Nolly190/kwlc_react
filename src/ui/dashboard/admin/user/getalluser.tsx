@@ -21,7 +21,7 @@ export default function GetAllUsers() {
       <AdminLayout
         externalStyles={[]}
         navbar={""}
-        title={"Dashboard"}
+        title={"Users"}
         withFooter={false}
         withSideBar={true}
       >
@@ -53,7 +53,7 @@ export default function GetAllUsers() {
                       <th>Last Name</th>
                       <th>User Name</th>
                       <th>Email</th>
-                      <th></th>
+                      {/* <th></th> */}
                       <th></th>
                     </thead>
                     <tbody id="tbody">
@@ -65,7 +65,7 @@ export default function GetAllUsers() {
                                 <td> {x.lastName}</td>
                                 <td> {x.username}</td>
                                 <td> {x.email}</td>
-                                <td className="text-primary">
+                                {/* <td className="text-primary">
                                   <a
                                     onClick={() => {
                                       router.push(
@@ -76,7 +76,7 @@ export default function GetAllUsers() {
                                   >
                                     Edit
                                   </a>
-                                </td>
+                                </td> */}
                                 <td className="text-primary">
                                   <a
                                     onClick={() => {

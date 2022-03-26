@@ -27,7 +27,7 @@ export default function GetAllLivestream() {
       <AdminLayout
         externalStyles={[]}
         navbar={""}
-        title={"Donations"}
+        title={"Livestreams"}
         withFooter={false}
         withSideBar={true}
       >

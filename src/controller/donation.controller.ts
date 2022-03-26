@@ -34,8 +34,8 @@ export const loadDonations = async (setItem: Function, items: DonateItemDTO[]) =
                 if (singleResponse.status) {
                     //singleResponse.data
                     const _donationData = new DonateItemDTO({
-                        description: singleResponse.data.description,
-                        id: singleResponse.data.id,
+                        description: singleResponse?.data?.data?.description,
+                        id: singleResponse?.data?.data?.id,
                         // donationImages: singleResponse.data.donationImages.map(x => x.imageUrl),
                         image: singleResponse?.data?.donationImages?.filter(x => x.isMainImage)[0]?.imageUrl,
                         images: singleResponse?.data?.donationImages.map(x => x.imageUrl),

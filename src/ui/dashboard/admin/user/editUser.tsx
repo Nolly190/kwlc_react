@@ -31,7 +31,6 @@ export default function EditUser() {
     e.preventDefault();
     userController.update(
       new UserDTO({
-        emailAddress: email,
         firstName: firstName,
         lastName: lastName,
         username: username,
@@ -63,7 +62,7 @@ export default function EditUser() {
     <AdminLayout
       externalStyles={[]}
       navbar={""}
-      title={"Add User"}
+      title={"Edit User"}
       withFooter={false}
       withSideBar={true}
     >
@@ -122,17 +121,16 @@ export default function EditUser() {
                     </div>
                   </div>
                   <div className="col-md-6">
-                    <div className="form-group">
-                      <label className="bmd-label-floating">Address</label>
-                      <textarea
+                    <div className="form-group" style={{ marginTop: 37 }}>
+                      <label className="bmd-label-floating">Username</label>
+                      <input
+                        type="text"
                         className="form-control"
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder={
-                          "Plot 123 Edinburg London, United Kingdoms"
-                        }
-                        cols={4}
-                        rows={2}
+                        id="username"
+                        name="username"
+                        element-data="username"
                         value={username}
+                        onChange={(e) => setUsername(e.target.value)}
                       />
                     </div>
                   </div>

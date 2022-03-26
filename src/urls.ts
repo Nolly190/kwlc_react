@@ -34,6 +34,8 @@ export const urls = {
     updateLiveStream: "UpdateLiveStream/",
 
     createReport: "Report/Create",
+    uploadPastorDetails: "Message/Create",
+    uploadSliderDetails: "Slider",
 
     baseUrl: "https://kwlc-web.herokuapp.com/api/",
     v1: "v1/",

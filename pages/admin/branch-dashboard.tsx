@@ -6,6 +6,10 @@ import ChurchReportModal from "../../src/ui/dashboard/admin/branchDashboard/chur
 import { Editor } from "@tinymce/tinymce-react";
 import mediaQueries from "../../src/mediaQueries";
 import ChurchSlidersModal from "../../src/ui/dashboard/admin/branchDashboard/churchSlidersModal";
+import { uploadPastorDetailsApi } from "../../src/api/report.api";
+import { PastorsDetailsType } from "../../src/types/appTypes";
+import { statusEnum } from "../../src/enums/util.enum";
+import { toast } from "react-toastify";
 
 const AdminBranchDashboard = () => {
   const [imageToDisplayArray, setImageToDisplayArray] = useState<string[]>([]);
@@ -15,10 +19,22 @@ const AdminBranchDashboard = () => {
   const [reportModalIsOpen, setReportModalIsOpen] = useState(false);
   const [sliderModalIsOpen, setSliderModalIsOpen] = useState(false);
   const [eventModalIsOpen, setEventModalIsOpen] = useState(false);
+  const [pastorData, setPastorData] = useState<PastorsDetailsType>({});
   const editorRef = useRef(null);
 
-  const log = (e: any) => {
-    console.log("markup", e.target.getContent());
+  const handleMessageChange = (e: any) => {
+    const name = "message";
+    setPastorData({ ...pastorData, [name]: e.target.getContent() });
+  };
+
+  const handleSubmit = async () => {
+    const response = await uploadPastorDetailsApi(pastorData);
+    console.log("message", response);
+    if (response.code >= statusEnum.ok) {
+      toast.success("Details uploaded successfully");
+    } else {
+      toast.error(response.message);
+    }
   };
 
   const handleToggleReportModal = () => {
@@ -52,6 +68,24 @@ const AdminBranchDashboard = () => {
     }
   };
 
+  const handleChange = (name: string, value: string) => {
+    if (name === "pastorImage") {
+      let timer;
+      const input = document.getElementById("pastor-image") as HTMLInputElement;
+      input.addEventListener("keyup", (e) => {
+        if (timer) {
+          clearTimeout(timer);
+        }
+        timer = setTimeout(() => {
+          if (value) {
+            setPastorImageToDisplay(value);
+          }
+        }, 2000);
+      });
+    }
+    setPastorData({ ...pastorData, [name]: value });
+  };
+
   const selectPastorImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       let file = e.target.files[0];
@@ -74,7 +108,7 @@ const AdminBranchDashboard = () => {
     <AdminLayout
       externalStyles={[]}
       navbar={""}
-      title={"Dashboard"}
+      title={"Branch-Dashboard"}
       withFooter={false}
       withSideBar={true}
     >
@@ -86,12 +120,11 @@ const AdminBranchDashboard = () => {
           <ContentWrapper>
             <LeftContentWrapper>
               <PastorImageWrapper>
-                <Image
-                  src={pastorImageToDisplay || "/images/pastor-image.png"}
+                <img
+                  src={pastorImageToDisplay || "/images/no-photo.jpg"}
                   alt=""
-                  layout="fill"
                 />
-                <input
+                {/* <input
                   type="file"
                   id="pastor-image"
                   accept="image/png image/jpg"
@@ -103,18 +136,47 @@ const AdminBranchDashboard = () => {
                   onClick={() =>
                     document.getElementById("pastor-image").click()
                   }
-                />
+                /> */}
               </PastorImageWrapper>
-              <PastorInputWrapper>
-                <input type="text" value="Faith Chukwu" />
-                <img src="/images/pencil.svg" alt="" />
-                <p>Lead pastor</p>
-              </PastorInputWrapper>
+              <div>
+                <p>Pastor Image Url</p>
+                <PastorInputWrapper>
+                  <input
+                    type="text"
+                    name="pastorImage"
+                    value={pastorData?.pastorImage}
+                    id="pastor-image"
+                    placeholder="https://"
+                    onChange={(e) =>
+                      handleChange(e.target.name, e.target.value)
+                    }
+                  />
+                  {!!!pastorData?.pastorImage && (
+                    <img src="/images/pencil.svg" alt="" />
+                  )}
+                </PastorInputWrapper>
+              </div>
+              <div>
+                <p>Pastor Name</p>
+                <PastorInputWrapper>
+                  <input
+                    type="text"
+                    name="name"
+                    className="pastor-name"
+                    value={pastorData?.name}
+                    onChange={(e) =>
+                      handleChange(e.target.name, e.target.value)
+                    }
+                  />
+                  {!!!pastorData?.name && (
+                    <img src="/images/pencil.svg" alt="" />
+                  )}
+                </PastorInputWrapper>
+              </div>
             </LeftContentWrapper>
             <RightContentWrapper>
               <h2>Edit welcome note</h2>
               <WelcomeNoteWrapper>
-                {/* <img src="/images/pencil.svg" alt="" /> */}
                 <Editor
                   apiKey={"xp4d02qcjritg0ucudzbasrhjribhh7wy9ck49nlxl78l8n0"}
                   onInit={(evt, editor) => (editorRef.current = editor)}
@@ -134,14 +196,8 @@ const AdminBranchDashboard = () => {
                     content_style:
                       "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                   }}
-                  onChange={log}
+                  onChange={handleMessageChange}
                 />
-                {/* Hello people, My Name is Faith chukwu, the lead pastor in
-                kingdom ways living church international. It’s my humble
-                pleasure to welcome you to our world. In Matthew, Jesus said to
-                peter fear not just follow me and I will make you… One major
-                assignment of Jesus Christ through His church is the Making of
-                great destinies. Welcome! I celebrate you.{" "} */}
               </WelcomeNoteWrapper>
             </RightContentWrapper>
           </ContentWrapper>
@@ -169,8 +225,10 @@ const AdminBranchDashboard = () => {
             </div>
           </ImageSection> */}
           <ActionButtonsWrapper>
-            <ActionButtons>Preview</ActionButtons>
-            <ActionButtons color="blue">Save</ActionButtons>
+            {/* <ActionButtons>Preview</ActionButtons> */}
+            <ActionButtons color="blue" onClick={handleSubmit}>
+              Save
+            </ActionButtons>
           </ActionButtonsWrapper>
         </MainContentContainer>
         <AsideContentContainer>
@@ -274,6 +332,8 @@ const AsideContentBox = styled.div`
 
   & > button {
     width: 100%;
+    max-width: 290px;
+    margin-top: 20px;
   }
 
   ${mediaQueries.mobile} {
@@ -305,6 +365,14 @@ const ContentWrapper = styled.div`
 const LeftContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  margin-top: 5px;
+
+  & > div > p {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
 
   ${mediaQueries.mobile} {
     flex-direction: row;
@@ -323,11 +391,8 @@ const PastorImageWrapper = styled.div`
   }
 
   & > img {
-    position: absolute;
-    top: 35%;
-    left: 40%;
-    width: 30px;
-    height: 30px;
+    width: 100%;
+    height: 100%;
   }
 
   ${mediaQueries.mobile} {
@@ -338,18 +403,20 @@ const PastorImageWrapper = styled.div`
 const PastorInputWrapper = styled.div`
   position: relative;
 
-  & > input {
+  & > input,
+  & > input:focus {
     width: 153px;
     height: 35px;
-    padding-left: 12px;
-    border: none;
     margin-bottom: 10px;
-    font-weight: bold;
-    font-size: 14px;
+    font-weight: normal;
+    font-size: 13px;
     line-height: 19px;
     color: #000000;
-    background: rgba(0, 0, 0, 0.03);
-    border-radius: 10px;
+    background: none;
+    padding: 0;
+    outline: none;
+    border-radius: 0;
+    border-bottom: 1px solid grey;
   }
 
   & > img {
@@ -388,6 +455,7 @@ const RightContentWrapper = styled.div`
     font-size: 16px;
     line-height: 22px;
     color: #000000;
+    margin-bottom: 8px;
   }
 
   ${mediaQueries.mobile} {
@@ -474,7 +542,7 @@ const InputWrapper = styled.div`
 
 const ActionButtonsWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-top: 50px;
 `;
 

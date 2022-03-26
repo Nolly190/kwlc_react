@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { uploadSliderDetailsApi } from "../../../../api/report.api";
 import Modal from "../../../../components/modal";
+import { statusEnum } from "../../../../enums/util.enum";
+import { getToken } from "../../../../request";
 import { SliderType } from "../../../../types/appTypes";
+import { getFromLocalStorage } from "../../../../utils";
 import ButtonDetails from "./components/ButtonDetails";
 import StyledInput from "./components/styledInput";
 import { EntryContainer } from "./financialReport";
@@ -22,23 +27,18 @@ import {
 interface props {
   isOpen: boolean;
   closeModal: () => void;
-  handleSubmit?: () => void;
 }
 
-const newEntry = {
+const initialState = {
   url: "",
   text: "",
 };
 
 const initialProp: SliderType = {
-  sliderImages: [newEntry],
+  sliderImages: [initialState],
 };
 
-const ChurchSlidersModal: React.FC<props> = ({
-  isOpen,
-  closeModal,
-  handleSubmit,
-}) => {
+const ChurchSlidersModal: React.FC<props> = ({ isOpen, closeModal }) => {
   const [sliderData, setSliderData] = useState<SliderType>(initialProp);
 
   const handleClose = () => {
@@ -46,7 +46,10 @@ const ChurchSlidersModal: React.FC<props> = ({
   };
 
   const handleAdd = () => {
-    console.log("got here");
+    const newEntry = {
+      url: "",
+      text: "",
+    };
 
     setSliderData({
       ...sliderData,
@@ -54,16 +57,44 @@ const ChurchSlidersModal: React.FC<props> = ({
     });
   };
 
-  useEffect(() => {
-    return () => {
-      console.log("changed");
-    };
-  }, []);
+  const handleDelete = (index: number) => {
+    sliderData?.sliderImages.splice(index, 1);
+    setSliderData({
+      ...sliderData,
+      sliderImages: [...sliderData.sliderImages],
+    });
+  };
 
   console.log("images", sliderData);
 
-  const handleChange = (e: any) => {
-    console.log("value", e.target.value, e.target.name);
+  const clearButtonData = (index: number) => {
+    sliderData.sliderImages[index].bottonUrl = "";
+    sliderData.sliderImages[index].buttomName = "";
+
+    setSliderData({
+      ...sliderData,
+      sliderImages: [...sliderData.sliderImages],
+    });
+  };
+
+  const handleChange = (name: string, value: string, index: number) => {
+    sliderData.sliderImages[index][name] = value;
+    console.log("slider", sliderData.sliderImages[index]);
+
+    setSliderData({
+      ...sliderData,
+      sliderImages: [...sliderData.sliderImages],
+    });
+  };
+
+  const handleSubmit = async () => {
+    const response = await uploadSliderDetailsApi(sliderData);
+    console.log("message", response);
+    if (response.code >= statusEnum.ok) {
+      toast.success("Details uploaded successfully");
+    } else {
+      toast.error(response.message);
+    }
   };
 
   return (
@@ -77,7 +108,7 @@ const ChurchSlidersModal: React.FC<props> = ({
           <span onClick={() => handleClose()}>x</span>
         </SlidersModalHeaderContainer>
         <SlidersBodyWrapper>
-          {sliderData.sliderImages.map((image, index) => (
+          {sliderData?.sliderImages.map((image, index) => (
             <EntryWrapper key={index}>
               <Row width="100%">
                 <EntryContainer width={47}>
@@ -86,8 +117,10 @@ const ChurchSlidersModal: React.FC<props> = ({
                     <StyledInput
                       name="url"
                       width={100}
-                      defaultValue={image.url || ""}
-                      onChange={handleChange}
+                      value={image.url || ""}
+                      onChange={(e) =>
+                        handleChange(e.target.name, e.target.value, index)
+                      }
                     />
                   </InputWrapper>
                 </EntryContainer>
@@ -97,19 +130,36 @@ const ChurchSlidersModal: React.FC<props> = ({
                     <StyledInput
                       name="text"
                       width={100}
-                      defaultValue={image.text || ""}
-                      onChange={handleChange}
+                      value={image.text || ""}
+                      onChange={(e) =>
+                        handleChange(e.target.name, e.target.value, index)
+                      }
                     />
                   </InputWrapper>
                 </EntryContainer>
               </Row>
-              <ButtonDetails onChange={handleChange} />
+              <ButtonDetails
+                index={index}
+                buttonName={image.buttomName || ""}
+                buttonUrl={image.bottonUrl || ""}
+                onChange={(e) =>
+                  handleChange(e.target.name, e.target.value, index)
+                }
+                clearButtonData={() => clearButtonData(index)}
+              />
               <HorizontalDivider />
+              {sliderData?.sliderImages?.length - 1 === index ? (
+                <span onClick={() => handleAdd()}>+</span>
+              ) : (
+                <span className="delete" onClick={() => handleDelete(index)}>
+                  x
+                </span>
+              )}
             </EntryWrapper>
           ))}
           <ButtonWrapper>
-            <Button onClick={handleAdd}>
-              <p> + Add New</p>
+            <Button onClick={handleSubmit}>
+              <p>Submit</p>
             </Button>
           </ButtonWrapper>
         </SlidersBodyWrapper>

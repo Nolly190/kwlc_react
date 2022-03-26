@@ -92,7 +92,7 @@ export default function EditDonation() {
     <AdminLayout
       externalStyles={[]}
       navbar={""}
-      title={"Add Donation"}
+      title={"Edit Donation"}
       withFooter={false}
       withSideBar={true}
     >
@@ -200,7 +200,7 @@ export default function EditDonation() {
                           className="btn btn-primary pull-right"
                           onClick={(e) => onClick(e)}
                         >
-                          Update Donation
+                          Update Donations
                         </button>
                       </div>
                     </div>

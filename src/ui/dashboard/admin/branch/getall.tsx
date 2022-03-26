@@ -31,7 +31,7 @@ export default function GetAllBranches() {
       <AdminLayout
         externalStyles={[]}
         navbar={""}
-        title={"Dashboard"}
+        title={"Branhes"}
         withFooter={false}
         withSideBar={true}
       >
