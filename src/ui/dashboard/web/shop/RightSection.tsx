@@ -4,7 +4,8 @@ import { filterShopTopItems, initShopTopItems } from "../../../../controller/sho
 import ShopItemDTO from "../../../../dto/ShopItem.dto";
 import { WebShopInterface } from "../../../../types/webShopInterface";
 import { ShopContext } from "../../../../context-providers/ShopContext.provider";
-import { Input, Button } from '@chakra-ui/react';
+import { Input, InputGroup, InputLeftElement, Button } from '@chakra-ui/react';
+import { SearchIcon } from '@chakra-ui/icons';
 
 
 export default function ShopRightSection ({onFilter}: WebShopInterface) {
@@ -29,18 +30,21 @@ export default function ShopRightSection ({onFilter}: WebShopInterface) {
     return (
         <>
             <div className="column right">
-                <Input
-                    focusBorderColor= '#000'
-                    placeholder='Search articles' 
-                    margin= '0 0 1rem 0'
-                    // variant='outline'
-                    // colorScheme='#000'
-                    // box-shadow= '0 1px 6px 0 rgb(32 33 36 / 15%)'
-                    onChange={(event) => {
-                    setSearchTerm(event.target.value);
-                    }}
-                    className='pad'
-                />
+                
+                <InputGroup marginBottom='1rem'>
+                    <InputLeftElement
+                        pointerEvents='none'
+                        children={<SearchIcon color='gray.300' />}
+                    />
+                
+                    <Input
+                        type='search'
+                        placeholder='Search articles' 
+                        onChange={(event) => {
+                        setSearchTerm(event.target.value);
+                        }}
+                    />
+                </InputGroup>
 
                 <h3>FILTER BY PRICE</h3>
                 <div className="line_filter">

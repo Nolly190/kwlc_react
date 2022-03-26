@@ -30,10 +30,12 @@ export default function Shop() {
                             <ShopLeftSection />
                         </ShopProvider>*/}
 
-                        <ShopLeftSection />
-                        <ShopRightSection onFilter={(minNo, maxNo) => {
-                            console.log("filtered", minNo, maxNo);
-                        }} />
+                        <ShopProvider>
+                            <ShopLeftSection />
+                            <ShopRightSection onFilter={(minNo: any, maxNo: any) => {
+                                console.log("filtered", minNo, maxNo);
+                            }} />
+                        </ShopProvider>
                         </section>
                     
                 </ShopWrap>

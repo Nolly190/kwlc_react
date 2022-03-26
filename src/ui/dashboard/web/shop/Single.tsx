@@ -42,12 +42,12 @@ export default function ProductDetail() {
     
     return (
         <Layout
-            externalStyles={["/styles/css/style.css"]}
+            externalStyles={["/styles/css/donation.css"]}
             navbar={"web"}
             title={item ? item.title : "Product Detail"}
             withFooter={true}
         >
-            <div className="productLanding" style={{paddingTop: 10}}>
+            <div className="singleLanding" style={{paddingTop: 10}}>
                 {/* <div className="shopNow">Shop Now</div> */}
                 <div className="row">
                     <div className="column first">
