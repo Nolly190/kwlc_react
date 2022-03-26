@@ -2250,6 +2250,14 @@ hr {
 }
 
 
+.blog_posts{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 4rem;
+}
 
 @media screen and (min-width: 768px) {
     .intro {
@@ -2487,6 +2495,7 @@ hr {
   .title_head {
     display: flex;
     align-items: center;
+    margin-bottom: 1rem;
   }
   
   .section_img i {
@@ -2505,6 +2514,9 @@ hr {
     .section_img i {
       font-size: var(--font-mini);
     }
+    .title_head {
+      margin-bottom: 0%;
+    }
   }
   
   .pages_btn{
@@ -2520,7 +2532,7 @@ hr {
   }
   
   .paginationBttns {
-    width: 80%;
+    width: 100%;
     height: 40px;
     list-style: none;
     display: flex;
@@ -2552,11 +2564,16 @@ hr {
     background-color: transparent;
   }
 
+  .paginationBttns .next, 
+  .paginationBttns .previous{
+    border: none;
+  } 
+
 /* -------------------------------------- */
 .blog_posts .post_col {
     position: relative;
     width: 18rem;
-    height: 260px;
+    height: 300px;
     margin: 1rem;
     max-height: 100%;
     box-shadow: 0 1px 6px 0 rgb(32 33 36 / 10%);
@@ -2637,7 +2654,7 @@ hr {
   .read_more {
     display: flex;
     align-items: center;
-    width: 40%;
+    width: 50%;
     margin-top: 0.75rem;
     justify-content: space-between;
   }
@@ -2651,7 +2668,7 @@ hr {
 
 @media screen and (min-width: 768px) {
     .content_date{
-        left: -8%;
+        left: -11%;
     }
 }
 
@@ -2844,9 +2861,9 @@ width: 100%;
       font-size: var(--font-reg);
     }
     .blogpost_col .content_date {
-      left: -1%;
-      transform: rotate(-90deg) translate(-100%);
-    }
+      left: 0%;
+      transform: rotate(-90deg) translate(-130%);
+  }
 
     .publisher_info {
         width: 70%;
@@ -2873,6 +2890,11 @@ width: 100%;
 
   }
   
+  @media screen and (min-width: 900px) {
+    .blogpost_col .content_date {
+      transform: rotate(-90deg) translate(-100%);
+    }
+  }
   
   /* ===========SHOP page =========== */
   /* ---------product page----------- */
