@@ -137,7 +137,7 @@ body {
 }
 
 p {
-  font-size: var(--mfont-reg) !important;
+  font-size: var(--mfont-reg);
   line-height: 2rem;
 }
 
@@ -160,7 +160,7 @@ h3 {
 
 h4,
 h5 {
-  font-size: var(--mfont-reg) !important;
+  font-size: var(--mfont-reg);
   line-height: 2.25rem;
   font-weight: 600 !important;
 }
@@ -2909,12 +2909,12 @@ width: 100%;
   /* SINGLE SHOP PAGE */
 
   .singleLanding .first {
-    width: 10%;
-    height: 34.375rem;
+    width: 12%;
+    height: 20rem;
   }
   
   .singleLanding .second {
-    width: 38%;
+    width: 35%;
     max-height: 34.375rem;
     padding: 0 0.85rem;
   }
@@ -3007,6 +3007,7 @@ width: 100%;
   .singleLanding .moreInfo .tabs .tablinks {
     font-size: var(--font-reg);
     margin: var(--mfont-mini);
+    cursor: pointer;
   }
   
   .singleLanding .moreInfo .tabs .tablinks.active {
@@ -3014,6 +3015,7 @@ width: 100%;
   }
   
   .singleLanding .moreInfo p {
+    font-size: var(--mfont-reg);
     max-width: 1000px;
     margin: auto;
     text-align: justify;
@@ -3023,17 +3025,23 @@ width: 100%;
   .singleLanding .moreInfo .more {
     display: flex;
     align-items: center;
-    margin-top: var(--mfont-mini);
+    margin-top: .75rem;
   }
   
   .singleLanding .moreInfo .more .type {
     color: var(--card-primary-color);
-    width: 150px;
+    width: 130px;
+    font-weight: 600;
   }
   
   .singleLanding .moreInfo .more .info {
-    font-size: var(--mfont-mini);
+    font-size: var(--font-reg);
+
   }
+
+  /* .type, .info{
+    font-size: var(--mfont-reg);
+  } */
   
   .productLanding .products {
     width: 100%;
@@ -3101,23 +3109,24 @@ width: 100%;
       width: 100%;
       /* padding: 20px; */
     }
-    .productLanding .first {
+    .singleLanding .first {
       display: none;
     }
-    .productLanding .third .select {
+    .singleLanding .third .select {
       flex-direction: column;
       align-items: flex-start;
       /* justify-content: left; */
     }
-    .productLanding .third .select .button {
+    .singleLanding .third .select .button {
       margin-top: 20px;
     }
-    .productLanding .relatedProduct {
+    .singleLanding .relatedProduct {
       margin-left: 20px;
     }
-    .productLanding .moreInfo .tabs .tablinks {
+    .singleLanding .moreInfo .tabs .tablinks {
       margin: 0.75rem;
     }
+    
   }
 
   @media screen and (min-width: 900px) {
@@ -3125,6 +3134,9 @@ width: 100%;
       display: grid;
       grid-template-columns: 65% 30%;
       grid-template-rows: minmax(100px, auto);
+    }
+    .singleLanding .moreInfo p {
+      font-size: var(--font-reg);
     }
   }
   

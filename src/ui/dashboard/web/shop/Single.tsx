@@ -47,7 +47,11 @@ export default function ProductDetail() {
             title={item ? item.title : "Product Detail"}
             withFooter={true}
         >
-            <div className="singleLanding" style={{paddingTop: 10}}>
+            <div className="singleLanding" style={{paddingTop: 24}}>
+                <div className="shopNow">
+                    <h3>Shop Now</h3>
+                    <div className="shopDot"></div>
+                </div>
                 {/* <div className="shopNow">Shop Now</div> */}
                 <div className="row">
                     <div className="column first">
@@ -71,7 +75,7 @@ export default function ProductDetail() {
                     </div>
                     <div className="column third">
                         <div className="aboutProduct">
-                            <h4>{item.title}</h4>
+                            <h3>{item.title}</h3>
                             <div className="price">Price: <span>N{(item.price * quantity)}</span></div>
                             <div className="about">
                             {item.description}
@@ -95,12 +99,12 @@ export default function ProductDetail() {
                 </div>
                 <div className="moreInfo">
                     <div className="tabs">
-                        <div className="tablinks" onClick={(e) => shopOpenTab(e, 'Description')}>
+                        <h3 className="tablinks" onClick={(e) => shopOpenTab(e, 'Description')}>
                             Additional Information
-                        </div>
-                        <div className="tablinks active" onClick={(e) => shopOpenTab(e, 'AdditionalInformation')}>
+                        </h3>
+                        <h3 className="tablinks active" onClick={(e) => shopOpenTab(e, 'AdditionalInformation')}>
                             Description
-                        </div>
+                        </h3>
                     </div>
 
                     <div id="Description" className="tabcontent">
@@ -114,8 +118,8 @@ export default function ProductDetail() {
                                 item.information.map((x, index) => {
                                     return (
                                         <div key={index} className="more">
-                                            <div className="type">{x.key}</div>
-                                            <div className="info">{x.value}</div>
+                                            <div className="type">{x.key}:</div>
+                                            <div className="info">{x.value}:</div>
                                         </div>
                                     );
                                 })
@@ -123,26 +127,28 @@ export default function ProductDetail() {
                         }
                     </div>
                 </div>
-                <div className="row">
+                <div className="relatedSection">
                     <div className="relatedProduct">Related Product</div>
-                    <div className="products">
-                        {
-                            relatedItem.length > 0 ? 
-                                relatedItem.slice(0, 3).map((x, index) => {
-                                    return (
-                                        <ShopItem
-                                            key={x.id}
-                                            img={x.img}
-                                            price={x.price}
-                                            title={x.title}
-                                            href={"/web/product?id=" + x.id}
-                                        />
-                                    );
-                                })        
-                            : undefined
-                        }
+                    <div className="row">
+                            <div className="products">
+                                {
+                                    relatedItem.length > 0 ? 
+                                        relatedItem.slice(0, 3).map((x, index) => {
+                                            return (
+                                                <ShopItem
+                                                    key={x.id}
+                                                    img={x.img}
+                                                    price={x.price}
+                                                    title={x.title}
+                                                    href={"/web/product?id=" + x.id}
+                                                />
+                                            );
+                                        })        
+                                    : undefined
+                                }
+                            </div>
+                        </div>
                     </div>
-                </div>
             </div>
             {
                 showPurchase && 
