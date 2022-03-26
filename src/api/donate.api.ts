@@ -45,16 +45,10 @@ export async function getSingleDonationApi(id: number): Promise<ResponseDTO> {
 
    try {
       let res = await request.get(`${urls.baseUrl}${urls.donation}/${id}`);
-      //alert(JSON.stringify(res));
-      // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
       let data: DonationItemDTO;
       if (res.status) {
+         data = res.data['data'];
 
-
-         //save user profile info
-         data = res.data;
-
-         // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
          response.data = data;
          response.code = statusEnum.ok;
       }
