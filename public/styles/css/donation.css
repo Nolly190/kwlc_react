@@ -1259,6 +1259,7 @@ hr {
   width: 8rem;
   padding: 0%;
   height: 3rem;
+  margin: 0;
 }
 
 .donate .btn-container {
@@ -3267,7 +3268,7 @@ width: 100%;
     margin-top: .75rem;
     margin-bottom: .75rem;
   }
-  
+
   .productLanding .row {
     justify-content: space-between;
     flex-direction: row-reverse;
