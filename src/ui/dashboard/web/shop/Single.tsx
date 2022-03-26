@@ -129,7 +129,7 @@ export default function ProductDetail() {
                 </div>
                 <div className="relatedSection">
                     <div className="relatedProduct">Related Product</div>
-                    <div className="row">
+                    <div className=".">
                             <div className="products">
                                 {
                                     relatedItem.length > 0 ? 
