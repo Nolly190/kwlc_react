@@ -53,7 +53,7 @@ export default function ProductDetail() {
                     <div className="shopDot"></div>
                 </div>
                 {/* <div className="shopNow">Shop Now</div> */}
-                <div className="row">
+                <div className="shopColumns">
                     <div className="column first">
                         {
                             item.images.length > 0 ? 
