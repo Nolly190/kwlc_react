@@ -580,7 +580,7 @@ hr {
 
 .hero-banner-area {
   width: 100vw;
-  height: 40vh;
+  height: 45vh;
   position: relative;
   z-index: -1;
 }
@@ -606,7 +606,7 @@ hr {
 
 .hero-banner-area .hero-banner-area-text {
   left: 50%;
-  top: 55%;
+  top: 65%;
   transform: translate(-50%, -50%);
   width: 80vw;
   font-style: normal;
@@ -3046,7 +3046,6 @@ width: 100%;
   .singleLanding .moreInfo p {
     font-size: var(--mfont-reg);
     max-width: 1000px;
-    margin: auto;
     text-align: justify;
     margin-top: var(--mfont-tiny);
   }

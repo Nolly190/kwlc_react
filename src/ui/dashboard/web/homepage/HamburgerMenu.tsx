@@ -65,10 +65,12 @@ export default function Hamburger() {
                     </MenuList>
                 </Menu>   
               </li>
-              <li className="nav_item"><a href="checkout.html" className="nav_link"><i className="icofont-shopping-cart"></i></a></li>
-              <Button leftIcon={<Icon as= {AiFillGift} />} colorScheme='white' variant='outline'>
-                Donate
-              </Button>
+              <li className="nav_item"><a href={"/web/checkout"} className="nav_link"><i className="icofont-shopping-cart"></i></a></li>
+              <li className="nav_item"><a href={"/web/donations"} className="nav_link">
+                <Button leftIcon={<Icon as= {AiFillGift} />} colorScheme='white' variant='outline'>
+                  Donate
+                </Button>  
+              </a></li>
             </ul>
           </DrawerBody>
 
