@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Head from 'next/head'
-import Image from 'next/image'
+import Head from 'next/head';
+import Image from 'next/image';
 import { LiveStreamController } from "../../../controller/admin/livestream.controller";
 import { LiveStreamDTO } from "../../../dto/LiveStream.dto";
 

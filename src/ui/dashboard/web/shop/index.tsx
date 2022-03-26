@@ -8,7 +8,7 @@ export default function Shop() {
     return (
         <>
             <Layout 
-                externalStyles={["/styles/css/style.css"]}
+                externalStyles={["/styles/css/donation.css"]}
                 navbar={"web"}
                 title={"Shop"}
                 withFooter={true} 
