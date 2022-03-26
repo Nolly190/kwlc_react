@@ -12,7 +12,7 @@ export default function DonateContent() {
 
   useEffect(() => {
     const id: string = getParam("id");
-    if (!id) {
+    if (!id || id==undefined) {
       router.push("/web/");
     } else {
       loadSingleDonation(setItem, id);
@@ -43,7 +43,7 @@ export default function DonateContent() {
                 label="Share"
                 labelStyle={{ color: "black" }}
                 withImg={false}
-                onClick={() => alert('clicked, do seomthing')}
+                onClick={(e) => alert('clicked, do seomthing')}
               />
             </div>
           </div>
