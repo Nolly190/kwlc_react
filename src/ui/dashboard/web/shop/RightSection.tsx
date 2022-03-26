@@ -4,6 +4,7 @@ import { filterShopTopItems, initShopTopItems } from "../../../../controller/sho
 import ShopItemDTO from "../../../../dto/ShopItem.dto";
 import { WebShopInterface } from "../../../../types/webShopInterface";
 import { ShopContext } from "../../../../context-providers/ShopContext.provider";
+import { Input, Button } from '@chakra-ui/react';
 
 
 export default function ShopRightSection ({onFilter}: WebShopInterface) {
@@ -28,10 +29,18 @@ export default function ShopRightSection ({onFilter}: WebShopInterface) {
     return (
         <>
             <div className="column right">
-                <form action="" className="search">
-                    <i className="fa fa-search"></i>
-                    <input type="text" placeholder="Search Item" />
-                </form>
+                <Input
+                    focusBorderColor= '#000'
+                    placeholder='Search articles' 
+                    margin= '0 0 1rem 0'
+                    // variant='outline'
+                    // colorScheme='#000'
+                    // box-shadow= '0 1px 6px 0 rgb(32 33 36 / 15%)'
+                    onChange={(event) => {
+                    setSearchTerm(event.target.value);
+                    }}
+                    className='pad'
+                />
 
                 <h3>FILTER BY PRICE</h3>
                 <div className="line_filter">
@@ -48,27 +57,46 @@ export default function ShopRightSection ({onFilter}: WebShopInterface) {
                     />
                 </div>
                 <div className="filter">
-                    <button className="button" onClick={() => onFilterClick()}>Filter</button>
+                <Button 
+                    background='#000' 
+                    color='#fff'
+                    margin='.75rem 0'
+                    height= '3.2rem'
+                    width= '8rem'
+                    variant='solid'
+                    _hover={{ bg: '#3c3d3e' }}
+                    transition='all 0.2s cubic-bezier(.08,.52,.52,1)'
+                    onClick={() => onFilterClick()}
+                >
+                    Filter
+                </Button>
+                    {/* <button className="button" onClick={() => onFilterClick()}>Filter</button> */}
                     <div className="filterValue">Price <span >N{minPrice}- N{(filterPrice > 0 ? filterPrice : maxPrice)}</span></div>
                 </div>
 
-                <h3>TOP PRODUCTS</h3>
-                {
-                    topItems.length > 0 ? topItems.map(x => {
-                        return (
-                            <ShopTopProductItem 
-                                copies={x.copies}
-                                href={"/web/product?id=" + x.id}
-                                img={x.img}
-                                price={x.price}
-                                title={x.title}
-                                key={x.id}
-                            />
-                        );
-                    })
-                    : undefined
-                }
+                <div className="columnProducts">
+                    <h3>TOP PRODUCTS</h3>
+                    {
+                        topItems.length > 0 ? topItems.map(x => {
+                            return (
+                                <ShopTopProductItem 
+                                    copies={x.copies}
+                                    href={"/web/product?id=" + x.id}
+                                    img={x.img}
+                                    price={x.price}
+                                    title={x.title}
+                                    key={x.id}
+                                />
+                            );
+                        })
+                        : undefined
+                    }
+                </div>
         </div>
         </>
     );
+}
+
+function setSearchTerm(value: string) {
+    throw new Error("Function not implemented.");
 }
