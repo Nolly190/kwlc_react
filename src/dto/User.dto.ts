@@ -7,7 +7,5 @@ export default class UserDTO {
     firstName: string;
     lastName: string;
     username: string;
-    emailAddress: string;
-    address: string;
     email: string;
 }

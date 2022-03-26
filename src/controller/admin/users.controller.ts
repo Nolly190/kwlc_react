@@ -8,7 +8,7 @@ import { fakeModel, showAdminMessage, log } from "../../utils";
 import { toast } from "react-toastify";
 export class UserController implements CRUDBL {
     async create(data: UserDTO) {
-        if (!data.emailAddress || !data.firstName || !data.lastName || !data.address) {
+        if (!data.email || !data.firstName || !data.lastName || !data.username) {
             toast.error("Please fill all fields");
             return;
         }

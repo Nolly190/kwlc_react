@@ -30,7 +30,7 @@ export default function GetAllBlogs() {
       <AdminLayout
         externalStyles={[]}
         navbar={""}
-        title={"Dashboard"}
+        title={"Blogs"}
         withFooter={false}
         withSideBar={true}
       >

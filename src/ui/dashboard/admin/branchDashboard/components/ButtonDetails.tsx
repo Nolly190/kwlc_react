@@ -6,29 +6,48 @@ import StyledInput from "./styledInput";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  buttonName?: string;
+  buttonUrl?: string;
+  index?: number;
+  clearButtonData?: (index: number) => void;
 }
 
 const ButtonDetails = (props: Props) => {
-  const { onChange } = props;
+  const { onChange, buttonName, buttonUrl, index, clearButtonData } = props;
   const [show, setShow] = useState(false);
+
+  const handleToggle = () => {
+    clearButtonData(index);
+    setShow(!show);
+  };
 
   return (
     <Container>
       <label>
-        <input type="checkbox" onChange={() => setShow(!show)} /> Add button
+        <input type="checkbox" onChange={() => handleToggle()} /> Add button
       </label>
       {show && (
         <Row width="60%">
           <EntryContainer width={37}>
             <p>Button Label</p>
             <InputWrapper>
-              <StyledInput name="buttomName" width={100} onChange={onChange} />
+              <StyledInput
+                name="buttomName"
+                value={buttonName}
+                width={100}
+                onChange={onChange}
+              />
             </InputWrapper>
           </EntryContainer>
           <EntryContainer width={60}>
             <p>Button Url</p>
             <InputWrapper>
-              <StyledInput name="bottonUrl" width={100} onChange={onChange} />
+              <StyledInput
+                name="bottonUrl"
+                value={buttonUrl}
+                width={100}
+                onChange={onChange}
+              />
             </InputWrapper>
           </EntryContainer>
         </Row>

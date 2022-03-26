@@ -15994,6 +15994,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   position: relative;
   top: 0;
   height: 100vh;
+  background: whitesmoke;
 }
 
 .sidebar {

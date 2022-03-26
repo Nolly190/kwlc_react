@@ -80,7 +80,7 @@ export default function EditShopItem() {
     <AdminLayout
       externalStyles={[]}
       navbar={""}
-      title={"Add Product"}
+      title={"Edit Product"}
       withFooter={false}
       withSideBar={true}
     >

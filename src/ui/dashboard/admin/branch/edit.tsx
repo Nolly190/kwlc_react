@@ -109,7 +109,7 @@ export default function EditBranch() {
     <AdminLayout
       externalStyles={[]}
       navbar={""}
-      title={"Add User"}
+      title={"Edit Branch"}
       withFooter={false}
       withSideBar={true}
     >

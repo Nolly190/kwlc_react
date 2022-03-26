@@ -220,7 +220,7 @@ export const InputWrapper = styled.div``;
 
 export const Button = styled.button`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   align-self: flex-end;
   padding: 0 38px;
@@ -228,10 +228,12 @@ export const Button = styled.button`
   width: 158px;
   height: 64px;
   border-radius: 5px;
+  margin-top: 20px;
 
   & > p {
     color: #ffffff;
     margin-bottom: 0;
+    font-size: 16px;
   }
 
   & > svg {
@@ -573,7 +575,29 @@ export const SlidersBodyWrapper = styled.div`
   gap: 10px;
 `;
 
-export const EntryWrapper = styled.div``;
+export const EntryWrapper = styled.div`
+  position: relative;
+
+  & > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 50%;
+    background-color: #000;
+    cursor: pointer;
+  }
+
+  & .delete {
+    font-size: 16px;
+  }
+`;
 
 export const HorizontalDivider = styled.div`
   width: 30%;

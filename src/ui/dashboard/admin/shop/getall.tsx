@@ -15,6 +15,7 @@ export default function GetAllShopItems() {
   const _tmp: ShopDTO[] = [];
   const [items, setItems] = useState(_tmp);
   const router = useRouter();
+  console.log("items", items);
 
   useEffect(() => {
     controller.list(setItems);
@@ -63,7 +64,7 @@ export default function GetAllShopItems() {
                       <th></th>
                     </thead>
                     <tbody id="tbody">
-                      {items.length > 0
+                      {items?.length > 0
                         ? items.map((x, index) => {
                             return (
                               <tr key={index}>

@@ -40,7 +40,7 @@ export default function AddBranch() {
         <AdminLayout
             externalStyles={[]}
             navbar={""}
-            title={"Add User"}
+            title={"Add Branch"}
             withFooter={false}
             withSideBar={true}
         >

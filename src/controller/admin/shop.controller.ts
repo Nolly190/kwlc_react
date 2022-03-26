@@ -74,16 +74,16 @@ export class ShopController implements CRUDBL {
                 toast.error(response.message.toString());
             }
 
-            const data: ShopDTO = response?.data?.data;
+            const data: ShopDTO = response?.data;
 
             set.setDescription(data?.description ?? "n/a");
-            set.setTitle(data.title);
-            set.setDimension(data.dimension);
-            set.setWeight(data.weight);
-            set.setImgs(data.productImages);
-            set.setImg(data.productImages.length > 0 ? data.productImages[0] : undefined);
-            set.setPrice(data.price);
-            set.setQuantity(data.quantity);
+            set.setTitle(data?.title);
+            set.setDimension(data?.dimension);
+            set.setWeight(data?.weight);
+            set.setImgs(data?.productImages);
+            set.setImg(data?.productImages.length > 0 ? data?.productImages[0] : undefined);
+            set.setPrice(data?.price);
+            set.setQuantity(data?.quantity);
         }
     }
     async update(data: ShopDTO, id: number) {
@@ -133,7 +133,7 @@ export class ShopController implements CRUDBL {
                 toast.error(response.message.toString());
             }
 
-            const data: ShopDTO[] = response?.data?.data;
+            const data: ShopDTO[] = response?.data;
             setItems(data);
         }
     }

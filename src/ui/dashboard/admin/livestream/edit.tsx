@@ -86,7 +86,7 @@ export default function EditLiveStream() {
     <AdminLayout
       externalStyles={[]}
       navbar={""}
-      title={"Add Donation"}
+      title={"Edit LiveStream"}
       withFooter={false}
       withSideBar={true}
     >
