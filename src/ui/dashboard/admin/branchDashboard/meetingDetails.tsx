@@ -141,7 +141,7 @@ const MeetingDetails: React.FC<MeetingDetailsProps> = ({
           </InputWrapper>
         </EntryContainer>
       </Row>
-      <Row>
+      {/* <Row>
         <EntryContainer width={47}>
           <p>Service Id</p>
           <InputWrapper>
@@ -153,7 +153,7 @@ const MeetingDetails: React.FC<MeetingDetailsProps> = ({
             />
           </InputWrapper>
         </EntryContainer>
-      </Row>
+      </Row> */}
       <Row className="mt-20">
         <EntryContainer width={100}>
           <p>Attendance</p>

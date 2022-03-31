@@ -6,7 +6,6 @@ import { BranchDTO } from "../../dto/Branch.dto";
 import DonateItemDTO, { DonationImageDTO, DonationItemDTO } from "../../dto/Donate.dto";
 import { statusEnum } from "../../enums/util.enum";
 import { CRUDBL } from "../../interfaces/CRUDBL.interface";
-import { DonationsModel } from "../../testModel";
 import { ISetDonation } from "../../ui/dashboard/admin/donation/edit";
 import { fakeModel, showAdminMessage, log, showConfirmDialog } from "../../utils";
 
@@ -43,46 +42,36 @@ export class DonationController implements CRUDBL {
         }
     }
     async read(set: ISetDonation, id: number) {
-        if (fakeModel) {
-            const data = DonationsModel[id];
-            set.setDescription(data.description);
-            set.setDonationImgs(data.images);
-            set.setSummary(data.description);
-            set.setTitle(data.title);
-        }
-        else {
-            const response = await getSingleDonationApi(id);
-            if (response.code < statusEnum.ok) {
-                toast.error(response.message.toString());
-            }
 
-            const data: DonationItemDTO = response?.data?.data;
-
-            set.setDescription(data.description);
-            set.setDonationImgs(data.donationImages);
-            set.setSummary(data.summary);
-            set.setTitle(data.title);
+        const response = await getSingleDonationApi(id);
+        if (response.code < statusEnum.ok) {
+            toast.error(response.message.toString());
         }
+
+        const data: DonationItemDTO = response?.data;
+
+        set.setDescription(data.description);
+        set.setDonationImgs(data.donationImages);
+        set.setSummary(data.summary);
+        set.setTitle(data.title);
+
     }
     async update(data: DonationItemDTO, id: number) {
-        if (fakeModel) {
-            toast.success("Donation update was successful");
-        }
-        else {
-            // data.donationImages.forEach(x => delete x.id)
 
-            editDonationApi(id, data).then((response) => {
-                log("earlydev", "1", response);
-                if (response.code >= statusEnum.ok) {
-                    toast.success("Donation update was successful");
+        // data.donationImages.forEach(x => delete x.id)
 
-                }
-                else {
-                    toast.error("Donation update failed");
-                }
-            });
-            // toast.success("Donation update request Sent");
-        }
+        editDonationApi(id, data).then((response) => {
+            log("earlydev", "1", response);
+            if (response.code >= statusEnum.ok) {
+                toast.success("Donation update was successful");
+
+            }
+            else {
+                toast.error("Donation update failed");
+            }
+        });
+        // toast.success("Donation update request Sent");
+
     }
 
     async delete(id: number, setItems: Function, items: DonateItemDTO[]) {
@@ -105,18 +94,15 @@ export class DonationController implements CRUDBL {
     }
 
     async list(setItems: Function) {
-        if (fakeModel) {
-            setItems(DonationsModel);
-        }
-        else {
-            const response = await getDonationApi();
-            if (response.code < statusEnum.ok) {
-                toast.error(response.message.toString());
-            }
 
-            const data: DonateItemDTO[] = response?.data?.data;
-            setItems(data);
+        const response = await getDonationApi();
+        if (response.code < statusEnum.ok) {
+            toast.error(response.message.toString());
         }
+
+        const data: DonateItemDTO[] = response?.data?.data;
+        setItems(data);
+
     }
 
     addDonationImage(setImages: Function, images: DonationImageDTO[], image: string, isMainImage: boolean) {

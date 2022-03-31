@@ -2,10 +2,11 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import BranchItem from "../../../../components/branch-item";
 import { loadBranchData } from "../../../../controller/branch.controller";
+import { BranchDTO } from "../../../../dto/Branch.dto";
 
 export default function BranchContent() {
-  const [items, setItems] = useState([]);
-  const [filteredItems, setFilteredItems] = useState([]);
+  const [items, setItems] = useState<BranchDTO[]>([]);
+  const [filteredItems, setFilteredItems] = useState<BranchDTO[]>([]);
   const router = useRouter();
   const [searchItem, setSearchItem] = useState("");
   const [locationItem, setLocationItem] = useState("All Branches");
@@ -21,6 +22,13 @@ export default function BranchContent() {
   const handleChange = (value: string) => {
     setSearchItem(value);
   };
+
+  useEffect(() => {
+    if (searchItem === "") {
+      setFilteredItems(items);
+      setLocationItem("All Branches");
+    }
+  }, [searchItem]);
 
   console.log("locationItem", items);
 
@@ -83,12 +91,12 @@ export default function BranchContent() {
               return (
                 <BranchItem
                   key={index}
-                  description={x.description}
+                  description={x.location}
                   onClick={() => {
                     router.push(`/web/branch?id=${x.id}`);
                   }}
-                  timers={x.timers}
-                  title={x.title}
+                  timers={x.services}
+                  title={x.name}
                 />
               );
             })

@@ -65,9 +65,13 @@ export interface SliderImage {
     text?: string
     bottonUrl?: string
     buttomName?: string
+    hasButton?: boolean
+    hasText?: boolean
 }
 
 export interface SliderType {
+    type: string,
+    isDynamic: boolean,
     sliderImages?: SliderImage[]
 }
 

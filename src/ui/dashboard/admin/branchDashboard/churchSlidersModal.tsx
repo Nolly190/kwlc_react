@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { uploadSliderDetailsApi } from "../../../../api/report.api";
+import {
+  getSliderDetailsApi,
+  uploadSliderDetailsApi,
+} from "../../../../api/report.api";
 import Modal from "../../../../components/modal";
 import { statusEnum } from "../../../../enums/util.enum";
 import { getToken } from "../../../../request";
@@ -35,11 +38,24 @@ const initialState = {
 };
 
 const initialProp: SliderType = {
+  isDynamic: true,
+  type: "",
   sliderImages: [initialState],
 };
 
 const ChurchSlidersModal: React.FC<props> = ({ isOpen, closeModal }) => {
   const [sliderData, setSliderData] = useState<SliderType>(initialProp);
+
+  useEffect(() => {
+    async function getSlider() {
+      const response = await getSliderDetailsApi();
+      if (response.code === statusEnum.ok) {
+        setSliderData(response?.data?.data);
+        console.log("response", response.data);
+      }
+    }
+    getSlider();
+  }, []);
 
   const handleClose = () => {
     closeModal();
@@ -79,7 +95,6 @@ const ChurchSlidersModal: React.FC<props> = ({ isOpen, closeModal }) => {
 
   const handleChange = (name: string, value: string, index: number) => {
     sliderData.sliderImages[index][name] = value;
-    console.log("slider", sliderData.sliderImages[index]);
 
     setSliderData({
       ...sliderData,
@@ -92,6 +107,7 @@ const ChurchSlidersModal: React.FC<props> = ({ isOpen, closeModal }) => {
     console.log("message", response);
     if (response.code >= statusEnum.ok) {
       toast.success("Details uploaded successfully");
+      closeModal();
     } else {
       toast.error(response.message);
     }
@@ -142,6 +158,9 @@ const ChurchSlidersModal: React.FC<props> = ({ isOpen, closeModal }) => {
                 index={index}
                 buttonName={image.buttomName || ""}
                 buttonUrl={image.bottonUrl || ""}
+                setSliderData={setSliderData}
+                sliderData={sliderData}
+                hasButton={image.hasButton}
                 onChange={(e) =>
                   handleChange(e.target.name, e.target.value, index)
                 }
