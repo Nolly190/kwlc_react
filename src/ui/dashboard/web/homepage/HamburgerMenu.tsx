@@ -59,13 +59,10 @@ export default function Hamburger() {
                         <MenuItem>
                         <li className="dropdown_menu"><a href="#" className="nav_link">Our Team</a></li>
                         </MenuItem>
-                        <MenuItem>
-                        <li className="dropdown_menu"><a href={"/web/payment"} className="nav_link">Payment</a></li>
-                        </MenuItem>
                     </MenuList>
                 </Menu>   
               </li>
-              <li className="nav_item"><a href={"/web/checkout"} className="nav_link"><i className="icofont-shopping-cart"></i></a></li>
+              <li className="nav_item"><a href={"/web/payment"} className="nav_link">Payment</a></li>
               <li className="nav_item"><a href={"/web/donations"} className="nav_link">
                 <Button leftIcon={<Icon as= {AiFillGift} />} colorScheme='white' variant='outline'>
                   Donate

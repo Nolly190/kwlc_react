@@ -68,7 +68,11 @@ export const NavMenu = ({ alt = false }) => {
           <a className="nav_link">Shop</a>
         </Link>
       </li>
-
+      <li className="nav_item">
+        <Link href={"/web/livestream/"}>
+          <a className="nav_link">Livetream</a>
+        </Link>
+      </li>
       {/* <!-------Dropdown menu-------> */}
       <li className="nav_item">
         <Menu>
@@ -78,8 +82,8 @@ export const NavMenu = ({ alt = false }) => {
           <MenuList>
             <MenuItem>
               <li className="dropdown_menu">
-                <Link href={"/web/livestream/"}>
-                  <a className="nav_link">Livetream</a>
+                <Link href={"/web/Payment"}>
+                  <a className="nav_link">Payment</a>
                 </Link>
               </li>
             </MenuItem>
@@ -97,25 +101,10 @@ export const NavMenu = ({ alt = false }) => {
                 </Link>
               </li>
             </MenuItem>
-            <MenuItem>
-              <li className="dropdown_menu">
-                <Link href={"/web/Payment"}>
-                  <a className="nav_link">Payment</a>
-                </Link>
-              </li>
-            </MenuItem>
           </MenuList>
         </Menu>
       </li>
-      {alt && (
-        <li className="nav_item">
-          <Link href="checkout.html">
-            <a className="nav_link">
-              <i className="icofont-shopping-cart"></i>
-            </a>
-          </Link>
-        </li>
-      )}
     </ul>
   );
 };
+
