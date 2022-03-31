@@ -14,37 +14,42 @@ export const loadDonations = async (setItem: Function, items: DonateItemDTO[]) =
             toast.error(response.message);
             return;
         }
-        console.log("responsedto", response);
 
-        const data: DonationItemDTO[] = response.data?.data;
-        const donationData: DonateItemDTO[] = [];
-        // make api call to get individual donation details
-        data.map(async (i, index) => {
-            const singleResponse = await getSingleDonationApi(i.id);
-            console.log("single", singleResponse.data);
-
-            if (singleResponse.status) {
-                //singleResponse.data
-                const _donationData = new DonateItemDTO({
-                    description: singleResponse?.data?.data?.description,
-                    id: singleResponse?.data?.data?.id,
-                    // donationImages: singleResponse.data.donationImages.map(x => x.imageUrl),
-                    image: singleResponse?.data?.donationImages?.filter(x => x.isMainImage)[0]?.imageUrl,
-                    images: singleResponse?.data?.donationImages.map(x => x.imageUrl),
-                    raised: 0,
-                    target: 0,
-                    title: i.title
-                });
-                donationData.push();
-                items = items.concat([_donationData])
-                setItem(items);
+        else {
+            const response: ResponseDTO = await getDonationApi();
+            
+            if (!response.status) {
+                toast.error(response.message);
+                return;
             }
-        });
-        // if (donationData.length > 0) {
-        //     console.log("setting data", donationData);
-        //     setItem(donationData);
-        // }
 
+            const data: DonationItemDTO[] = response.data;
+            const donationData: DonateItemDTO[] = [];
+            // make api call to get individual donation details
+            data.map(async (i, index) => {
+                const singleResponse = await getSingleDonationApi(i.id);
+
+                if (singleResponse.status) {
+                    //singleResponse.data
+                    const _donationData = new DonateItemDTO({
+                        description: singleResponse?.data?.description,
+                        id: singleResponse?.data?.id,
+                        // donationImages: singleResponse.data.donationImages.map(x => x.imageUrl),
+                        image: singleResponse?.data?.donationImages?.filter(x => x.isMainImage)[0]?.imageUrl,
+                        images: singleResponse?.data?.donationImages.map(x => x.imageUrl),
+                        raised: 0,
+                        target: 0,
+                        title: i.title
+                    });
+                    donationData.push();
+                    items = items.concat([_donationData])
+                    setItem(items);
+                }
+            });
+            // if (donationData.length > 0) {
+            //     console.log("setting data", donationData);
+            //     setItem(donationData);
+            // }
 
     } catch (error) {
         console.error(error);
