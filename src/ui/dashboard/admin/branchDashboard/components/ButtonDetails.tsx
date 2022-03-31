@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { SliderType } from "../../../../../types/appTypes";
 import { EntryContainer } from "../financialReport";
 import { InputWrapper, Row } from "../styles";
 import StyledInput from "./styledInput";
@@ -8,12 +9,24 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   buttonName?: string;
   buttonUrl?: string;
+  hasButton?: boolean;
   index?: number;
   clearButtonData?: (index: number) => void;
+  sliderData?: SliderType;
+  setSliderData?: (sliderData: SliderType) => void;
 }
 
 const ButtonDetails = (props: Props) => {
-  const { onChange, buttonName, buttonUrl, index, clearButtonData } = props;
+  const {
+    onChange,
+    buttonName,
+    buttonUrl,
+    hasButton,
+    index,
+    clearButtonData,
+    sliderData,
+    setSliderData,
+  } = props;
   const [show, setShow] = useState(false);
 
   const handleToggle = () => {
@@ -21,12 +34,20 @@ const ButtonDetails = (props: Props) => {
     setShow(!show);
   };
 
+  useEffect(() => {
+    sliderData.sliderImages[index].hasButton = show;
+    setSliderData({
+      ...sliderData,
+      sliderImages: [...sliderData.sliderImages],
+    });
+  }, [show]);
+
   return (
     <Container>
       <label>
         <input type="checkbox" onChange={() => handleToggle()} /> Add button
       </label>
-      {show && (
+      {(show || hasButton) && (
         <Row width="60%">
           <EntryContainer width={37}>
             <p>Button Label</p>

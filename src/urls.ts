@@ -15,6 +15,10 @@ export const urls = {
 
     blogs: "Blog/GetAllBlogs",
     getblog: "Blog/GetBlog/",
+    createBlog: "Blog/CreateBlog",
+    updateBlog: "Blog/UpdateBlog",
+    deleteBlog: "Blog/DeleteBlog/",
+    getCategories: "Blog/GetAllCategory",
 
     product: "Product",
 
@@ -35,7 +39,9 @@ export const urls = {
 
     createReport: "Report/Create",
     uploadPastorDetails: "Message/Create",
+    getPastorDetails: "Message/Get",
     uploadSliderDetails: "Slider",
+    getById: "Slider/GetById",
 
     baseUrl: "https://kwlc-web.herokuapp.com/api/",
     v1: "v1/",

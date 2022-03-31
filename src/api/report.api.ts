@@ -44,11 +44,51 @@ export async function uploadPastorDetailsApi(requestData: PastorsDetailsType): P
     return response.getResponse();
 }
 
+export async function getPastorDetailsApi(): Promise<ResponseDTO> {
+    const response = new ResponseDTO();
+
+    try {
+        let res = await request.get(`${urls.baseUrl}${urls.getPastorDetails}`);
+
+        let data: PastorsDetailsType;
+        if (res.status) {
+            data = res.data;
+            response.data = data;
+            response.code = statusEnum.ok;
+        }
+    }
+    catch (e) {
+        response.message = e.toString();
+    }
+
+    return response.getResponse();
+}
+
 export async function uploadSliderDetailsApi(requestData: SliderType): Promise<ResponseDTO> {
     const response = new ResponseDTO();
 
     try {
-        let res = await request.put(`${urls.baseUrl}${urls.uploadSliderDetails}/${1}`, requestData);
+        let res = await request.put(`${urls.baseUrl}${urls.uploadSliderDetails}`, requestData);
+
+        let data: SliderType;
+        if (res.status) {
+            data = res.data;
+            response.data = data;
+            response.code = statusEnum.ok;
+        }
+    }
+    catch (e) {
+        response.message = e.toString();
+    }
+
+    return response.getResponse();
+}
+
+export async function getSliderDetailsApi(): Promise<ResponseDTO> {
+    const response = new ResponseDTO();
+
+    try {
+        let res = await request.get(`${urls.baseUrl}${urls.getById}`);
 
         let data: SliderType;
         if (res.status) {

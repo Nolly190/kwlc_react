@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import ListMenuIcon from "../../../../components/list-menu-icon";
 import { loadDonations } from "../../../../controller/donation.controller";
 import DonateItemDTO from "../../../../dto/Donate.dto";
-import { DonationsModel } from "../../../../testModel";
 import { fakeModel } from "../../../../utils";
 import Layout from "../layout";
 

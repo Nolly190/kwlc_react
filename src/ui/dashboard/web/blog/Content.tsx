@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import BlogAudioItem from '../../../../components/blog-audio-item';
-import BlogTextItem from '../../../../components/blog-text-item';
-import { loadBlogData } from '../../../../controller/blog.controller';
-import { BlogAudioDTO, BlogDTO } from '../../../../dto/Blog.dto';
-import { BlogData } from '../../../../testModel';
-import { fakeModel } from '../../../../utils';
-import ReactPaginate from 'react-paginate';
+import React, { useEffect, useState } from "react";
+import BlogAudioItem from "../../../../components/blog-audio-item";
+import BlogTextItem from "../../../../components/blog-text-item";
+import { loadBlogData } from "../../../../controller/blog.controller";
+import { BlogAudioDTO, BlogDTO } from "../../../../dto/Blog.dto";
+import { fakeModel } from "../../../../utils";
+import ReactPaginate from "react-paginate";
 
 export default function BlogContent({ searchTerm }) {
   const blogData: BlogAudioDTO[] = [];
@@ -30,7 +29,7 @@ export default function BlogContent({ searchTerm }) {
         {list.length > 0
           ? list
               .filter((list) => {
-                if (searchTerm === '') {
+                if (searchTerm === "") {
                   return list;
                 } else if (
                   list.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -40,7 +39,7 @@ export default function BlogContent({ searchTerm }) {
               })
               .slice(pagesVisited, pagesVisited + blogsPerPage)
               .map((x, index) => {
-                if (x.itemType == 'audio') {
+                if (x.itemType == "audio") {
                   return (
                     <BlogAudioItem
                       by={x.by}
@@ -59,6 +58,8 @@ export default function BlogContent({ searchTerm }) {
                       blogCategory={x.blogCategory}
                       blogImages={x.blogImages}
                       tags={x.tags}
+                      message={x.message}
+                      authorName={x.authorName}
                     />
                   );
                 } else {
@@ -77,6 +78,8 @@ export default function BlogContent({ searchTerm }) {
                       blogCategory={x.blogCategory}
                       blogImages={x.blogImages}
                       tags={x.tags}
+                      message={x.message}
+                      authorName={x.authorName}
                     />
                   );
                 }
@@ -85,18 +88,17 @@ export default function BlogContent({ searchTerm }) {
       </section>
       <div className="pagination-header">
         <ReactPaginate
-          previousLabel={'Previous'}
-          nextLabel={'Next'}
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
           pageCount={pageCount}
           onPageChange={changeBlog}
-          containerClassName={'paginationBttns'}
-          previousLinkClassName={'previousBttn'}
-          nextLinkClassName={'nextBttn'}
-          disabledClassName={'paginationDisabled'}
-          activeClassName={'paginationActive'}
+          containerClassName={"paginationBttns"}
+          previousLinkClassName={"previousBttn"}
+          nextLinkClassName={"nextBttn"}
+          disabledClassName={"paginationDisabled"}
+          activeClassName={"paginationActive"}
         />
       </div>
     </div>
   );
 }
-

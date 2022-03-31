@@ -64,7 +64,7 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ goToNextPage }) => {
     } else if (entry?.offering?.length === 1) {
       entry?.offering?.push({ currencyCode: selectedValue });
     } else {
-      entry?.offering?.push({});
+      entry?.offering?.push({ currencyCode: CurrencyTypes.NGN, amount: "0" });
       entry?.offering?.push({ currencyCode: selectedValue });
     }
 
@@ -89,9 +89,12 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ goToNextPage }) => {
       churchReport.offerings
     );
     if (entry?.offering?.length > 0 && entry.offering[0]) {
+      if (!entry.offering[0].currencyCode) {
+        entry.offering[0].currencyCode = CurrencyTypes.NGN;
+      }
       entry.offering[0].amount = value;
     } else {
-      entry.offering[0] = { amount: value };
+      entry.offering[0] = { amount: value, currencyCode: CurrencyTypes.NGN };
     }
 
     if (index > -1) {
@@ -116,7 +119,8 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ goToNextPage }) => {
     if (entry?.offering?.length === 2) {
       entry.offering[1].amount = value;
     } else {
-      entry.offering[1] = { amount: value };
+      entry.offering[0] = { amount: "0", currencyCode: CurrencyTypes.NGN };
+      entry.offering[1] = { amount: value, currencyCode: CurrencyTypes.NGN };
     }
 
     if (index > -1) {

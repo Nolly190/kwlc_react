@@ -12,8 +12,9 @@ import { initUtilFunc } from "../src/utils";
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
+import type { AppProps } from "next/app";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   useEffect(() => {
     initUtilFunc(window.localStorage, router);
@@ -28,7 +29,6 @@ function MyApp({ Component, pageProps }) {
         newestOnTop={true}
         // closeOnClick={false}
         rtl={false}
-        pauseOnVisibilityChange={false}
         draggable={false}
         pauseOnHover={true}
         limit={1}
