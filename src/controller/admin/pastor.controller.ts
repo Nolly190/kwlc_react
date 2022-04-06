@@ -5,7 +5,6 @@ import PastorDTO from "../../dto/Pastor.dto";
 import UserDTO from "../../dto/User.dto";
 import { statusEnum } from "../../enums/util.enum";
 import { CRUDBL } from "../../interfaces/CRUDBL.interface";
-import { UserData } from "../../testModel";
 import { ISetUser } from "../../ui/dashboard/admin/user/editUser";
 import { fakeModel, showAdminMessage, log } from "../../utils";
 
@@ -30,19 +29,16 @@ export class PastorController implements CRUDBL {
 
     }
     async list(setItems: Function) {
-        if (fakeModel) {
-            setItems(UserData);
-        }
-        else {
-            const response = await getAllPastorsApi();
-            console.log("pastor resp", response)
-            if (response.code < statusEnum.ok) {
-                toast.error(response.message.toString());
-            }
 
-            const data: PastorDTO[] = response?.data?.data;
-            setItems(data);
+        const response = await getAllPastorsApi();
+        console.log("pastor resp", response)
+        if (response.code < statusEnum.ok) {
+            toast.error(response.message.toString());
         }
+
+        const data: PastorDTO[] = response?.data?.data;
+        setItems(data);
+
     }
 }
 

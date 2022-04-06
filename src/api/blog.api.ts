@@ -11,7 +11,7 @@ import { ResponseDTO } from "../dto/response.dto";
 import { statusEnum } from "../enums/util.enum";
 import { DonationItemDTO } from "../dto/Donate.dto";
 import { BranchDTO, BranchItemDTO } from "../dto/Branch.dto";
-import { BlogItemDTO } from "../dto/Blog.dto";
+import { BlogDTO, BlogItemDTO, CategoryItem } from "../dto/Blog.dto";
 import request from "../request";
 
 export async function getBlogApi(): Promise<ResponseDTO> {
@@ -19,17 +19,31 @@ export async function getBlogApi(): Promise<ResponseDTO> {
 
    try {
       let res = await request.get(`${urls.baseUrl}${urls.blogs}`);
-      // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
       let data: BlogItemDTO[];
       if (res.status) {
-
-         //save user profile info
          data = res.data.data;
-
-         // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
          response.data = data;
       }
-      // showMessage(getMessage(res), res.status, localStorage);
+
+      response.code = statusEnum.ok;
+   }
+   catch (e) {
+      response.message = e.toString();
+   }
+
+   return response.getResponse();
+}
+
+export async function getCategoriesApi(): Promise<ResponseDTO> {
+   const response = new ResponseDTO();
+
+   try {
+      let res = await request.get(`${urls.baseUrl}${urls.getCategories}`);
+      let data: CategoryItem[];
+      if (res.status) {
+         data = res.data.data;
+         response.data = data;
+      }
 
       response.code = statusEnum.ok;
    }
@@ -65,7 +79,7 @@ export async function createBlogApi(reqeustData: BlogItemDTO): Promise<ResponseD
    const response = new ResponseDTO();
 
    try {
-      let res = await request.post(`${urls.baseUrl}${urls.getblog}`, reqeustData);
+      let res = await request.post(`${urls.baseUrl}${urls.createBlog}`, reqeustData);
       let data: BlogItemDTO;
       if (res.status) {
          data = res.data;
@@ -77,5 +91,43 @@ export async function createBlogApi(reqeustData: BlogItemDTO): Promise<ResponseD
       response.message = e.toString();
    }
 
+   return response.getResponse();
+}
+
+export async function updateBlogApi(requestData: BlogItemDTO, id: number): Promise<ResponseDTO> {
+   const response = new ResponseDTO();
+
+   try {
+      let res = await request.put(`${urls.baseUrl}${urls.updateBlog}/${id}`, requestData);
+      let data: BlogItemDTO;
+      if (res.status) {
+         data = res.data;
+         response.data = data;
+      }
+      response.code = statusEnum.ok;
+   }
+   catch (e) {
+      response.message = e.toString();
+   }
+
+   return response.getResponse();
+}
+
+export async function deleteBlogApi(id: number): Promise<ResponseDTO> {
+   const response = new ResponseDTO();
+
+   try {
+      let res = await request.delete(`${urls.baseUrl}${urls.deleteBlog}${id}`);
+      let data: BlogDTO;
+      if (res.status) {
+         data = res.data;
+
+         response.data = data;
+         response.code = statusEnum.ok;
+      }
+   }
+   catch (e) {
+      response.message = e.toString();
+   }
    return response.getResponse();
 }

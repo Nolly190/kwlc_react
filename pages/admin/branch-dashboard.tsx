@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AdminLayout from "../../src/ui/dashboard/admin/admin.layout";
 import styled from "styled-components";
 import Image from "next/image";
@@ -6,7 +6,10 @@ import ChurchReportModal from "../../src/ui/dashboard/admin/branchDashboard/chur
 import { Editor } from "@tinymce/tinymce-react";
 import mediaQueries from "../../src/mediaQueries";
 import ChurchSlidersModal from "../../src/ui/dashboard/admin/branchDashboard/churchSlidersModal";
-import { uploadPastorDetailsApi } from "../../src/api/report.api";
+import {
+  getPastorDetailsApi,
+  uploadPastorDetailsApi,
+} from "../../src/api/report.api";
 import { PastorsDetailsType } from "../../src/types/appTypes";
 import { statusEnum } from "../../src/enums/util.enum";
 import { toast } from "react-toastify";
@@ -21,6 +24,22 @@ const AdminBranchDashboard = () => {
   const [eventModalIsOpen, setEventModalIsOpen] = useState(false);
   const [pastorData, setPastorData] = useState<PastorsDetailsType>({});
   const editorRef = useRef(null);
+
+  useEffect(() => {
+    async function getPastor() {
+      const response = await getPastorDetailsApi();
+      if (response.code === statusEnum.ok) {
+        setPastorData(response?.data?.data);
+        console.log("editor", editorRef.current);
+        editorRef.current?.setContent(response?.data?.data?.message);
+      }
+    }
+    getPastor();
+  }, []);
+
+  useEffect(() => {
+    setPastorImageToDisplay(pastorData?.pastorImage);
+  }, [pastorData?.pastorImage]);
 
   const handleMessageChange = (e: any) => {
     const name = "message";
@@ -101,8 +120,6 @@ const AdminBranchDashboard = () => {
       }
     }
   };
-
-  console.log(imageToUploadArray);
 
   return (
     <AdminLayout

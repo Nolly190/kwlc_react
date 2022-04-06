@@ -7,7 +7,6 @@ import PastorDTO from "../../dto/Pastor.dto";
 import UserDTO from "../../dto/User.dto";
 import { statusEnum } from "../../enums/util.enum";
 import { CRUDBL } from "../../interfaces/CRUDBL.interface";
-import { BranchesModel, UserData } from "../../testModel";
 import { ISetBranch } from "../../ui/dashboard/admin/branch/edit";
 import { fakeModel, showAdminMessage, log, showConfirmDialog } from "../../utils";
 
@@ -38,63 +37,52 @@ export class BranchController implements CRUDBL {
         }
     }
     async read(setState: ISetBranch, id: number) {
-        if (fakeModel) {
-            const data = BranchesModel[id];
-            setState.setItem(data);
-            setState.setTitle(data.title);
-            setState.setLocation(data.location);
-        }
-        else {
-            const response = await getSingleBranchApi(id);
-            if (response.code < statusEnum.ok) {
-                toast.error(response.message.toString());
-            }
 
-            const data: BranchDTO = response?.data?.data;
-            setState.setItem(data);
-            setState.setTitle(data?.name);
-            setState.setLocation(data?.location);
-            setState.setCity(data?.city);
-            setState.setIsBranchHq(data?.isBranchHq);
-            setState.setServices(data?.services);
-            setState.setState(data?.state);
-            setState.setStreet(data?.street);
+        const response = await getSingleBranchApi(id);
+        if (response.code < statusEnum.ok) {
+            toast.error(response.message.toString());
         }
+
+        const data: BranchDTO = response?.data?.data;
+        setState.setItem(data);
+        setState.setTitle(data?.name);
+        setState.setLocation(data?.location);
+        setState.setCity(data?.city);
+        setState.setIsBranchHq(data?.isBranchHq);
+        setState.setServices(data?.services);
+        setState.setState(data?.state);
+        setState.setStreet(data?.street);
+
     }
     async update(data: BranchDTO, id: number) {
-        if (fakeModel) {
-            toast.success("Branch update was successful");
-        }
-        else {
-            data.services.forEach(x => delete x.id)
 
-            editBranchApi(id, data).then((response) => {
-                log("earlydev", "1", response);
-                if (response.code >= statusEnum.ok) {
-                    toast.success("Branch update was successful");
-                }
-                else {
-                    toast.error(response?.message);
-                }
-            });
-        }
+        data.services.forEach(x => delete x.id)
+
+        editBranchApi(id, data).then((response) => {
+            log("earlydev", "1", response);
+            if (response.code >= statusEnum.ok) {
+                toast.success("Branch update was successful");
+            }
+            else {
+                toast.error(response?.message);
+            }
+        });
+
     }
     async delete(id: number, setItems: Function, items: BranchDTO[]) {
         const result = showConfirmDialog('Confirm Delete');
         if (result) {
-            if (fakeModel) {
-                setItems(items.filter(x => x.id != id));
-            } {
-                const response = await deleteBranchApi(id);
 
-                if (response.code >= statusEnum.ok) {
-                    toast.success("Branch deleted successfully");
-                    setItems(items.filter(x => x.id != id));
-                }
-                else {
-                    toast.error(response.message.toString());
-                }
+            const response = await deleteBranchApi(id);
+
+            if (response.code >= statusEnum.ok) {
+                toast.success("Branch deleted successfully");
+                setItems(items.filter(x => x.id != id));
             }
+            else {
+                toast.error(response.message.toString());
+            }
+
         }
     }
     async bulk() {
@@ -102,19 +90,16 @@ export class BranchController implements CRUDBL {
     }
 
     async list(setItems: Function) {
-        if (fakeModel) {
-            setItems(BranchesModel);
-        }
-        else {
-            const response = await getBranchesApi();
-            console.log("responseList", response)
-            if (response.code < statusEnum.ok) {
-                toast.error(response.message.toString());
-            }
 
-            const data: BranchDTO[] = response?.data?.data;
-            setItems(data);
+        const response = await getBranchesApi();
+        console.log("responseList", response)
+        if (response.code < statusEnum.ok) {
+            toast.error(response.message.toString());
         }
+
+        const data: BranchDTO[] = response?.data?.data;
+        setItems(data);
+
     }
 
     addService(setServices: Function, services: BranchServiceDTO[], day: string, time: string) {
@@ -133,22 +118,19 @@ export class BranchController implements CRUDBL {
         }
     }
     async assignAdminToBranch(data: BranchAssignAdminDTO) {
-        if (fakeModel) {
-            toast.success("Assign to Branch was successful");
-        }
-        else {
-            delete data.id;
-            branchAssignAdminApi(data).then((response) => {
-                if (response.code >= statusEnum.ok) {
-                    toast.success("Assign to Branch was successful");
 
-                }
-                else {
-                    toast.error("Assign to Branch update failed");
-                }
-            });
-            // toast.success("Assign to Branch request Sent");
-        }
+        delete data.id;
+        branchAssignAdminApi(data).then((response) => {
+            if (response.code >= statusEnum.ok) {
+                toast.success("Assign to Branch was successful");
+
+            }
+            else {
+                toast.error("Assign to Branch update failed");
+            }
+        });
+        // toast.success("Assign to Branch request Sent");
+
     }
 
     renderPastor(pastors: PastorDTO[], branchId: number): string {

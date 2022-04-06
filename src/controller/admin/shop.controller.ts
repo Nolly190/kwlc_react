@@ -7,7 +7,6 @@ import { ShopDTO } from "../../dto/ShopItem.dto";
 import { statusEnum } from "../../enums/util.enum";
 import { CRUDBL } from "../../interfaces/CRUDBL.interface";
 import { CREATION_ERROR, CREATION_OK, CREATION_PENDING, DELETE_ERROR, DELETE_OK, DELETE_PENDING, UPDATE_ERROR, UPDATE_OK, UPDATE_PENDING } from "../../strings";
-import { DonationsModel, ShopItemsModel } from "../../testModel";
 import { fakeModel, showAdminMessage, log, showConfirmDialog } from "../../utils";
 
 
@@ -32,77 +31,58 @@ export class ShopController implements CRUDBL {
                 return;
             }
 
-            if (fakeModel) {
-                // console.log(UserData);
-                // setItems(UserData);
-                toast.success(CREATION_OK(this.keyTitle));
-            }
-            else {
-                data.productImages.forEach(x => delete x.id);
 
-                createShopItemApi(data).then((response) => {
-                    if (response.code >= statusEnum.ok) {
-                        toast.success(CREATION_OK(this.keyTitle));
+            data.productImages.forEach(x => delete x.id);
 
-                    }
-                    else {
-                        toast.error(CREATION_ERROR(this.keyTitle));
-                    }
-                });
-                toast.success(CREATION_PENDING(this.keyTitle));
-            }
+            createShopItemApi(data).then((response) => {
+                if (response.code >= statusEnum.ok) {
+                    toast.success(CREATION_OK(this.keyTitle));
+
+                }
+                else {
+                    toast.error(CREATION_ERROR(this.keyTitle));
+                }
+            });
+            toast.success(CREATION_PENDING(this.keyTitle));
         }
+
         catch (e) {
             log("earlydev", e);
         }
     }
     async read(set: ISetShopItem, id: number) {
-        if (fakeModel) {
-            const data = ShopItemsModel[id];
-            set.setDescription(data.description ?? "");
-            set.setDimension("10cm");
-            set.setWeight("10kg");
-            set.setTitle(data.title);
-            set.setImgs(data.images);
-            set.setImg(data.img);
-            set.setPrice(data.price);
-            set.setQuantity(data.copies);
-        }
-        else {
-            const response = await getSingleShopItemApi(id);
-            if (response.code < statusEnum.ok) {
-                toast.error(response.message.toString());
-            }
 
-            const data: ShopDTO = response?.data;
-
-            set.setDescription(data?.description ?? "n/a");
-            set.setTitle(data?.title);
-            set.setDimension(data?.dimension);
-            set.setWeight(data?.weight);
-            set.setImgs(data?.productImages);
-            set.setImg(data?.productImages.length > 0 ? data?.productImages[0] : undefined);
-            set.setPrice(data?.price);
-            set.setQuantity(data?.quantity);
+        const response = await getSingleShopItemApi(id);
+        if (response.code < statusEnum.ok) {
+            toast.error(response.message.toString());
         }
+
+        const data: ShopDTO = response?.data;
+
+        set.setDescription(data?.description ?? "n/a");
+        set.setTitle(data?.title);
+        set.setDimension(data?.dimension);
+        set.setWeight(data?.weight);
+        set.setImgs(data?.productImages);
+        set.setImg(data?.productImages.length > 0 ? data?.productImages[0] : undefined);
+        set.setPrice(data?.price);
+        set.setQuantity(data?.quantity);
     }
+
     async update(data: ShopDTO, id: number) {
-        if (fakeModel) {
-            toast.success(UPDATE_OK(this.keyTitle));
-        }
-        else {
-            // data.donationImages.forEach(x => delete x.id)
 
-            editShopItemApi(id, data).then((response) => {
-                if (response.code >= statusEnum.ok) {
-                    toast.success(UPDATE_OK(this.keyTitle));
+        // data.donationImages.forEach(x => delete x.id)
 
-                }
-                else {
-                    toast.error(UPDATE_ERROR(this.keyTitle));
-                }
-            });
-        }
+        editShopItemApi(id, data).then((response) => {
+            if (response.code >= statusEnum.ok) {
+                toast.success(UPDATE_OK(this.keyTitle));
+
+            }
+            else {
+                toast.error(UPDATE_ERROR(this.keyTitle));
+            }
+        });
+
     }
 
     async delete(id: number, setItems: Function, items: ShopDTO[]) {
@@ -124,18 +104,15 @@ export class ShopController implements CRUDBL {
 
     }
     async list(setItems: Function) {
-        if (fakeModel) {
-            setItems(ShopItemsModel);
-        }
-        else {
-            const response = await getShopItemsApi();
-            if (response.code < statusEnum.ok) {
-                toast.error(response.message.toString());
-            }
 
-            const data: ShopDTO[] = response?.data;
-            setItems(data);
+        const response = await getShopItemsApi();
+        if (response.code < statusEnum.ok) {
+            toast.error(response.message.toString());
         }
+
+        const data: ShopDTO[] = response?.data;
+        setItems(data);
+
     }
 
     addImage(setImages: Function, images, image: string) {

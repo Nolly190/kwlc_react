@@ -1,5 +1,5 @@
-import { InputGroup, InputLeftElement, Input } from '@chakra-ui/react';
-import { SearchIcon } from '@chakra-ui/icons';
+import { InputGroup, InputLeftElement, Input } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
 
 export default function BlogBanner({ setSearchTerm }) {
   return (
@@ -13,15 +13,14 @@ export default function BlogBanner({ setSearchTerm }) {
       </div>
       <div className="section_img">
         <InputGroup>
-          <InputLeftElement
-            pointerEvents='none'
-            children={<SearchIcon color='gray.300' />}
-          />
-          <Input 
-            placeholder='Search articles' 
+          <InputLeftElement pointerEvents="none">
+            <SearchIcon color="gray.300" />
+          </InputLeftElement>
+          <Input
+            placeholder="Search articles"
             onChange={(event) => {
-            setSearchTerm(event.target.value);
-          }}
+              setSearchTerm(event.target.value);
+            }}
           />
         </InputGroup>
       </div>

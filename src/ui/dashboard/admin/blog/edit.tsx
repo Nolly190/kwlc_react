@@ -1,115 +1,66 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { BranchServiceTimerItem } from "../../../../components/service-timer-item";
-import { BranchController } from "../../../../controller/admin/branch.controller";
-import { BranchDTO, BranchServiceDTO } from "../../../../dto/Branch.dto";
-import { getParam, showConfirmDialog } from "../../../../utils";
+import { useEffect, useRef, useState } from "react";
+import { BlogController } from "../../../../controller/admin/blog.controller";
+import { BlogItemDTO, CategoryItem, tagItem } from "../../../../dto/Blog.dto";
 import AdminLayout from "../admin.layout";
+import { Editor } from "@tinymce/tinymce-react";
+import { getCategoriesApi } from "../../../../api/blog.api";
+import styled from "styled-components";
 
-export interface ISetBranch {
-  setItem: Function;
-  setTitle: Function;
-  setCity: Function;
-  setLocation: Function;
-  setState: Function;
-  setStreet: Function;
-  setIsBranchHq: Function;
-  setServices: Function;
-}
+export default function EditBlog() {
+  const _tmp: BlogItemDTO = new BlogItemDTO();
 
-export default function EditBranch() {
-  const _tmp: BranchDTO = new BranchDTO();
-  const _tmpServices: BranchServiceDTO[] = [];
-
-  const [title, setTitle] = useState("");
-  const [city, setCity] = useState("");
-  const [location, setLocation] = useState("");
-  const [state, setState] = useState("");
-  const [street, setStreet] = useState("");
-  const [isBranchHq, setIsBranchHq] = useState(false);
-  const [serviceDay, setServiceDay] = useState("");
-  const [serviceTime, setServiceTime] = useState("");
-  const [serviceAMPM, setServiceTimeAMPM] = useState("");
-
-  const [item, setItem] = useState(_tmp);
-  const [services, setServices] = useState(_tmpServices);
-  const [id, setId] = useState(0);
+  const [tag, setTag] = useState<tagItem>({ name: "" });
+  const [categories, setCategories] = useState<CategoryItem[]>([]);
+  const [blogData, setBlogData] = useState<BlogItemDTO>(_tmp);
+  const editorRef = useRef(null);
 
   useEffect(() => {
-    getBranch();
+    async function fetchCategories() {
+      const response = await getCategoriesApi();
+      setCategories(response.data);
+    }
+    fetchCategories();
   }, []);
 
-  let controller: BranchController = new BranchController();
-  const router = useRouter();
+  let controller: BlogController = new BlogController();
 
-  const getBranch = () => {
-    const idParam = getParam("id");
-    if (!idParam) {
-      router.push("/admin/");
-    } else {
-      setId(parseInt(idParam));
-      controller.read(
-        {
-          setItem,
-          setTitle,
-          setCity,
-          setLocation,
-          setState,
-          setStreet,
-          setIsBranchHq,
-          setServices,
-        },
-        parseInt(idParam)
-      );
+  const handleMessageChange = (e: any) => {
+    const name = "message";
+    setBlogData({ ...blogData, [name]: e.target.getContent() });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    controller.create(blogData);
+  };
+
+  const handleChange = (name: string, value: string) => {
+    if (name === "imageUrl") {
+      const newArray = [{ [name]: value }];
+      blogData.blogImages = newArray;
+      setBlogData({ ...blogData, blogImages: blogData.blogImages });
+      return;
     }
+
+    setBlogData({ ...blogData, [name]: value });
   };
 
-  const onClick = (e) => {
-    e.preventDefault();
-    controller.update(
-      new BranchDTO({
-        name: title,
-        city: city,
-        location: location,
-        state: state,
-        street: street,
-        services: services,
-        isBranchHq: isBranchHq,
-      }),
-      id
-    );
-    controller.read(
-      {
-        setItem,
-        setTitle,
-        setCity,
-        setLocation,
-        setState,
-        setStreet,
-        setIsBranchHq,
-        setServices,
-      },
-      id
-    );
-  };
+  console.log("blogData", blogData);
 
-  const onClickAddService = (e) => {
+  const onClickAddTag = (e) => {
     e.preventDefault();
-    //setServices(services.concat([{day: serviceDay, time: (serviceTime +" "+ serviceAMPM), id: 0}]));
-    // setServices([{day: serviceDay, time: (serviceTime +" "+ serviceAMPM), id: 0}]);
-    controller.addService(
-      setServices,
-      services,
-      serviceDay,
-      serviceTime + " " + serviceAMPM
-    );
+
+    const _tags = blogData.tags || [];
+    _tags.push(tag);
+    setBlogData({ ...blogData, tags: _tags });
+    setTag({ name: "" });
   };
 
   return (
     <AdminLayout
       externalStyles={[]}
       navbar={""}
-      title={"Edit Blog"}
+      title={"Add Blog"}
       withFooter={false}
       withSideBar={true}
     >
@@ -117,7 +68,7 @@ export default function EditBranch() {
         <div className="col-md-8">
           <div className="card">
             <div className="card-header card-header-primary">
-              <h4 className="card-title">Create New Branch</h4>
+              <h4 className="card-title">Create New Blog</h4>
             </div>
             <div className="card-body">
               <form id="form">
@@ -125,29 +76,33 @@ export default function EditBranch() {
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Branch Title</label>
+                      <label className="bmd-label-floating">Blog Title</label>
                       <input
                         type="text"
                         className="form-control"
                         id="title"
                         name="title"
-                        element-data="name"
-                        onChange={(e) => setTitle(e.target.value)}
-                        value={title}
+                        element-data="title"
+                        onChange={(e) =>
+                          handleChange(e.target.name, e.target.value)
+                        }
                       />
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Branch State</label>
+                      <label className="bmd-label-floating">
+                        Blog Image Url
+                      </label>
                       <input
                         type="text"
                         className="form-control"
-                        id="location"
-                        name="location"
-                        element-data="description"
-                        onChange={(e) => setState(e.target.value)}
-                        value={state}
+                        id="imageUrl"
+                        name="imageUrl"
+                        element-data="imageUrl"
+                        onChange={(e) =>
+                          handleChange(e.target.name, e.target.value)
+                        }
                       />
                     </div>
                   </div>
@@ -155,31 +110,37 @@ export default function EditBranch() {
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Branch City</label>
-                      <input
-                        type="text"
+                      <label className="bmd-label-floating">Category</label>
+                      <select
                         className="form-control"
-                        id="code"
-                        name="code"
-                        element-data="code"
-                        onChange={(e) => setCity(e.target.value)}
-                        value={city}
-                      />
+                        id="categoryId"
+                        name="categoryId"
+                        element-data="categoryId"
+                        onChange={(e) =>
+                          handleChange(e.target.name, e.target.value)
+                        }
+                      >
+                        <option value="">Select Category</option>
+                        {categories.map((category) => (
+                          <option key={category.id} value={category.id}>
+                            {category.name}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label className="bmd-label-floating">
-                        Branch location
-                      </label>
+                      <label className="bmd-label-floating">Author Name</label>
                       <input
                         type="text"
-                        className="form-control"
-                        id="code"
-                        name="code"
-                        element-data="code"
-                        onChange={(e) => setLocation(e.target.value)}
-                        value={location}
+                        className="form-control mt-1"
+                        id="authorName"
+                        name="authorName"
+                        element-data="authorName"
+                        onChange={(e) =>
+                          handleChange(e.target.name, e.target.value)
+                        }
                       />
                     </div>
                   </div>
@@ -187,149 +148,82 @@ export default function EditBranch() {
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label className="bmd-label-floating">
-                        Branch street
-                      </label>
-                      <input
-                        type="text"
+                      <label className="bmd-label-floating">About Author</label>
+                      <textarea
                         className="form-control"
-                        id="code"
-                        name="code"
-                        element-data="code"
-                        onChange={(e) => setStreet(e.target.value)}
-                        value={street}
+                        id="aboutAuthor"
+                        name="aboutAuthor"
+                        element-data="aboutAuthor"
+                        cols={5}
+                        rows={5}
+                        onChange={(e) =>
+                          handleChange(e.target.name, e.target.value)
+                        }
                       />
                     </div>
                   </div>
-                  <div className="col-md-6">
-                    <label className="bmd-label-floating">Type</label>
-                    <div className="row ml-1">
-                      <label className="bmd-label-floating">HQ</label>
-                      <input
-                        type="radio"
-                        value="No"
-                        className="col-md-3 form-control"
-                        id="code"
-                        name="code"
-                        element-data="code"
-                        onChange={(e) => setIsBranchHq(true)}
-                        style={{ height: 15, width: 15 }}
-                        checked={isBranchHq}
-                      />
-
-                      <label className="bmd-label-floating">Branch</label>
-                      <input
-                        type="radio"
-                        value="Yes"
-                        className="col-md-3  form-control"
-                        name="code"
-                        onChange={(e) => setIsBranchHq(false)}
-                        checked={!isBranchHq}
-                        style={{ height: 15, width: 15 }}
-                      />
-                    </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-12 mt-2 mb-3">
+                    <label>Message</label>
+                    <Editor
+                      apiKey={
+                        "xp4d02qcjritg0ucudzbasrhjribhh7wy9ck49nlxl78l8n0"
+                      }
+                      onInit={(evt, editor) => (editorRef.current = editor)}
+                      init={{
+                        height: 500,
+                        menubar: false,
+                        plugins: [
+                          "advlist autolink lists link image charmap print preview anchor",
+                          "searchreplace visualblocks code fullscreen",
+                          "insertdatetime media table paste code help wordcount",
+                        ],
+                        toolbar:
+                          "undo redo | formatselect | " +
+                          "bold italic backcolor | alignleft aligncenter " +
+                          "alignright alignjustify | bullist numlist outdent indent | " +
+                          "removeformat | help",
+                        content_style:
+                          "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                      }}
+                      onChange={(e) => handleMessageChange(e)}
+                    />
                   </div>
                 </div>
                 <div className="row">
                   <div className="col-md-12">
                     <div className="form-group">
-                      <label className="bmd-label-floating">
-                        Branch Services
-                      </label>
+                      <label className="bmd-label-floating">Blog Tags</label>
                       <form>
-                        <div className="row">
-                          <div className="col-md-6">
-                            <select
-                              className="form-control"
-                              onChange={(e) => {
-                                setServiceDay(e.target.value);
-                              }}
-                            >
-                              <option key={0} value={""}>
-                                Select Day of the Week
-                              </option>
-                              {[
-                                "Mon",
-                                "Tue",
-                                "Wed",
-                                "Thur",
-                                "Fri",
-                                "Sat",
-                                "Sun",
-                              ].map((item, i) => {
-                                return (
-                                  <option key={i} value={item}>
-                                    {item}
-                                  </option>
-                                );
-                              })}
-                            </select>
-                          </div>
-                          <div className="col-md-6">
-                            <select
-                              className="form-control"
-                              onChange={(e) => {
-                                setServiceTime(e.target.value);
-                              }}
-                            >
-                              <option key={0} value={""}>
-                                Select Time of the Day
-                              </option>
-                              {Array.from(Array(12).keys()).map((item, i) => {
-                                return (
-                                  <option key={i} value={item}>
-                                    {item}
-                                  </option>
-                                );
-                              })}
-                            </select>
-                          </div>
-                        </div>
                         <div className="row pt-3">
                           <div className="col-md-6">
-                            <select
+                            <input
+                              type="text"
                               className="form-control"
+                              value={tag.name}
                               onChange={(e) => {
-                                setServiceTimeAMPM(e.target.value);
+                                setTag({ name: e.target.value });
                               }}
-                            >
-                              <option key={0} value={""}>
-                                Select Time of the Day
-                              </option>
-                              {["AM", "PM"].map((item, i) => {
-                                return (
-                                  <option key={i} value={item}>
-                                    {item}
-                                  </option>
-                                );
-                              })}
-                            </select>
+                            />
                           </div>
                           <div className="col-md-6">
                             <button
                               className="btn btn-primary pull-right"
-                              onClick={(e) => onClickAddService(e)}
+                              onClick={(e) => onClickAddTag(e)}
                             >
-                              Add Service
+                              Add Tags
                             </button>
                           </div>
                         </div>
                       </form>
+                      <TagWrapper>
+                        {blogData?.tags?.map((tag, index) => (
+                          <TagItem key={index}>{tag}</TagItem>
+                        ))}
+                      </TagWrapper>
                     </div>
                   </div>
-                </div>
-                <div className="row ml-1" style={{ maxWidth: "95%" }}>
-                  {services.length > 0 ? (
-                    <BranchServiceTimerItem
-                      timers={services}
-                      showDeleteIcon={true}
-                      onDelete={(i) => {
-                        controller.removeService(setServices, services, i);
-                      }}
-                    />
-                  ) : (
-                    "No Services Added"
-                  )}
                 </div>
                 <div className="clearfix"></div>
                 <div className="row mt-5">
@@ -338,9 +232,9 @@ export default function EditBranch() {
                       type="submit"
                       id="submitBtn"
                       className="btn btn-primary pull-right"
-                      onClick={(e) => onClick(e)}
+                      onClick={(e) => handleSubmit(e)}
                     >
-                      Update Branch
+                      Create Blog
                     </button>
                     <div className="clearfix"></div>
                   </div>
@@ -353,3 +247,16 @@ export default function EditBranch() {
     </AdminLayout>
   );
 }
+
+const TagWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+const TagItem = styled.div`
+  background: #073375;
+  padding: 4px 12px;
+  border-radius: 5px;
+  color: white;
+`;

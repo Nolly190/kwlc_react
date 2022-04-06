@@ -1,5 +1,7 @@
+import { PastorsDetailsType, SliderType } from "../types/appTypes";
+
 export class BranchItemDTO {
-    public constructor(init?:Partial<BranchItemDTO>) {
+    public constructor(init?: Partial<BranchItemDTO>) {
         Object.assign(this, init);
     }
     description: string;
@@ -16,8 +18,8 @@ export class BranchItemDTO {
     target: number;
 }
 
-export class BranchMediaDTO {   
-    public constructor(init?:Partial<BranchMediaDTO>) {
+export class BranchMediaDTO {
+    public constructor(init?: Partial<BranchMediaDTO>) {
         Object.assign(this, init);
     }
     id: number;
@@ -30,7 +32,7 @@ export class BranchMediaDTO {
 }
 
 export class BranchServiceDTO {
-    public constructor(init?:Partial<BranchServiceDTO>) {
+    public constructor(init?: Partial<BranchServiceDTO>) {
         Object.assign(this, init);
     }
     id: number;
@@ -39,7 +41,7 @@ export class BranchServiceDTO {
 }
 
 export class BranchDTO {
-    public constructor(init?:Partial<BranchDTO>) {
+    public constructor(init?: Partial<BranchDTO>) {
         Object.assign(this, init);
     }
     id: number;
@@ -54,12 +56,13 @@ export class BranchDTO {
     donationVm: string[];
     liveStreamVm: string[];
     mediaVm: BranchMediaDTO[];
-    sliderVm: string [];
-    services: BranchServiceDTO [];
+    messageVm: PastorsDetailsType;
+    sliderVm: SliderType[];
+    services: BranchServiceDTO[];
 }
 
 export class BranchAssignAdminDTO {
-    public constructor(init?:Partial<BranchAssignAdminDTO>) {
+    public constructor(init?: Partial<BranchAssignAdminDTO>) {
         Object.assign(this, init);
     }
     id: number;

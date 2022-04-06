@@ -1,50 +1,61 @@
 import { useEffect, useRef, useState } from "react";
 import { BlogController } from "../../../../controller/admin/blog.controller";
-import { BlogItemDTO, BlogItemImageDTO } from "../../../../dto/Blog.dto";
+import { BlogItemDTO, CategoryItem, tagItem } from "../../../../dto/Blog.dto";
 import AdminLayout from "../admin.layout";
 import { Editor } from "@tinymce/tinymce-react";
+import { getCategoriesApi } from "../../../../api/blog.api";
+import styled from "styled-components";
 
 export default function AddBlog() {
   const _tmp: BlogItemDTO = new BlogItemDTO();
 
-  const [title, setTitle] = useState("");
-  const [tag, setTag] = useState("");
-  const [location, setLocation] = useState("");
-  const [state, setState] = useState("");
-  const [tags, setTags] = useState([]);
-  const [item, setItem] = useState(_tmp);
-  const [isBranchHq, setIsBranchHq] = useState(false);
-  const [blogCategory, setBlogCategory] = useState("");
-  const [authorName, setAuthorName] = useState("");
-  const [aboutAuthor, setAboutAuthor] = useState("");
+  const [tag, setTag] = useState<tagItem>({ name: "" });
+  const [categories, setCategories] = useState<CategoryItem[]>([]);
+  const [blogData, setBlogData] = useState<BlogItemDTO>(_tmp);
+  const editorRef = useRef(null);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    async function fetchCategories() {
+      const response = await getCategoriesApi();
+      setCategories(response.data);
+    }
+    fetchCategories();
+  }, []);
 
   let controller: BlogController = new BlogController();
-  const editorRef = useRef(null);
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
+
+  const handleMessageChange = (e: any) => {
+    const name = "message";
+    setBlogData({ ...blogData, [name]: e.target.getContent() });
   };
 
-  const onClick = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    controller.create(
-      new BlogItemDTO({
-        aboutAuthor: aboutAuthor,
-        authorName: authorName,
-        blogCategory: blogCategory,
-      })
-    );
+    controller.create(blogData);
   };
+
+  const handleChange = (name: string, value: string) => {
+    if (name === "imageUrl") {
+      const newArray = [{ [name]: value }];
+      blogData.blogImages = newArray;
+      setBlogData({ ...blogData, blogImages: blogData.blogImages });
+      return;
+    }
+
+    setBlogData({ ...blogData, [name]: value });
+  };
+
+  console.log("blogData", blogData);
 
   const onClickAddTag = (e) => {
     e.preventDefault();
-
-    const _tags = tags;
-    _tags.push(tag);
-    setTags(_tags);
+    if (blogData?.tags) {
+      setBlogData({ ...blogData, tags: [...blogData.tags, tag] });
+    } else {
+      blogData.tags = [];
+      setBlogData({ ...blogData, tags: [...blogData.tags, tag] });
+    }
+    setTag({ name: "" });
   };
 
   return (
@@ -67,50 +78,33 @@ export default function AddBlog() {
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Branch Title</label>
+                      <label className="bmd-label-floating">Blog Title</label>
                       <input
                         type="text"
                         className="form-control"
                         id="title"
                         name="title"
-                        element-data="name"
-                        onChange={(e) => setTitle(e.target.value)}
+                        element-data="title"
+                        onChange={(e) =>
+                          handleChange(e.target.name, e.target.value)
+                        }
                       />
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label className="bmd-label-floating">Branch State</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="location"
-                        name="location"
-                        element-data="description"
-                        onChange={(e) => setState(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label className="bmd-label-floating">Branch City</label>
-                      {/* <input type="text" className="form-control" id="code" name="code" element-data="code"  onChange={(e) => setCity(e.target.value)} />  */}
                     </div>
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="bmd-label-floating">
-                        Branch location
+                        Blog Image Url
                       </label>
                       <input
                         type="text"
                         className="form-control"
-                        id="code"
-                        name="code"
-                        element-data="code"
-                        onChange={(e) => setLocation(e.target.value)}
+                        id="imageUrl"
+                        name="imageUrl"
+                        element-data="imageUrl"
+                        onChange={(e) =>
+                          handleChange(e.target.name, e.target.value)
+                        }
                       />
                     </div>
                   </div>
@@ -118,42 +112,62 @@ export default function AddBlog() {
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label className="bmd-label-floating">
-                        Branch street
-                      </label>
-                      {/* <input type="text" className="form-control" id="code" name="code" element-data="code"  onChange={(e) => setStreet(e.target.value)} />  */}
+                      <label className="bmd-label-floating">Category</label>
+                      <select
+                        className="form-control"
+                        id="categoryId"
+                        name="categoryId"
+                        element-data="categoryId"
+                        onChange={(e) =>
+                          handleChange(e.target.name, e.target.value)
+                        }
+                      >
+                        <option value="">Select Category</option>
+                        {categories.map((category) => (
+                          <option key={category.id} value={category.id}>
+                            {category.name}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </div>
                   <div className="col-md-6">
-                    <label className="bmd-label-floating">Type</label>
-                    <div className="row ml-1">
-                      <label className="bmd-label-floating">HQ</label>
+                    <div className="form-group">
+                      <label className="bmd-label-floating">Author Name</label>
                       <input
-                        type="radio"
-                        value="No"
-                        className="col-md-3 form-control"
-                        id="code"
-                        name="code"
-                        element-data="code"
-                        onChange={() => setIsBranchHq(true)}
-                        style={{ height: 15, width: 15 }}
-                      />
-
-                      <label className="bmd-label-floating">Branch</label>
-                      <input
-                        type="radio"
-                        value="Yes"
-                        className="col-md-3  form-control"
-                        name="code"
-                        onChange={() => setIsBranchHq(false)}
-                        checked
-                        style={{ height: 15, width: 15 }}
+                        type="text"
+                        className="form-control mt-1"
+                        id="authorName"
+                        name="authorName"
+                        element-data="authorName"
+                        onChange={(e) =>
+                          handleChange(e.target.name, e.target.value)
+                        }
                       />
                     </div>
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-12">
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label className="bmd-label-floating">About Author</label>
+                      <textarea
+                        className="form-control"
+                        id="aboutAuthor"
+                        name="aboutAuthor"
+                        element-data="aboutAuthor"
+                        cols={5}
+                        rows={5}
+                        onChange={(e) =>
+                          handleChange(e.target.name, e.target.value)
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-12 mt-2 mb-3">
+                    <label>Message</label>
                     <Editor
                       apiKey={
                         "xp4d02qcjritg0ucudzbasrhjribhh7wy9ck49nlxl78l8n0"
@@ -175,6 +189,7 @@ export default function AddBlog() {
                         content_style:
                           "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                       }}
+                      onChange={(e) => handleMessageChange(e)}
                     />
                   </div>
                 </div>
@@ -188,8 +203,9 @@ export default function AddBlog() {
                             <input
                               type="text"
                               className="form-control"
+                              value={tag.name}
                               onChange={(e) => {
-                                setTag(e.target.value);
+                                setTag({ name: e.target.value });
                               }}
                             />
                           </div>
@@ -198,11 +214,16 @@ export default function AddBlog() {
                               className="btn btn-primary pull-right"
                               onClick={(e) => onClickAddTag(e)}
                             >
-                              Add Service
+                              Add Tags
                             </button>
                           </div>
                         </div>
                       </form>
+                      <TagWrapper>
+                        {blogData?.tags?.map((tag, index) => (
+                          <TagItem key={index}>{tag.name}</TagItem>
+                        ))}
+                      </TagWrapper>
                     </div>
                   </div>
                 </div>
@@ -213,9 +234,9 @@ export default function AddBlog() {
                       type="submit"
                       id="submitBtn"
                       className="btn btn-primary pull-right"
-                      onClick={(e) => onClick(e)}
+                      onClick={(e) => handleSubmit(e)}
                     >
-                      Create Branch
+                      Create Blog
                     </button>
                     <div className="clearfix"></div>
                   </div>
@@ -228,3 +249,16 @@ export default function AddBlog() {
     </AdminLayout>
   );
 }
+
+const TagWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+const TagItem = styled.div`
+  background: #073375;
+  padding: 4px 12px;
+  border-radius: 5px;
+  color: white;
+`;

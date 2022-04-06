@@ -100,7 +100,7 @@ const AdminLayout: React.FC<LayoutProps> = ({
                   isActive={false}
                 />
                 <AdminNavItem
-                  url=""
+                  url="/admin/blogs"
                   iconTitle="menu_book"
                   title="Blog"
                   isActive={false}
