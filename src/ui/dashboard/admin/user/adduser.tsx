@@ -8,10 +8,7 @@ export default function AdminAddUser() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
-
-  useEffect(() => {
-    //alert(md);
-  }, []);
+  const [phone, setPhone] = useState("");
 
   let userController: UserController = new UserController();
 
@@ -23,6 +20,7 @@ export default function AdminAddUser() {
         firstName: firstName,
         lastName: lastName,
         username: username,
+        phone: phone,
       })
     );
   };
@@ -97,6 +95,21 @@ export default function AdminAddUser() {
                         element-data="username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="form-group" style={{ marginTop: 37 }}>
+                      <label className="bmd-label-floating">Phone Number</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="phone"
+                        name="phone"
+                        element-data="phone"
+                        onChange={(e) => setPhone(e.target.value)}
                       />
                     </div>
                   </div>

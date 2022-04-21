@@ -2866,8 +2866,9 @@ select.form-control-lg:not([size]):not([multiple]),
 
 .btn.disabled,
 .btn:disabled {
-  opacity: 0.65;
   box-shadow: none;
+  cursor: not-allowed !important;
+  background-color: grey !important;
 }
 
 .btn:not(:disabled):not(.disabled) {
@@ -15319,6 +15320,7 @@ h2.title {
 
 .nav-tabs .nav-item .nav-link:hover {
   border: 0;
+  cursor: pointer;
 }
 
 .nav-tabs .nav-item .nav-link,
@@ -16016,7 +16018,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   margin-left: 2px;
   vertical-align: middle;
   border-top: 4px dashed;
-  border-top: 4px solid\9;
+  border-top: 4px solid;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
@@ -16032,6 +16034,14 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   width: 260px;
   z-index: 4;
   padding-bottom: 30px;
+}
+
+.sidebar .sidebar-wrapper::-webkit-scrollbar {
+  width: 2px;
+}
+
+.sidebar .sidebar-wrapper::-webkit-scrollbar-thumb {
+  background-color: #0b0146;
 }
 
 .sidebar .sidebar-wrapper .dropdown .dropdown-backdrop {

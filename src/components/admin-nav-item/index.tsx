@@ -6,7 +6,6 @@ interface props {
   iconTitle: string;
   url?: string;
   action?: () => void;
-  isActive?: boolean;
 }
 
 const AdminNavItem: React.FC<props> = ({
@@ -14,7 +13,6 @@ const AdminNavItem: React.FC<props> = ({
   iconTitle,
   url,
   action,
-  isActive = false,
 }) => {
   const { pathname } = useRouter();
   const pathArray = pathname.split("/");
@@ -24,7 +22,7 @@ const AdminNavItem: React.FC<props> = ({
   return (
     <Link href={url} passHref>
       <li
-        className={`nav-item ${active || isActive ? "active" : ""}`}
+        className={`nav-item ${active ? "active" : ""}`}
         onClick={action}
       >
         <a className="nav-link">

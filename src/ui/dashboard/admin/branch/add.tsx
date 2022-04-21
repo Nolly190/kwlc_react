@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import {BranchServiceTimerItem} from "../../../../components/service-timer-item";
+import { BranchServiceTimerItem } from "../../../../components/service-timer-item";
 import { BranchController } from "../../../../controller/admin/branch.controller";
 import { BranchDTO, BranchServiceDTO } from "../../../../dto/Branch.dto";
 import { showConfirmDialog } from "../../../../utils";
 import AdminLayout from "../admin.layout";
 
 export default function AddBranch() {
-    const _tmpServices: BranchServiceDTO[] =  [];
-    
+    const _tmpServices: BranchServiceDTO[] = [];
+
     const [title, setTitle] = useState("");
-    const [city, setCity] = useState("");
+    const [address, setAddress] = useState("");
     const [location, setLocation] = useState("");
     const [state, setState] = useState("");
-    const [street, setStreet] = useState("");
+    const [contactNumber, setContactNumber] = useState("");
     const [services, setServices] = useState(_tmpServices);
     const [isBranchHq, setIsBranchHq] = useState(false);
     const [serviceDay, setServiceDay] = useState("");
@@ -26,17 +26,17 @@ export default function AddBranch() {
 
     const onClick = (e) => {
         e.preventDefault();
-        controller.create(new BranchDTO({name: title, city: city, location: location, state: state, street: street, services: services, isBranchHq: isBranchHq}));
+        controller.create(new BranchDTO({ name: title, address: address, location: location, state: state, contactNumber: contactNumber, services: services, isBranchHq: isBranchHq }));
     }
 
     const onClickAddService = (e) => {
         e.preventDefault();
         //setServices(services.concat([{day: serviceDay, time: (serviceTime +" "+ serviceAMPM), id: 0}]));
         // setServices([{day: serviceDay, time: (serviceTime +" "+ serviceAMPM), id: 0}]);
-        controller.addService(setServices, services, serviceDay, (serviceTime +" "+ serviceAMPM));
+        controller.addService(setServices, services, serviceDay, (serviceTime + " " + serviceAMPM));
     }
-    
-    return(
+
+    return (
         <AdminLayout
             externalStyles={[]}
             navbar={""}
@@ -57,7 +57,7 @@ export default function AddBranch() {
                                     <div className="col-md-6">
                                         <div className="form-group">
                                             <label className="bmd-label-floating">Branch Title</label>
-                                            <input type="text" className="form-control" id="title" name="title" element-data="name"  onChange={(e) => setTitle(e.target.value)} />
+                                            <input type="text" className="form-control" id="title" name="title" element-data="name" onChange={(e) => setTitle(e.target.value)} />
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -70,33 +70,33 @@ export default function AddBranch() {
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="form-group">
-                                            <label className="bmd-label-floating">Branch City</label>
-                                            <input type="text" className="form-control" id="code" name="code" element-data="code"  onChange={(e) => setCity(e.target.value)} /> 
+                                            <label className="bmd-label-floating">Branch Address</label>
+                                            <input type="text" className="form-control" id="code" name="code" element-data="code" onChange={(e) => setAddress(e.target.value)} />
                                         </div>
                                     </div>
                                     <div className="col-md-6">
                                         <div className="form-group">
                                             <label className="bmd-label-floating">Branch location</label>
-                                            <input type="text" className="form-control" id="code" name="code" element-data="code"  onChange={(e) => setLocation(e.target.value)} /> 
+                                            <input type="text" className="form-control" id="code" name="code" element-data="code" onChange={(e) => setLocation(e.target.value)} />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="form-group">
-                                            <label className="bmd-label-floating">Branch street</label>
-                                            <input type="text" className="form-control" id="code" name="code" element-data="code"  onChange={(e) => setStreet(e.target.value)} /> 
+                                            <label className="bmd-label-floating">Branch Contact Number</label>
+                                            <input type="text" className="form-control" id="code" name="code" element-data="code" onChange={(e) => setContactNumber(e.target.value)} />
                                         </div>
                                     </div>
                                     <div className="col-md-6">
                                         <label className="bmd-label-floating">Type</label>
                                         <div className="row ml-1">
-                                            
+
                                             <label className="bmd-label-floating">HQ</label>
-                                            <input type="radio" value="No" className="col-md-3 form-control" id="code" name="code" element-data="code" onChange={(e) => setIsBranchHq(true)} style={{height: 15, width: 15}} /> 
-                                            
+                                            <input type="radio" value="No" className="col-md-3 form-control" id="code" name="code" element-data="code" onChange={(e) => setIsBranchHq(true)} style={{ height: 15, width: 15 }} />
+
                                             <label className="bmd-label-floating">Branch</label>
-                                            <input type="radio" value="Yes" className="col-md-3  form-control" name="code" onChange={(e) => setIsBranchHq(false)} checked style={{height: 15, width: 15}} /> 
+                                            <input type="radio" value="Yes" className="col-md-3  form-control" name="code" onChange={(e) => setIsBranchHq(false)} checked style={{ height: 15, width: 15 }} />
                                         </div>
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@ export default function AddBranch() {
                                                         <select className="form-control" onChange={(e) => {
                                                             setServiceDay(e.target.value);
                                                         }}>
-                                                        <option key={0} value={""}>Select Day of the Week</option>
+                                                            <option key={0} value={""}>Select Day of the Week</option>
                                                             {
                                                                 ["Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"].map((item, i) => {
                                                                     return (
@@ -124,7 +124,7 @@ export default function AddBranch() {
                                                         <select className="form-control" onChange={(e) => {
                                                             setServiceTime(e.target.value);
                                                         }}>
-                                                        <option key={0} value={""}>Select Time of the Day</option>
+                                                            <option key={0} value={""}>Select Time of the Day</option>
                                                             {
                                                                 Array.from(Array(12).keys()).map((item, i) => {
                                                                     return (
@@ -137,10 +137,10 @@ export default function AddBranch() {
                                                 </div>
                                                 <div className="row pt-3">
                                                     <div className="col-md-6">
-                                                    <select className="form-control" onChange={(e) => {
-                                                        setServiceTimeAMPM(e.target.value)
-                                                    }}>
-                                                        <option key={0} value={""}>Select Time of the Day</option>
+                                                        <select className="form-control" onChange={(e) => {
+                                                            setServiceTimeAMPM(e.target.value)
+                                                        }}>
+                                                            <option key={0} value={""}>Select Time of the Day</option>
                                                             {
                                                                 ["AM", "PM"].map((item, i) => {
                                                                     return (
@@ -155,33 +155,33 @@ export default function AddBranch() {
                                                     </div>
                                                 </div>
                                             </form>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row ml-1" style={{maxWidth: '95%'}}>
+                                <div className="row ml-1" style={{ maxWidth: '95%' }}>
                                     {
-                                        services.length > 0 ? <BranchServiceTimerItem 
+                                        services.length > 0 ? <BranchServiceTimerItem
                                             timers={services}
                                             showDeleteIcon={true}
                                             onDelete={(i) => {
                                                 controller.removeService(setServices, services, i);
                                             }}
-                                         />: "No Services Added"
+                                        /> : "No Services Added"
                                     }
                                 </div>
                                 <div className="clearfix"></div>
                                 <div className="row mt-5">
                                     <div className="col-md-12">
 
-                                        <button 
-                                            type="submit" 
-                                            id="submitBtn" 
+                                        <button
+                                            type="submit"
+                                            id="submitBtn"
                                             className="btn btn-primary pull-right"
                                             onClick={(e) => onClick(e)}
-                                            >
-                                                Create Branch
-                                            </button>
+                                        >
+                                            Create Branch
+                                        </button>
                                         <div className="clearfix"></div>
                                     </div>
                                 </div>

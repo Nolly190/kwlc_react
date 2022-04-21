@@ -1,6 +1,6 @@
 import moment from "moment";
 import { toast } from "react-toastify";
-import { createBlogApi, deleteBlogApi, getBlogApi } from "../../api/blog.api";
+import { createBlogApi, deleteBlogApi, getBlogApi, updateBlogApi } from "../../api/blog.api";
 import { branchAssignAdminApi, createBranchApi, deleteBranchApi, editBranchApi, getBranchesApi, getSingleBranchApi } from "../../api/branch.api";
 import { getAllUsersApi, registerUser } from "../../api/user.api";
 import { BlogDTO, BlogItemDTO } from "../../dto/Blog.dto";
@@ -48,30 +48,23 @@ export class BlogController implements CRUDBL {
         setState.setItem(data);
         setState.setTitle(data.name);
         setState.setLocation(data.location);
-        setState.setCity(data.city);
+        setState.setAddress(data.address);
         setState.setIsBranchHq(data.isBranchHq);
         setState.setServices(data.services);
         setState.setState(data.state);
-        setState.setStreet(data.street);
+        setState.setContactNumber(data.contactNumber);
     }
 
 
-    async update(data: BranchDTO, id: number) {
-
-        data.services.forEach(x => delete x.id)
-
-        editBranchApi(id, data).then((response) => {
-            log("earlydev", "1", response);
+    async update(data: BlogItemDTO, id: number) {
+        updateBlogApi(data, id).then((response) => {
             if (response.code >= statusEnum.ok) {
-                toast.success("Branch update was successful");
-
+                toast.success("Blog update was successful");
             }
             else {
-                toast.error("Branch update failed");
+                toast.error("Blog update failed");
             }
         });
-        // toast.success("Branch update request Sent");
-
     }
 
     async delete(id: number, setItems: Function, items: BlogDTO[]) {

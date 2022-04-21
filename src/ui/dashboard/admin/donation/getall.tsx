@@ -57,38 +57,38 @@ export default function GetAllDonations() {
                       <th></th>
                     </thead>
                     <tbody id="tbody">
-                      {items.length > 0
-                        ? items.map((x, index) => {
-                            return (
-                              <tr key={index}>
-                                <td>{x.title}</td>
-                                <td> {x.description || ""}</td>
+                      {items?.length > 0
+                        ? items?.map((x, index) => {
+                          return (
+                            <tr key={index}>
+                              <td>{x.title}</td>
+                              <td> {x.description || ""}</td>
 
-                                <td className="text-primary">
-                                  <a
-                                    onClick={() => {
-                                      router.push(
-                                        `/admin/donations/edit-donation?id=${x.id}`
-                                      );
-                                    }}
-                                    className="btn btn-primary pull-right text-white"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-                                <td className="text-primary">
-                                  <a
-                                    onClick={() => {
-                                      controller.delete(x.id, setItems, items);
-                                    }}
-                                    className="btn btn-primary pull-right text-white"
-                                  >
-                                    Close
-                                  </a>
-                                </td>
-                              </tr>
-                            );
-                          })
+                              <td className="text-primary">
+                                <a
+                                  onClick={() => {
+                                    router.push(
+                                      `/admin/donations/edit-donation?id=${x.id}`
+                                    );
+                                  }}
+                                  className="btn btn-primary pull-right text-white"
+                                >
+                                  Edit
+                                </a>
+                              </td>
+                              <td className="text-primary">
+                                <a
+                                  onClick={() => {
+                                    controller.delete(x.id, setItems, items);
+                                  }}
+                                  className="btn btn-primary pull-right text-white"
+                                >
+                                  Close
+                                </a>
+                              </td>
+                            </tr>
+                          );
+                        })
                         : undefined}
                     </tbody>
                   </table>

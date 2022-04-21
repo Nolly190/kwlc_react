@@ -44,6 +44,26 @@ export async function uploadPastorDetailsApi(requestData: PastorsDetailsType): P
     return response.getResponse();
 }
 
+export async function updatePastorDetailsApi(requestData: PastorsDetailsType, id: number): Promise<ResponseDTO> {
+    const response = new ResponseDTO();
+
+    try {
+        let res = await request.put(`${urls.baseUrl}${urls.updatePastorDetails}/${id}`, requestData);
+
+        let data: PastorsDetailsType;
+        if (res.status) {
+            data = res.data;
+            response.data = data;
+            response.code = statusEnum.ok;
+        }
+    }
+    catch (e) {
+        response.message = e.toString();
+    }
+
+    return response.getResponse();
+}
+
 export async function getPastorDetailsApi(): Promise<ResponseDTO> {
     const response = new ResponseDTO();
 

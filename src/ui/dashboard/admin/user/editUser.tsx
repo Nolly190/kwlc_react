@@ -144,7 +144,7 @@ export default function EditUser() {
                       className="btn btn-primary pull-right"
                       onClick={(e) => onClick(e)}
                     >
-                      Create
+                      Update
                     </button>
                     <div className="clearfix"></div>
                   </div>

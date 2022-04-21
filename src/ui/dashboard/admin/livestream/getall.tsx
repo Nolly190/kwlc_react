@@ -62,49 +62,49 @@ export default function GetAllLivestream() {
                       <th></th>
                     </thead>
                     <tbody id="tbody">
-                      {items.length > 0
+                      {items?.length > 0
                         ? items.map((x, index) => {
-                            return (
-                              <tr key={index}>
-                                <td
-                                  onClick={() =>
-                                    (window.location.href = `/get-livestream?id=${x.id}`)
-                                  }
-                                >
-                                  {x.title}
-                                </td>
-                                <td> {x.description || ""}</td>
-                                <td> {x.isActive ? "Yes" : "No"}</td>
-                                <td>
-                                  {" "}
-                                  {moment(x.dateOfStream).format("yyyy/MM/DD")}
-                                </td>
+                          return (
+                            <tr key={index}>
+                              <td
+                                onClick={() =>
+                                  (window.location.href = `/get-livestream?id=${x.id}`)
+                                }
+                              >
+                                {x.title}
+                              </td>
+                              <td> {x.description || ""}</td>
+                              <td> {x.isActive ? "Yes" : "No"}</td>
+                              <td>
+                                {" "}
+                                {moment(x.dateOfStream).format("yyyy/MM/DD")}
+                              </td>
 
-                                <td className="text-primary">
-                                  <a
-                                    onClick={() => {
-                                      router.push(
-                                        `/admin/livestream/edit-livestream?id=${x.id}`
-                                      );
-                                    }}
-                                    className="btn btn-primary pull-right text-white"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-                                <td className="text-primary">
-                                  <a
-                                    onClick={() => {
-                                      controller.delete(x.id, setItems, items);
-                                    }}
-                                    className="btn btn-primary pull-right text-white"
-                                  >
-                                    Stop
-                                  </a>
-                                </td>
-                              </tr>
-                            );
-                          })
+                              <td className="text-primary">
+                                <a
+                                  onClick={() => {
+                                    router.push(
+                                      `/admin/livestream/edit-livestream?id=${x.id}`
+                                    );
+                                  }}
+                                  className="btn btn-primary pull-right text-white"
+                                >
+                                  Edit
+                                </a>
+                              </td>
+                              <td className="text-primary">
+                                <a
+                                  onClick={() => {
+                                    controller.delete(x.id, setItems, items);
+                                  }}
+                                  className="btn btn-primary pull-right text-white"
+                                >
+                                  Stop
+                                </a>
+                              </td>
+                            </tr>
+                          );
+                        })
                         : undefined}
                     </tbody>
                   </table>

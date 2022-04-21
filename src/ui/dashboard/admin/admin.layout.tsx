@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
 import Head from "next/head";
 import { LayoutProps } from "../../../types/appTypes";
-import NavBar from "./admin.navbar";
-import HomePageFooter from "./admin.footer";
 import { initApp, Logout, saltConst } from "../../../utils";
-import { LoginModelDTO } from "../../../dto/login.dto";
 import { CryptoEncodeDecode } from "../../../encodeDecode";
 import AdminNavItem from "../../../components/admin-nav-item";
 import styled from "styled-components";
 import mediaQueries from "../../../mediaQueries";
 import { useRouter } from "next/router";
+import { AdminNavArray } from "../../../strings";
 // import "./../../../../public/assets/view.v1/admin/js/charts";
 
 const AdminLayout: React.FC<LayoutProps> = ({
@@ -20,6 +18,12 @@ const AdminLayout: React.FC<LayoutProps> = ({
   withSideBar = true,
 }: LayoutProps) => {
   const router = useRouter();
+  let permissionsArray: string[] = [];
+
+  if (typeof window !== 'undefined') {
+    permissionsArray = JSON.parse(localStorage?.getItem("userData"))?.permissions
+    console.log("permisionsArray", permissionsArray);
+  }
 
   useEffect(() => {
     const az = localStorage;
@@ -73,69 +77,24 @@ const AdminLayout: React.FC<LayoutProps> = ({
                   url="/admin"
                   iconTitle="dashboard"
                   title="Dashboard"
-                  isActive={false}
                 />
-                <AdminNavItem
-                  url="/admin/users"
-                  iconTitle="person"
-                  title="Users"
-                  isActive={false}
-                />
-                <AdminNavItem
-                  url="/admin/branches"
-                  iconTitle="book_online"
-                  title="Branches"
-                  isActive={false}
-                />
-                <AdminNavItem
-                  url="/admin/branch-dashboard"
-                  iconTitle="book_online"
-                  title="Branch Dashboard"
-                  isActive={false}
-                />
-                <AdminNavItem
-                  url="/admin/donations"
-                  iconTitle="add_alert"
-                  title="Donations"
-                  isActive={false}
-                />
-                <AdminNavItem
-                  url="/admin/blogs"
-                  iconTitle="menu_book"
-                  title="Blog"
-                  isActive={false}
-                />
-                <AdminNavItem
-                  url="/admin/livestream"
-                  iconTitle="camera"
-                  title="Livestream"
-                  isActive={false}
-                />
-                <AdminNavItem
-                  url="/admin/marketplace"
-                  iconTitle="shopping_cart"
-                  title="Market Place"
-                  isActive={false}
-                />
-                <AdminNavItem
-                  url=""
-                  iconTitle="edit"
-                  title="Edit Profile"
-                  isActive={false}
-                />
+                {AdminNavArray.filter((x) =>
+                  permissionsArray?.map((x) => x.toLowerCase())
+                    .includes(x.name.toLowerCase())
+                ).sort((a, b) => a.name.localeCompare(b.name)).map((x, index) => (
+                  <AdminNavItem
+                    key={index}
+                    url={x.url}
+                    iconTitle={x.iconTitle}
+                    title={x.title}
+                  />
+                ))}
                 <AdminNavItem
                   action={() => Logout()}
                   url=""
                   iconTitle="exit_to_app"
                   title="Logout"
-                  isActive={false}
                 />
-                <li className="nav-item active-pro ">
-                  <p style={{ paddingLeft: "20px" }}>
-                    Logged in
-                    <small id="admin_name"></small>
-                  </p>
-                </li>
               </ul>
             </div>
           </div>

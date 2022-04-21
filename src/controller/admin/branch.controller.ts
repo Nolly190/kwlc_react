@@ -12,7 +12,7 @@ import { fakeModel, showAdminMessage, log, showConfirmDialog } from "../../utils
 
 export class BranchController implements CRUDBL {
     async create(data: BranchDTO) {
-        if (!data.name || !data.city || !data.state || !data.location || data.services.length == 0) {
+        if (!data.name || !data.address || !data.contactNumber || !data.state || !data.location || data.services.length == 0) {
             toast.error("Please fill all fields and provide a service time.");
             return;
         }
@@ -47,11 +47,11 @@ export class BranchController implements CRUDBL {
         setState.setItem(data);
         setState.setTitle(data?.name);
         setState.setLocation(data?.location);
-        setState.setCity(data?.city);
+        setState.setAddress(data?.address);
         setState.setIsBranchHq(data?.isBranchHq);
         setState.setServices(data?.services);
         setState.setState(data?.state);
-        setState.setStreet(data?.street);
+        setState.setContactNumber(data?.contactNumber);
 
     }
     async update(data: BranchDTO, id: number) {

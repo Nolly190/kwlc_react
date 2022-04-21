@@ -49,10 +49,12 @@ request.interceptors.response.use(
     },
     async function (error: AxiosError) {
         const token = getToken()
-
         // if user's token has expired or has been blacklisted
         if (error.response?.status === 401 && token) {
             Logout();
+        }
+        if (error.response?.status === 400) {
+            return Promise.reject(error.response?.data?.responseMessage)
         }
         return Promise.reject(error);
     }

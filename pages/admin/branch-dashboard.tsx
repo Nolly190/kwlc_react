@@ -8,9 +8,10 @@ import mediaQueries from "../../src/mediaQueries";
 import ChurchSlidersModal from "../../src/ui/dashboard/admin/branchDashboard/churchSlidersModal";
 import {
   getPastorDetailsApi,
+  updatePastorDetailsApi,
   uploadPastorDetailsApi,
 } from "../../src/api/report.api";
-import { PastorsDetailsType } from "../../src/types/appTypes";
+import { PastorsDetailsType, PastorsUpdateDetailsType } from "../../src/types/appTypes";
 import { statusEnum } from "../../src/enums/util.enum";
 import { toast } from "react-toastify";
 
@@ -23,15 +24,19 @@ const AdminBranchDashboard = () => {
   const [sliderModalIsOpen, setSliderModalIsOpen] = useState(false);
   const [eventModalIsOpen, setEventModalIsOpen] = useState(false);
   const [pastorData, setPastorData] = useState<PastorsDetailsType>({});
+  const [pastorDataApi, setPastorDataApi] = useState<PastorsUpdateDetailsType>({})
+  const [message, setMessage] = useState("")
+  const [edited, setEdited] = useState(false)
   const editorRef = useRef(null);
 
   useEffect(() => {
     async function getPastor() {
       const response = await getPastorDetailsApi();
       if (response.code === statusEnum.ok) {
-        setPastorData(response?.data?.data);
-        console.log("editor", editorRef.current);
-        editorRef.current?.setContent(response?.data?.data?.message);
+        setPastorDataApi(response?.data?.data);
+        const { pastorImage, name, message } = response?.data?.data;
+        setPastorData({ pastorImage, name, message });
+        setMessage(response?.data?.data?.message);
       }
     }
     getPastor();
@@ -44,13 +49,15 @@ const AdminBranchDashboard = () => {
   const handleMessageChange = (e: any) => {
     const name = "message";
     setPastorData({ ...pastorData, [name]: e.target.getContent() });
+    setEdited(true)
   };
 
   const handleSubmit = async () => {
-    const response = await uploadPastorDetailsApi(pastorData);
-    console.log("message", response);
+    const response = edited
+      ? await updatePastorDetailsApi(pastorData, pastorDataApi?.id)
+      : await uploadPastorDetailsApi(pastorData);
     if (response.code >= statusEnum.ok) {
-      toast.success("Details uploaded successfully");
+      edited ? toast.success("Details updated successfully") : toast.success("Details uploaded successfully")
     } else {
       toast.error(response.message);
     }
@@ -103,6 +110,7 @@ const AdminBranchDashboard = () => {
       });
     }
     setPastorData({ ...pastorData, [name]: value });
+    setEdited(true)
   };
 
   const selectPastorImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -197,6 +205,7 @@ const AdminBranchDashboard = () => {
                 <Editor
                   apiKey={"xp4d02qcjritg0ucudzbasrhjribhh7wy9ck49nlxl78l8n0"}
                   onInit={(evt, editor) => (editorRef.current = editor)}
+                  initialValue={message}
                   init={{
                     height: 250,
                     menubar: false,
@@ -244,7 +253,7 @@ const AdminBranchDashboard = () => {
           <ActionButtonsWrapper>
             {/* <ActionButtons>Preview</ActionButtons> */}
             <ActionButtons color="blue" onClick={handleSubmit}>
-              Save
+              {edited ? "Update" : "Save"}
             </ActionButtons>
           </ActionButtonsWrapper>
         </MainContentContainer>
@@ -263,13 +272,13 @@ const AdminBranchDashboard = () => {
               Upload
             </ActionButtons>
           </AsideContentBox>
-          <AsideContentBox>
+          {/* <AsideContentBox>
             <h2>Events</h2>
             <p>Click on upload to upload events for HQ</p>
             <ActionButtons color="blue" onClick={handleToggleEventsModal}>
               Upload
             </ActionButtons>
-          </AsideContentBox>
+          </AsideContentBox> */}
         </AsideContentContainer>
       </Container>
       {reportModalIsOpen && (
