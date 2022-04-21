@@ -18,19 +18,14 @@ export async function getDonationApi(): Promise<ResponseDTO> {
 
    try {
       let res = await request.get(`${urls.baseUrl}${urls.donation}`);
-      console.log("meres", res)
-      //alert(JSON.stringify(res));
-      // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
       let data: DonationItemDTO[];
       if (res.status) {
-         //save user profile info
-         data = res.data.data;
+         
+         data = res.data.data['data'];
 
-         // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
          response.data = data;
          response.code = statusEnum.ok;
       }
-      // showMessage(getMessage(res), res.status, localStorage);
 
    }
    catch (e) {

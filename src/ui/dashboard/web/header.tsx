@@ -72,8 +72,8 @@ const HeaderMenu = ({ alt = false }) => {
                 </MenuItem>
                 <MenuItem>
                   <li className="dropdown_menu">
-                    <Link href={"/web/livestream/"}>
-                      <a className="nav_link">Stream</a>
+                    <Link href={"/web/payment"}>
+                      <a className="nav_link">Payment</a>
                     </Link>
                   </li>
                 </MenuItem>
@@ -84,22 +84,13 @@ const HeaderMenu = ({ alt = false }) => {
                     </Link>
                   </li>
                 </MenuItem>
-                <MenuItem>
-                  <li className="dropdown_menu">
-                    <Link href={"/web/payment"}>
-                      <a className="nav_link">Payment</a>
-                    </Link>
-                  </li>
-                </MenuItem>
               </MenuList>
             </Menu>
           </li>
           {alt && (
             <li className="nav_item">
-              <Link href="checkout.html">
-                <a className="nav_link">
-                  <i className="icofont-shopping-cart"></i>
-                </a>
+              <Link href={"/web/livestream/"}>
+                <a className="nav_link">Stream</a>
               </Link>
             </li>
           )}
