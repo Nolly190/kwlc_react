@@ -7,7 +7,6 @@ import { ContactDto } from "../../../dto/contact.dto";
 import { submitContactForm } from "../../../api/contact.api";
 
 export default function HomePageFooter() {
-<<<<<<< HEAD
   const _tmp: LiveStreamDTO[] = [];
   const [items, setItems] = useState(_tmp);
 
@@ -31,18 +30,15 @@ export default function HomePageFooter() {
         subject: "new subject",
       });
       const response = await submitContactForm(contactDto);
-=======
     const _tmp: LiveStreamDTO[] = [];
     const [items, setItems] = useState(_tmp);
 
     useEffect(() => {
         controller.list(setItems);
     }, []);
->>>>>>> e01639b87760b79be6e299fc21bd53e498ae346b
 
       if (!response.status) return;
 
-<<<<<<< HEAD
       setName("");
       setEmail("");
       setMessage("");
@@ -83,7 +79,6 @@ export default function HomePageFooter() {
               Bus Stop, Osapa London,Lagos
             </p>
           </div>
-=======
     const controller: LiveStreamController = new LiveStreamController();
     return (
         <footer className="footer_container">
@@ -123,7 +118,6 @@ export default function HomePageFooter() {
                     <button className="button">Send</button>
                 </div>
             </div>
->>>>>>> e01639b87760b79be6e299fc21bd53e498ae346b
 
           <div className="contact_row">
             <label className="label_icon">
@@ -134,7 +128,6 @@ export default function HomePageFooter() {
         </div>
       </div>
 
-<<<<<<< HEAD
       <div className="footer_col">
         <div className="footer_header">
           <h4 className="section_title">Contact Us</h4>
@@ -215,7 +208,6 @@ export default function HomePageFooter() {
       </div>
     </footer>
   );
-=======
                 {
                     items?.length > 0 ? items.slice(0, 3).map((x, index) => {
                         return (
@@ -242,5 +234,4 @@ export default function HomePageFooter() {
 
         </footer>
     )
->>>>>>> e01639b87760b79be6e299fc21bd53e498ae346b
 }
