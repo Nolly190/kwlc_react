@@ -9,10 +9,10 @@ import AdminLayout from "../admin.layout";
 export interface ISetBranch {
   setItem: Function;
   setTitle: Function;
-  setCity: Function;
+  setAddress: Function;
   setLocation: Function;
   setState: Function;
-  setStreet: Function;
+  setContactNumber: Function;
   setIsBranchHq: Function;
   setServices: Function;
 }
@@ -22,10 +22,10 @@ export default function EditBranch() {
   const _tmpServices: BranchServiceDTO[] = [];
 
   const [title, setTitle] = useState("");
-  const [city, setCity] = useState("");
+  const [address, setAddress] = useState("");
   const [location, setLocation] = useState("");
   const [state, setState] = useState("");
-  const [street, setStreet] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
   const [isBranchHq, setIsBranchHq] = useState(false);
   const [serviceDay, setServiceDay] = useState("");
   const [serviceTime, setServiceTime] = useState("");
@@ -52,10 +52,10 @@ export default function EditBranch() {
         {
           setItem,
           setTitle,
-          setCity,
+          setAddress,
           setLocation,
           setState,
-          setStreet,
+          setContactNumber,
           setIsBranchHq,
           setServices,
         },
@@ -69,10 +69,10 @@ export default function EditBranch() {
     controller.update(
       new BranchDTO({
         name: title,
-        city: city,
+        address: address,
         location: location,
         state: state,
-        street: street,
+        contactNumber: contactNumber,
         services: services,
         isBranchHq: isBranchHq,
       }),
@@ -82,10 +82,10 @@ export default function EditBranch() {
       {
         setItem,
         setTitle,
-        setCity,
+        setAddress,
         setLocation,
         setState,
-        setStreet,
+        setContactNumber,
         setIsBranchHq,
         setServices,
       },
@@ -155,15 +155,15 @@ export default function EditBranch() {
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Branch City</label>
+                      <label className="bmd-label-floating">Branch Address</label>
                       <input
                         type="text"
                         className="form-control"
                         id="code"
                         name="code"
                         element-data="code"
-                        onChange={(e) => setCity(e.target.value)}
-                        value={city}
+                        onChange={(e) => setAddress(e.target.value)}
+                        value={address}
                       />
                     </div>
                   </div>
@@ -188,7 +188,7 @@ export default function EditBranch() {
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="bmd-label-floating">
-                        Branch street
+                        Branch Contact Number
                       </label>
                       <input
                         type="text"
@@ -196,8 +196,8 @@ export default function EditBranch() {
                         id="code"
                         name="code"
                         element-data="code"
-                        onChange={(e) => setStreet(e.target.value)}
-                        value={street}
+                        onChange={(e) => setContactNumber(e.target.value)}
+                        value={contactNumber}
                       />
                     </div>
                   </div>

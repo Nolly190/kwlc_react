@@ -25,7 +25,6 @@ export const GlobalModalStyles = createGlobalStyle`
   .modal-content {
     position: absolute;
     border: none;
-    overflow: scroll;
     border-radius: 0px;
     outline: none;
     padding: 0px;

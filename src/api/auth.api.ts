@@ -16,28 +16,21 @@ export async function loginApi(data): Promise<ResponseDTO> {
    const response = new ResponseDTO();
 
    try {
-
       let res: LoginDTO = await request.post(`${urls.baseUrl}${urls.v1}${urls.login}`, data);
+      console.log("res", res);
       // const hashlidEncoDecode: HashlidEncoDecode = new HashlidEncoDecode(saltConst);
       let userData: LoginAccessDTO;
       if (res.status) {
-
-
          //save user profile info
          userData = res.data;
-
-         // localStorage.setItem("userData", hashlidEncoDecode.encode(JSON.stringify(userData)));
          response.data = userData;
       }
-      //showMessage(getMessage(res), res.status, localStorage);
-
       response.data = userData;
       response.code = statusEnum.ok;
+      response.status = true;
    }
    catch (e) {
-      console.error(e);
-      response.message = e.toString();
+      response.responseMessage = e.toString();
    }
-
-   return response.getResponse();
+   return response
 }

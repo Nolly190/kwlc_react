@@ -112,12 +112,12 @@ export default function EditLiveStream() {
                         <option>Select Branch</option>
                         {branches.length > 0
                           ? branches.map((x, i) => {
-                              return (
-                                <option key={i} value={x.id}>
-                                  {x.name}-{x.city}
-                                </option>
-                              );
-                            })
+                            return (
+                              <option key={i} value={x.id}>
+                                {x.name}
+                              </option>
+                            );
+                          })
                           : undefined}
                       </select>
                     </div>

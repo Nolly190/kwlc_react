@@ -3,8 +3,10 @@ import { BlogController } from "../../../../controller/admin/blog.controller";
 import { BlogItemDTO, CategoryItem, tagItem } from "../../../../dto/Blog.dto";
 import AdminLayout from "../admin.layout";
 import { Editor } from "@tinymce/tinymce-react";
-import { getCategoriesApi } from "../../../../api/blog.api";
+import { getCategoriesApi, getSingleBlogApi } from "../../../../api/blog.api";
 import styled from "styled-components";
+import { getParam } from "../../../../utils";
+import { useRouter } from "next/router";
 
 export default function EditBlog() {
   const _tmp: BlogItemDTO = new BlogItemDTO();
@@ -13,13 +15,21 @@ export default function EditBlog() {
   const [categories, setCategories] = useState<CategoryItem[]>([]);
   const [blogData, setBlogData] = useState<BlogItemDTO>(_tmp);
   const editorRef = useRef(null);
+  const router = useRouter();
+  const idParam = getParam("id");
 
   useEffect(() => {
-    async function fetchCategories() {
-      const response = await getCategoriesApi();
-      setCategories(response.data);
+    async function fetchData() {
+      if (!idParam) {
+        router.push("/admin/");
+      } else {
+        const categories = await getCategoriesApi();
+        const blog = await getSingleBlogApi(parseInt(idParam));
+        setCategories(categories.data);
+        setBlogData(blog?.data?.data);
+      }
     }
-    fetchCategories();
+    fetchData();
   }, []);
 
   let controller: BlogController = new BlogController();
@@ -31,7 +41,7 @@ export default function EditBlog() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    controller.create(blogData);
+    controller.update(blogData, parseInt(idParam));
   };
 
   const handleChange = (name: string, value: string) => {
@@ -70,7 +80,7 @@ export default function EditBlog() {
         <div className="col-md-8">
           <div className="card">
             <div className="card-header card-header-primary">
-              <h4 className="card-title">Create New Blog</h4>
+              <h4 className="card-title">Edit Blog</h4>
             </div>
             <div className="card-body">
               <form id="form">
@@ -85,6 +95,7 @@ export default function EditBlog() {
                         id="title"
                         name="title"
                         element-data="title"
+                        value={blogData.title}
                         onChange={(e) =>
                           handleChange(e.target.name, e.target.value)
                         }
@@ -102,6 +113,7 @@ export default function EditBlog() {
                         id="imageUrl"
                         name="imageUrl"
                         element-data="imageUrl"
+                        defaultValue={blogData.blogImages ? blogData.blogImages[0]?.imageUrl : ""}
                         onChange={(e) =>
                           handleChange(e.target.name, e.target.value)
                         }
@@ -118,6 +130,7 @@ export default function EditBlog() {
                         id="categoryId"
                         name="categoryId"
                         element-data="categoryId"
+                        value={blogData.categoryId}
                         onChange={(e) =>
                           handleChange(e.target.name, e.target.value)
                         }
@@ -140,6 +153,7 @@ export default function EditBlog() {
                         id="authorName"
                         name="authorName"
                         element-data="authorName"
+                        value={blogData.authorName}
                         onChange={(e) =>
                           handleChange(e.target.name, e.target.value)
                         }
@@ -156,6 +170,7 @@ export default function EditBlog() {
                         id="aboutAuthor"
                         name="aboutAuthor"
                         element-data="aboutAuthor"
+                        value={blogData.aboutAuthor}
                         cols={5}
                         rows={5}
                         onChange={(e) =>
@@ -173,6 +188,7 @@ export default function EditBlog() {
                         "xp4d02qcjritg0ucudzbasrhjribhh7wy9ck49nlxl78l8n0"
                       }
                       onInit={(evt, editor) => (editorRef.current = editor)}
+                      initialValue={blogData.message}
                       init={{
                         height: 500,
                         menubar: false,

@@ -14,6 +14,7 @@ import { BranchDTO, BranchItemDTO } from "../dto/Branch.dto";
 import { ShopDTO } from "../dto/ShopItem.dto";
 import UserDTO from "../dto/User.dto";
 import request from "../request";
+import { AddUserToRolePayload, CreateRolePayload } from "../types/appTypes";
 
 export async function getAllUsersApi(): Promise<ResponseDTO> {
    const response = new ResponseDTO();
@@ -120,6 +121,86 @@ export async function getUserApi(id: number): Promise<ResponseDTO> {
    catch (e) {
       response.message = e.toString();
       response.code = statusEnum.error;
+   }
+
+   return response.getResponse();
+}
+
+export async function createRoleApi(payload: CreateRolePayload): Promise<ResponseDTO> {
+   const response = new ResponseDTO();
+
+   try {
+      let res = await request.post(`${urls.baseUrl}${urls.v1}${urls.createRole}`, payload);
+
+      let data: boolean;
+      if (res.status) {
+         data = res.data;
+         response.data = data;
+         response.code = statusEnum.ok;
+      }
+   }
+   catch (e) {
+      response.message = e.toString();
+   }
+
+   return response.getResponse();
+}
+
+export async function addUserToRoleApi(payload: AddUserToRolePayload): Promise<ResponseDTO> {
+   const response = new ResponseDTO();
+
+   try {
+      let res = await request.post(`${urls.baseUrl}${urls.v1}${urls.addUserToRole}`, payload);
+
+      let data: boolean;
+      if (res.status) {
+         data = res.data;
+         response.data = data;
+         response.code = statusEnum.ok;
+      }
+   }
+   catch (e) {
+      response.message = e.toString();
+   }
+
+   return response.getResponse();
+}
+
+export async function getRolePermissionApi(id: number): Promise<ResponseDTO> {
+   const response = new ResponseDTO();
+
+   try {
+      let res = await request.post(`${urls.baseUrl}${urls.v1}${urls.rolePermission}?roleId=${id}`);
+
+      let data: boolean;
+      if (res.status) {
+         data = res.data;
+         response.data = data;
+         response.code = statusEnum.ok;
+      }
+   }
+   catch (e) {
+      response.message = e.toString();
+   }
+
+   return response.getResponse();
+}
+
+export async function getAllRolesApi(): Promise<ResponseDTO> {
+   const response = new ResponseDTO();
+
+   try {
+      let res = await request.post(`${urls.baseUrl}${urls.v1}${urls.roles}`);
+
+      let data: boolean;
+      if (res.status) {
+         data = res.data;
+         response.data = data;
+         response.code = statusEnum.ok;
+      }
+   }
+   catch (e) {
+      response.message = e.toString();
    }
 
    return response.getResponse();

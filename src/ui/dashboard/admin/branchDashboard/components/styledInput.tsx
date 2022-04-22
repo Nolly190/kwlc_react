@@ -1,13 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { CurrencyTypes } from "../../../../../types/appTypes";
-import { ChurchReportContext } from "../churchReportContext";
 import CurrencyDropDown from "./currencyDropDown";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   name: string;
   type?: string;
   width?: number;
+  height?: number;
   valueFromContext?: CurrencyTypes;
   handleCurrencyChange?: (selectedValue: any, name: string) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -18,16 +18,16 @@ const StyledInput = (props: Props) => {
     type,
     name,
     width,
+    height,
     handleCurrencyChange,
     valueFromContext,
     onChange,
     ...rest
   } = props;
   const [selectedValue, setSelectedValue] = useState<CurrencyTypes>();
-  const { churchReport } = useContext(ChurchReportContext);
 
   return (
-    <InputWrapper width={width} empty={!!!handleCurrencyChange}>
+    <InputWrapper width={width} height={height} empty={!!!handleCurrencyChange}>
       {handleCurrencyChange && (
         <CurrencyDropDown
           selectedValue={valueFromContext || selectedValue}
@@ -50,6 +50,7 @@ export default StyledInput;
 
 interface InputProps {
   width?: number;
+  height?: number;
   empty?: boolean;
 }
 
@@ -58,7 +59,7 @@ const InputWrapper = styled.div<InputProps>`
   background-color: #f7f7f7;
   border-radius: 10px;
   padding: 0.3rem;
-  height: 55px;
+  height: ${(props) => (props.height ? `${props.height}px` : "55px")};
   justify-content: flex-start;
   width: ${(props) => (props.width ? `${props.width}%` : "100%")};
 

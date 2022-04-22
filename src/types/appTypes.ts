@@ -80,3 +80,90 @@ export interface PastorsDetailsType {
     message?: string,
     name?: string
 }
+
+export interface PastorsUpdateDetailsType {
+    pastorImage?: string,
+    message?: string,
+    name?: string,
+    id?: number
+}
+
+export interface KingdomPublishersResponse {
+    id?: number,
+    firstName?: string,
+    lastName?: string,
+    address?: string,
+    phoneNumber?: string,
+    email?: string,
+    isAccountBlocked?: boolean
+}
+
+export interface ContributionType {
+    id?: number,
+    amountPaid?: number,
+    monthPaid?: Date | string,
+    status?: string
+}
+
+export interface PublishersHistoryResponse {
+    id?: number,
+    firstName?: string,
+    lastName?: string,
+    address?: string,
+    email?: string,
+    phoneNumber?: string,
+    isAccountBlocked?: boolean,
+    contributions?: ContributionType[]
+}
+
+export interface EditPublishersPayload {
+    firstName?: string,
+    lastName?: string,
+    address?: string,
+    phone?: string
+}
+
+export interface RegisterPublishersPayload {
+    firstName?: string,
+    lastName?: string,
+    address?: string,
+    emailAddress?: string,
+    phone?: string
+}
+
+export interface SendMessagePublishersPayload {
+    subject?: string,
+    body?: string
+}
+
+export interface ValidatePaymentRefResponse {
+    id?: number,
+    amount?: number,
+    name?: string,
+    status?: boolean
+}
+
+export enum PaymentStatusEnum {
+    SUCCESS = 1,
+    PENDING = 2,
+    FAILED = 3
+}
+
+interface PermissionPayload {
+    name: string
+}
+
+export interface CreateRolePayload {
+    name: string,
+    permissions: PermissionPayload[]
+}
+
+export interface AddUserToRolePayload {
+    userId: number,
+    roleId: number
+}
+
+export interface UserRolesResponse {
+    id: number,
+    name: string,
+}

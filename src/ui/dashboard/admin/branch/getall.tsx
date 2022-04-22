@@ -71,7 +71,6 @@ export default function GetAllBranches() {
                     <thead className=" text-primary">
                       <th>Title</th>
                       <th>State</th>
-                      <th>City</th>
                       <th>Pastor</th>
                       <th>Is HQ</th>
                       <th>Date Created</th>
@@ -81,49 +80,48 @@ export default function GetAllBranches() {
                     <tbody id="tbody">
                       {items?.length > 0
                         ? items.map((x, index) => {
-                            return (
-                              <tr key={index}>
-                                <td>{x.name}</td>
-                                <td> {x.state}</td>
-                                <td> {x.city}</td>
-                                <td>
-                                  {branchController.renderPastor(pastors, x.id)}
-                                </td>
-                                <td> {x.isBranchHq ? "Yes" : "No"}</td>
-                                <td>
-                                  {" "}
-                                  {moment(x.dateCreated).format("DD/MMM/yyyy")}
-                                </td>
+                          return (
+                            <tr key={index}>
+                              <td>{x.name}</td>
+                              <td> {x.state}</td>
+                              <td>
+                                {branchController.renderPastor(pastors, x.id)}
+                              </td>
+                              <td> {x.isBranchHq ? "Yes" : "No"}</td>
+                              <td>
+                                {" "}
+                                {moment(x.dateCreated).format("DD/MMM/yyyy")}
+                              </td>
 
-                                <td className="text-primary">
-                                  <a
-                                    onClick={() => {
-                                      router.push(
-                                        `/admin/branches/edit-branch?id=${x.id}`
-                                      );
-                                    }}
-                                    className="btn btn-primary pull-right text-white"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-                                <td className="text-primary">
-                                  <a
-                                    onClick={() => {
-                                      branchController.delete(
-                                        x.id,
-                                        setItems,
-                                        items
-                                      );
-                                    }}
-                                    className="btn btn-primary pull-right text-white"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                            );
-                          })
+                              <td className="text-primary">
+                                <a
+                                  onClick={() => {
+                                    router.push(
+                                      `/admin/branches/edit-branch?id=${x.id}`
+                                    );
+                                  }}
+                                  className="btn btn-primary pull-right text-white"
+                                >
+                                  Edit
+                                </a>
+                              </td>
+                              <td className="text-primary">
+                                <a
+                                  onClick={() => {
+                                    branchController.delete(
+                                      x.id,
+                                      setItems,
+                                      items
+                                    );
+                                  }}
+                                  className="btn btn-primary pull-right text-white"
+                                >
+                                  Delete
+                                </a>
+                              </td>
+                            </tr>
+                          );
+                        })
                         : undefined}
                     </tbody>
                   </table>

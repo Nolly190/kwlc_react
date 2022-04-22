@@ -3,7 +3,6 @@ import UserDTO from "../../dto/User.dto";
 import { statusEnum } from "../../enums/util.enum";
 import { CRUDBL } from "../../interfaces/CRUDBL.interface";
 import { ISetUser } from "../../ui/dashboard/admin/user/editUser";
-import { fakeModel, showAdminMessage, log } from "../../utils";
 import { toast } from "react-toastify";
 export class UserController implements CRUDBL {
     async create(data: UserDTO) {
@@ -13,7 +12,6 @@ export class UserController implements CRUDBL {
         }
 
         registerUser(data).then((response) => {
-            log("earlydev", response);
             if (response.code >= statusEnum.ok) {
                 toast.success("User Creation was successful");
 
@@ -58,7 +56,6 @@ export class UserController implements CRUDBL {
         }
 
         const data: UserDTO[] = response?.data?.data;
-        log("earlydev", data);
         setItems(data);
 
     }

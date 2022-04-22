@@ -4,11 +4,11 @@ export class ResponseDTO {
     status: boolean = false;
     data: any = [];
     message: string = "";
-    extra_data: any [] = [];
+    responseMessage: string = "";
     code: number = statusEnum.failed;
 
 
-    getResponse = ()  => {
+    getResponse = () => {
         this.status = this.code > statusEnum.failed;
         if (this.code == statusEnum.error) {
             this.message = "An error occured";

@@ -64,3 +64,7 @@ export interface CategoryItem {
     name: string,
     id: number
 }
+
+export interface CreateCategoryItem {
+    name: string,
+}

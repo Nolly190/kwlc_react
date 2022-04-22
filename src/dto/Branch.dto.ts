@@ -46,12 +46,12 @@ export class BranchDTO {
     }
     id: number;
     name: string;
+    address: string;
+    contactNumber: string;
     dateCreated: string;
-    city: string;
     location: string;
     state: string;
     isBranchHq: boolean;
-    street: string;
     eventVm: string[];
     donationVm: string[];
     liveStreamVm: string[];

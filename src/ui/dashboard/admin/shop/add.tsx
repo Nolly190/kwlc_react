@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import ShopItemImage from "../../../../components/shop-item-image";
-import { BranchController } from "../../../../controller/admin/branch.controller";
 import { ShopController } from "../../../../controller/admin/shop.controller";
 import { ShopDTO, ShopImageDTO } from "../../../../dto/ShopItem.dto";
 import AdminLayout from "../admin.layout";
 
 export default function AddShopItem() {
-    const _tmp: ShopDTO[] =  [];
-    const _tmpImages: ShopImageDTO[] =  [];
-    
-    
+    const _tmp: ShopDTO[] = [];
+    const _tmpImages: ShopImageDTO[] = [];
+
+
     const [title, setTitle] = useState("");
     const [price, setPrice] = useState("0");
     const [description, setDescription] = useState("");
@@ -25,7 +24,6 @@ export default function AddShopItem() {
     }, []);
 
     const controller: ShopController = new ShopController();
-    const branchController: BranchController = new BranchController();
 
     const onClick = (e) => {
         e.preventDefault();
@@ -44,8 +42,8 @@ export default function AddShopItem() {
         e.preventDefault();
         controller.addImage(setImgs, imgs, img);
     }
-    
-    return(
+
+    return (
         <AdminLayout
             externalStyles={[]}
             navbar={""}
@@ -65,7 +63,7 @@ export default function AddShopItem() {
                                     <div className="col-md-12">
                                         <div className="form-group">
                                             <label className="bmd-label-floating">Title</label>
-                                            <input type="text" className="form-control" id="title" name="title" element-data="name"  onChange={(e) => setTitle(e.target.value)} />
+                                            <input type="text" className="form-control" id="title" name="title" element-data="name" onChange={(e) => setTitle(e.target.value)} />
                                         </div>
                                     </div>
                                 </div>
@@ -73,13 +71,13 @@ export default function AddShopItem() {
                                     <div className="col-md-6">
                                         <div className="form-group">
                                             <label className="bmd-label-floating">Price</label>
-                                            <input type="number" className="form-control"  onChange={(e) => setPrice(e.target.value)} />
+                                            <input type="number" className="form-control" onChange={(e) => setPrice(e.target.value)} />
                                         </div>
                                     </div>
                                     <div className="col-md-6">
                                         <div className="form-group">
                                             <label className="bmd-label-floating">Quanity</label>
-                                            <input type="number" className="form-control"  onChange={(e) => setQuantity(e.target.value)} />
+                                            <input type="number" className="form-control" onChange={(e) => setQuantity(e.target.value)} />
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +91,7 @@ export default function AddShopItem() {
                                     <div className="col-md-6">
                                         <div className="form-group">
                                             <label className="bmd-label-floating">Select Dimension</label>
-                                            <input type="number" className="form-control"  value={dimension}  onChange={(e) => setDimension(e.target.value)} />
+                                            <input type="number" className="form-control" value={dimension} onChange={(e) => setDimension(e.target.value)} />
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +99,7 @@ export default function AddShopItem() {
                                     <div className="col-md-12">
                                         <div className="form-group">
                                             <label className="bmd-label-floating">Description </label>
-                                            <textarea className="form-control" id="code" name="code" element-data="code"  onChange={(e) => setDescription(e.target.value)} /> 
+                                            <textarea className="form-control" id="code" name="code" element-data="code" onChange={(e) => setDescription(e.target.value)} />
                                         </div>
                                     </div>
                                 </div>
@@ -109,38 +107,38 @@ export default function AddShopItem() {
                                     <div className="col-md-6">
                                         <div className="form-group">
                                             <label className="bmd-label-floating">Enter Image URL</label>
-                                                <div className="row">
-                                                    <input type="text" className="form-control"  onChange={(e) => setImg(e.target.value)} />
-                                                        <button className="btn btn-primary pull-right" onClick={(e) => onClick(e)}>
-                                                            Create Item
-                                                            
-                                                        </button>
-                                                </div>
-                                            
+                                            <div className="row">
+                                                <input type="text" className="form-control" onChange={(e) => setImg(e.target.value)} />
+                                                <button className="btn btn-primary pull-right" onClick={(e) => onClick(e)}>
+                                                    Create Item
+
+                                                </button>
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div className="col-md-6 mt-4">
-                                        <button 
-                                            type="submit" 
-                                            id="submitBtn" 
+                                        <button
+                                            type="submit"
+                                            id="submitBtn"
                                             className="btn btn-primary "
                                             onClick={(e) => onAddImageURL(e)}
-                                            >
-                                                Add URL
+                                        >
+                                            Add URL
                                         </button>
                                     </div>
                                 </div>
-                                <div className="row ml-1" style={{maxWidth: '95%'}}>
+                                <div className="row ml-1" style={{ maxWidth: '95%' }}>
                                     {
                                         imgs.length > 0 ? imgs.map((x, i) => {
                                             return (
-                                                <ShopItemImage 
-                                                    key={i} 
-                                                    id={x.id} 
-                                                    url={x.imageUrl} 
+                                                <ShopItemImage
+                                                    key={i}
+                                                    id={x.id}
+                                                    url={x.imageUrl}
                                                 />
                                             )
-                                        }): "No images Added"
+                                        }) : "No images Added"
                                     }
                                 </div>
                             </form>

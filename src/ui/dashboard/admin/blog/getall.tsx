@@ -9,12 +9,14 @@ import { BlogDTO } from "../../../../dto/Blog.dto";
 import { BranchDTO } from "../../../../dto/Branch.dto";
 import PastorDTO from "../../../../dto/Pastor.dto";
 import AdminLayout from "../admin.layout";
+import CategoryModal from "./categoryModal";
 
 export default function GetAllBlogs() {
   const _tmp: BlogDTO[] = [];
   const router = useRouter();
 
   const [items, setItems] = useState(_tmp);
+  const [openCategoryModal, setOpenCategoryModal] = useState(false)
 
   useEffect(() => {
     blogController.list(setItems);
@@ -28,6 +30,14 @@ export default function GetAllBlogs() {
     }
     return text;
   };
+
+  const handleOpenCategoryModal = () => {
+    setOpenCategoryModal(true);
+  }
+
+  const handleCloseCategoryModal = () => {
+    setOpenCategoryModal(false);
+  }
 
   return (
     <>
@@ -53,15 +63,15 @@ export default function GetAllBlogs() {
                           </a>
                         </Link>
                       </li>
-                      {/* <li className="nav-item">
+                      <li className="nav-item">
                         <a
-                          href={"/admin/branch-assign-admin"}
                           className="nav-link active"
                           data-toggle="tab"
+                          onClick={handleOpenCategoryModal}
                         >
-                          Assign Admin to Branch
+                          Manage Categories
                         </a>
-                      </li> */}
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -79,43 +89,43 @@ export default function GetAllBlogs() {
                       <th></th>
                     </thead>
                     <tbody id="tbody">
-                      {items.length > 0
+                      {items?.length > 0
                         ? items.map((x, index) => {
-                            return (
-                              <tr key={index}>
-                                <td>{truncateText(x.title, 30)}</td>
-                                <td>{x.authorName}</td>
-                                <td> {x.blogCategory}</td>
-                                <td> {moment(x.date).format("DD/MMM/yyyy")}</td>
-                                <td className="text-primary">
-                                  <a
-                                    onClick={() => {
-                                      router.push(
-                                        `/admin/blogs/edit-blog?id=${x.id}`
-                                      );
-                                    }}
-                                    className="btn btn-primary pull-right text-white"
-                                  >
-                                    Edit
-                                  </a>
-                                </td>
-                                <td className="text-primary">
-                                  <a
-                                    onClick={() => {
-                                      blogController.delete(
-                                        x.id,
-                                        setItems,
-                                        items
-                                      );
-                                    }}
-                                    className="btn btn-primary pull-right text-white"
-                                  >
-                                    Delete
-                                  </a>
-                                </td>
-                              </tr>
-                            );
-                          })
+                          return (
+                            <tr key={index}>
+                              <td>{truncateText(x.title, 30)}</td>
+                              <td>{x.authorName}</td>
+                              <td> {x.blogCategory}</td>
+                              <td> {moment(x.date).format("DD/MMM/yyyy")}</td>
+                              <td className="text-primary">
+                                <a
+                                  onClick={() => {
+                                    router.push(
+                                      `/admin/blogs/edit-blog?id=${x.id}`
+                                    );
+                                  }}
+                                  className="btn btn-primary pull-right text-white"
+                                >
+                                  Edit
+                                </a>
+                              </td>
+                              <td className="text-primary">
+                                <a
+                                  onClick={() => {
+                                    blogController.delete(
+                                      x.id,
+                                      setItems,
+                                      items
+                                    );
+                                  }}
+                                  className="btn btn-primary pull-right text-white"
+                                >
+                                  Delete
+                                </a>
+                              </td>
+                            </tr>
+                          );
+                        })
                         : undefined}
                     </tbody>
                   </table>
@@ -125,6 +135,7 @@ export default function GetAllBlogs() {
           </div>
         </div>
       </AdminLayout>
+      <CategoryModal isOpen={openCategoryModal} closeModal={handleCloseCategoryModal} />
     </>
   );
 }

@@ -8,4 +8,5 @@ export default class UserDTO {
     lastName: string;
     username: string;
     email: string;
+    phone: string;
 }

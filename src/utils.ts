@@ -291,10 +291,10 @@ export const writeToLocalStorage = (key: string, data: string) => {
 }
 console.log("local", localStorage)
 export const getFromLocalStorage = (key: string) => {
-   return localStorage.getItem(key);
-
+   if (typeof window !== 'undefined') {
+      return localStorage?.getItem(key);
+   }
 }
-
 
 export const Logout = async () => {
    localStorage.clear();

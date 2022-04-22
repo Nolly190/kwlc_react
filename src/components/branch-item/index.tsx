@@ -1,4 +1,3 @@
-import moment from "moment";
 import { FC } from "react";
 import styled from "styled-components";
 import { BranchServiceDTO } from "../../dto/Branch.dto";
@@ -32,31 +31,19 @@ const BranchItem: FC<branchItem> = ({
         <h4 className="worship_head">{title}</h4>
       </TopWrapper>
       <BottomWrapper>
-        {timers?.length > 0
-          ? timers.map((x, index) => (
-              <TimeWrapper key={index}>
-                <p>{x.day}</p>
-                <p>{x.time}</p>
-              </TimeWrapper>
-            ))
-          : undefined}
         <TimeWrapper>
           <span>
             <i className="fa fa-clock-o" aria-hidden="true"></i>
           </span>
           <div>
-            <TimeItem>
-              <p>Sundays</p>
-              <p>8:30am</p>
-            </TimeItem>
-            <TimeItem>
-              <p>Monday</p>
-              <p>4:30pm</p>
-            </TimeItem>
-            <TimeItem>
-              <p>Wednesday</p>
-              <p>5:30pm</p>
-            </TimeItem>
+            {timers?.length > 0
+              ? timers.map((x, index) => (
+                <TimeItem key={index}>
+                  <p>{x.day}</p>
+                  <p>{x.time}</p>
+                </TimeItem>
+              ))
+              : undefined}
           </div>
         </TimeWrapper>
         <LocationWrapper>
@@ -135,6 +122,7 @@ const TimeWrapper = styled.div`
 const TimeItem = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 0px;
 
   & > p {

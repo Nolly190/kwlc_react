@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { loginUser } from "../../../../controller/admin/login.controller";
 import AdminLayout from "../admin.layout";
 
@@ -11,9 +12,11 @@ export default function AdminLogin() {
   const onLogin = async (e) => {
     e.preventDefault();
     const response = await loginUser(username, password);
-
-    if (response?.status) {
+    console.log("response", response);
+    if (response?.data?.status) {
       router.push("/admin");
+    } else {
+      toast.error(response.responseMessage);
     }
   };
 

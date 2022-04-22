@@ -11,6 +11,7 @@ import {
 import UserDTO from "../../../../dto/User.dto";
 import { getParam, showConfirmDialog, uuidv4 } from "../../../../utils";
 import AdminLayout from "../admin.layout";
+import Select from 'react-select'
 
 export interface ISetBranch {
   setItem: Function;
@@ -77,6 +78,15 @@ export default function AssignAdminToBranch() {
     );
   };
 
+  const dropDownOptions = () => {
+    const arr = [];
+    users.map((x, i) => {
+      arr.push({ value: x?.id, label: `${x?.firstName} ${x?.lastName} (${x?.username})` });
+    })
+
+    return arr
+  }
+
   return (
     <AdminLayout
       externalStyles={[]}
@@ -108,12 +118,12 @@ export default function AssignAdminToBranch() {
                         <option value="">Select Branch</option>
                         {items.length > 0
                           ? items.map((x, i) => {
-                              return (
-                                <option key={i} value={x.id}>
-                                  {x.name}-{x.state}
-                                </option>
-                              );
-                            })
+                            return (
+                              <option key={i} value={x.id}>
+                                {x.name}-{x.state}
+                              </option>
+                            );
+                          })
                           : undefined}
                       </select>
                     </div>
@@ -131,12 +141,12 @@ export default function AssignAdminToBranch() {
                         <option value="">Select User</option>
                         {users.length > 0
                           ? users.map((x, i) => {
-                              return (
-                                <option key={i} value={x.id}>
-                                  {x.firstName} {x.lastName} ({x.username})
-                                </option>
-                              );
-                            })
+                            return (
+                              <option key={i} value={x.id}>
+                                {x.firstName} {x.lastName} ({x.username})
+                              </option>
+                            );
+                          })
                           : undefined}
                       </select>
                     </div>

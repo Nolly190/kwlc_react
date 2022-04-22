@@ -56,7 +56,6 @@ const MeetingDetails: React.FC<MeetingDetailsProps> = ({
 
   const handleSubmit = async () => {
     const response = await createReportApi(churchReport);
-    console.log(response);
     if (response.code >= statusEnum.ok) {
       toast.success("Report uploaded successfully");
       closeModal();

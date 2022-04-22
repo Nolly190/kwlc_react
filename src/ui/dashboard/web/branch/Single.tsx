@@ -64,11 +64,8 @@ const SingleBranch = () => {
                 <div className="profile-content">
                   <h4>Hello people,</h4>
                   <br />
-                  <p className="profile_description">
-                    {item?.messageVm?.message}
-                  </p>
-                  <br />
-                  <p className="greeting">Welcome! I celebrate you.</p>
+                  <div className="profile_description" dangerouslySetInnerHTML={{ __html: item?.messageVm?.message }}>
+                  </div>
                 </div>
               </ProfileContentWrapper>
             </div>
@@ -77,7 +74,7 @@ const SingleBranch = () => {
           <ServiceWrapper>
             <LocationWrapper className="cards">
               <img src="/images/list-icon-1.svg" alt="" srcSet="" />
-              <p>{`${item.street}, ${item.state}`}</p>
+              <p>{item.address}</p>
             </LocationWrapper>
             <ServiceTimeWrapper>
               <Card>
@@ -90,15 +87,15 @@ const SingleBranch = () => {
                       <ul>
                         {item.services?.length > 0
                           ? item.services?.map((x, index) => {
-                              return (
-                                <li key={index}>
-                                  {`${x.day} - ${x.time}`}
-                                  {item.services?.length - 1 !== index && (
-                                    <span>·</span>
-                                  )}
-                                </li>
-                              );
-                            })
+                            return (
+                              <li key={index}>
+                                {`${x.day} - ${x.time}`}
+                                {item.services?.length - 1 !== index && (
+                                  <span>·</span>
+                                )}
+                              </li>
+                            );
+                          })
                           : undefined}
                       </ul>
                     </p>
@@ -305,7 +302,15 @@ const LocationWrapper = styled.div`
   gap: 8px;
   width: 100%;
 
+  & > p {
+    font-size: 16px !important;
+  }
+
   @media screen and (min-width: 900px) {
     width: 45%;
+
+    & > p {
+      font-size: 14px;
+    }
   }
 `;

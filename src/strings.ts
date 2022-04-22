@@ -9,3 +9,96 @@ export const UPDATE_PENDING = (title) => `${title} update request sent`;
 export const DELETE_ERROR = (title) => `${title} delete failed`;
 export const DELETE_OK = (title) => `${title} delete was successful`;
 export const DELETE_PENDING = (title) => `${title} delete request sent`;
+
+export const AdminModules = [
+    {
+        name: "Users"
+    },
+    {
+        name: "Publishers"
+    },
+    {
+        name: "Branches"
+    },
+    {
+        name: "Dashboard"
+    },
+    {
+        name: "Donations"
+    },
+    {
+        name: "Blog"
+    },
+    {
+        name: "Roles"
+    },
+    {
+        name: "Livestream"
+    },
+    {
+        name: "MarketPlace"
+    }
+]
+
+export const AdminNavArray = [
+    {
+        name: "Users",
+        url: "/admin/users",
+        iconTitle: "person",
+        title: "Users",
+    },
+    {
+        name: "Branches",
+        url: "/admin/branches",
+        iconTitle: "book_online",
+        title: "Branches",
+    },
+    {
+        name: "Dashboard",
+        url: "/admin/branch-dashboard",
+        iconTitle: "home",
+        title: "Branch Dashboard",
+    },
+    {
+        name: "Donations",
+        url: "/admin/donations",
+        iconTitle: "account_balance_wallet",
+        title: "Donations",
+    },
+    {
+        name: "Publishers",
+        url: "/admin/publishers",
+        iconTitle: "add_alert",
+        title: "Publishers",
+    },
+    {
+        name: "Blog",
+        url: "/admin/blogs",
+        iconTitle: "menu_book",
+        title: "Blog",
+    },
+    {
+        name: "Roles",
+        url: "/admin/roles",
+        iconTitle: "group_add",
+        title: "Roles",
+    },
+    {
+        name: "Livestream",
+        url: "/admin/livestream",
+        iconTitle: "camera",
+        title: "Livestream",
+    },
+    {
+        name: "MarketPlace",
+        url: "/admin/marketplace",
+        iconTitle: "shopping_cart",
+        title: "Market Place",
+    },
+    {
+        name: "Profile",
+        url: "",
+        iconTitle: "edit",
+        title: "Edit Profile",
+    }
+]

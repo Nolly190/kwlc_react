@@ -7,8 +7,8 @@ import AdminLayout from "../admin.layout";
 
 export default function AddLiveStream() {
     const _tmpBranches: BranchDTO[] = [];
-    
-    
+
+
     const [title, setTitle] = useState("");
     const [url, setUrl] = useState("");
     const [description, setDescription] = useState("");
@@ -36,8 +36,8 @@ export default function AddLiveStream() {
             preacher: ""
         }), branch);
     }
-    
-    return(
+
+    return (
         <AdminLayout
             externalStyles={[]}
             navbar={""}
@@ -63,7 +63,7 @@ export default function AddLiveStream() {
                                                 </option>
                                                 {
                                                     branches.length > 0 ? branches.map((x, i) => {
-                                                        return (<option key={i} value={x.id}>{x.name}-{x.city}</option>);
+                                                        return (<option key={i} value={x.id}>{x.name}</option>);
                                                     }) : undefined
                                                 }
                                             </select>
@@ -80,7 +80,7 @@ export default function AddLiveStream() {
                                     <div className="col-md-6">
                                         <div className="form-group">
                                             <label className="bmd-label-floating">Title</label>
-                                            <input type="text" className="form-control" id="title" name="title" element-data="name"  onChange={(e) => setTitle(e.target.value)} />
+                                            <input type="text" className="form-control" id="title" name="title" element-data="name" onChange={(e) => setTitle(e.target.value)} />
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -94,19 +94,19 @@ export default function AddLiveStream() {
                                     <div className="col-md-12">
                                         <div className="form-group">
                                             <label className="bmd-label-floating">Description </label>
-                                            <textarea className="form-control" id="code" name="code" element-data="code"  onChange={(e) => setDescription(e.target.value)} /> 
+                                            <textarea className="form-control" id="code" name="code" element-data="code" onChange={(e) => setDescription(e.target.value)} />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col-md-12 mt-4">
-                                        <button 
-                                            type="submit" 
-                                            id="submitBtn" 
+                                        <button
+                                            type="submit"
+                                            id="submitBtn"
                                             className="btn btn-primary pull-right"
                                             onClick={(e) => onClick(e)}
-                                            >
-                                                Save Stream
+                                        >
+                                            Save Stream
                                         </button>
                                     </div>
                                 </div>

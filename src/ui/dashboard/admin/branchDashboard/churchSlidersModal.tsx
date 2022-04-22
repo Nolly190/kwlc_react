@@ -51,7 +51,6 @@ const ChurchSlidersModal: React.FC<props> = ({ isOpen, closeModal }) => {
       const response = await getSliderDetailsApi();
       if (response.code === statusEnum.ok) {
         setSliderData(response?.data?.data);
-        console.log("response", response.data);
       }
     }
     getSlider();
@@ -81,8 +80,6 @@ const ChurchSlidersModal: React.FC<props> = ({ isOpen, closeModal }) => {
     });
   };
 
-  console.log("images", sliderData);
-
   const clearButtonData = (index: number) => {
     sliderData.sliderImages[index].bottonUrl = "";
     sliderData.sliderImages[index].buttomName = "";
@@ -104,7 +101,6 @@ const ChurchSlidersModal: React.FC<props> = ({ isOpen, closeModal }) => {
 
   const handleSubmit = async () => {
     const response = await uploadSliderDetailsApi(sliderData);
-    console.log("message", response);
     if (response.code >= statusEnum.ok) {
       toast.success("Details uploaded successfully");
       closeModal();

@@ -22,12 +22,12 @@ export const ModalHeaderContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 4px;
-    width: 30px;
-    height: 30px;
+    padding-bottom: 2px;
+    width: 25px;
+    height: 25px;
     color: #fff;
     margin-right: 40px;
-    font-size: 20px;
+    font-size: 17px;
     border-radius: 50%;
     background-color: #000;
     cursor: pointer;
@@ -76,7 +76,7 @@ export const ChurchReportFormWrapper = styled.div`
   width: 80%;
   padding: 0 8%;
   max-height: 525px;
-  overflow: scroll;
+  overflow-y: scroll;
 
   & > p:first-child {
     color: #0d0f12;
@@ -151,9 +151,9 @@ export const StepperRow = styled.div<StepperRowProps>`
     background-color: ${(props) => (props.completed ? `#3EA200` : `#ffffff`)};
     border-radius: 50%;
     border: ${(props) =>
-      props.current
-        ? `1px solid #0D0F12`
-        : props.completed
+    props.current
+      ? `1px solid #0D0F12`
+      : props.completed
         ? `none`
         : `1px solid #8D8D8D`};
 
@@ -164,7 +164,7 @@ export const StepperRow = styled.div<StepperRowProps>`
       height: 24%;
       width: 3px;
       background-color: ${(props) =>
-        props.current ? `#0D0F12` : props.completed ? `#ffffff` : `#8D8D8D`};
+    props.current ? `#0D0F12` : props.completed ? `#ffffff` : `#8D8D8D`};
       content: "";
       transform: translateX(10px) rotate(-45deg);
       transform-origin: left bottom;
@@ -177,7 +177,7 @@ export const StepperRow = styled.div<StepperRowProps>`
       height: 3px;
       width: 50%;
       background-color: ${(props) =>
-        props.current ? `#0D0F12` : props.completed ? `#ffffff` : `#8D8D8D`};
+    props.current ? `#0D0F12` : props.completed ? `#ffffff` : `#8D8D8D`};
       content: "";
       transform: translateX(10px) rotate(-45deg);
       transform-origin: left bottom;
