@@ -6,6 +6,8 @@ import DonateItemDTO from "../../../../dto/Donate.dto";
 import { fakeModel } from "../../../../utils";
 import Layout from "../layout";
 
+import * as styles from "./donate.module.css";
+
 export default function DonationIntro() {
   const [items, setItems] = useState([]);
   useEffect(() => {

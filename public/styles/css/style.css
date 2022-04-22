@@ -2,9 +2,9 @@
 /*------------ [Google_Font] -----------*/
 /*========================================*/
 
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
 
 /*========================================*/
 /*------------ [_Root] bde0feff-------FFC368----*/
@@ -20,7 +20,7 @@
   --card-secondary-color: #0f5545;
   --white-color: #fff;
   /* Font and Typography */
-  --font: 'Poppins', sans-serif;
+  --font: "Poppins", sans-serif;
   --mfont-max: 2.5rem;
   --mfont-midi: 1.75rem;
   --mfont-mini: 1.25rem;
@@ -68,7 +68,7 @@ html {
   display: inline-block;
   background: var(--text-primary-color);
   color: var(--white-color);
-  padding: .7rem;
+  padding: 0.7rem;
   width: 9rem;
   height: 3.5rem;
   border-radius: 0.625rem;
@@ -86,7 +86,7 @@ html {
   display: inline-block;
   background: transparent;
   color: var(--text-primary-color);
-  padding: .7rem;
+  padding: 0.7rem;
   width: 8rem;
   height: 3.5rem;
   border-radius: 0.625rem;
@@ -293,7 +293,7 @@ span {
 /*========================================*/
 /*--------------- [_Header] -------------*/
 /*========================================*/
-.header_wrap{
+.header_wrap {
   position: relative;
   z-index: 1;
 }
@@ -314,7 +314,7 @@ span {
   display: flex;
   justify-content: space-between;
   color: var(--white-color);
-  margin: 0 .75rem;
+  margin: 0 0.75rem;
   z-index: 1;
 }
 
@@ -564,7 +564,7 @@ span {
 
 .hero-banner-area {
   height: 100%;
-  background: url('/images/hero-banner.png');
+  background: url("/images/hero-banner.png");
   background-size: cover;
 }
 
@@ -626,23 +626,22 @@ span {
 }
 
 .banner_content .flex {
-    display: flex;
-    width: 90vw;
-    justify-items: center;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  width: 90vw;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
 }
 
-
 .banner-content .btn {
-    font-weight: normal;
-    text-align: center;
-    color: #ffffff;
-    cursor: pointer;
-    background: #000000;
-    border-radius: 10px;
-    padding: 0.8rem 2rem;
-    font-size: 1rem;
+  font-weight: normal;
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+  background: #000000;
+  border-radius: 10px;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
 }
 
 @media screen and (min-width: 767px) {
@@ -658,7 +657,7 @@ span {
 
   .banner_content .flex {
     width: 97vw;
-}
+  }
 
   .banner-content p {
     font-size: 1.5rem;
@@ -666,12 +665,12 @@ span {
   .banner_content h1 {
     font-size: var(--font-midi);
   }
-} 
-  .content {
-    width: 90%;
-    margin: 1rem auto;
-    margin-bottom: 3rem;
-  }
+}
+.content {
+  width: 90%;
+  margin: 1rem auto;
+  margin-bottom: 3rem;
+}
 
 /* hero-banner-area-end */
 
@@ -692,7 +691,7 @@ span {
   padding: 0 0.3rem;
   background: var(--text-primary-color);
   color: var(--white-color);
-  font-family: 'Kumar One', cursive;
+  font-family: "Kumar One", cursive;
 }
 
 .timer {
@@ -1055,493 +1054,491 @@ section.location-area {
   }
 }
 
-
 /* ------------------------------------- */
 /*--------------- [_Footer] -------------*/
 
 footer {
-    background: var(--bg-secondary-color);
-    display: grid;
-    grid-template-columns: 1fr;
+  background: var(--bg-secondary-color);
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+footer .footer_header .section_title {
+  margin: 0;
+  padding: 0;
+}
+
+.footer_col {
+  margin: 2rem;
+}
+
+.footer_header {
+  text-transform: uppercase;
+}
+
+.logo_text {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  width: 100%;
+  align-items: end;
+}
+
+.contact_info {
+  margin: 2rem 0;
+}
+
+.contact_info h5 {
+  margin-bottom: 0.5rem;
+}
+
+.contact_text {
+  font-size: var(--font-tiny);
+}
+
+.contact_text i {
+  margin-right: 1rem;
+}
+
+.contact_row {
+  display: flex;
+  margin-bottom: 0.75rem;
+}
+
+.label_icon {
+  margin-right: 1.5rem;
+  font-size: var(--font-reg);
+}
+
+/* Input Form */
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.footerInput {
+  margin-bottom: 1rem;
+  border: none;
+  padding: 0.75rem 1rem;
+  outline: none;
+}
+
+textarea {
+  font-family: "Open Sans";
+}
+
+.contact_col {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  font-size: var(--font-tiny);
+}
+
+.contact_span {
+  color: var(--card-secondary-color);
+  font-size: var(--mfont-reg);
+}
+
+.contact_col h4 {
+  font-weight: var(--font-semi);
+}
+
+.txt_icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  font-size: var(--font-reg);
+}
+
+@media screen and (min-width: 400px) and (max-width: 900px) {
+  .contact_info form,
+  .col_address {
+    width: 75vw;
   }
-  
-  footer .footer_header .section_title {
-    margin: 0;
-    padding: 0;
-  }
-  
-  .footer_col {
-    margin: 2rem;
-  }
-  
-  .footer_header {
-    text-transform: uppercase;
-  }
-  
-  .logo_text {
-    display: grid;
-    grid-template-columns: 45% 55%;
-    width: 100%;
-    align-items: end;
-  }
-  
-  .contact_info {
-    margin: 1rem 0;
-  }
-  
-  .contact_info h5 {
-    margin-bottom: 0.5rem;
-  }
-  
+
   .contact_text {
     font-size: var(--font-tiny);
   }
-  
+
   .contact_text i {
     margin-right: 1rem;
   }
-  
+
   .contact_row {
     display: flex;
     margin-bottom: 0.75rem;
   }
-  
+
   .label_icon {
     margin-right: 1.5rem;
     font-size: var(--font-reg);
   }
-  
+
   /* Input Form */
-  
+
   form {
     display: flex;
     flex-direction: column;
   }
-  
+
   .footerInput {
     margin-bottom: 1rem;
     border: none;
     padding: 0.75rem 1rem;
     outline: none;
   }
-  
+
   textarea {
-    font-family: 'Open Sans';
+    font-family: "Open Sans";
   }
-  
+
   .contact_col {
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
     font-size: var(--font-tiny);
   }
-  
+
   .contact_span {
     color: var(--card-secondary-color);
     font-size: var(--mfont-reg);
   }
-  
+
   .contact_col h4 {
     font-weight: var(--font-semi);
   }
-  
+
   .txt_icons {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 30vw;
+
     font-size: var(--font-reg);
   }
-  
-  @media screen and (min-width: 400px) and (max-width: 900px) {
-    .contact_info form,
-    .col_address {
-      width: 75vw;
-    }
-    
-    .contact_text {
-      font-size: var(--font-tiny);
-    }
-    
-    .contact_text i {
-      margin-right: 1rem;
-    }
-    
-    .contact_row {
-      display: flex;
-      margin-bottom: 0.75rem;
-    }
-    
-    .label_icon {
-      margin-right: 1.5rem;
-      font-size: var(--font-reg);
-    }
-    
-    /* Input Form */
-    
-    form {
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .footerInput {
-      margin-bottom: 1rem;
-      border: none;
-      padding: 0.75rem 1rem;
-      outline: none;
-    }
-    
-    textarea {
-      font-family: "Open Sans";
-    }
-    
-    .contact_col {
-      display: flex;
-      flex-direction: column;
-      margin-top: 1rem;
-      font-size: var(--font-tiny);
-    }
-    
-    .contact_span {
-      color: var(--card-secondary-color);
-      font-size: var(--mfont-reg);
-    }
-    
-    .contact_col h4 {
-      font-weight: var(--font-semi);
-    }
-    
-    .txt_icons {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      width: 30vw;
-      font-size: var(--font-reg);
-    }
-  }
-  
+}
 
+/* --------the live page------- */
+/* --------the live page--------- */
+/* =========the live page======== */
 
-  
+.live {
+  background: rgb(56 56 56 / 95%);
+  color: var(--text-secondary-color);
+}
 
+.live h3 {
+  font-size: var(--mfont-midi);
+  color: var(--white-color);
+  font-weight: var(--font-semi);
+  margin: var(--mfont-mini) 0px;
+}
 
-  /* --------the live page------- */
-  /* --------the live page--------- */
-  /* =========the live page======== */
-  
-  .live {
-    background: rgb(56 56 56 / 95%);
-    color: var(--text-secondary-color);
-  }
-  
-  .live h3 {
-    font-size: var(--mfont-midi);
-    color: var(--white-color);
-    font-weight: var(--font-semi);
-    margin: var(--mfont-mini) 0px;
-  }
-  
-  .live hr {
-    height: 0.5px;
-  }
-  
-  .live .livStream {
-    max-width: 80rem;
-    margin: 0%;
-    padding: var(--mfont-mini);
-    margin: auto;
-  }
-  
-  .live .livStream .row {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0%;
-    padding: 0%;
-  }
-  
-  .live .livStream .left {
-    width: 60%;
-    padding-right: var(--mfont-midi);
-  }
-  
-  .live .livStream video {
-    width: 100%;
-    height: 450px;
-    object-fit: cover;
-  }
-  
-  .live .livStream .lieViews {
-    display: flex;
-    padding: var(--mfont-mini);
-    align-items: center;
-    color: var(--white-color);
-    font-size: var(--mfont-mini);
-    position: absolute;
-    margin-top: -8rem;
-  }
-  
-  .live .livStream .lieViews .text {
-    color: var(--white-color);
-    background: red;
-    padding: 5px 10px;
-  }
-  
-  .live .livStream .lieViews i {
-    margin: 0px var(--mfont-reg);
-  }
-  
-  .live .livStream .left h4 {
-    font-size: var(--mfont-midi);
-    color: var(--white-color);
-    margin: var(--mfont-mini) 0px;
-  }
-  
-  .live .livStream .left .aboutService p {
-    font-size: var(--mfont-mini);
-    color: var(--text-secondary-color);
-    font-weight: var(--font-light);
-    margin-bottom: var(--mfont-midi);
-  }
-  
-  .live .livStream .right {
-    width: 40%;
-  }
-  
-  .live .previousSundays {
-    height: 450px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  .live .previousSundays .row {
-    display: flex;
-    margin: 0%;
-    padding: 0%;
-    max-height: 8.125rem;
-  }
-  
-  .live .previousSundays .first {
-    width: 55%;
-  }
-  
-  .live .previousSundays .first video {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-  
-  .live .previousSundays .second {
-    padding-left: var(--mfont-mini);
-    width: 45%;
-  }
-  
-  .live .previousSundays .second .title {
-    font-size: var(--mfont-reg);
-    color: var(--white-color);
-    font-weight: var(--font-bold);
-    margin-bottom: 0.75rem;
-  }
-  
-  .live .previousSundays .second .preacher {
-    font-size: var(--mfont-reg);
-    color: var(--text-secondary-color);
-    font-weight: var(--font-light);
-    margin-bottom: 0.75rem;
-  }
-  
-  .live .previousSundays .second .date {
-    font-size: var(--mfont-reg);
-    color: var(--text-secondary-color);
-    font-weight: var(--font-light);
-  }
-  
-  .live .share .text {
-    font-size: var(--mfont-reg);
+.live hr {
+  height: 0.5px;
+}
+
+.live .livStream {
+  max-width: 80rem;
+  margin: 0%;
+  padding: var(--mfont-mini);
+  margin: auto;
+}
+
+.live .livStream .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0%;
+  padding: 0%;
+}
+
+.live .livStream .left {
+  width: 60%;
+  padding-right: var(--mfont-midi);
+}
+
+.live .livStream video {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+}
+
+.live .livStream .lieViews {
+  display: flex;
+  padding: var(--mfont-mini);
+  align-items: center;
+  color: var(--white-color);
+  font-size: var(--mfont-mini);
+  position: absolute;
+  margin-top: -8rem;
+}
+
+.live .livStream .lieViews .text {
+  color: var(--white-color);
+  background: red;
+  padding: 5px 10px;
+}
+
+.live .livStream .lieViews i {
+  margin: 0px var(--mfont-reg);
+}
+
+.live .livStream .left h4 {
+  font-size: var(--mfont-midi);
+  color: var(--white-color);
+  margin: var(--mfont-mini) 0px;
+}
+
+.live .livStream .left .aboutService p {
+  font-size: var(--mfont-mini);
+  color: var(--text-secondary-color);
+  font-weight: var(--font-light);
+  margin-bottom: var(--mfont-midi);
+}
+
+.live .livStream .right {
+  width: 40%;
+}
+
+.live .previousSundays {
+  height: 450px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.live .previousSundays .row {
+  display: flex;
+  margin: 0%;
+  padding: 0%;
+  max-height: 8.125rem;
+}
+
+.live .previousSundays .first {
+  width: 55%;
+}
+
+.live .previousSundays .first video {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.live .previousSundays .second {
+  padding-left: var(--mfont-mini);
+  width: 45%;
+}
+
+.live .previousSundays .second .title {
+  font-size: var(--mfont-reg);
+  color: var(--white-color);
+  font-weight: var(--font-bold);
+  margin-bottom: 0.75rem;
+}
+
+.live .previousSundays .second .preacher {
+  font-size: var(--mfont-reg);
+  color: var(--text-secondary-color);
+  font-weight: var(--font-light);
+  margin-bottom: 0.75rem;
+}
+
+.live .previousSundays .second .date {
+  font-size: var(--mfont-reg);
+  color: var(--text-secondary-color);
+  font-weight: var(--font-light);
+}
+
+.live .share .text {
+  font-size: var(--mfont-reg);
+  margin-top: var(--mfont-midi);
+  margin-bottom: var(--mfont-mini);
+  font-weight: var(--font-bold);
+}
+
+.live .share .button {
+  width: 100%;
+  margin: 0;
+  height: 3.375rem;
+  background: transparent;
+  border: 1px solid var(--white-color);
+  color: var(--white-color);
+}
+
+/* section two */
+
+.live .sectionTwo {
+  max-width: 80rem;
+  margin: auto;
+  padding: var(--mfont-mini);
+}
+
+.live .sectionTwo .header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: var(--mfont-mini) 0px;
+}
+
+.live .sectionTwo .header form {
+  height: 3.125rem;
+  border: 1px solid var(--white-color);
+  width: 21.875rem;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  flex-direction: row;
+  border-radius: 10px;
+}
+
+.live .sectionTwo .header form i {
+  font-size: var(--mfont-mini);
+  color: var(--white-color);
+  margin-right: var(--mfont-reg);
+}
+
+.live .sectionTwo .header form input {
+  font-size: var(--mfont-mini);
+  background: none;
+  border: none;
+  outline: none;
+  margin-bottom: 0%;
+  box-shadow: 0 1px 6px 0 rgb(32 33 36 / 15%);
+}
+
+.live .sectionTwo .header form input::placeholder {
+  color: var(--text-secondary-color);
+}
+
+.live .sectionTwo .prevSundays {
+  margin: 0%;
+  padding: 0%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.live .sectionTwo .prevSundays .one {
+  width: 50%;
+  height: 210px;
+  margin-bottom: 3.5rem;
+}
+
+.live .sectionTwo .prevSundays .one .row {
+  display: flex;
+}
+
+.live .sectionTwo .prevSundays .one .row .vid {
+  width: 60%;
+}
+
+.live .sectionTwo .prevSundays .one .row .vid video {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.live .sectionTwo .prevSundays .one .row .column {
+  width: 40%;
+  padding-left: var(--mfont-mini);
+}
+
+.live .sectionTwo .prevSundays .one .row .column .title {
+  font-size: var(--mfont-mini);
+  color: var(--white-color);
+  font-weight: var(--font-bold);
+  margin-bottom: var(--mfont-mini);
+}
+
+.live .sectionTwo .prevSundays .one .row .column .preacher {
+  font-size: var(--mfont-mini);
+  color: var(--text-secondary-color);
+  font-weight: var(--font-light);
+  margin-bottom: var(--mfont-midi);
+}
+
+.live .sectionTwo .prevSundays .one .row .column .date {
+  font-size: var(--mfont-mini);
+  color: var(--text-secondary-color);
+  font-weight: var(--font-light);
+  margin-bottom: var(--mfont-mini);
+}
+.live .sectionTwo .prevSundays .one .row .column .views {
+  font-size: var(--mfont-mini);
+  color: var(--white-color);
+  font-weight: var(--font-bold);
+  margin-bottom: var(--mfont-mini);
+}
+
+.live .sectionTwo .button {
+  width: 350px;
+  height: 3.375rem;
+  background: transparent;
+  border: 1px solid var(--white-color);
+  color: var(--white-color);
+  margin: auto;
+  margin-top: var(--mfont-midi);
+}
+
+.live .sectionTwo .copyright {
+  font-size: var(--mfont-mini);
+  color: var(--white-color);
+  text-transform: uppercase;
+  text-align: center;
+  margin: auto;
+  margin-top: var(--mfont-max);
+  margin-bottom: var(--mfont-midi);
+}
+
+@media screen and (max-width: 768px) {
+  .live .contact .callUs {
     margin-top: var(--mfont-midi);
-    margin-bottom: var(--mfont-mini);
-    font-weight: var(--font-bold);
   }
-  
-  .live .share .button {
+  .live .livStream .left {
     width: 100%;
-    margin: 0;
-    height: 3.375rem;
-    background: transparent;
-    border: 1px solid var(--white-color);
-    color: var(--white-color);
+    padding-right: 0%;
   }
-  
-  /* section two */
-  
-  .live .sectionTwo {
-    max-width: 80rem;
-    margin: auto;
-    padding: var(--mfont-mini);
+  .live .livStream .right {
+    width: 100%;
   }
-  
-  .live .sectionTwo .header {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin: var(--mfont-mini) 0px;
+  .live .livStream .left video {
+    height: auto;
   }
-  
-  .live .sectionTwo .header form {
-    height: 3.125rem;
-    border: 1px solid var(--white-color);
-    width: 21.875rem;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    flex-direction: row;
-    border-radius: 10px;
+  .live .livStream .lieViews {
+    margin-top: -12.5rem;
+    font-size: var(--mfont-tiny);
   }
-  
-  .live .sectionTwo .header form i {
-    font-size: var(--mfont-mini);
-    color: var(--white-color);
-    margin-right: var(--mfont-reg);
-  }
-  
-  .live .sectionTwo .header form input {
-    font-size: var(--mfont-mini);
-    background: none;
-    border: none;
-    outline: none;
-    margin-bottom: 0%;
-    box-shadow: 0 1px 6px 0 rgb(32 33 36 / 15%);
-  }
-  
-  .live .sectionTwo .header form input::placeholder {
-    color: var(--text-secondary-color);
-  }
-  
-  .live .sectionTwo .prevSundays {
-    margin: 0%;
-    padding: 0%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
   .live .sectionTwo .prevSundays .one {
-    width: 50%;
-    height: 210px;
-    margin-bottom: 3.5rem;
-  }
-  
-  .live .sectionTwo .prevSundays .one .row {
-    display: flex;
-  }
-  
-  .live .sectionTwo .prevSundays .one .row .vid {
-    width: 60%;
-  }
-  
-  .live .sectionTwo .prevSundays .one .row .vid video {
     width: 100%;
-    border-radius: 10px;
+    max-height: 8rem;
+    margin-bottom: 2rem;
   }
-  
+  .live .sectionTwo .prevSundays .one .row .vid video {
+    height: 100%;
+    object-fit: cover;
+  }
   .live .sectionTwo .prevSundays .one .row .column {
-    width: 40%;
-    padding-left: var(--mfont-mini);
+    padding-left: var(--mfont-tiny);
   }
-  
   .live .sectionTwo .prevSundays .one .row .column .title {
-    font-size: var(--mfont-mini);
-    color: var(--white-color);
-    font-weight: var(--font-bold);
-    margin-bottom: var(--mfont-mini);
+    font-size: var(--font-tiny);
   }
-  
   .live .sectionTwo .prevSundays .one .row .column .preacher {
-    font-size: var(--mfont-mini);
-    color: var(--text-secondary-color);
-    font-weight: var(--font-light);
-    margin-bottom: var(--mfont-midi);
+    font-size: var(--mfont-tiny);
+    margin-bottom: var(--mfont-tiny);
   }
-  
   .live .sectionTwo .prevSundays .one .row .column .date {
-    font-size: var(--mfont-mini);
-    color: var(--text-secondary-color);
-    font-weight: var(--font-light);
-    margin-bottom: var(--mfont-mini);
+    margin-bottom: var(--mfont-tiny);
+    font-size: var(--mfont-tiny);
   }
   .live .sectionTwo .prevSundays .one .row .column .views {
-    font-size: var(--mfont-mini);
-    color: var(--white-color);
-    font-weight: var(--font-bold);
-    margin-bottom: var(--mfont-mini);
+    font-size: var(--mfont-tiny);
   }
-  
   .live .sectionTwo .button {
-    width: 350px;
-    height: 3.375rem;
-    background: transparent;
-    border: 1px solid var(--white-color);
-    color: var(--white-color);
-    margin: auto;
-    margin-top: var(--mfont-midi);
+    margin-top: var(--font-tiny);
   }
-  
-  .live .sectionTwo .copyright {
-    font-size: var(--mfont-mini);
-    color: var(--white-color);
-    text-transform: uppercase;
-    text-align: center;
-    margin: auto;
-    margin-top: var(--mfont-max);
-    margin-bottom: var(--mfont-midi);
-  }
-  
-  @media screen and (max-width: 768px) {
-    .live .contact .callUs {
-      margin-top: var(--mfont-midi);
-    }
-    .live .livStream .left {
-      width: 100%;
-      padding-right: 0%;
-    }
-    .live .livStream .right {
-      width: 100%;
-    }
-    .live .livStream .left video {
-      height: auto;
-    }
-    .live .livStream .lieViews {
-      margin-top: -12.5rem;
-      font-size: var(--mfont-tiny);
-    }
-    .live .sectionTwo .prevSundays .one {
-      width: 100%;
-      max-height: 8rem;
-      margin-bottom: 2rem;
-    }
-    .live .sectionTwo .prevSundays .one .row .vid video {
-      height: 100%;
-      object-fit: cover;
-    }
-    .live .sectionTwo .prevSundays .one .row .column {
-      padding-left: var(--mfont-tiny);
-    }
-    .live .sectionTwo .prevSundays .one .row .column .title {
-      font-size: var(--font-tiny);
-    }
-    .live .sectionTwo .prevSundays .one .row .column .preacher {
-      font-size: var(--mfont-tiny);
-      margin-bottom: var(--mfont-tiny);
-    }
-    .live .sectionTwo .prevSundays .one .row .column .date {
-      margin-bottom: var(--mfont-tiny);
-      font-size: var(--mfont-tiny);
-    }
-    .live .sectionTwo .prevSundays .one .row .column .views {
-      font-size: var(--mfont-tiny);
-    }
-    .live .sectionTwo .button {
-      margin-top: var(--font-tiny);
-    }
-  }
-  
+}
+
+.button-deactive {
+  cursor: not-allowed;
+  background-color: var(--text-secondary-colo) !important;
+}
