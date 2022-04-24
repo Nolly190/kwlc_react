@@ -14,3 +14,21 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.footer_container {
+  display: grid;
+  grid-template-columns: 30% 30% 25% 15%;
+  column-gap: 20px;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+@media screen and (max-width: 768px) {
+  .footer_container {
+    grid-template-columns: 100%;
+  }
+}
+
+.footer_container .section_title {
+  font-size: 1rem !important;
+}

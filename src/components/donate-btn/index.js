@@ -1,25 +1,35 @@
+import { Spinner } from "@chakra-ui/react";
 import { AiFillGift } from "react-icons/ai";
 
+export default function DonateBtn({
+  label = "Donate",
+  withImg = true,
+  style = {},
+  className = "",
+  labelStyle = { color: "white" },
+  onClick,
+  isLoading = false,
+}) {
+  return (
+    <button
+      type={style["type"] || "button"}
+      className={!className ? "btn " : className}
+      style={{ ...style }}
+      onClick={(e) => onClick && onClick(e)}
+    >
+      {isLoading && (
+        <span style={{ padding: "0 8px" }}>
+          <Spinner />
+        </span>
+      )}
+      {withImg && <AiFillGift />}
 
-export default function DonateBtn({label="Donate", withImg=true, style={}, className="", labelStyle={color: "white"}, onClick}) {
-    return (
-        <button 
-            type={style['type'] || 'button'} 
-            className={!className ? "btn " : className} 
-            style={{...style, }}
-            onClick={(e) => onClick && onClick(e)}
-        >
-            {
-                withImg && <AiFillGift/>
-                
-            }
-            
-            {/* <i className="fa fa-gift" aria-hidden="true"></i> */}
-            <span style={{marginRight: 5, ...labelStyle}} >
-                {` ${label} `}
-            </span>
-        </button>
-    );
+      {/* <i className="fa fa-gift" aria-hidden="true"></i> */}
+      <span style={{ marginRight: 5, marginLeft: 5, ...labelStyle }}>
+        {` ${label} `}
+      </span>
+    </button>
+  );
 }
 
 //export default function DonateBtn({
@@ -61,4 +71,3 @@ export default function DonateBtn({label="Donate", withImg=true, style={}, class
 //       </a>
 //     </div>
 //   );
-
