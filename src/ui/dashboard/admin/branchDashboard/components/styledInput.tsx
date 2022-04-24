@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import mediaQueries from "../../../../../mediaQueries";
 import { CurrencyTypes } from "../../../../../types/appTypes";
 import CurrencyDropDown from "./currencyDropDown";
 
@@ -71,5 +72,9 @@ const InputWrapper = styled.div<InputProps>`
     padding-left: ${(props) => (props.empty ? "8px" : "55px")};
     letter-spacing: 1px;
     outline: none;
+  }
+
+  ${mediaQueries.mobile} {
+    width: ${(props) => (props.width === 100 ? `${props.width}%` : "47%")};
   }
 `;

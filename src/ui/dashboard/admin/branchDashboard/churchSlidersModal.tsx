@@ -51,6 +51,8 @@ const ChurchSlidersModal: React.FC<props> = ({ isOpen, closeModal }) => {
       const response = await getSliderDetailsApi();
       if (response.code === statusEnum.ok) {
         setSliderData(response?.data?.data);
+      } else {
+        toast.error(response.message);
       }
     }
     getSlider();

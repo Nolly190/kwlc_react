@@ -99,8 +99,7 @@ export class DonationController implements CRUDBL {
         if (response.code < statusEnum.ok) {
             toast.error(response.message.toString());
         }
-
-        const data: DonateItemDTO[] = response?.data?.data;
+        const data: DonateItemDTO[] = response?.data;
         setItems(data);
 
     }

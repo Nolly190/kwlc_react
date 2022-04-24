@@ -8,6 +8,7 @@ import styled from "styled-components";
 import mediaQueries from "../../../mediaQueries";
 import { useRouter } from "next/router";
 import { AdminNavArray } from "../../../strings";
+import AdminHamburger from "./components/adminHamburger";
 // import "./../../../../public/assets/view.v1/admin/js/charts";
 
 const AdminLayout: React.FC<LayoutProps> = ({
@@ -101,25 +102,12 @@ const AdminLayout: React.FC<LayoutProps> = ({
         )}
 
         <div className="main-panel">
-          <nav className="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-            <div className="container-fluid">
-              <button
-                className="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                aria-controls="navigation-index"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span className="sr-only">Toggle navigation</span>
-                <span className="navbar-toggler-icon icon-bar"></span>
-                <span className="navbar-toggler-icon icon-bar"></span>
-                <span className="navbar-toggler-icon icon-bar"></span>
-              </button>
-              <div className="collapse navbar-collapse justify-content-end"></div>
-            </div>
-          </nav>
-          <Container>{children}</Container>
+          {withSideBar &&
+            <HamburgerWrapper>
+              <AdminHamburger title={title} />
+            </HamburgerWrapper>
+          }
+          <ChildrenWrapper>{children}</ChildrenWrapper>
         </div>
       </div>
     </>
@@ -128,12 +116,22 @@ const AdminLayout: React.FC<LayoutProps> = ({
 
 export default AdminLayout;
 
-const Container = styled.div`
+const HamburgerWrapper = styled.div`
+  margin: 10px;
+  display: none;
+  
+  ${mediaQueries.mobile} {
+    display: block;
+  }
+`;
+
+const ChildrenWrapper = styled.div`
   margin-top: 40px;
   padding: 30px;
   min-height: calc(100vh - 123px);
 
   ${mediaQueries.mobile} {
+    margin-top: 0;
     padding: 30px 15px;
   }
 `;

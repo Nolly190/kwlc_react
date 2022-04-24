@@ -56,7 +56,8 @@ request.interceptors.response.use(
         if (error.response?.status === 400) {
             return Promise.reject(error.response?.data?.responseMessage)
         }
-        return Promise.reject(error);
+        console.log("axios", error.response?.data)
+        return Promise.reject(error.response?.data?.ResponseMessage);
     }
 );
 

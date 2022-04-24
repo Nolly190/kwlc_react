@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import mediaQueries from "../../../../mediaQueries";
 
 interface props {
   width?: string;
@@ -8,10 +9,19 @@ export const ModalContainer = styled.div<props>`
   font-family: "Open Sans", sans-serif;
   padding: 40px 0 40px 40px;
   width: ${(props) => (props.width ? props.width : "75vw")};
+
+  @media (max-width: 465px) {
+    width: 95vw;
+    padding: 15px;
+  }
 `;
 
 export const SlidersModalContainer = styled(ModalContainer)`
   padding: 40px;
+
+  @media (max-width: 465px) {
+    padding: 15px;
+  }
 `;
 
 export const ModalHeaderContainer = styled.div`
@@ -31,6 +41,10 @@ export const ModalHeaderContainer = styled.div`
     border-radius: 50%;
     background-color: #000;
     cursor: pointer;
+
+    ${mediaQueries.mobile} {
+     margin-right: 0px;
+    }
   }
 `;
 
@@ -63,11 +77,19 @@ export const NewUserBody = styled.div`
 
 export const NewUserAside = styled.div`
   width: 20%;
+
+  ${mediaQueries.mobile} {
+    display: none;
+  }
 `;
 
 export const Divider = styled.div`
   height: 536px;
   border: 1px solid #dddddd;
+
+  ${mediaQueries.mobile} {
+    display: none;
+  }
 `;
 
 export const ChurchReportFormWrapper = styled.div`
@@ -120,6 +142,11 @@ export const ChurchReportFormWrapper = styled.div`
 
   .lh-30 {
     line-height: 30px;
+  }
+
+  ${mediaQueries.mobile} {
+    padding: 0;
+    width: 100%;
   }
 `;
 
@@ -255,6 +282,11 @@ export const Button = styled.button`
       opacity: 0.7;
       cursor: not-allowed;
     `}
+
+    ${mediaQueries.mobile} {
+      width: 140px;
+      height: 45px;
+    }
 `;
 
 export const ButtonWrapper = styled.div`

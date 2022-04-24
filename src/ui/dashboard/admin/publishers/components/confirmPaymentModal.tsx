@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { confirmPublishersPaymentApi, ValidatePaymentRefApi } from '../../../../../api/publishers.api';
 import Modal from '../../../../../components/modal'
 import { statusEnum } from '../../../../../enums/util.enum';
+import mediaQueries from '../../../../../mediaQueries';
 import { ValidatePaymentRefResponse } from '../../../../../types/appTypes';
 import { Button, NewUserHeader, SlidersModalContainer, SlidersModalHeaderContainer } from '../../branchDashboard/styles';
 
@@ -105,6 +106,10 @@ const ContentWrapper = styled.div`
     justify-content: center;
     gap: 10px;
     padding: 0 50px;
+
+    ${mediaQueries.mobile} {
+        padding: 0 10px 15px;
+    }
 `;
 
 const ReferenceWrapper = styled.div`

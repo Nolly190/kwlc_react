@@ -11,7 +11,7 @@ export default function AssignAdminToBranch() {
         <AdminLayout
             externalStyles={[]}
             navbar={""}
-            title={"Assign Admin"}
+            title={"Roles"}
             withFooter={false}
             withSideBar={true}
         >
@@ -23,12 +23,12 @@ export default function AssignAdminToBranch() {
                                 <div className="nav-tabs-wrapper">
                                     <span className="nav-tabs-title">Roles</span>
                                     <ul className="nav nav-tabs" data-tabs="tabs">
-                                        <li className="nav-item mr-2" onClick={() => setCurrentPage(1)}>
+                                        <li className="nav-item" onClick={() => setCurrentPage(1)}>
                                             <a className="nav-link active" data-toggle="tab">
                                                 Create
                                             </a>
                                         </li>
-                                        <li className="nav-item mr-2" onClick={() => setCurrentPage(2)}>
+                                        <li className="nav-item" onClick={() => setCurrentPage(2)}>
                                             <a className="nav-link active" data-toggle="tab">
                                                 View Roles
                                             </a>

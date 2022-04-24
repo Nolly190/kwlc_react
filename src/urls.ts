@@ -60,6 +60,7 @@ export const urls = {
     blockPublishers: "KingdomPublishers/Block",
     raveHookPublishers: "KingdomPublishers/RaveHook",
     sendMessagePublishers: "KingdomPublishers/SendMessage",
+    sendSms: "KingdomPublishers/SendSms",
 
 
     baseUrl: "https://kwlc-web.herokuapp.com/api/",

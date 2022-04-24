@@ -56,6 +56,10 @@ const CreateRoles: React.FC<props> = ({ setCurrentPage, currentPage }) => {
 
     const handleSubmit = async () => {
         const permissionsArray = value.map((x) => ({ name: x.toString() }))
+        if (roleName === "" || permissionsArray.length === 0) {
+            toast.error("Please fill all the fields")
+            return
+        }
         const objToSend: CreateRolePayload = {
             name: roleName,
             permissions: permissionsArray
@@ -95,7 +99,6 @@ const CreateRoles: React.FC<props> = ({ setCurrentPage, currentPage }) => {
                 </CheckboxGroup>
                 <ButtonWrapper>
                     <button
-                        type="submit"
                         id="submitBtn"
                         className="btn btn-primary pull-right"
                         onClick={handleSubmit}

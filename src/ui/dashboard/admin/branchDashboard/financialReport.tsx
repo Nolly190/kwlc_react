@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import mediaQueries from "../../../../mediaQueries";
 import {
   ChurchInfoType,
   CurrencyTypes,
@@ -511,6 +512,10 @@ export const Title = styled.p`
   font-size: 18px;
   color: #0d0f12;
   font-weight: bold;
+
+  ${mediaQueries.mobile} {
+    margin-bottom: 10px;
+  }
 `;
 
 export const Form = styled.form``;
@@ -519,6 +524,11 @@ export const Row = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-bottom: 15px;
+
+  ${mediaQueries.mobile} {
+    flex-direction: column;
+    gap: 15px;
+  }
 `;
 
 interface InputWrapperProps {
@@ -529,6 +539,11 @@ export const InputWrapper = styled.div<InputWrapperProps>`
   display: flex;
   justify-content: space-between;
   width: ${(props) => (props.width ? `${props.width}%` : "100%")};
+
+  ${mediaQueries.mobile} {
+    gap: 15px;
+    flex-wrap: wrap;
+  }
 `;
 
 interface EntryContainerProps {
@@ -549,6 +564,10 @@ export const EntryContainer = styled.div<EntryContainerProps>`
     margin-bottom: 5px;
     font-size: 16px;
     color: #0d0f12;
+  }
+
+  ${mediaQueries.mobile} {
+    width: 100%;
   }
 `;
 

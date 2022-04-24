@@ -51,8 +51,7 @@ const BranchItem: FC<branchItem> = ({
             <i className="fa fa-home" aria-hidden="true"></i>
           </span>
           <p>
-            24 Prince Ibrahim Eletu Avenue, Shoprite Circle Mall Road Jakande
-            Bus Stop, Osapa London,Lagos
+            {description}
           </p>
         </LocationWrapper>
       </BottomWrapper>
@@ -106,6 +105,7 @@ const BottomWrapper = styled.div`
 
 const TimeWrapper = styled.div`
   display: flex;
+  align-items: flex-start;
   gap: 15px;
 
   & > div {
@@ -115,6 +115,7 @@ const TimeWrapper = styled.div`
   }
 
   & > span {
+    margin-top: -3px;
     font-size: 22px;
   }
 `;
@@ -134,8 +135,10 @@ const LocationWrapper = styled.div`
   display: flex;
   gap: 15px;
   margin-top: 10px;
+  align-items: flex-start;
 
   & > span {
+    margin-top: -3px;
     font-size: 22px;
   }
 

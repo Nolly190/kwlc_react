@@ -91,7 +91,7 @@ export default function BranchContent() {
               return (
                 <BranchItem
                   key={index}
-                  description={x.location}
+                  description={x.address}
                   onClick={() => {
                     router.push(`/web/branch?id=${x.id}`);
                   }}

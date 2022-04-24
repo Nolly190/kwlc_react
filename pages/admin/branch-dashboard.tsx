@@ -164,39 +164,41 @@ const AdminBranchDashboard = () => {
                 /> */}
               </PastorImageWrapper>
               <div>
-                <p>Pastor Image Url</p>
-                <PastorInputWrapper>
-                  <input
-                    type="text"
-                    name="pastorImage"
-                    value={pastorData?.pastorImage}
-                    id="pastor-image"
-                    placeholder="https://"
-                    onChange={(e) =>
-                      handleChange(e.target.name, e.target.value)
-                    }
-                  />
-                  {!!!pastorData?.pastorImage && (
-                    <img src="/images/pencil.svg" alt="" />
-                  )}
-                </PastorInputWrapper>
-              </div>
-              <div>
-                <p>Pastor Name</p>
-                <PastorInputWrapper>
-                  <input
-                    type="text"
-                    name="name"
-                    className="pastor-name"
-                    value={pastorData?.name}
-                    onChange={(e) =>
-                      handleChange(e.target.name, e.target.value)
-                    }
-                  />
-                  {!!!pastorData?.name && (
-                    <img src="/images/pencil.svg" alt="" />
-                  )}
-                </PastorInputWrapper>
+                <div>
+                  <p>Pastor Image Url</p>
+                  <PastorInputWrapper>
+                    <input
+                      type="text"
+                      name="pastorImage"
+                      value={pastorData?.pastorImage}
+                      id="pastor-image"
+                      placeholder="https://"
+                      onChange={(e) =>
+                        handleChange(e.target.name, e.target.value)
+                      }
+                    />
+                    {!!!pastorData?.pastorImage && (
+                      <img src="/images/pencil.svg" alt="" />
+                    )}
+                  </PastorInputWrapper>
+                </div>
+                <div>
+                  <p>Pastor Name</p>
+                  <PastorInputWrapper>
+                    <input
+                      type="text"
+                      name="name"
+                      className="pastor-name"
+                      value={pastorData?.name}
+                      onChange={(e) =>
+                        handleChange(e.target.name, e.target.value)
+                      }
+                    />
+                    {!!!pastorData?.name && (
+                      <img src="/images/pencil.svg" alt="" />
+                    )}
+                  </PastorInputWrapper>
+                </div>
               </div>
             </LeftContentWrapper>
             <RightContentWrapper>
@@ -324,6 +326,10 @@ const AsideContentContainer = styled.div`
   align-items: center;
   gap: 15px;
   width: 30%;
+
+  ${mediaQueries.mobile} {
+    width: 100%;
+  }
 `;
 
 const AsideContentBox = styled.div`
@@ -460,7 +466,7 @@ const PastorInputWrapper = styled.div`
   }
 
   ${mediaQueries.mobile} {
-    width: 47%;
+    width: 100%;
 
     & > input {
       width: 100%;

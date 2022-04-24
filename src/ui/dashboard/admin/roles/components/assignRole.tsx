@@ -51,7 +51,13 @@ const AssignRole = () => {
         return arr
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e: any) => {
+        e.preventDefault()
+
+        if (!userId || !roleId) {
+            toast.error("Please select user and role");
+            return;
+        }
         const response = await addUserToRoleApi({ userId, roleId });
         if (response.code >= statusEnum.ok) {
             toast.success("User assigned successfully");
@@ -84,7 +90,7 @@ const AssignRole = () => {
                         type="submit"
                         id="submitBtn"
                         className="btn btn-primary pull-right"
-                        onClick={handleSubmit}
+                        onClick={(e) => handleSubmit(e)}
                     >
                         Assign
                     </button>

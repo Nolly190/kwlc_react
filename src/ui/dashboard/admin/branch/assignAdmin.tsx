@@ -173,11 +173,11 @@ export default function AssignAdminToBranch() {
                     <div className="form-group">
                       <label className="bmd-label-floating">Residential</label>
                       <div className="row ml-1">
-                        <label className="bmd-label-floating">Yes</label>
+                        <label className="bmd-label-floating mr-1">Yes</label>
                         <input
                           type="radio"
                           value="No"
-                          className="col-md-3 form-control"
+                          className="form-control mr-3"
                           id="code"
                           name="code"
                           element-data="code"
@@ -185,11 +185,11 @@ export default function AssignAdminToBranch() {
                           style={{ height: 15, width: 15 }}
                         />
 
-                        <label className="bmd-label-floating">No</label>
+                        <label className="bmd-label-floating mr-1">No</label>
                         <input
                           type="radio"
                           value="Yes"
-                          className="col-md-3  form-control"
+                          className="form-control mr-3"
                           name="code"
                           onChange={(e) => setIsResidential(false)}
                           checked
