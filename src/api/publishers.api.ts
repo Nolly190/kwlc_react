@@ -1,7 +1,7 @@
 import { ResponseDTO } from "../dto/response.dto";
 import { statusEnum } from "../enums/util.enum";
 import request from "../request";
-import { EditPublishersPayload, KingdomPublishersResponse, PublishersHistoryResponse, RegisterPublishersPayload, SendMessagePublishersPayload } from "../types/appTypes";
+import { EditPublishersPayload, KingdomPublishersResponse, PublishersHistoryResponse, RegisterPublishersPayload, SendMessagePublishersPayload, SendSMSPublishersPayload } from "../types/appTypes";
 import { urls } from "../urls";
 
 export async function getPublishersApi(): Promise<ResponseDTO> {
@@ -149,6 +149,26 @@ export async function sendMessagePublisherApi(payload: SendMessagePublishersPayl
 
     try {
         let res = await request.post(`${urls.baseUrl}${urls.sendMessagePublishers}`, payload);
+
+        let data: string;
+        if (res.status) {
+            data = res.data;
+            response.data = data;
+            response.code = statusEnum.ok;
+        }
+    }
+    catch (e) {
+        response.message = e.toString();
+    }
+
+    return response.getResponse();
+}
+
+export async function sendSMSPublisherApi(payload: SendSMSPublishersPayload): Promise<ResponseDTO> {
+    const response = new ResponseDTO();
+
+    try {
+        let res = await request.post(`${urls.baseUrl}${urls.sendSms}`, payload);
 
         let data: string;
         if (res.status) {

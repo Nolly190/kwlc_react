@@ -9,11 +9,13 @@ import AdminLayout from "../admin.layout";
 import ConfirmPaymentModal from "./components/confirmPaymentModal";
 import DonationsModal from "./components/donationsModal";
 import MessageModal from "./components/messageModal";
+import SmsModal from "./components/smsModal";
 
 export default function GetAllPublishers() {
     const [publishers, setPublishers] = useState<PublishersHistoryResponse[]>([]);
     const [paymentModalIsOpen, setPaymentModalIsOpen] = useState(false)
     const [messageModalIsOpen, setMessageModalIsOpen] = useState(false)
+    const [smsModalIsOpen, setSmsModalIsOpen] = useState(false)
     const [donationModalIsOpen, setDonationModalIsOpen] = useState(false)
     const [id, setId] = useState<number>()
     const router = useRouter()
@@ -41,7 +43,7 @@ export default function GetAllPublishers() {
             <AdminLayout
                 externalStyles={[]}
                 navbar={""}
-                title={"Users"}
+                title={"Publishers"}
                 withFooter={false}
                 withSideBar={true}
             >
@@ -54,13 +56,13 @@ export default function GetAllPublishers() {
                                         <span className="nav-tabs-title">Publishers</span>
                                         <ul className="nav nav-tabs" data-tabs="tabs">
                                             <Link href={"/admin/publishers/register"} passHref>
-                                                <li className="nav-item mr-2">
+                                                <li className="nav-item">
                                                     <a className="nav-link active" data-toggle="tab">
                                                         Register New Publisher
                                                     </a>
                                                 </li>
                                             </Link>
-                                            <li className="nav-item mr-2" onClick={() => setPaymentModalIsOpen(true)}>
+                                            <li className="nav-item" onClick={() => setPaymentModalIsOpen(true)}>
                                                 <a className="nav-link active" data-toggle="tab">
                                                     Confirm Payment
                                                 </a>
@@ -68,6 +70,11 @@ export default function GetAllPublishers() {
                                             <li className="nav-item" onClick={() => setMessageModalIsOpen(true)}>
                                                 <a className="nav-link active" data-toggle="tab">
                                                     Send Message
+                                                </a>
+                                            </li>
+                                            <li className="nav-item" onClick={() => setSmsModalIsOpen(true)}>
+                                                <a className="nav-link active" data-toggle="tab">
+                                                    Send SMS
                                                 </a>
                                             </li>
                                         </ul>
@@ -140,6 +147,7 @@ export default function GetAllPublishers() {
             </AdminLayout>
             <ConfirmPaymentModal isOpen={paymentModalIsOpen} closeModal={() => setPaymentModalIsOpen(false)} />
             <MessageModal isOpen={messageModalIsOpen} closeModal={() => setMessageModalIsOpen(false)} />
+            <SmsModal isOpen={smsModalIsOpen} closeModal={() => setSmsModalIsOpen(false)} />
             {donationModalIsOpen && <DonationsModal id={id} isOpen={donationModalIsOpen} closeModal={() => setDonationModalIsOpen(false)} />}
         </>
     );

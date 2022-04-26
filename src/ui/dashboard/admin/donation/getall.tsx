@@ -17,6 +17,8 @@ export default function GetAllDonations() {
     controller.list(setItems);
   }, []);
 
+  console.log("items", items);
+
   const controller: DonationController = new DonationController();
 
   return (

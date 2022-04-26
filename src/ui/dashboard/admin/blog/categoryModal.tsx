@@ -29,7 +29,6 @@ const CategoryModal: React.FC<props> = ({ isOpen, closeModal }) => {
     async function getCategories() {
         const response = await getCategoriesApi()
         setCategories(response.data)
-        console.log("gato", response.data)
     }
 
     const handleClose = () => {

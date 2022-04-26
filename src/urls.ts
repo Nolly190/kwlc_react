@@ -2,6 +2,7 @@ export const urls = {
   donation: "Donation",
   updateDonation: "Donation/UpdateDonation",
   makeDonation: "Payment/Payment",
+  contact: "Contact",
 
   branch: "Branch",
   getAllBranch: "Branch/GetAllBranches",
@@ -17,17 +18,25 @@ export const urls = {
   updateBlog: "Blog/UpdateBlog",
   deleteBlog: "Blog/DeleteBlog/",
   getCategories: "Blog/GetAllCategory",
+  createCategory: "Blog/CreateCategory",
+  updateCategory: "Blog/UpdateCategory",
+  deleteCategory: "Blog/DeleteCategory/",
 
   product: "Product",
 
   allUsers: "User/Users",
   registerUser: "User/Register",
   getUser: "User/GetUser/",
+  createRole: "User/CreateRole",
+  addUserToRole: "User/AddUserToRole",
+  rolePermission: "User/RolePermission",
+  roles: "User/Roles",
 
   allPastor: "Pastor/GetAll",
   getPastor: "Pastor/Get",
 
   Payment: "Payment/Payment",
+
 
   slider: "Slider",
 
@@ -37,10 +46,22 @@ export const urls = {
 
   createReport: "Report/Create",
   uploadPastorDetails: "Message/Create",
+  updatePastorDetails: "Message/Update",
   getPastorDetails: "Message/Get",
   uploadSliderDetails: "Slider",
   getById: "Slider/GetById",
-  contact: "Contact",
+
+  getAllPublishers: "KingdomPublishers/Get",
+  publishersHistory: "KingdomPublishers/History",
+  confirmPayment: "KingdomPublishers/ConfirmPayment",
+  paymentRef: "KingdomPublishers/PaymentRef",
+  editPublishers: "KingdomPublishers/EditDetails",
+  registerPublishers: "KingdomPublishers/Register",
+  blockPublishers: "KingdomPublishers/Block",
+  raveHookPublishers: "KingdomPublishers/RaveHook",
+  sendMessagePublishers: "KingdomPublishers/SendMessage",
+  sendSms: "KingdomPublishers/SendSms",
+
 
   baseUrl: "https://kwlc-web.herokuapp.com/api/",
   v1: "v1/",

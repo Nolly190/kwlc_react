@@ -44,7 +44,7 @@ export default function GetAllBranches() {
                     <span className="nav-tabs-title">Branch</span>
                     <ul className="nav nav-tabs" data-tabs="tabs">
                       <Link href={"/admin/branches/addbranch"} passHref>
-                        <li className="nav-item mr-2">
+                        <li className="nav-item">
                           <a className="nav-link active" data-toggle="tab">
                             Register New Branch
                           </a>

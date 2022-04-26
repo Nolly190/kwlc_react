@@ -81,6 +81,10 @@ const EntryWrapper = styled.div`
     & > input {
         width: 55%;
     }
+
+    @media (max-width: 465px) {
+        padding: 0 10px;
+    }
 `;
 
 const EntryButtonWrapper = styled.div`

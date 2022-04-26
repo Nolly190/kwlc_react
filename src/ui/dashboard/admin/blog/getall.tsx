@@ -56,7 +56,7 @@ export default function GetAllBlogs() {
                   <div className="nav-tabs-wrapper">
                     <span className="nav-tabs-title">Blogs</span>
                     <ul className="nav nav-tabs" data-tabs="tabs">
-                      <li className="nav-item mr-2">
+                      <li className="nav-item">
                         <Link href={"/admin/blogs/addblog"}>
                           <a className="nav-link active" data-toggle="tab">
                             Add New Blog

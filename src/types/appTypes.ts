@@ -136,6 +136,10 @@ export interface SendMessagePublishersPayload {
     body?: string
 }
 
+export interface SendSMSPublishersPayload {
+    message?: string,
+}
+
 export interface ValidatePaymentRefResponse {
     id?: number,
     amount?: number,

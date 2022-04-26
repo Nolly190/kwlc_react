@@ -63,13 +63,16 @@ export default function EditPublisher() {
         }
     }
 
-    const handleBlock = async () => {
+    const handleBlock = async (e: any) => {
+        e.preventDefault()
+
         const response = await blockPublisherApi(id)
         if (response.code >= statusEnum.ok) {
             setFieldsBlocked(!fieldsBlocked)
             formData?.isAccountBlocked
                 ? toast.success("Publisher unblocked successfully")
                 : toast.success("Publisher blocked successfully");
+            router.push("/admin/publishers");
         } else {
             toast.error(response.message);
         }
@@ -159,15 +162,13 @@ export default function EditPublisher() {
                                 <div className="clearfix"></div>
                                 <ButtonWrapper className="row mt-5">
                                     <ErrorButton
-                                        type="submit"
                                         id="submitBtn"
                                         className="btn pull-right"
-                                        onClick={() => handleBlock()}
+                                        onClick={(e) => handleBlock(e)}
                                     >
                                         {formData?.isAccountBlocked ? "Unblock" : "Block"}
                                     </ErrorButton>
                                     <button
-                                        type="submit"
                                         id="submitBtn"
                                         className="btn btn-primary pull-right"
                                         disabled={fieldsBlocked}
