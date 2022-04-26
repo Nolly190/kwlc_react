@@ -58,6 +58,8 @@ export default function EditBranch() {
           setStreet,
           setIsBranchHq,
           setServices,
+          setAddress: () => {},
+          setContactNumber: () => {},
         },
         parseInt(idParam)
       );

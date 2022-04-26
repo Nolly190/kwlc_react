@@ -15,6 +15,8 @@ export interface ISetBranch {
   setContactNumber: Function;
   setIsBranchHq: Function;
   setServices: Function;
+  setCity?: Function;
+  setStreet?: Function;
 }
 
 export default function EditBranch() {
@@ -155,7 +157,9 @@ export default function EditBranch() {
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label className="bmd-label-floating">Branch Address</label>
+                      <label className="bmd-label-floating">
+                        Branch Address
+                      </label>
                       <input
                         type="text"
                         className="form-control"
