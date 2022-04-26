@@ -167,7 +167,7 @@ export default function EditBranch() {
                       <input
                         type="radio"
                         value="No"
-                        className="col-md-3 form-control"
+                        className="col-md-3 form-control  "
                         id="code"
                         name="code"
                         element-data="code"
