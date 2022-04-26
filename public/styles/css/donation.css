@@ -2048,7 +2048,7 @@ hr {
   width: 16rem;
   outline: none;
   height: 3.5rem;
-  box-shadow: 0 1px 6px 0 rgb(32 33 36 / 15%);
+  box-shadow: 0 1px 0px 0 rgb(32 33 36 / 15%);
 }
 
 .search {
@@ -2141,7 +2141,6 @@ hr {
 .event_search {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   align-items: center;
   padding: 2rem;
 }
@@ -2149,6 +2148,7 @@ hr {
 .search {
   display: flex;
   flex-direction: column;
+  margin-right: 20px;
 }
 
 .event_searcher {
@@ -3499,4 +3499,10 @@ blockquote {
 .my-2 {
   margin-top: 16px;
   margin-bottom: 16px;
+}
+
+.thumbnail-iframe {
+  width: 100% !important;
+  max-height: 130px !important;
+  margin-bottom: 20px !important;
 }

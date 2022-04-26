@@ -42,6 +42,7 @@ export const urls = {
 
   liveStream: "LiveStream",
   updateLiveStream: "UpdateLiveStream/",
+  NextEvent: "Event/Next",
 
   createReport: "Report/Create",
   uploadPastorDetails: "Message/Create",
