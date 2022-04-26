@@ -21,6 +21,7 @@ export default function HomePage({ data, slides }) {
   //     onPlaceSelected={(place) => console.log(place)}
   //   />
   // );
+
   return (
     <>
       <div className="bg_secondary_color">

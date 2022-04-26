@@ -30,6 +30,8 @@ export default function HomeTimer({ data }) {
   const nextEvent: EventDTO = data || {};
   const dateObj = moment(nextEvent.date);
 
+  const dayInMonth = moment(nextEvent.date).format("DD");
+
   const getSuffice = (dayNumber) => {
     if (dayNumber % 10 === 1) return "st";
     else if (dayNumber % 10 === 2) return "nd";
@@ -37,6 +39,8 @@ export default function HomeTimer({ data }) {
     else return "th";
   };
   const year = dateObj.year();
+
+  console.log(dateObj.day());
   return (
     // <!-- Timer column -->
     <section className="timer_column">
@@ -45,9 +49,8 @@ export default function HomeTimer({ data }) {
           {" "}
           Our next Live service would be on <br />
           <strong>
-            {DAYS_OF_WEEK[dateObj.day()]} {dateObj.daysInMonth()}
-            {getSuffice(dateObj.daysInMonth())}{" "}
-            {MONTHS_OF_YEAR[dateObj.month()]}
+            {DAYS_OF_WEEK[dateObj.day()]} {dayInMonth}
+            {getSuffice(+dayInMonth)} {MONTHS_OF_YEAR[dateObj.month()]}
           </strong>
         </p>
       </div>
@@ -65,7 +68,7 @@ export default function HomeTimer({ data }) {
         </span>
       </div>
       <div className="chosen_date pd-top">
-        <p>Date:</p> <span className="timer_bd">{dateObj.daysInMonth()}</span> /{" "}
+        <p>Date:</p> <span className="timer_bd">{dayInMonth}</span> /{" "}
         <span className="timer_bd">
           {dateObj.month() + 1 < 10
             ? `0${dateObj.month() + 1}`

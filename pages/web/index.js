@@ -19,6 +19,7 @@ export default function Home(props) {
 export async function getStaticProps() {
   // Call an external API endpoint to get posts.
   // You can use any data fetching library
+
   const res = await getNextEvent();
   const slidesResponse = await getSliderAPI();
   const data = await res.data;
