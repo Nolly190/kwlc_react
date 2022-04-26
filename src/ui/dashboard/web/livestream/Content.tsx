@@ -5,8 +5,10 @@ import { LiveStreamDTO } from "../../../../dto/LiveStream.dto";
 import { getParam } from "../../../../utils";
 import YouTube from "react-youtube";
 
-export default function LiveStreamContent() {
+export default function LiveStreamContent({ data }) {
   const liveStreamItems: LiveStreamDTO[] = [];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const [item, setItem] = useState(new LiveStreamDTO());
   const [items, setItems] = useState([]);
@@ -19,6 +21,8 @@ export default function LiveStreamContent() {
     }
     loadLiveStreamWeb(setItems, setItem);
   }, []);
+
+  const currentMovie = data?.data[currentIndex] || {};
 
   return (
     <>
@@ -36,11 +40,11 @@ export default function LiveStreamContent() {
                     <div className="amount">{item.views}k</div>
                 </div> */}
             <YouTube
-              videoId={item.liveStreamUrl} // defaults -> null
+              videoId={currentMovie.liveStreamUrl} // defaults -> null
               id={item.id?.toString()} // defaults -> null
               title={item.title} // defaults -> null
               onEnd={() => {
-                console.log("ended");
+                setCurrentIndex((state) => state % data?.data?.length);
               }} // defaults -> noop
               onError={() => {
                 console.log("error");
@@ -57,8 +61,8 @@ export default function LiveStreamContent() {
           <div className="column right">
             <h3>Previous sundays</h3>
             <div className="previousSundays">
-              {items.length > 0
-                ? items.map((x, index) => {
+              {data?.data.length > 0
+                ? data?.data?.map((x, index) => {
                     return (
                       <LiveStreamItem
                         key={index}
@@ -75,10 +79,10 @@ export default function LiveStreamContent() {
                   })
                 : undefined}
             </div>
-            <div className="share" style={{ marginTop: "3rem" }}>
+            {/* <div className="share" style={{ marginTop: "3rem" }}>
               <div className="text">Share this on all social media page</div>
               <button className="button">Share</button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

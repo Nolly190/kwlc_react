@@ -610,6 +610,7 @@ span {
   background: transparent;
   color: #fff;
   cursor: pointer;
+  padding: 0 40px;
 }
 
 .banner_text {
@@ -1305,6 +1306,7 @@ textarea {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  overflow-y: scroll;
 }
 
 .live .previousSundays .row {
@@ -1541,4 +1543,24 @@ textarea {
 .button-deactive {
   cursor: not-allowed;
   background-color: var(--text-secondary-colo) !important;
+}
+
+.thumbnail-iframe {
+  width: 100% !important;
+  max-height: 130px !important;
+  margin-bottom: 20px !important;
+}
+
+.previous-stream-thumbnail {
+  width: 100% !important;
+  margin-bottom: 20px;
+  max-height: 240px !important;
+}
+
+input.stream-search-box {
+  color: #fff;
+}
+
+input.stream-search-box::placeholder {
+  color: #fff !important;
 }

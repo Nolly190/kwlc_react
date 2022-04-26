@@ -75,6 +75,7 @@ export default function DonateContent() {
   const [isOpen, setIsOpen] = useState(false);
 
   const cancelRef = React.useRef();
+  const cancelRef2 = React.useRef();
 
   const onPaymentModalClose = () => {
     setIsOpen(false);
@@ -99,10 +100,13 @@ export default function DonateContent() {
   const [amount, setAmount] = useState("");
   const [paymentOption, setPaymentOption] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [isSuccessModalOpen, setISuccessModalOpen] = useState(false);
 
   const toast = useToast({
     position: "top-right",
   });
+
+  const [message, setMessage] = useState("");
 
   const processPayment = async () => {
     try {
@@ -157,14 +161,35 @@ export default function DonateContent() {
       const payload: PaymentDTO = new PaymentDTO();
       payload.emailAddress = email;
       payload.amount = +amount;
-      payload.paymentType = "Donation";
+      payload.paymentType = 3;
+      payload.paymentMode = +paymentOption;
       payload.name = `${firstName} ${lastName}`;
-      payload.productId = +getParam("id");
-      payload.quantity = 0;
+      payload.phoneNumber = phoneNumber;
+      payload.productId = 0;
+      payload.quantity = 1;
+
       setIsLoading(true);
+
+      console.log("payload: ", payload);
       const response = await makeDonationApi(payload);
       setIsLoading(false);
-      window.location = response.data.data;
+      console.log("response: ", response);
+
+      setIsOpen(false);
+
+      if (paymentOption === "1") {
+        window.location = response.data.data;
+        setMessage("Your payment is successful ");
+        setISuccessModalOpen(true);
+      }
+      {
+        setMessage(
+          "Your payment is successful. Use this transaction references to complete payment: " +
+            response.data.data
+        );
+
+        setISuccessModalOpen(true);
+      }
     } catch (error) {
       console.log("error: ", error);
       setIsLoading(false);
@@ -175,6 +200,10 @@ export default function DonateContent() {
         title: "Something went wrong",
       });
     }
+  };
+
+  const onPaymenSuccessModalClose = () => {
+    setISuccessModalOpen(false);
   };
 
   return (
@@ -245,15 +274,14 @@ export default function DonateContent() {
               <RadioGroup
                 color="black"
                 onChange={(value) => setPaymentOption(value)}
+                defaultValue="1"
               >
                 <Stack direction="row">
-                  <Radio color={"black"} value="flutterwave">
+                  <Radio color={"black"} value="1">
                     <span style={{ color: "#6c6c6c" }}>Flutterwave</span>
                   </Radio>
-                  <Radio color={"black"} value="paystack">
-                    <span style={{ color: "#6c6c6c" }}>Paystack</span>
-                  </Radio>
-                  <Radio color={"black"} value="offline">
+
+                  <Radio color={"black"} value="2">
                     <span style={{ color: "#6c6c6c" }}>Pay Offline</span>
                   </Radio>
                 </Stack>
@@ -329,6 +357,32 @@ export default function DonateContent() {
               onClick={() => processPayment()}
               isLoading={isLoading}
             />
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog
+        motionPreset="slideInBottom"
+        onClose={onPaymenSuccessModalClose}
+        isOpen={isSuccessModalOpen}
+        leastDestructiveRef={cancelRef2}
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader></AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody>
+            <h3 style={{ textAlign: "center" }}>
+              We Thank You <br /> For Your Donation
+            </h3>
+            <div className="my-4"></div>
+            <article className="text-center">{message}</article>
+            <div className="my-4"></div>
+          </AlertDialogBody>
+          <AlertDialogFooter>
+            <Button onClick={onPaymenSuccessModalClose}>Close</Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

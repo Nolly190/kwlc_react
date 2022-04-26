@@ -4,27 +4,32 @@ import { loadPreviousLiveStreamWeb } from "../../../../controller/livestream.con
 import { LiveStreamDTO } from "../../../../dto/LiveStream.dto";
 import { getParam } from "../../../../utils";
 
-export default function PreviousLiveStreamContent() {
-  const liveStreamItems: LiveStreamDTO[] = [];
+export default function PreviousLiveStreamContent({ data }) {
+  const liveStreamItems: LiveStreamDTO[] = data?.data || [];
   const [items, setItems] = useState(liveStreamItems);
 
-  useEffect(() => {
-    const id = getParam("id");
-    if (!id) {
-      // router.push("/web/";
-    } else {
-    }
-    loadPreviousLiveStreamWeb(setItems);
-  }, []);
+  // useEffect(() => {
+  //   const id = getParam("id");
+  //   if (!id) {
+  //     // router.push("/web/";
+  //   } else {
+  //   }
+  //   loadPreviousLiveStreamWeb(setItems);
+  // }, []);
   return (
     <>
       <hr />
       <div className="sectionTwo">
         <div className="header">
-          <h3>Previous sundays</h3>
+          <h3 className="text-white">Previous sundays</h3>
           <form action="">
             <i className="fa fa-search"></i>
-            <input type="text" placeholder="Search by Sermon" />
+            <input
+              type="text"
+              style={{ color: "#fff" }}
+              placeholder="Search by Sermon"
+              className="stream-search-box"
+            />
           </form>
         </div>
         <div className="row prevSundays">
@@ -97,7 +102,7 @@ export default function PreviousLiveStreamContent() {
               </div>
             </div>
           </div> */}
-          <button className="button">See More</button>
+          {/* <button className="button">See More</button> */}
         </div>
         <div className="copyright">Kingdom Ways Living Church 2021</div>
       </div>
