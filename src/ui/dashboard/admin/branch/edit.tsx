@@ -9,10 +9,10 @@ import AdminLayout from "../admin.layout";
 export interface ISetBranch {
   setItem: Function;
   setTitle: Function;
-  setAddress: Function;
+  setAddress?: Function;
   setLocation: Function;
   setState: Function;
-  setContactNumber: Function;
+  setContactNumber?: Function;
   setIsBranchHq: Function;
   setServices: Function;
   setCity?: Function;
