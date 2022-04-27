@@ -179,8 +179,8 @@ export default function DonateContent() {
 
       if (paymentOption === "1") {
         window.location = response.data.data;
-        setMessage("Your payment is successful ");
-        setISuccessModalOpen(true);
+        // setMessage("Your payment is successful ");
+        // setISuccessModalOpen(true);
       }
       {
         setMessage(
