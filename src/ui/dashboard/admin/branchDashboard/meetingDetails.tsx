@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 import { createReportApi } from "../../../../api/report.api";
 import { statusEnum } from "../../../../enums/util.enum";
+import mediaQueries from "../../../../mediaQueries";
 import { ChurchReportContext } from "./churchReportContext";
 import StyledInput from "./components/styledInput";
 import {
@@ -210,7 +211,7 @@ const MeetingDetails: React.FC<MeetingDetailsProps> = ({
           </div>
         </EntryContainer>
       </Row>
-      <ButtonWrapper className="mt-40">
+      <MeetingButtonWrapper className="mt-40">
         <Button onClick={goToPrevPage}>
           <img src="/images/next-icon.png" className="backBtn" alt="" />
           <p>Back</p>
@@ -219,7 +220,7 @@ const MeetingDetails: React.FC<MeetingDetailsProps> = ({
           <p>Submit</p>
           <img src="/images/next-icon.png" alt="" />
         </Button>
-      </ButtonWrapper>
+      </MeetingButtonWrapper>
     </Container>
   );
 };
@@ -227,3 +228,9 @@ const MeetingDetails: React.FC<MeetingDetailsProps> = ({
 export default MeetingDetails;
 
 const Container = styled.div``;
+
+const MeetingButtonWrapper = styled(ButtonWrapper)`
+  ${mediaQueries.mobile} {
+    justify-content: space-between;
+  }
+`;

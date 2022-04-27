@@ -149,6 +149,7 @@ export const ChurchReportFormWrapper = styled.div`
   ${mediaQueries.mobile} {
     padding: 0;
     width: 100%;
+    height: 75vh;
   }
 `;
 
