@@ -41,7 +41,7 @@ export default function HeroBanner({ slides }) {
     <section
       className="hero-banner-area"
       style={{
-        backgroundImage: `url(${data[currentIndex % data.length].url})`,
+        backgroundImage: `url(${data[currentIndex % data.length]?.url})`,
       }}
     >
       <AltHomePageHeader />
