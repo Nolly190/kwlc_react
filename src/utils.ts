@@ -22,8 +22,10 @@ export const fakeModel = false;
 export const saltConst = "saltConst-KWLC-saltConst-KWLC";
 
 export function getParam(name: any): string {
-   if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(window.location.search))
-      return decodeURIComponent(name[1]);
+   if (typeof window !== 'undefined') {
+      if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(window.location.search))
+         return decodeURIComponent(name[1]);
+   }
 }
 
 export function mmFormat(datetime: string, format: string = "hh:mm a"): string {

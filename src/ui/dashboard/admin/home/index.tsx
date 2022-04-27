@@ -1,10 +1,9 @@
 import { useRouter } from "next/router";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { getToken } from "../../../../request";
 import AdminLayout from "../admin.layout";
 
 export default function AdminHome() {
-  const [user, setUser] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -12,6 +11,7 @@ export default function AdminHome() {
     if (!token) {
       router.push("/admin/login");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

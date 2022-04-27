@@ -9,11 +9,11 @@ import { getParam } from "../../../../utils";
 import { useRouter } from "next/router";
 
 export default function EditBlog() {
-  const _tmp: BlogItemDTO = new BlogItemDTO();
+  // const _tmp: BlogItemDTO = new BlogItemDTO();
 
   const [tag, setTag] = useState<tagItem>({ name: "" });
   const [categories, setCategories] = useState<CategoryItem[]>([]);
-  const [blogData, setBlogData] = useState<BlogItemDTO>(_tmp);
+  const [blogData, setBlogData] = useState<BlogItemDTO>();
   const editorRef = useRef(null);
   const router = useRouter();
   const idParam = getParam("id");
@@ -30,6 +30,7 @@ export default function EditBlog() {
       }
     }
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   let controller: BlogController = new BlogController();
@@ -54,8 +55,6 @@ export default function EditBlog() {
 
     setBlogData({ ...blogData, [name]: value });
   };
-
-  console.log("blogData", blogData);
 
   const onClickAddTag = (e) => {
     e.preventDefault();
@@ -95,7 +94,7 @@ export default function EditBlog() {
                         id="title"
                         name="title"
                         element-data="title"
-                        value={blogData.title}
+                        value={blogData?.title}
                         onChange={(e) =>
                           handleChange(e.target.name, e.target.value)
                         }
@@ -113,7 +112,7 @@ export default function EditBlog() {
                         id="imageUrl"
                         name="imageUrl"
                         element-data="imageUrl"
-                        defaultValue={blogData.blogImages ? blogData.blogImages[0]?.imageUrl : ""}
+                        defaultValue={blogData?.blogImages ? blogData.blogImages[0]?.imageUrl : ""}
                         onChange={(e) =>
                           handleChange(e.target.name, e.target.value)
                         }
@@ -130,7 +129,7 @@ export default function EditBlog() {
                         id="categoryId"
                         name="categoryId"
                         element-data="categoryId"
-                        value={blogData.categoryId}
+                        value={blogData?.categoryId}
                         onChange={(e) =>
                           handleChange(e.target.name, e.target.value)
                         }
@@ -153,7 +152,7 @@ export default function EditBlog() {
                         id="authorName"
                         name="authorName"
                         element-data="authorName"
-                        value={blogData.authorName}
+                        value={blogData?.authorName}
                         onChange={(e) =>
                           handleChange(e.target.name, e.target.value)
                         }
@@ -170,7 +169,7 @@ export default function EditBlog() {
                         id="aboutAuthor"
                         name="aboutAuthor"
                         element-data="aboutAuthor"
-                        value={blogData.aboutAuthor}
+                        value={blogData?.aboutAuthor}
                         cols={5}
                         rows={5}
                         onChange={(e) =>
@@ -188,7 +187,7 @@ export default function EditBlog() {
                         "xp4d02qcjritg0ucudzbasrhjribhh7wy9ck49nlxl78l8n0"
                       }
                       onInit={(evt, editor) => (editorRef.current = editor)}
-                      initialValue={blogData.message}
+                      initialValue={blogData?.message}
                       init={{
                         height: 500,
                         menubar: false,

@@ -7,6 +7,7 @@ export default function Login() {
   const router = useRouter();
   useEffect(() => {
     initUtilFunc(window.localStorage, router);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <Admin />;

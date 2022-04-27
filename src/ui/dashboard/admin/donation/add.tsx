@@ -85,13 +85,13 @@ export default function AddDonation() {
                         <option>Select Branch</option>
                         {branches.length > 0
                           ? branches.map((x, i) => {
-                              if (!x.isBranchHq) return;
-                              return (
-                                <option key={i} value={x.id}>
-                                  {x.name}-{x.city}
-                                </option>
-                              );
-                            })
+                            if (!x.isBranchHq) return;
+                            return (
+                              <option key={i} value={x.id}>
+                                {x.name}
+                              </option>
+                            );
+                          })
                           : undefined}
                       </select>
                     </div>
@@ -183,22 +183,22 @@ export default function AddDonation() {
                 <div className="row ml-1" style={{ maxWidth: "95%" }}>
                   {donationImgs.length > 0
                     ? donationImgs.map((x, i) => {
-                        return (
-                          <DonationImageItem
-                            key={i}
-                            id={x.id}
-                            url={x.imageUrl}
-                            isMainImage={x.isMainImage}
-                            onCheck={(x) =>
-                              controller.makeMainImage(
-                                setDonationImgs,
-                                donationImgs,
-                                x
-                              )
-                            }
-                          />
-                        );
-                      })
+                      return (
+                        <DonationImageItem
+                          key={i}
+                          id={x.id}
+                          url={x.imageUrl}
+                          isMainImage={x.isMainImage}
+                          onCheck={(x) =>
+                            controller.makeMainImage(
+                              setDonationImgs,
+                              donationImgs,
+                              x
+                            )
+                          }
+                        />
+                      );
+                    })
                     : "No Donation images Added"}
                 </div>
               </form>
