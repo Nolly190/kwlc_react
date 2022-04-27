@@ -9,6 +9,7 @@ export const ModalContainer = styled.div<props>`
   font-family: "Open Sans", sans-serif;
   padding: 40px 0 40px 40px;
   width: ${(props) => (props.width ? props.width : "75vw")};
+  max-height: 90vh;
 
   @media (max-width: 465px) {
     width: 95vw;
@@ -97,7 +98,8 @@ export const ChurchReportFormWrapper = styled.div`
   flex-direction: column;
   width: 80%;
   padding: 0 8%;
-  max-height: 525px;
+  height: 66vh;
+  max-height: 600px;
   overflow-y: scroll;
 
   & > p:first-child {
