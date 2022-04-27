@@ -98,7 +98,7 @@ export default function DonateContent() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [amount, setAmount] = useState("");
-  const [paymentOption, setPaymentOption] = useState("");
+  const [paymentOption, setPaymentOption] = useState("1");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isSuccessModalOpen, setISuccessModalOpen] = useState(false);
 
