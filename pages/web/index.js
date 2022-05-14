@@ -15,3 +15,26 @@ export default function Home(props) {
 
   return <HomePage data={props?.data || {}} slides={props.slides} />;
 }
+
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+
+  const res = await getNextEvent();
+  const slidesResponse = await getSliderAPI();
+  const data = await res.data;
+
+  const sliderData = slidesResponse.data;
+
+  const slides = sliderData.data[1]?.sliderImages || [];
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      data,
+      slides,
+    },
+    revalidate: 10,
+  };
+}
