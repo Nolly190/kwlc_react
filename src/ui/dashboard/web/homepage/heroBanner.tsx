@@ -23,7 +23,7 @@ export default function HeroBanner({ slides }) {
     <Slider {...settings}>
       {data.map((image, i) => {
         return (
-          <div>
+          <div key={i}>
             <section
               className="hero-banner-area "
               style={{

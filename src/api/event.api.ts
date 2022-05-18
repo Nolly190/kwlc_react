@@ -20,7 +20,7 @@ export async function getNextEvent(): Promise<ResponseDTO> {
       response.code = statusEnum.ok;
     }
   } catch (e) {
-    response.message = e.toString();
+    response.message = e?.toString();
   }
 
   return response.getResponse();
