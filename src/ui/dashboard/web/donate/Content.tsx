@@ -98,7 +98,7 @@ export default function DonateContent() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [amount, setAmount] = useState("");
-  const [paymentOption, setPaymentOption] = useState("");
+  const [paymentOption, setPaymentOption] = useState("1");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isSuccessModalOpen, setISuccessModalOpen] = useState(false);
 
@@ -178,9 +178,9 @@ export default function DonateContent() {
       setIsOpen(false);
 
       if (paymentOption === "1") {
-        window.location = response.data.data;
-        setMessage("Your payment is successful ");
-        setISuccessModalOpen(true);
+        return (window.location = response.data.data);
+        // setMessage("Your payment is successful ");
+        // setISuccessModalOpen(true);
       }
       {
         setMessage(

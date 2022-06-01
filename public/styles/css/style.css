@@ -1564,3 +1564,16 @@ input.stream-search-box {
 input.stream-search-box::placeholder {
   color: #fff !important;
 }
+
+.slick-prev,
+.slick-next {
+  z-index: 8 !important;
+}
+
+.slick-prev {
+  left: 20px !important;
+}
+
+.slick-next {
+  right: 20px !important;
+}

@@ -1,7 +1,57 @@
-import { Button, ButtonGroup } from "@chakra-ui/react";
+import {
+  Button,
+  ButtonGroup,
+  FormControl,
+  FormLabel,
+  Input,
+} from "@chakra-ui/react";
+import {
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogCloseButton,
+  AlertDialogFooter,
+  RadioGroup,
+  Stack,
+  Radio,
+  useToast,
+} from "@chakra-ui/react";
+import { useRef, useState } from "react";
 
 export default function HomeFamilySection() {
   // <!-- family-section-start -->
+
+  const [isKingdomPublishDialogOpen, setIsKingdomPublishDialogOpen] =
+    useState(false);
+
+  const [isKingdomPublishDialogLoginOpen, setIsKingdomPublishDialogLoginOpen] =
+    useState(false);
+  const [
+    isKingdomPublishDialogRegisterOpen,
+    setIsKingdomPublishDialogRegisterOpen,
+  ] = useState(false);
+
+  const cancelRef2 = useRef();
+  const cancelRef3 = useRef();
+  const cancelRef4 = useRef();
+
+  const onKingdomPublisherClose = () => {
+    setIsKingdomPublishDialogOpen(false);
+  };
+
+  const onKingdomPublisherLoginClose = () => {
+    setIsKingdomPublishDialogLoginOpen(false);
+  };
+  const onKingdomPublisherRegisterClose = () => {
+    setIsKingdomPublishDialogRegisterOpen(false);
+  };
+
+  const handleFormRegister = () => {};
+
+  const handleFormLogin = () => {};
+
   return (
     <section className="family_section_area pr">
       <div className="shape-1">
@@ -114,11 +164,168 @@ export default function HomeFamilySection() {
             color="#000"
             borderRadius="1.675rem"
             borderColor="black.500"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            onClick={() => setIsKingdomPublishDialogOpen(true)}
           >
             Learn more
           </Button>
         </div>
       </div>
+      <AlertDialog
+        motionPreset="slideInBottom"
+        onClose={onKingdomPublisherClose}
+        isOpen={isKingdomPublishDialogOpen}
+        leastDestructiveRef={cancelRef2}
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader>Kingdom Publishers</AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody>
+            <div className="my-4"></div>
+            <article className="text-center">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry's standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It has
+              survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged. It was
+              popularised in the 1960s with the release of Letraset sheets
+              containing Lorem Ipsum passages, and more recently with desktop
+              publishing software like Aldus PageMaker including versions of
+              Lorem Ipsum
+            </article>
+            <div className="my-4"></div>
+          </AlertDialogBody>
+          <AlertDialogFooter>
+            <Stack direction="row" spacing={4}>
+              <Button
+                colorScheme="messenger"
+                onClick={() => {
+                  setIsKingdomPublishDialogOpen(false);
+                  setIsKingdomPublishDialogRegisterOpen(true);
+                }}
+              >
+                Register
+              </Button>
+              <Button
+                colorScheme="telegram"
+                onClick={() => {
+                  setIsKingdomPublishDialogOpen(false);
+                  setIsKingdomPublishDialogLoginOpen(true);
+                }}
+              >
+                Login
+              </Button>
+            </Stack>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog
+        motionPreset="slideInBottom"
+        onClose={onKingdomPublisherRegisterClose}
+        isOpen={isKingdomPublishDialogRegisterOpen}
+        leastDestructiveRef={cancelRef3}
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader> Signup to Kingdom Publishers</AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody style={{ marginBottom: 20 }}>
+            <Stack direction="column" spacing={"4"}>
+              <Stack direction="row" spacing={"4"}>
+                <FormControl>
+                  <FormLabel htmlFor="name">Name</FormLabel>
+                  <Input id="name" type="text" placeholder="Name" />
+                </FormControl>
+
+                <FormControl>
+                  <FormLabel htmlFor="email">Email address</FormLabel>
+                  <Input id="email" type="email" placeholder="Email" />
+                </FormControl>
+              </Stack>
+              <Stack direction="row" spacing={"4"}>
+                <FormControl>
+                  <FormLabel htmlFor="phone">Phonenumber</FormLabel>
+                  <Input id="phone" type="text" placeholder="Phone" />
+                </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor="age">Age</FormLabel>
+                  <Input id="age" type="number" placeholder="Age" />
+                </FormControl>
+              </Stack>
+              <Stack direction="row" spacing={"4"}>
+                <FormControl>
+                  <FormLabel htmlFor="city">City</FormLabel>
+                  <Input id="city" type="text" placeholder="City" />
+                </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor="country">Country</FormLabel>
+                  <Input id="country" type="text" placeholder="Country" />
+                </FormControl>
+              </Stack>
+              <Stack direction="row" spacing={"4"}>
+                <FormControl>
+                  <FormLabel htmlFor="occupation">Occupation</FormLabel>
+                  <Input id="occupation" type="text" placeholder="Occupation" />
+                </FormControl>
+                <FormControl>
+                  <FormLabel htmlFor="amount">Contribution Amount</FormLabel>
+                  <Input id="amount" type="number" placeholder="Amount" />
+                </FormControl>
+              </Stack>
+            </Stack>
+          </AlertDialogBody>
+          <AlertDialogFooter>
+            <Stack direction="row" spacing={4}>
+              <Button colorScheme="messenger" onClick={handleFormRegister}>
+                Signup
+              </Button>
+            </Stack>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog
+        motionPreset="slideInBottom"
+        onClose={onKingdomPublisherLoginClose}
+        isOpen={isKingdomPublishDialogLoginOpen}
+        leastDestructiveRef={cancelRef4}
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader>Login to Kingdom Publisher</AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody style={{ marginBottom: 20 }}>
+            <Stack direction="column" spacing={"4"}>
+              <FormControl>
+                <FormLabel htmlFor="email">TKP ID</FormLabel>
+                <Input id="email" type="email" placeholder="TKP ID" />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel htmlFor="email">Email address/Phone</FormLabel>
+                <Input id="email" type="text" placeholder="Email/Phone" />
+              </FormControl>
+            </Stack>
+          </AlertDialogBody>
+          <AlertDialogFooter>
+            <Stack direction="row" spacing={4}>
+              <Button colorScheme="telegram" onClick={handleFormLogin}>
+                Login
+              </Button>
+            </Stack>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </section>
   );
 }

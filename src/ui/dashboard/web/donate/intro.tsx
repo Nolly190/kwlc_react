@@ -65,6 +65,7 @@ export default function DonationIntro() {
 }
 
 const RenderDonationItem = ({ img, title, description, href }) => {
+  console.log("img: ", img);
   return (
     <div className="content_card">
       <div className="image">
