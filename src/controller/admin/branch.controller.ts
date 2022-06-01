@@ -40,7 +40,7 @@ export class BranchController implements CRUDBL {
 
         const response = await getSingleBranchApi(id);
         if (response.code < statusEnum.ok) {
-            toast.error(response.message.toString());
+            setState.setError(response.message.toString());
         }
 
         const data: BranchDTO = response?.data?.data;
@@ -70,36 +70,30 @@ export class BranchController implements CRUDBL {
 
     }
     async delete(id: number, setItems: Function, items: BranchDTO[]) {
-        const result = showConfirmDialog('Confirm Delete');
-        if (result) {
+        const response = await deleteBranchApi(id);
 
-            const response = await deleteBranchApi(id);
-
-            if (response.code >= statusEnum.ok) {
-                toast.success("Branch deleted successfully");
-                setItems(items.filter(x => x.id != id));
-            }
-            else {
-                toast.error(response.message.toString());
-            }
-
+        if (response.code >= statusEnum.ok) {
+            toast.success("Branch deleted successfully");
+            setItems(items.filter(x => x.id != id));
+        }
+        else {
+            toast.error(response.message.toString());
         }
     }
     async bulk() {
 
     }
 
-    async list(setItems: Function) {
-
+    async list(setItems: Function, setIsLoading?: Function) {
+        setIsLoading && setIsLoading(true);
         const response = await getBranchesApi();
-        console.log("responseList", response)
         if (response.code < statusEnum.ok) {
             toast.error(response.message.toString());
         }
 
         const data: BranchDTO[] = response?.data?.data;
         setItems(data);
-
+        setIsLoading && setIsLoading(false);
     }
 
     addService(setServices: Function, services: BranchServiceDTO[], day: string, time: string) {

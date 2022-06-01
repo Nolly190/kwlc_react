@@ -5,6 +5,8 @@ import { UserRolesResponse } from '../../../../../types/appTypes';
 import styled from "styled-components";
 import { chakra, Box, CheckboxGroup, Flex, Text, useCheckbox, useCheckboxGroup } from "@chakra-ui/react";
 import { AdminModules } from '../../../../../strings';
+import { statusEnum } from '../../../../../enums/util.enum';
+import { toast } from 'react-toastify';
 
 const ViewRoles = () => {
     const [selectedModules, setSelectedModules] = useState<string[]>([])
@@ -13,14 +15,22 @@ const ViewRoles = () => {
     useEffect(() => {
         async function getRoles() {
             const response = await getAllRolesApi();
-            setRoles(response?.data?.data);
+            if (response.code >= statusEnum.ok) {
+                setRoles(response?.data?.data);
+            } else {
+                toast.error("Error fetching roles");
+            }
         }
         getRoles();
     }, []);
 
     const onChange = async (newValue: any, actionMeta: ActionMeta<any>) => {
         const response = await getRolePermissionApi(newValue.value);
-        setSelectedModules(response?.data?.data?.permmissions);
+        if (response.code >= statusEnum.ok) {
+            setSelectedModules(response?.data?.data?.permmissions);
+        } else {
+            toast.error("Error fetching role permissions");
+        }
     }
 
     const dropDownOptions = () => {

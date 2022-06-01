@@ -1,6 +1,8 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Select, { ActionMeta } from 'react-select'
 import DonationImageItem from "../../../../components/donation-image";
+import DualRing from "../../../../components/loader";
 import { BranchServiceTimerItem } from "../../../../components/service-timer-item";
 import { BranchController } from "../../../../controller/admin/branch.controller";
 import { DonationController } from "../../../../controller/admin/donation.controller";
@@ -13,6 +15,7 @@ import DonateItemDTO, {
 import { LiveStreamDTO } from "../../../../dto/LiveStream.dto";
 import { getParam, showConfirmDialog, youtubeParser } from "../../../../utils";
 import AdminLayout from "../admin.layout";
+import { LoaderWrapper } from "../events/getAll";
 
 export interface ISetLivestream {
   setTitle: Function;
@@ -20,6 +23,7 @@ export interface ISetLivestream {
   setBranch: Function;
   setUrl: Function;
   setStreamDate: Function;
+  setIsLoading: Function;
 }
 
 export default function EditLiveStream() {
@@ -33,14 +37,14 @@ export default function EditLiveStream() {
   const [branches, setBranches] = useState(_tmpBranches);
   const [branch, setBranch] = useState("");
   const [id, setId] = useState(0);
-
+  const [isLoading, setIsLoading] = useState(false)
   const [url, setUrl] = useState("");
   const [streamDate, setStreamDate] = useState("");
 
   useEffect(() => {
     branchController.list(setBranches);
     getBranch();
-    //console.log(youtube_parser("https://www.youtube.com/watch?v=gVN83R-JwRQ"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   let controller: LiveStreamController = new LiveStreamController();
@@ -59,11 +63,25 @@ export default function EditLiveStream() {
           setBranch,
           setUrl,
           setStreamDate,
+          setIsLoading
         },
         parseInt(idParam)
       );
     }
   };
+
+  const dropDownOptions = () => {
+    const arr = [];
+    branches.map((x, i) => {
+      arr.push({ value: x?.id, label: x?.name });
+    })
+
+    return arr
+  }
+
+  const onTypeChange = (newValue: any, actionMeta: ActionMeta<any>) => {
+    setBranch(newValue.value);
+  }
 
   const onClick = (e) => {
     e.preventDefault();
@@ -97,105 +115,95 @@ export default function EditLiveStream() {
               <h4 className="card-title">Edit Stream</h4>
             </div>
             <div className="card-body">
-              <form id="form">
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label className="bmd-label-floating">
-                        Select Branch
-                      </label>
-                      <select
-                        className="form-control"
-                        onChange={(e) => setBranch(e.target.value)}
-                        value={branch}
+              {isLoading ?
+                <LoaderWrapper>
+                  <DualRing width="40px" height="40px" color="#0b0146" />
+                </LoaderWrapper> :
+                <form id="form">
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label className="bmd-label-floating">
+                          Select Branch
+                        </label>
+                        <Select options={dropDownOptions()} onChange={onTypeChange} />
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label className="bmd-label-floating">
+                          Select Stream Date
+                        </label>
+                        <input
+                          type="date"
+                          className="form-control"
+                          id="date"
+                          name="date"
+                          onChange={(e) => setStreamDate(e.target.value)}
+                          value={streamDate}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label className="bmd-label-floating">Title</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="title"
+                          name="title"
+                          element-data="name"
+                          onChange={(e) => setTitle(e.target.value)}
+                          value={title}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label className="bmd-label-floating">URL</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="location"
+                          name="location"
+                          element-data="description"
+                          onChange={(e) => setUrl(e.target.value)}
+                          value={url}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-12">
+                      <div className="form-group">
+                        <label className="bmd-label-floating">Description </label>
+                        <textarea
+                          className="form-control"
+                          id="code"
+                          name="code"
+                          element-data="code"
+                          onChange={(e) => setDescription(e.target.value)}
+                          value={description}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-12 mt-4">
+                      <button
+                        type="submit"
+                        id="submitBtn"
+                        className="btn btn-primary pull-right"
+                        onClick={(e) => onClick(e)}
                       >
-                        <option>Select Branch</option>
-                        {branches.length > 0
-                          ? branches.map((x, i) => {
-                            return (
-                              <option key={i} value={x.id}>
-                                {x.name}
-                              </option>
-                            );
-                          })
-                          : undefined}
-                      </select>
+                        Update Stream
+                      </button>
                     </div>
                   </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label className="bmd-label-floating">
-                        Select Stream Date
-                      </label>
-                      <input
-                        type="date"
-                        className="form-control"
-                        id="date"
-                        name="date"
-                        onChange={(e) => setStreamDate(e.target.value)}
-                        value={streamDate}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label className="bmd-label-floating">Title</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="title"
-                        name="title"
-                        element-data="name"
-                        onChange={(e) => setTitle(e.target.value)}
-                        value={title}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label className="bmd-label-floating">URL</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="location"
-                        name="location"
-                        element-data="description"
-                        onChange={(e) => setUrl(e.target.value)}
-                        value={url}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-12">
-                    <div className="form-group">
-                      <label className="bmd-label-floating">Description </label>
-                      <textarea
-                        className="form-control"
-                        id="code"
-                        name="code"
-                        element-data="code"
-                        onChange={(e) => setDescription(e.target.value)}
-                        value={description}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-12 mt-4">
-                    <button
-                      type="submit"
-                      id="submitBtn"
-                      className="btn btn-primary pull-right"
-                      onClick={(e) => onClick(e)}
-                    >
-                      Update Stream
-                    </button>
-                  </div>
-                </div>
-              </form>
+                </form>
+              }
             </div>
           </div>
         </div>

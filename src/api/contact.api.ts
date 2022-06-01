@@ -23,3 +23,21 @@ export async function submitContactForm(
 
   return response.getResponse();
 }
+
+export async function getAllMailsApi(): Promise<ResponseDTO> {
+  const response = new ResponseDTO();
+
+  try {
+    let res = await request.get(`${urls.baseUrl}${urls.getAllMails}`);
+
+    if (res.status) {
+      response.data = res.data.data;
+    }
+
+    response.code = statusEnum.ok;
+  } catch (e) {
+    response.message = e.toString();
+  }
+
+  return response.getResponse();
+}

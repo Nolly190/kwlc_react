@@ -24,10 +24,10 @@ export class UserController implements CRUDBL {
 
     }
     async read(set: ISetUser, id: number) {
-
+        set.setIsLoading && set.setIsLoading(true);
         const response = await getUserApi(id);
         if (response.code < statusEnum.ok) {
-            toast.error(response.message);
+            set.setError(response.message);
         }
 
         const data: UserDTO = response?.data;
@@ -36,7 +36,7 @@ export class UserController implements CRUDBL {
         set.setEmail(data?.email);
         set.setFirstName(data?.firstName);
         set.setLastName(data?.lastName);
-
+        set.setIsLoading && set.setIsLoading(false);
     }
     async update(data: UserDTO, id: number) {
 
@@ -47,17 +47,16 @@ export class UserController implements CRUDBL {
     async bulk() {
 
     }
-    async list(setItems: Function) {
-
+    async list(setItems: Function, setIsLoading?: Function) {
+        setIsLoading && setIsLoading(true);
         const response = await getAllUsersApi();
-        console.log("users", response)
         if (response.code < statusEnum.ok) {
             toast.error(response.message)
         }
 
         const data: UserDTO[] = response?.data?.data;
         setItems(data);
-
+        setIsLoading && setIsLoading(false);
     }
 }
 

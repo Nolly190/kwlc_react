@@ -4,6 +4,8 @@ export const urls = {
   makeDonation: "Payment/Payment",
   contact: "Contact",
 
+  getAllMails: "Contact/Get",
+
   branch: "Branch",
   getAllBranch: "Branch/GetAllBranches",
   getBranch: "Branch/GetBranch",
@@ -42,18 +44,31 @@ export const urls = {
 
   liveStream: "LiveStream",
   updateLiveStream: "UpdateLiveStream/",
+
   NextEvent: "Event/Next",
+  GetAllEvents: "Event/GetAllBranchEvent",
+  GetEventsByType: "Event/GetEventByType",
+  GetEventType: "Event/GetEventTypes",
+  AddEventType: "Event/AddEventType",
+  GetBranchEvent: "Event/GetBranchEvent/",
+  EndEvent: "Event/EndEvent/",
+  AddEvent: "Event/AddEvent",
+  DeleteEvent: "Event/DeleteEvent/",
+  UpdateEvent: "Event/UpdateEvent",
 
   createReport: "Report/Create",
+  getAllReports: "Report/GetAll",
   uploadPastorDetails: "Message/Create",
   updatePastorDetails: "Message/Update",
   getPastorDetails: "Message/Get",
   uploadSliderDetails: "Slider",
   getById: "Slider/GetById",
+  getBranchSliders: "Slider/GetBranchSliders",
 
   getAllPublishers: "KingdomPublishers/Get",
   publishersHistory: "KingdomPublishers/History",
   confirmPayment: "KingdomPublishers/ConfirmPayment",
+  confirmManualPayment: "KingdomPublishers/ConfirmManualPayment",
   paymentRef: "KingdomPublishers/PaymentRef",
   editPublishers: "KingdomPublishers/EditDetails",
   registerPublishers: "KingdomPublishers/Register",
@@ -63,7 +78,7 @@ export const urls = {
   sendSms: "KingdomPublishers/SendSms",
 
 
-  baseUrl: "https://kwlc-web.herokuapp.com/api/",
+  baseUrl: "https://kwlc-app.herokuapp.com/api/",
   v1: "v1/",
 
   ...{

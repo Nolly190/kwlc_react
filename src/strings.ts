@@ -84,6 +84,12 @@ export const AdminNavArray = [
         title: "Roles",
     },
     {
+        name: "Report",
+        url: "/admin/reports",
+        iconTitle: "group_add",
+        title: "Report",
+    },
+    {
         name: "Livestream",
         url: "/admin/livestream",
         iconTitle: "camera",

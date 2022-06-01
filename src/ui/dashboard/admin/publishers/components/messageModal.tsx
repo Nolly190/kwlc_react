@@ -5,7 +5,7 @@ import { sendMessagePublisherApi } from '../../../../../api/publishers.api';
 import Modal from '../../../../../components/modal'
 import { statusEnum } from '../../../../../enums/util.enum';
 import { SendMessagePublishersPayload } from '../../../../../types/appTypes';
-import { Button, NewUserHeader, SlidersModalContainer, SlidersModalHeaderContainer } from '../../branchDashboard/styles';
+import { StyledButton, NewUserHeader, SlidersModalContainer, SlidersModalHeaderContainer } from '../../branchDashboard/styles';
 
 interface props {
     isOpen: boolean;
@@ -79,9 +79,9 @@ const MessageModal: React.FC<props> = ({ isOpen, closeModal }) => {
                                 />
                             </div>
                         </div>
-                        <StyledButton onClick={handleSubmit}>
+                        <MessageButton onClick={handleSubmit}>
                             <p>Send</p>
-                        </StyledButton>
+                        </MessageButton>
                     </ReferenceWrapper>
                 </ContentWrapper>
             </SlidersModalContainer>
@@ -111,7 +111,7 @@ const ReferenceWrapper = styled.div`
     }
 `;
 
-const StyledButton = styled(Button)`
+const MessageButton = styled(StyledButton)`
     padding: 0 20px;
     width: 110px;
     height: 35px;

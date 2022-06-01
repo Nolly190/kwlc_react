@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { createReportApi } from "../../../../api/report.api";
 import { statusEnum } from "../../../../enums/util.enum";
 import mediaQueries from "../../../../mediaQueries";
+import { isValid } from "../../../../utils";
 import { ChurchReportContext } from "./churchReportContext";
 import StyledInput from "./components/styledInput";
 import {
@@ -56,14 +57,19 @@ const MeetingDetails: React.FC<MeetingDetailsProps> = ({
   console.log(churchReport);
 
   const handleSubmit = async () => {
-    const response = await createReportApi(churchReport);
-    if (response.code >= statusEnum.ok) {
-      toast.success("Report uploaded successfully");
-      closeModal();
+    if (isValid(churchReport.sermon) && isValid(churchReport.attendance) && churchReport.sermon.date !== (null || undefined)) {
+      const response = await createReportApi(churchReport);
+      if (response.code >= statusEnum.ok) {
+        toast.success("Report uploaded successfully");
+        closeModal();
+      } else {
+        toast.error(response.message);
+      }
     } else {
-      toast.error(response.message);
+      toast.error("Please fill all the fields");
     }
-  };
+
+  }
 
   return (
     <Container>

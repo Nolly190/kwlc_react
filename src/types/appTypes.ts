@@ -106,29 +106,52 @@ export interface ContributionType {
 }
 
 export interface PublishersHistoryResponse {
-    id?: number,
-    firstName?: string,
-    lastName?: string,
-    address?: string,
-    email?: string,
-    phoneNumber?: string,
-    isAccountBlocked?: boolean,
+    id: number,
+    amount: number,
+    currency: string,
+    dateOfBirth: Date | string,
+    dateCreated: Date | string,
+    fullName: string,
+    emailAddress: string,
+    maritalStatus: string,
+    occupation: string,
+    phone: string,
+    residentCountry: string,
+    state: string,
+    uniqueId: string,
+    isActive?: boolean,
+    isBlocked: boolean,
     contributions?: ContributionType[]
 }
 
 export interface EditPublishersPayload {
-    firstName?: string,
-    lastName?: string,
-    address?: string,
-    phone?: string
+    amount: number,
+    currency: string,
+    dateOfBirth: Date | string,
+    fullName: string,
+    emailAddress: string,
+    maritalStatus: string,
+    occupation: string,
+    phone: string
 }
 
 export interface RegisterPublishersPayload {
-    firstName?: string,
-    lastName?: string,
-    address?: string,
-    emailAddress?: string,
-    phone?: string
+    emailAddress: string,
+    fullname: string,
+    phone: string,
+    amount: number,
+    maritalStatus: string,
+    residentCountry: string,
+    occupation: string,
+    currency: string,
+    state: string,
+    dateOfBirth: Date | string
+}
+
+export interface ConfirmManualPaymentPayload {
+    uniqueId: string,
+    amount: number,
+    date: Date | string,
 }
 
 export interface SendMessagePublishersPayload {
@@ -170,4 +193,80 @@ export interface AddUserToRolePayload {
 export interface UserRolesResponse {
     id: number,
     name: string,
+}
+
+export interface GetReportResponse {
+    id: number,
+    branchId: number,
+    branchName: string,
+    date: Date,
+    totalOffering: number,
+    sermon: {
+        id: number,
+        message: string,
+        text: string,
+        preacher: string,
+        programme: string,
+        venue: string,
+        date: Date
+    },
+    attendance: {
+        id: number,
+        female: number,
+        male: number,
+        children: number,
+        onlineWorshiper: number,
+        converts: number,
+        visitors: number,
+        totalAttendance: number
+    }
+}
+
+export interface EventsResponse {
+    id?: number,
+    name?: string,
+    description?: string,
+    date?: Date,
+    branchId?: number,
+    isActive?: boolean,
+    eventType?: number,
+    eventName?: string,
+    address?: string,
+    phone?: string,
+    location?: string,
+    branchName?: string,
+    event_Images?: EventImageType[]
+}
+
+export interface EventImageType {
+    imageUrl: string
+}
+
+export interface EventTypeResponse {
+    id: number,
+    type: string
+}
+
+export interface CreateEventPayload {
+    name?: string,
+    description?: string,
+    date?: Date,
+    eventType?: number,
+    address?: string,
+    phone?: string,
+    location?: string,
+    event_Images?: EventImageType[]
+}
+
+export interface CreateEventTypePayload {
+    type: string
+}
+
+export interface MailPayload {
+    id: number,
+    emailAddress: string,
+    subject: string,
+    fullName: string,
+    body: string,
+    dateSent: Date | string,
 }

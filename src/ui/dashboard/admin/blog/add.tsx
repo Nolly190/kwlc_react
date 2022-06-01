@@ -5,6 +5,8 @@ import AdminLayout from "../admin.layout";
 import { Editor } from "@tinymce/tinymce-react";
 import { getCategoriesApi } from "../../../../api/blog.api";
 import styled from "styled-components";
+import { statusEnum } from "../../../../enums/util.enum";
+import { toast } from "react-toastify";
 
 export default function AddBlog() {
   const _tmp: BlogItemDTO = new BlogItemDTO();
@@ -17,7 +19,11 @@ export default function AddBlog() {
   useEffect(() => {
     async function fetchCategories() {
       const response = await getCategoriesApi();
-      setCategories(response.data);
+      if (response.code >= statusEnum.ok) {
+        setCategories(response.data);
+      } else {
+        toast.error("Error fetching categories");
+      }
     }
     fetchCategories();
   }, []);

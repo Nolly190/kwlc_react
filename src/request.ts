@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { LoginAccessDTO } from "./dto/login.dto";
 import { Logout, getFromLocalStorage } from "./utils";
 
-const baseUrl = "https://kwlc-web.herokuapp.com/api/"
+const baseUrl = "https://kwlc-app.herokuapp.com/api/"
 
 // export const getFromLocalStorage = (key: string) => {
 //     const rawData = localStorage.getItem((key));
@@ -54,9 +54,8 @@ request.interceptors.response.use(
             Logout();
         }
         if (error.response?.status === 400) {
-            return Promise.reject(error.response?.data?.responseMessage)
+            return Promise.reject(error.response?.data?.responseMessage || error.response?.data?.title);
         }
-        console.log("axios", error.response?.data)
         return Promise.reject(error.response?.data?.ResponseMessage);
     }
 );

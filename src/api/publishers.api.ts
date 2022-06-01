@@ -1,7 +1,7 @@
 import { ResponseDTO } from "../dto/response.dto";
 import { statusEnum } from "../enums/util.enum";
 import request from "../request";
-import { EditPublishersPayload, KingdomPublishersResponse, PublishersHistoryResponse, RegisterPublishersPayload, SendMessagePublishersPayload, SendSMSPublishersPayload } from "../types/appTypes";
+import { ConfirmManualPaymentPayload, EditPublishersPayload, KingdomPublishersResponse, PublishersHistoryResponse, RegisterPublishersPayload, SendMessagePublishersPayload, SendSMSPublishersPayload } from "../types/appTypes";
 import { urls } from "../urls";
 
 export async function getPublishersApi(): Promise<ResponseDTO> {
@@ -24,11 +24,11 @@ export async function getPublishersApi(): Promise<ResponseDTO> {
     return response.getResponse();
 }
 
-export async function getPublishersHistoryApi(id: number): Promise<ResponseDTO> {
+export async function getPublishersHistoryApi(id: string): Promise<ResponseDTO> {
     const response = new ResponseDTO();
 
     try {
-        let res = await request.get(`${urls.baseUrl}${urls.publishersHistory}?id=${id}`);
+        let res = await request.get(`${urls.baseUrl}${urls.publishersHistory}?uniqueId=${id}`);
 
         let data: PublishersHistoryResponse;
         if (res.status) {
@@ -64,6 +64,26 @@ export async function confirmPublishersPaymentApi(reference: string): Promise<Re
     return response.getResponse();
 }
 
+export async function confirmManualPaymentApi(payload: ConfirmManualPaymentPayload): Promise<ResponseDTO> {
+    const response = new ResponseDTO();
+
+    try {
+        let res = await request.post(`${urls.baseUrl}${urls.confirmManualPayment}`, payload);
+
+        let data: boolean;
+        if (res.status) {
+            data = res.data;
+            response.data = data;
+            response.code = statusEnum.ok;
+        }
+    }
+    catch (e) {
+        response.message = e.toString();
+    }
+
+    return response.getResponse();
+}
+
 export async function ValidatePaymentRefApi(reference: string): Promise<ResponseDTO> {
     const response = new ResponseDTO();
 
@@ -84,7 +104,7 @@ export async function ValidatePaymentRefApi(reference: string): Promise<Response
     return response.getResponse();
 }
 
-export async function editPublishersDetailsApi(payload: EditPublishersPayload, id: number): Promise<ResponseDTO> {
+export async function editPublishersDetailsApi(payload: EditPublishersPayload, id: string): Promise<ResponseDTO> {
     const response = new ResponseDTO();
 
     try {
@@ -124,7 +144,7 @@ export async function registerPublisherApi(payload: RegisterPublishersPayload): 
     return response.getResponse();
 }
 
-export async function blockPublisherApi(userId: number): Promise<ResponseDTO> {
+export async function blockPublisherApi(userId: string): Promise<ResponseDTO> {
     const response = new ResponseDTO();
 
     try {

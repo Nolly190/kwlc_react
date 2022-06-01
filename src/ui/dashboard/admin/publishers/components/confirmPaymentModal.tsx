@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
-import { confirmPublishersPaymentApi, ValidatePaymentRefApi } from '../../../../../api/publishers.api';
+import { confirmManualPaymentApi } from '../../../../../api/publishers.api';
 import Modal from '../../../../../components/modal'
 import { statusEnum } from '../../../../../enums/util.enum';
 import mediaQueries from '../../../../../mediaQueries';
-import { ValidatePaymentRefResponse } from '../../../../../types/appTypes';
-import { Button, NewUserHeader, SlidersModalContainer, SlidersModalHeaderContainer } from '../../branchDashboard/styles';
+import { ConfirmManualPaymentPayload } from '../../../../../types/appTypes';
+import { isValid } from '../../../../../utils';
+import { StyledButton, NewUserHeader, SlidersModalContainer, SlidersModalHeaderContainer } from '../../branchDashboard/styles';
 
 interface props {
     isOpen: boolean;
@@ -14,41 +15,26 @@ interface props {
 }
 
 const ConfirmPaymentModal: React.FC<props> = ({ isOpen, closeModal }) => {
-    const [referenceNumber, setReferenceNumber] = useState("")
-    const [validateRefResponse, setValidateRefResponse] = useState<ValidatePaymentRefResponse>({})
-    const [isShowingConfirmation, setIsShowingConfirmation] = useState(false)
-
-    const handleClose = () => {
-        closeModal();
-        setReferenceNumber("")
-        setIsShowingConfirmation(false)
-    };
-
-    const handleChange = (value: string) => {
-        setReferenceNumber(value)
-        setIsShowingConfirmation(false)
-    }
-
-    const handleValidate = async () => {
-        const response = await ValidatePaymentRefApi(referenceNumber)
-        if (response.code >= statusEnum.ok) {
-            setValidateRefResponse(response?.data?.data)
-            setIsShowingConfirmation(true)
-        } else {
-            toast.error("Error validating reference number");
-        }
-    }
+    const [formData, setFormData] = useState<ConfirmManualPaymentPayload>()
 
     const handleConfirm = async () => {
-        const response = await confirmPublishersPaymentApi(referenceNumber)
+        if (!isValid(formData) || !formData.date) {
+            toast.error("Please fill all fields")
+            return
+        }
+
+        const response = await confirmManualPaymentApi(formData)
         if (response.code >= statusEnum.ok) {
-            closeModal()
-            setReferenceNumber("")
-            setIsShowingConfirmation(false)
             toast.success("Payment confirmed successfully")
+            closeModal()
         } else {
             toast.error(response.message);
         }
+    }
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target
+        setFormData({ ...formData, [name]: value })
     }
 
     return (
@@ -56,42 +42,60 @@ const ConfirmPaymentModal: React.FC<props> = ({ isOpen, closeModal }) => {
             <SlidersModalContainer width="50vw">
                 <SlidersModalHeaderContainer>
                     <NewUserHeader>
-                        <p>Confirm Payment</p>
+                        <p>Confirm Manual Payment</p>
                         <span></span>
                     </NewUserHeader>
-                    <span onClick={() => handleClose()}>x</span>
+                    <span onClick={() => closeModal()}>x</span>
                 </SlidersModalHeaderContainer>
                 <ContentWrapper>
-                    <ReferenceWrapper>
-                        <div>
-                            <label className="bmd-label-floating">Reference Number</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="reference"
-                                name="reference"
-                                element-data="reference"
-                                value={referenceNumber}
-                                onChange={(e) => handleChange(e.target.value)}
-                            />
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label className="bmd-label-floating">Publisher Id</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="uniqueId"
+                                    name="uniqueId"
+                                    element-data="uniqueId"
+                                    value={formData?.uniqueId}
+                                    onChange={(e) => handleInputChange(e)}
+                                />
+                            </div>
                         </div>
-                        <StyledButton onClick={handleValidate}>
-                            <p>Validate</p>
-                        </StyledButton>
-                    </ReferenceWrapper>
-                    {isShowingConfirmation && (
-                        <ConfirmationWrapper>
-                            <p>
-                                Name: <span>{validateRefResponse?.name}</span>
-                            </p>
-                            <p>
-                                Amount: <span>{validateRefResponse?.amount}</span>
-                            </p>
-                            <ConfirmationButton onClick={handleConfirm}>
-                                <p>Confirm</p>
-                            </ConfirmationButton>
-                        </ConfirmationWrapper>
-                    )}
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label className="bmd-label-floating">Amount</label>
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    id="amount"
+                                    name="amount"
+                                    element-data="amount"
+                                    value={formData?.amount}
+                                    onChange={(e) => handleInputChange(e)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="form-group" style={{ marginTop: 37 }}>
+                                <label className="bmd-label-floating">Date</label>
+                                <input
+                                    type="date"
+                                    className="form-control"
+                                    id="date"
+                                    name="date"
+                                    element-data="date"
+                                    onChange={(e) => handleInputChange(e)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <ConfirmationButton onClick={handleConfirm}>
+                        <p>Confirm</p>
+                    </ConfirmationButton>
                 </ContentWrapper>
             </SlidersModalContainer>
         </Modal>
@@ -105,61 +109,15 @@ const ContentWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 10px;
-    padding: 0 50px;
+    padding: 0 20px;
 
     ${mediaQueries.mobile} {
         padding: 0 10px 15px;
     }
 `;
 
-const ReferenceWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    gap: 20px;
-
-    & > div {
-        flex-grow: 1;
-
-        input {
-            padding-left: 10px;
-        }
-    }
-`;
-
-const StyledButton = styled(Button)`
-    padding: 0 20px;
-    width: 110px;
-    height: 35px;
-    margin-top: 15px;
-`;
-
 const ConfirmationButton = styled(StyledButton)`
     height: 40px;
     width: 130px;
-    align-self: flex-start;
+    align-self: flex-end;
 `;
-
-const ConfirmationWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-top: 20px;
-    width: 40%;
-    max-width: 80%;
-
-    & > p {
-        font-size: 18px;
-    }
-
-        & > p:first-of-type > span {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        & > p:last-of-type > span {
-            font-size: 25px;
-            font-weight: bold;
-        }
-`

@@ -32,11 +32,13 @@ const AdminBranchDashboard = () => {
   useEffect(() => {
     async function getPastor() {
       const response = await getPastorDetailsApi();
-      if (response.code === statusEnum.ok) {
+      if (response.code >= statusEnum.ok) {
         setPastorDataApi(response?.data?.data);
         const { pastorImage, name, message } = response?.data?.data;
         setPastorData({ pastorImage, name, message });
         setMessage(response?.data?.data?.message);
+      } else {
+        toast.error("Error getting pastor details");
       }
     }
     getPastor();

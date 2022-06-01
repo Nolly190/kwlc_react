@@ -28,8 +28,8 @@ export class PastorController implements CRUDBL {
     async bulk() {
 
     }
-    async list(setItems: Function) {
-
+    async list(setItems: Function, setIsLoading?: Function) {
+        setIsLoading && setIsLoading(true);
         const response = await getAllPastorsApi();
         console.log("pastor resp", response)
         if (response.code < statusEnum.ok) {
@@ -38,7 +38,7 @@ export class PastorController implements CRUDBL {
 
         const data: PastorDTO[] = response?.data?.data;
         setItems(data);
-
+        setIsLoading && setIsLoading(false);
     }
 }
 

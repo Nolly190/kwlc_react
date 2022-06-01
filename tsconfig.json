@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -18,14 +14,18 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "src/ui/dashboard/web/homepage/TopNavBar.ts", "src/ui/dashboard/web/homepage/TopNavBar.js", "pages/web/donations.js", "pages/web/donate.js", "src/context-providers/ShopContext.provider.ts"  ],
-  "exclude": [
-    "node_modules"
+    "**/*.tsx",
+    "src/ui/dashboard/web/homepage/TopNavBar.ts",
+    "src/ui/dashboard/web/homepage/TopNavBar.js",
+    "pages/web/donations.js",
+    "pages/web/donate.js",
+    "src/context-providers/ShopContext.provider.ts",
+    "src/components/loader.tsx"
   ],
+  "exclude": ["node_modules"]
 }

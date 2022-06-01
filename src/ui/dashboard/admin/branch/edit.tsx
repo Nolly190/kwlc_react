@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { BranchServiceTimerItem } from "../../../../components/service-timer-item";
 import { BranchController } from "../../../../controller/admin/branch.controller";
 import { BranchDTO, BranchServiceDTO } from "../../../../dto/Branch.dto";
@@ -17,6 +18,7 @@ export interface ISetBranch {
   setServices: Function;
   setCity?: Function;
   setStreet?: Function;
+  setError: Function;
 }
 
 export default function EditBranch() {
@@ -32,7 +34,7 @@ export default function EditBranch() {
   const [serviceDay, setServiceDay] = useState("");
   const [serviceTime, setServiceTime] = useState("");
   const [serviceAMPM, setServiceTimeAMPM] = useState("");
-
+  const [error, setError] = useState<string>()
   const [item, setItem] = useState(_tmp);
   const [services, setServices] = useState(_tmpServices);
   const [id, setId] = useState(0);
@@ -40,6 +42,7 @@ export default function EditBranch() {
 
   useEffect(() => {
     getBranch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   let controller: BranchController = new BranchController();
@@ -60,11 +63,20 @@ export default function EditBranch() {
           setContactNumber,
           setIsBranchHq,
           setServices,
+          setError
         },
         parseInt(idParam)
       );
     }
   };
+
+  useEffect(() => {
+    error && toast.error(error);
+    setTimeout(() => {
+      router.push("/admin/users")
+    }, 2000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error])
 
   const onClick = (e) => {
     e.preventDefault();
@@ -90,6 +102,7 @@ export default function EditBranch() {
         setContactNumber,
         setIsBranchHq,
         setServices,
+        setError
       },
       id
     );
