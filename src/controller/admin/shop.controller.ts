@@ -13,12 +13,12 @@ import { fakeModel, showAdminMessage, log, showConfirmDialog } from "../../utils
 export interface ISetShopItem {
     setPrice: Function,
     setTitle: Function,
-    setImg: Function,
     setDescription: Function,
     setQuantity: Function,
     setWeight: Function,
     setDimension: Function,
     setImgs: Function,
+    setIsLoading: Function,
 }
 
 export class ShopController implements CRUDBL {
@@ -51,7 +51,7 @@ export class ShopController implements CRUDBL {
         }
     }
     async read(set: ISetShopItem, id: number) {
-
+        set.setIsLoading && set.setIsLoading(true);
         const response = await getSingleShopItemApi(id);
         if (response.code < statusEnum.ok) {
             toast.error(response.message.toString());
@@ -64,9 +64,9 @@ export class ShopController implements CRUDBL {
         set.setDimension(data?.dimension);
         set.setWeight(data?.weight);
         set.setImgs(data?.productImages);
-        set.setImg(data?.productImages.length > 0 ? data?.productImages[0] : undefined);
         set.setPrice(data?.price);
         set.setQuantity(data?.quantity);
+        set.setIsLoading && set.setIsLoading(false);
     }
 
     async update(data: ShopDTO, id: number) {
@@ -86,25 +86,22 @@ export class ShopController implements CRUDBL {
     }
 
     async delete(id: number, setItems: Function, items: ShopDTO[]) {
-        const result = showConfirmDialog('Confirm Delete');
-        if (result) {
-            deleteShopItemApi(id).then((response) => {
-                if (response.code >= statusEnum.ok) {
-                    toast.success("Item deleted successfully");
-                    setItems(items.filter(x => x.id != id));
-                }
-                else {
-                    toast.error(response.message.toString());
-                }
-            })
-        }
+        deleteShopItemApi(id).then((response) => {
+            if (response.code >= statusEnum.ok) {
+                toast.success("Item deleted successfully");
+                setItems(items.filter(x => x.id != id));
+            }
+            else {
+                toast.error(response.message.toString());
+            }
+        })
     }
 
     async bulk() {
 
     }
-    async list(setItems: Function) {
-
+    async list(setItems: Function, setIsLoading?: Function) {
+        setIsLoading && setIsLoading(true);
         const response = await getShopItemsApi();
         if (response.code < statusEnum.ok) {
             toast.error(response.message.toString());
@@ -112,7 +109,7 @@ export class ShopController implements CRUDBL {
 
         const data: ShopDTO[] = response?.data;
         setItems(data);
-
+        setIsLoading && setIsLoading(false);
     }
 
     addImage(setImages: Function, images, image: string) {

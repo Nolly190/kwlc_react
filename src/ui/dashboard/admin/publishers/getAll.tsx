@@ -2,10 +2,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { blockPublisherApi, getPublishersApi } from "../../../../api/publishers.api";
+import { blockPublisherApi, getPublishersApi, getPublishersHistoryApi } from "../../../../api/publishers.api";
+import DualRing from "../../../../components/loader";
 import { statusEnum } from "../../../../enums/util.enum";
-import { PublishersHistoryResponse } from "../../../../types/appTypes";
+import { ContributionType, PublishersHistoryResponse } from "../../../../types/appTypes";
 import AdminLayout from "../admin.layout";
+import { LoaderWrapper } from "../blog/getall";
 import ConfirmPaymentModal from "./components/confirmPaymentModal";
 import DonationsModal from "./components/donationsModal";
 import MessageModal from "./components/messageModal";
@@ -17,25 +19,35 @@ export default function GetAllPublishers() {
     const [messageModalIsOpen, setMessageModalIsOpen] = useState(false)
     const [smsModalIsOpen, setSmsModalIsOpen] = useState(false)
     const [donationModalIsOpen, setDonationModalIsOpen] = useState(false)
-    const [id, setId] = useState<number>()
+    const [donationDetails, setDonationDetails] = useState<ContributionType[]>()
+    const [publisherName, setPublisherName] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
 
     useEffect(() => {
         async function getAllPublishers() {
+            setIsLoading(true)
             const response = await getPublishersApi()
             if (response.code >= statusEnum.ok) {
                 setPublishers(response?.data?.data?.data)
             } else {
                 toast.error(response.message);
             }
+            setIsLoading(false)
         }
 
         getAllPublishers()
     }, []);
 
-    const handleOpenDonations = async (id: number) => {
-        setId(id)
-        setDonationModalIsOpen(true)
+    const getHistory = async (id: string) => {
+        const response = await getPublishersHistoryApi(id)
+        if (response.code >= statusEnum.ok) {
+            setDonationDetails(response?.data?.data?.contributions)
+            setPublisherName(response?.data?.data?.user.fullName)
+            setDonationModalIsOpen(true)
+        } else {
+            toast.error("Failed to fetch publisher history");
+        }
     }
 
     return (
@@ -84,61 +96,56 @@ export default function GetAllPublishers() {
                             <div className="card-body">
                                 <div className="col-xl-8 col-md-6" id="spinner_loader"></div>
                                 <div className="table-responsive" id="table_div">
-                                    <table className="table">
-                                        <thead className=" text-primary">
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Email</th>
-                                            <th>Phone No</th>
-                                            <th>Account Blocked</th>
-                                            <th></th>
-                                            <th></th>
-                                            {/* <th></th> */}
-                                        </thead>
-                                        <tbody id="tbody">
-                                            {publishers?.length > 0
-                                                ? publishers.map((x, index) => {
-                                                    return (
-                                                        <tr key={index}>
-                                                            <td>{x.firstName}</td>
-                                                            <td> {x.lastName}</td>
-                                                            <td> {x.email}</td>
-                                                            <td> {x.phoneNumber}</td>
-                                                            <td> {x.isAccountBlocked.toString()}</td>
-                                                            <td className="text-primary">
-                                                                <a
-                                                                    onClick={() => {
-                                                                        router.push(
-                                                                            `/admin/publishers/edit?id=${x.id}`
-                                                                        );
-                                                                    }}
-                                                                    className="btn btn-primary pull-right text-white"
-                                                                >
-                                                                    Edit
-                                                                </a>
-                                                            </td>
-                                                            <td className="text-primary">
-                                                                <a
-                                                                    onClick={() => handleOpenDonations(x.id)}
-                                                                    className="btn btn-primary pull-right text-white"
-                                                                >
-                                                                    Donations
-                                                                </a>
-                                                            </td>
-                                                            {/* <td className="text-primary">
-                                                                <a
-                                                                    onClick={() => handleBlock(x.id, x.isAccountBlocked)}
-                                                                    className="btn btn-primary pull-right text-white"
-                                                                >
-                                                                    {x.isAccountBlocked ? "Unblock" : "Block"}
-                                                                </a>
-                                                            </td> */}
-                                                        </tr>
-                                                    );
-                                                })
-                                                : undefined}
-                                        </tbody>
-                                    </table>
+                                    {isLoading ?
+                                        <LoaderWrapper>
+                                            <DualRing width="40px" height="40px" color="#0b0146" />
+                                        </LoaderWrapper> :
+                                        <table className="table">
+                                            <thead className=" text-primary">
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Date Of Birth</th>
+                                                <th>Phone No</th>
+                                                <th>isBlocked</th>
+                                                <th></th>
+                                                <th></th>
+                                            </thead>
+                                            <tbody id="tbody">
+                                                {publishers?.length > 0
+                                                    ? publishers.map((x, index) => {
+                                                        return (
+                                                            <tr key={index}>
+                                                                <td>{x.fullName}</td>
+                                                                <td> {x.emailAddress}</td>
+                                                                <td> {new Date(x.dateOfBirth).toLocaleDateString()}</td>
+                                                                <td> {x.phone}</td>
+                                                                <td> {x.isBlocked.toString()}</td>
+                                                                <td className="text-primary">
+                                                                    <a
+                                                                        onClick={() => {
+                                                                            router.push(
+                                                                                `/admin/publishers/edit?id=${x.uniqueId}`
+                                                                            );
+                                                                        }}
+                                                                        className="btn btn-primary pull-right text-white"
+                                                                    >
+                                                                        Edit
+                                                                    </a>
+                                                                </td>
+                                                                <td className="text-primary">
+                                                                    <a
+                                                                        onClick={() => getHistory(x.uniqueId)}
+                                                                        className="btn btn-primary pull-right text-white"
+                                                                    >
+                                                                        Donations
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        );
+                                                    })
+                                                    : undefined}
+                                            </tbody>
+                                        </table>}
                                 </div>
                             </div>
                         </div>
@@ -148,7 +155,7 @@ export default function GetAllPublishers() {
             <ConfirmPaymentModal isOpen={paymentModalIsOpen} closeModal={() => setPaymentModalIsOpen(false)} />
             <MessageModal isOpen={messageModalIsOpen} closeModal={() => setMessageModalIsOpen(false)} />
             <SmsModal isOpen={smsModalIsOpen} closeModal={() => setSmsModalIsOpen(false)} />
-            {donationModalIsOpen && <DonationsModal id={id} isOpen={donationModalIsOpen} closeModal={() => setDonationModalIsOpen(false)} />}
+            {donationModalIsOpen && <DonationsModal publisherName={publisherName} donationDetails={donationDetails} isOpen={donationModalIsOpen} closeModal={() => setDonationModalIsOpen(false)} />}
         </>
     );
 }

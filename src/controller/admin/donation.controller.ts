@@ -42,10 +42,10 @@ export class DonationController implements CRUDBL {
         }
     }
     async read(set: ISetDonation, id: number) {
-
+        set.setIsLoading && set.setIsLoading(true);
         const response = await getSingleDonationApi(id);
         if (response.code < statusEnum.ok) {
-            toast.error(response.message.toString());
+            set.setError(response.message.toString());
         }
 
         const data: DonationItemDTO = response?.data;
@@ -54,7 +54,7 @@ export class DonationController implements CRUDBL {
         set.setDonationImgs(data.donationImages);
         set.setSummary(data.summary);
         set.setTitle(data.title);
-
+        set.setIsLoading && set.setIsLoading(false);
     }
     async update(data: DonationItemDTO, id: number) {
 
@@ -75,33 +75,30 @@ export class DonationController implements CRUDBL {
     }
 
     async delete(id: number, setItems: Function, items: DonateItemDTO[]) {
-        const result = showConfirmDialog('Confirm Delete');
-        if (result) {
-            closeDonationApi(id).then((response) => {
-                if (response.code >= statusEnum.ok) {
-                    toast.success("Donation deleted successfully");
-                    setItems(items.filter(x => x.id != id));
-                }
-                else {
-                    toast.error(response.message.toString());
-                }
-            })
-        }
+        closeDonationApi(id).then((response) => {
+            if (response.code >= statusEnum.ok) {
+                toast.success("Donation deleted successfully");
+                setItems(items.filter(x => x.id != id));
+            }
+            else {
+                toast.error(response.message.toString());
+            }
+        })
     }
 
     async bulk() {
 
     }
 
-    async list(setItems: Function) {
-
+    async list(setItems: Function, setIsLoading?: Function) {
+        setIsLoading && setIsLoading(true);
         const response = await getDonationApi();
         if (response.code < statusEnum.ok) {
             toast.error(response.message.toString());
         }
         const data: DonateItemDTO[] = response?.data;
         setItems(data);
-
+        setIsLoading && setIsLoading(false);
     }
 
     addDonationImage(setImages: Function, images: DonationImageDTO[], image: string, isMainImage: boolean) {

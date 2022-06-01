@@ -17,11 +17,16 @@ const AssignRole = () => {
 
     useEffect(() => {
         init();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const init = async () => {
         const response = await getAllRolesApi();
-        setRoles(response?.data?.data);
+        if (response.code >= statusEnum.ok) {
+            setRoles(response?.data?.data);
+        } else {
+            toast.error("Error fetching roles");
+        }
         userController.list(setUsers);
     };
 

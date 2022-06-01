@@ -9,6 +9,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: string;
   width?: number;
   height?: number;
+  foreign?: boolean;
   valueFromContext?: CurrencyTypes;
   handleCurrencyChange?: (selectedValue: any, name: string) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,6 +21,7 @@ const StyledInput = (props: Props) => {
     name,
     width,
     height,
+    foreign,
     handleCurrencyChange,
     valueFromContext,
     onChange,
@@ -35,6 +37,7 @@ const StyledInput = (props: Props) => {
           setSelectedValue={setSelectedValue}
           handleCurrencyChange={handleCurrencyChange}
           name={name}
+          foreign={foreign}
         />
       )}
       <input

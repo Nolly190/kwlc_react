@@ -11990,7 +11990,7 @@ form {
   border: 0;
   height: 36px;
   transition: background 0s ease-out;
-  padding-left: 0;
+  padding-left: 7px;
   padding-right: 0;
   border-radius: 0;
   font-size: 14px;
@@ -14491,7 +14491,7 @@ fieldset[disabled] .form-control,
 .form-group .form-control[disabled],
 fieldset[disabled] .form-group .form-control {
   background-color: transparent;
-  cursor: not-allowed;
+  cursor: default;
   border-bottom: 1px dotted #d2d2d2;
   background-repeat: no-repeat;
 }

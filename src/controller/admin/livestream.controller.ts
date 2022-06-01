@@ -46,7 +46,7 @@ export class LiveStreamController implements CRUDBL {
         }
     }
     async read(set: ISetLivestream, id: number) {
-
+        set.setIsLoading && set.setIsLoading(true);
         const response = await getLiveStreamApi(id);
         if (response.code < statusEnum.ok) {
             toast.error(response.message.toString());
@@ -58,7 +58,7 @@ export class LiveStreamController implements CRUDBL {
         set.setUrl(data.liveStreamUrl);
         set.setTitle(data.title);
         set.setStreamDate(moment(data.dateOfStream).format("yyyy-MM-DD"));
-        // set.setBranch(data);
+        set.setIsLoading && set.setIsLoading(false);
 
     }
     async update(data: LiveStreamDTO, id: number) {
@@ -86,25 +86,22 @@ export class LiveStreamController implements CRUDBL {
     }
 
     async delete(id: number, setItems: Function, items: LiveStreamDTO[]) {
-        const result = showConfirmDialog('Confirm Delete');
-        if (result) {
-            stopLivestreamApi(id).then((response) => {
-                if (response.code >= statusEnum.ok) {
-                    toast.success("Livestream stopped successfully");
-                    setItems(items.filter(x => x.id != id));
-                }
-                else {
-                    toast.error(response.message.toString());
-                }
-            })
-        }
+        stopLivestreamApi(id).then((response) => {
+            if (response.code >= statusEnum.ok) {
+                toast.success("Livestream stopped successfully");
+                setItems(items.filter(x => x.id != id));
+            }
+            else {
+                toast.error(response.message.toString());
+            }
+        })
     }
 
     async bulk() {
 
     }
-    async list(setItems: Function) {
-
+    async list(setItems: Function, setIsLoading?: Function) {
+        setIsLoading && setIsLoading(true);
         const response = await getLiveStreamsApi();
         if (response.code < statusEnum.ok) {
             toast.error(response.message.toString());
@@ -112,7 +109,7 @@ export class LiveStreamController implements CRUDBL {
 
         const data: LiveStreamDTO[] = response?.data?.data;
         setItems(data);
-
+        setIsLoading && setIsLoading(false);
     }
 
     addDonationImage(setImages: Function, images: DonationImageDTO[], image: string, isMainImage: boolean) {

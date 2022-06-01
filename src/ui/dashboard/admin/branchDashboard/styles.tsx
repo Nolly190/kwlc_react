@@ -248,7 +248,7 @@ export const PasswordWrapper = styled.div`
 
 export const InputWrapper = styled.div``;
 
-export const Button = styled.button`
+export const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -364,18 +364,18 @@ export const Edit = styled.p`
   cursor: pointer;
 `;
 
-export const FinishButton = styled(Button)`
+export const FinishButton = styled(StyledButton)`
   width: 190px;
 `;
 
-export const RevokeButton = styled(Button)`
+export const RevokeButton = styled(StyledButton)`
   width: 235px;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-export const CloseButton = styled(Button)`
+export const CloseButton = styled(StyledButton)`
   width: 129px;
   margin-top: 40%;
 `;

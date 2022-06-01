@@ -68,25 +68,20 @@ export class BlogController implements CRUDBL {
     }
 
     async delete(id: number, setItems: Function, items: BlogDTO[]) {
-        const result = showConfirmDialog('Confirm Delete');
-        if (result) {
-
-            const response = await deleteBlogApi(id);
-            if (response.code < statusEnum.ok) {
-                toast.error(response.message.toString());
-            }
-
-            setItems(items.filter(x => x.id != id));
-
+        const response = await deleteBlogApi(id);
+        if (response.code < statusEnum.ok) {
+            toast.error(response.message.toString());
         }
+
+        setItems(items.filter(x => x.id != id));
     }
 
     async bulk() {
 
     }
 
-    async list(setItems: Function) {
-
+    async list(setItems: Function, setIsLoading?: Function) {
+        setIsLoading && setIsLoading(true);
         const response = await getBlogApi();
         if (response.code < statusEnum.ok) {
             toast.error(response.message.toString());
@@ -94,7 +89,7 @@ export class BlogController implements CRUDBL {
 
         const data: BranchDTO[] = response?.data?.data;
         setItems(data);
-
+        setIsLoading && setIsLoading(false);
     }
 
     removeService(setServices: Function, services: BranchServiceDTO[], id: number) {
