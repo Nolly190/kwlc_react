@@ -27,6 +27,7 @@ export default function EditEvent() {
   const [date, setDate] = useState("")
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [isLoading, setIsLoading] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
     async function fetchData() {
@@ -56,8 +57,13 @@ export default function EditEvent() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    controller.update(eventData, idParam);
+    controller.update(eventData, idParam, setIsSaving);
   };
+
+  const handleOpen = (e: any) => {
+    e.preventDefault()
+    onOpen();
+  }
 
   const handleChange = (name: string, value: string) => {
     if (name === "imageUrl") {
@@ -294,17 +300,18 @@ export default function EditEvent() {
                       <ErrorButton
                         id="submitBtn"
                         className="btn pull-right"
-                        onClick={onOpen}
+                        onClick={(e) => handleOpen(e)}
                       >
                         End Event
                       </ErrorButton>
                       <button
+                        type="submit"
                         id="submitBtn"
                         className="btn btn-primary pull-right"
-                        disabled={fieldsBlocked}
                         onClick={(e) => handleSubmit(e)}
+                        disabled={isSaving}
                       >
-                        Update Event
+                        {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Update Event"}
                       </button>
                     </ButtonWrapper>
                   </form>

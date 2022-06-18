@@ -22,7 +22,7 @@ const AdminHamburger: React.FC<Props> = ({ title }) => {
 
     if (typeof window !== 'undefined') {
         permissionsArray = JSON.parse(localStorage?.getItem("userData"))?.permissions
-        console.log("permisionsArray", permissionsArray);
+        // console.log("permisionsArray", permissionsArray);
     }
 
     return (

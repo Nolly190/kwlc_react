@@ -9,11 +9,13 @@ import { EventsController } from "../../../../controller/admin/events.controller
 import { getEventTypesApi } from "../../../../api/event.api";
 import { statusEnum } from "../../../../enums/util.enum";
 import { toast } from "react-toastify";
+import DualRing from "../../../../components/loader";
 
 export default function AddEvent() {
   const [image, setImage] = useState<EventImageType>({ imageUrl: "" });
   const [eventTypes, setEventTypes] = useState<EventTypeResponse[]>([]);
   const [eventData, setEventData] = useState<CreateEventPayload>({ event_Images: [] });
+  const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
     async function fetchEventTypes() {
@@ -31,7 +33,7 @@ export default function AddEvent() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    controller.create(eventData);
+    controller.create(eventData, setIsSaving);
   };
 
   const handleChange = (name: string, value: string) => {
@@ -238,8 +240,9 @@ export default function AddEvent() {
                       id="submitBtn"
                       className="btn btn-primary pull-right"
                       onClick={(e) => handleSubmit(e)}
+                      disabled={isSaving}
                     >
-                      Create Event
+                      {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Create Event"}
                     </button>
                     <div className="clearfix"></div>
                   </div>

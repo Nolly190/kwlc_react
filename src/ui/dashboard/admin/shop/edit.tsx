@@ -3,8 +3,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import DonationImageItem from "../../../../components/donation-image";
 import DualRing from "../../../../components/loader";
-import ShopItemImage from "../../../../components/shop-item-image";
-import { BranchController } from "../../../../controller/admin/branch.controller";
 import { ShopController } from "../../../../controller/admin/shop.controller";
 import { ShopDTO, ShopImageDTO } from "../../../../dto/ShopItem.dto";
 import { getParam } from "../../../../utils";
@@ -26,6 +24,7 @@ export default function EditShopItem() {
   const [weight, setWeight] = useState("0");
   const [dimension, setDimension] = useState("0");
   const [idParam, setIdParam] = useState(0);
+  const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
     getItem();
@@ -68,7 +67,8 @@ export default function EditShopItem() {
         quantity: parseInt(quantity),
         price: parseFloat(price),
       }),
-      idParam
+      idParam,
+      setIsSaving
     );
   };
 
@@ -241,8 +241,9 @@ export default function EditShopItem() {
                         id="submitBtn"
                         className="btn btn-primary pull-right"
                         onClick={(e) => onClick(e)}
+                        disabled={isSaving}
                       >
-                        Edit Item
+                        {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Update Item"}
                       </button>
                       <div className="clearfix"></div>
                     </div>

@@ -16,7 +16,7 @@ import { ISetBranch } from "../../ui/dashboard/admin/branch/edit";
 import { fakeModel, showAdminMessage, log, showConfirmDialog } from "../../utils";
 
 export class EventsController implements CRUDBL {
-    async create(data: CreateEventPayload) {
+    async create(data: CreateEventPayload, setIsLoading: Function) {
         if (!data.address || !data.date || !data.description || !data.eventType || !data.location || !data.name || !data.phone) {
             toast.error("Please fill all fields.");
             return;
@@ -26,15 +26,15 @@ export class EventsController implements CRUDBL {
             toast.error("Please add at least one image.");
             return;
         }
-
-        createEventApi(data).then((response) => {
-            if (response.code >= statusEnum.ok) {
-                toast.success(CREATION_OK("Event"));
-            }
-            else {
-                toast.error(CREATION_ERROR("Event"));
-            }
-        });
+        setIsLoading(true)
+        const response = await createEventApi(data);
+        if (response.code >= statusEnum.ok) {
+            toast.success(CREATION_OK("Event"));
+        }
+        else {
+            toast.error(CREATION_ERROR("Event"));
+        }
+        setIsLoading(false)
     }
 
     async read(setState: ISetBranch, id: number) {
@@ -55,15 +55,16 @@ export class EventsController implements CRUDBL {
     }
 
 
-    async update(data: CreateEventPayload, id: number) {
-        updateEventApi(data, id).then((response) => {
-            if (response.code >= statusEnum.ok) {
-                toast.success("Event update was successful");
-            }
-            else {
-                toast.error("Event update failed");
-            }
-        });
+    async update(data: CreateEventPayload, id: number, setIsLoading: Function) {
+        setIsLoading(true)
+        const response = await updateEventApi(data, id);
+        if (response.code >= statusEnum.ok) {
+            toast.success("Event update was successful");
+        }
+        else {
+            toast.error("Event update failed");
+        }
+        setIsLoading(false)
     }
 
     async delete(id: number, setItems: Function, items: EventsResponse[]) {

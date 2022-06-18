@@ -24,7 +24,7 @@ const AdminLayout: React.FC<LayoutProps> = ({
 
   if (typeof window !== 'undefined') {
     permissionsArray = JSON.parse(localStorage?.getItem("userData"))?.permissions
-    console.log("permisionsArray", permissionsArray);
+    // console.log("permisionsArray", permissionsArray);
   }
 
   useEffect(() => {
@@ -93,17 +93,22 @@ const AdminLayout: React.FC<LayoutProps> = ({
                 ))}
                 <AdminNavItem
                   url="/admin/mails"
-                  iconTitle="group_add"
+                  iconTitle="mail"
                   title="Mails"
                 />
                 <AdminNavItem
+                  url="/admin/payments"
+                  iconTitle="timeline"
+                  title="Payment Hstory"
+                />
+                <AdminNavItem
                   url="/admin/events"
-                  iconTitle="group_add"
+                  iconTitle="event"
                   title="Events"
                 />
                 <AdminNavItem
                   url="/admin/reports"
-                  iconTitle="group_add"
+                  iconTitle="assessment"
                   title="Report"
                 />
                 <AdminNavItem
@@ -161,6 +166,10 @@ interface panelProps {
 
 const MainPanel = styled.div<panelProps>`
   width: ${(props) => (props.withSideBar ? "calc(100% - 260px)" : "100%")} !important;
+
+  ${mediaQueries.mobile} {
+    width: 100% !important;
+  }
 `;
 
 const NoSideBarWrapper = styled.div`

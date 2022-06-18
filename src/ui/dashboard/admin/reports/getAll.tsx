@@ -89,7 +89,7 @@ const GetAllReports: React.FC = () => {
                                                                         onClick={() => handleOpenReportModal(x)}
                                                                         className="btn btn-primary pull-right text-white"
                                                                     >
-                                                                        Report
+                                                                        Service Report
                                                                     </a>
                                                                 </td>
                                                             </tr>

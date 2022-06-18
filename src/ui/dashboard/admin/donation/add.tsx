@@ -10,6 +10,7 @@ import DonateItemDTO, {
 } from "../../../../dto/Donate.dto";
 import AdminLayout from "../admin.layout";
 import { ImageWrapper } from "../events/add";
+import DualRing from "../../../../components/loader";
 
 export default function AddDonation() {
   const _tmp: DonateItemDTO[] = [];
@@ -25,6 +26,7 @@ export default function AddDonation() {
   const [donationImgs, setDonationImgs] = useState(_tmpImages);
   const [branches, setBranches] = useState(_tmpBranches);
   const [branch, setBranch] = useState("");
+  const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
     branchController.list(setBranches);
@@ -43,7 +45,7 @@ export default function AddDonation() {
         isActive: true,
         summary: summary,
         title: title,
-      })
+      }), setIsSaving
     );
   };
 
@@ -211,8 +213,9 @@ export default function AddDonation() {
                       id="submitBtn"
                       className="btn btn-primary pull-right"
                       onClick={(e) => onClick(e)}
+                      disabled={isSaving}
                     >
-                      Update Donations
+                      {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Create Donation"}
                     </button>
                     <div className="clearfix"></div>
                   </div>
