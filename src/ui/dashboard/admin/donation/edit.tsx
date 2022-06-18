@@ -41,6 +41,7 @@ export default function EditDonation() {
   const [branches, setBranches] = useState(_tmpBranches);
   const [branch, setBranch] = useState("");
   const [id, setId] = useState(0);
+  const [isSaving, setIsSaving] = useState(false)
   const router = useRouter();
   const [error, setError] = useState<string>()
 
@@ -75,10 +76,12 @@ export default function EditDonation() {
   };
 
   useEffect(() => {
-    error && toast.error(error);
-    setTimeout(() => {
-      router.push("/admin/users")
-    }, 2000);
+    if (error) {
+      toast.error(error);
+      setTimeout(() => {
+        router.push("/admin/donations")
+      }, 2000);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error])
 
@@ -92,7 +95,7 @@ export default function EditDonation() {
         summary: summary,
         title: title,
       }),
-      id
+      id, setIsSaving
     );
   };
 
@@ -267,8 +270,9 @@ export default function EditDonation() {
                         id="submitBtn"
                         className="btn btn-primary pull-right"
                         onClick={(e) => onClick(e)}
+                        disabled={isSaving}
                       >
-                        Update Donations
+                        {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Update Donation"}
                       </button>
                       <div className="clearfix"></div>
                     </div>

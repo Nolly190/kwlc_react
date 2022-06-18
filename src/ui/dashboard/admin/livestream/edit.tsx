@@ -38,6 +38,7 @@ export default function EditLiveStream() {
   const [branch, setBranch] = useState("");
   const [id, setId] = useState(0);
   const [isLoading, setIsLoading] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
   const [url, setUrl] = useState("");
   const [streamDate, setStreamDate] = useState("");
 
@@ -70,18 +71,18 @@ export default function EditLiveStream() {
     }
   };
 
-  const dropDownOptions = () => {
-    const arr = [];
-    branches.map((x, i) => {
-      arr.push({ value: x?.id, label: x?.name });
-    })
+  // const dropDownOptions = () => {
+  //   const arr = [];
+  //   branches.map((x, i) => {
+  //     arr.push({ value: x?.id, label: x?.name });
+  //   })
 
-    return arr
-  }
+  //   return arr
+  // }
 
-  const onTypeChange = (newValue: any, actionMeta: ActionMeta<any>) => {
-    setBranch(newValue.value);
-  }
+  // const onTypeChange = (newValue: any, actionMeta: ActionMeta<any>) => {
+  //   setBranch(newValue.value);
+  // }
 
   const onClick = (e) => {
     e.preventDefault();
@@ -90,13 +91,11 @@ export default function EditLiveStream() {
         dateOfStream: streamDate,
         description: description,
         liveStreamUrl: url,
-        preacher: "",
         title: title,
-        views: 0,
         id: id,
         isActive: true,
       }),
-      id
+      id, setIsSaving
     );
   };
 
@@ -120,31 +119,6 @@ export default function EditLiveStream() {
                   <DualRing width="40px" height="40px" color="#0b0146" />
                 </LoaderWrapper> :
                 <form id="form">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="form-group">
-                        <label className="bmd-label-floating">
-                          Select Branch
-                        </label>
-                        <Select options={dropDownOptions()} onChange={onTypeChange} />
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="form-group">
-                        <label className="bmd-label-floating">
-                          Select Stream Date
-                        </label>
-                        <input
-                          type="date"
-                          className="form-control"
-                          id="date"
-                          name="date"
-                          onChange={(e) => setStreamDate(e.target.value)}
-                          value={streamDate}
-                        />
-                      </div>
-                    </div>
-                  </div>
                   <div className="row">
                     <div className="col-md-6">
                       <div className="form-group">
@@ -176,7 +150,7 @@ export default function EditLiveStream() {
                     </div>
                   </div>
                   <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-6">
                       <div className="form-group">
                         <label className="bmd-label-floating">Description </label>
                         <textarea
@@ -189,6 +163,21 @@ export default function EditLiveStream() {
                         />
                       </div>
                     </div>
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label className="bmd-label-floating">
+                          Select Stream Date
+                        </label>
+                        <input
+                          type="date"
+                          className="form-control"
+                          id="date"
+                          name="date"
+                          onChange={(e) => setStreamDate(e.target.value)}
+                          value={streamDate}
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div className="row">
                     <div className="col-md-12 mt-4">
@@ -197,8 +186,9 @@ export default function EditLiveStream() {
                         id="submitBtn"
                         className="btn btn-primary pull-right"
                         onClick={(e) => onClick(e)}
+                        disabled={isSaving}
                       >
-                        Update Stream
+                        {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Update Stream"}
                       </button>
                     </div>
                   </div>

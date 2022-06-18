@@ -30,6 +30,7 @@ export const urls = {
   registerUser: "User/Register",
   getUser: "User/GetUser/",
   createRole: "User/CreateRole",
+  editPermission: "User/EditPermission",
   addUserToRole: "User/AddUserToRole",
   rolePermission: "User/RolePermission",
   roles: "User/Roles",
@@ -38,7 +39,6 @@ export const urls = {
   getPastor: "Pastor/Get",
 
   Payment: "Payment/Payment",
-
 
   slider: "Slider",
 
@@ -65,6 +65,8 @@ export const urls = {
   getById: "Slider/GetById",
   getBranchSliders: "Slider/GetBranchSliders",
 
+  getAllPaymentHistory: "Payment/GetAllPayment",
+
   getAllPublishers: "KingdomPublishers/Get",
   publishersHistory: "KingdomPublishers/History",
   confirmPayment: "KingdomPublishers/ConfirmPayment",
@@ -76,7 +78,6 @@ export const urls = {
   raveHookPublishers: "KingdomPublishers/RaveHook",
   sendMessagePublishers: "KingdomPublishers/SendMessage",
   sendSms: "KingdomPublishers/SendSms",
-
 
   baseUrl: "https://kwlc-app.herokuapp.com/api/",
   v1: "v1/",

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import DualRing from "../../../../components/loader";
 import { UserController } from "../../../../controller/admin/users.controller";
 import UserDTO from "../../../../dto/User.dto";
 import AdminLayout from "../admin.layout";
@@ -9,6 +10,7 @@ export default function AdminAddUser() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
+  const [isSaving, setIsSaving] = useState(false)
 
   let userController: UserController = new UserController();
 
@@ -21,7 +23,7 @@ export default function AdminAddUser() {
         lastName: lastName,
         username: username,
         phone: phone,
-      })
+      }), setIsSaving
     );
   };
 
@@ -122,8 +124,9 @@ export default function AdminAddUser() {
                       id="submitBtn"
                       className="btn btn-primary pull-right"
                       onClick={(e) => onClick(e)}
+                      disabled={isSaving}
                     >
-                      Create
+                      {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Create User"}
                     </button>
                     <div className="clearfix"></div>
                   </div>

@@ -19,6 +19,7 @@ export default function EditPublisher() {
     const [id, setId] = useState<string>("");
     const [date, setDate] = useState("")
     const [isLoading, setIsLoading] = useState(false)
+    const [isSaving, setIsSaving] = useState(false)
     const [isSubmitting, setIsSubmitting] = useState(false)
     const router = useRouter();
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -103,7 +104,7 @@ export default function EditPublisher() {
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
-
+        setIsSaving(true)
         if (!isValid(formData) || !formData?.dateOfBirth) {
             toast.error("Please fill all fields");
             return;
@@ -126,6 +127,7 @@ export default function EditPublisher() {
         } else {
             toast.error(response.message);
         }
+        setIsSaving(false)
     }
 
     const handleBlock = async () => {
@@ -286,12 +288,13 @@ export default function EditPublisher() {
                                                 {isSubmitting ? <DualRing width="20px" height="20px" color="#fff" /> : formData?.isBlocked ? "Unblock" : "Block"}
                                             </ErrorButton>
                                             <button
+                                                type="submit"
                                                 id="submitBtn"
                                                 className="btn btn-primary pull-right"
-                                                disabled={fieldsBlocked}
                                                 onClick={(e) => handleSubmit(e)}
+                                                disabled={fieldsBlocked}
                                             >
-                                                Update
+                                                {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Update"}
                                             </button>
                                         </ButtonWrapper>
                                     </form>

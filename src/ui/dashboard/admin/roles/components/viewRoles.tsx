@@ -1,16 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import Select, { ActionMeta } from 'react-select'
-import { getAllRolesApi, getRolePermissionApi } from '../../../../../api/user.api';
-import { UserRolesResponse } from '../../../../../types/appTypes';
+import { createRoleApi, editPermissionApi, getAllRolesApi, getRolePermissionApi } from '../../../../../api/user.api';
+import { CreateRolePayload, EditRolePayload, UserRolesResponse } from '../../../../../types/appTypes';
 import styled from "styled-components";
 import { chakra, Box, CheckboxGroup, Flex, Text, useCheckbox, useCheckboxGroup } from "@chakra-ui/react";
 import { AdminModules } from '../../../../../strings';
 import { statusEnum } from '../../../../../enums/util.enum';
 import { toast } from 'react-toastify';
+import { ButtonWrapper } from './createRoles';
 
-const ViewRoles = () => {
+interface props {
+    setCurrentPage: Dispatch<SetStateAction<number>>;
+}
+
+const ViewRoles: React.FC<props> = ({ setCurrentPage }) => {
     const [selectedModules, setSelectedModules] = useState<string[]>([])
     const [roles, setRoles] = useState<UserRolesResponse[]>([]);
+    const [isEditable, setIsEditable] = useState(false);
+    const [roleId, setRoleId] = useState(0)
+
 
     useEffect(() => {
         async function getRoles() {
@@ -25,9 +33,10 @@ const ViewRoles = () => {
     }, []);
 
     const onChange = async (newValue: any, actionMeta: ActionMeta<any>) => {
+        setRoleId(newValue.value);
         const response = await getRolePermissionApi(newValue.value);
         if (response.code >= statusEnum.ok) {
-            setSelectedModules(response?.data?.data?.permmissions);
+            setSelectedModules(response?.data?.data?.permissions);
         } else {
             toast.error("Error fetching role permissions");
         }
@@ -40,6 +49,38 @@ const ViewRoles = () => {
         })
 
         return arr
+    }
+
+    const handleChange = (value: string[]) => {
+        if (roleId === 0) {
+            toast.error("Please select a role")
+            return
+        }
+
+        setSelectedModules([...value])
+    }
+
+    const handleSubmit = async () => {
+        if (!isEditable) {
+            setIsEditable(true);
+            return;
+        }
+        const permissionsArray = value.map((x) => (x.toString()))
+        if (roleId === 0 || permissionsArray.length === 0) {
+            toast.error("Please fill all the fields")
+            return
+        }
+        const objToSend: EditRolePayload = {
+            roleId: roleId,
+            permissions: permissionsArray
+        }
+        const response = await editPermissionApi(objToSend);
+        if (response.code >= statusEnum.ok) {
+            toast.success("Role updated successfully");
+            setCurrentPage(3)
+        } else {
+            toast.error(response.message);
+        }
     }
 
     function CustomCheckbox(props) {
@@ -59,7 +100,7 @@ const ViewRoles = () => {
                 cursor='pointer'
                 {...htmlProps}
             >
-                <input {...getInputProps()} hidden disabled={true} />
+                <input {...getInputProps()} hidden disabled={!isEditable} />
                 <StyledFlex
                     alignItems='center'
                     justifyContent='center'
@@ -78,6 +119,7 @@ const ViewRoles = () => {
 
     const { value, getCheckboxProps } = useCheckboxGroup({
         value: selectedModules,
+        onChange: handleChange
     })
 
     return (
@@ -90,6 +132,16 @@ const ViewRoles = () => {
                     ))}
                 </Flex>
             </CheckboxGroup>
+            <ButtonWrapper>
+                <button
+                    id="submitBtn"
+                    className="btn btn-primary pull-right"
+                    onClick={handleSubmit}
+                >
+                    {isEditable ? "Update" : "Edit"}
+                </button>
+                <div className="clearfix"></div>
+            </ButtonWrapper>
         </Container>
     )
 }

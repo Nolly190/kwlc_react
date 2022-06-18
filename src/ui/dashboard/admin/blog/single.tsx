@@ -17,6 +17,7 @@ export default function EditBlog() {
   const [tag, setTag] = useState<tagItem>({ name: "" });
   const [categories, setCategories] = useState<CategoryItem[]>([]);
   const [blogData, setBlogData] = useState<BlogItemDTO>();
+  const [isSaving, setIsSaving] = useState(false)
   const editorRef = useRef(null);
   const router = useRouter();
   const idParam = getParam("id");
@@ -54,7 +55,7 @@ export default function EditBlog() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    controller.update(blogData, parseInt(idParam));
+    controller.update(blogData, parseInt(idParam), setIsSaving);
   };
 
   const handleChange = (name: string, value: string) => {
@@ -266,8 +267,9 @@ export default function EditBlog() {
                         id="submitBtn"
                         className="btn btn-primary pull-right"
                         onClick={(e) => handleSubmit(e)}
+                        disabled={isSaving}
                       >
-                        Update Blog
+                        {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Update Blog"}
                       </button>
                       <div className="clearfix"></div>
                     </div>

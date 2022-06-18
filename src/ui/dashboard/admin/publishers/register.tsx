@@ -6,9 +6,11 @@ import { RegisterPublishersPayload } from "../../../../types/appTypes";
 import { isValid } from "../../../../utils";
 import AdminLayout from "../admin.layout";
 import Select, { ActionMeta } from 'react-select'
+import DualRing from "../../../../components/loader";
 
 export default function RegisterPublisher() {
     const [formData, setformData] = useState<RegisterPublishersPayload>()
+    const [isSaving, setIsSaving] = useState(false)
 
     const handleInputChange = (e: any) => {
         setformData({ ...formData, [e.target.name]: e.target.value })
@@ -16,6 +18,7 @@ export default function RegisterPublisher() {
 
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
+        setIsSaving(true)
 
         if (!isValid(formData) || !formData.dateOfBirth) {
             toast.error("Please fill all fields");
@@ -28,6 +31,7 @@ export default function RegisterPublisher() {
         } else {
             toast.error(response.message);
         }
+        setIsSaving(false)
     }
 
     const currencyDropDownOptions = [
@@ -210,8 +214,9 @@ export default function RegisterPublisher() {
                                             id="submitBtn"
                                             className="btn btn-primary pull-right"
                                             onClick={(e) => handleSubmit(e)}
+                                            disabled={isSaving}
                                         >
-                                            Register
+                                            {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Register"}
                                         </button>
                                         <div className="clearfix"></div>
                                     </div>

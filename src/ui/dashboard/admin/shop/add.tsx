@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DonationImageItem from "../../../../components/donation-image";
+import DualRing from "../../../../components/loader";
 import ShopItemImage from "../../../../components/shop-item-image";
 import { ShopController } from "../../../../controller/admin/shop.controller";
 import { ShopDTO, ShopImageDTO } from "../../../../dto/ShopItem.dto";
@@ -21,6 +22,7 @@ export default function AddShopItem() {
     const [quantity, setQuantity] = useState("0");
     const [weight, setWeight] = useState("0");
     const [dimension, setDimension] = useState('0');
+    const [isSaving, setIsSaving] = useState(false)
 
     useEffect(() => {
     }, []);
@@ -37,7 +39,7 @@ export default function AddShopItem() {
             weight: (weight),
             quantity: parseInt(quantity),
             price: parseFloat(price),
-        }));
+        }), setIsSaving);
     }
 
     const onAddImageURL = (e) => {
@@ -160,8 +162,9 @@ export default function AddShopItem() {
                                             id="submitBtn"
                                             className="btn btn-primary pull-right"
                                             onClick={(e) => onClick(e)}
+                                            disabled={isSaving}
                                         >
-                                            Save Item
+                                            {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Save Item"}
                                         </button>
                                         <div className="clearfix"></div>
                                     </div>

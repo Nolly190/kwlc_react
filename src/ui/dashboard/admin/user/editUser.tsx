@@ -25,6 +25,7 @@ export default function EditUser() {
   const [id, setId] = useState(0);
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string>()
+  const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
     //alert(md);
@@ -45,15 +46,18 @@ export default function EditUser() {
         username: username,
         email: email,
       }),
-      id
+      id,
+      setIsSaving
     );
   };
 
   useEffect(() => {
-    error && toast.error(error);
-    setTimeout(() => {
-      router.push("/admin/users")
-    }, 2000);
+    if (error) {
+      toast.error(error);
+      setTimeout(() => {
+        router.push("/admin/users")
+      }, 2000);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error])
 

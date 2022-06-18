@@ -127,7 +127,7 @@ const CheckBoxWrapper = styled.div`
     margin-top: 20px;
 `;
 
-const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.div`
     width: 100%;
 `;
 
