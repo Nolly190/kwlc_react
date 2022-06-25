@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { LiveStreamController } from "../../../controller/admin/livestream.controller";
 import { LiveStreamDTO } from "../../../dto/LiveStream.dto";
 import { ContactDto } from "../../../dto/contact.dto";
 import { submitContactForm } from "../../../api/contact.api";
+import { getSocialLinks } from "../../../api/branch.api";
 
-export default function HomePageFooter() {
+export default function HomePageFooter(props) {
   const _tmp: LiveStreamDTO[] = [];
   const [items, setItems] = useState(_tmp);
 
@@ -17,6 +18,20 @@ export default function HomePageFooter() {
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     controller.list(setItems);
+  }, []);
+
+  const [mediaLinks, setMediaLinks] = useState([]);
+
+  const getMediaLink = useCallback(async () => {
+    const res = await getSocialLinks();
+
+    const socialLinks = await res.data;
+
+    setMediaLinks(socialLinks);
+  }, []);
+
+  useEffect(() => {
+    getMediaLink();
   }, []);
 
   const submitForm = async (e) => {
@@ -43,6 +58,43 @@ export default function HomePageFooter() {
     } catch (error) {
       setIsLoading(false);
       console.log("error: ", error);
+    }
+  };
+
+  const renderLinks = (media) => {
+    switch (media.name.toLowerCase()) {
+      case "twitter":
+        return (
+          <a href={media.link} target="_blank">
+            <i className="fa fa-twitter" aria-hidden="true"></i>
+          </a>
+        );
+      case "facebook":
+        return (
+          <a href={media.link} target="_blank">
+            <i className="fa fa-facebook" aria-hidden="true"></i>
+          </a>
+        );
+      case "instagram":
+        return (
+          <a href={media.link} target="_blank">
+            <i className="fa fa-instagram" aria-hidden="true"></i>
+          </a>
+        );
+      case "youtube":
+        return (
+          <a href={media.link} target="_blank">
+            <i className="fa fa-youtube" aria-hidden="true"></i>
+          </a>
+        );
+      case "linkedln":
+        return (
+          <a href={media.link} target="_blank">
+            <i className="fa fa-linkedln" aria-hidden="true"></i>
+          </a>
+        );
+      default:
+        return null;
     }
   };
 
@@ -147,18 +199,7 @@ export default function HomePageFooter() {
           <h4 className="section_title">Follow Us</h4>
         </div>
         <div className="contact_info txt_icons">
-          <a href="#">
-            <i className="fa fa-linkedin" aria-hidden="true"></i>
-          </a>
-          <a href="#">
-            <i className="fa fa-twitter" aria-hidden="true"></i>
-          </a>
-          <a href="#">
-            <i className="fa fa-facebook" aria-hidden="true"></i>
-          </a>
-          <a href="#">
-            <i className="fa fa-instagram" aria-hidden="true"></i>
-          </a>
+          {mediaLinks.map((item) => renderLinks(item))}
         </div>
       </div>
     </footer>
