@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import DonationImageItem from "../../../../components/donation-image";
-import { BranchServiceTimerItem } from "../../../../components/service-timer-item";
+import Select, { ActionMeta } from 'react-select'
 import { BranchController } from "../../../../controller/admin/branch.controller";
 import { DonationController } from "../../../../controller/admin/donation.controller";
-import { BranchDTO, BranchServiceDTO } from "../../../../dto/Branch.dto";
+import { BranchDTO } from "../../../../dto/Branch.dto";
 import DonateItemDTO, {
   DonationImageDTO,
   DonationItemDTO,
 } from "../../../../dto/Donate.dto";
-import { showConfirmDialog } from "../../../../utils";
 import AdminLayout from "../admin.layout";
+import { ImageWrapper } from "../events/add";
+import DualRing from "../../../../components/loader";
 
 export default function AddDonation() {
   const _tmp: DonateItemDTO[] = [];
@@ -25,9 +26,11 @@ export default function AddDonation() {
   const [donationImgs, setDonationImgs] = useState(_tmpImages);
   const [branches, setBranches] = useState(_tmpBranches);
   const [branch, setBranch] = useState("");
+  const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
     branchController.list(setBranches);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   let controller: DonationController = new DonationController();
@@ -42,9 +45,29 @@ export default function AddDonation() {
         isActive: true,
         summary: summary,
         title: title,
-      })
+      }), setIsSaving
     );
   };
+
+  const dropDownOptions = () => {
+    const arr = [];
+    branches.map((x, i) => {
+      if (!x.isBranchHq) return;
+      arr.push({ value: x?.id, label: x?.name });
+    })
+
+    return arr
+  }
+
+  const onTypeChange = (newValue: any, actionMeta: ActionMeta<any>) => {
+    setBranch(newValue.value);
+  }
+
+  const handleDelete = (index: number) => {
+    const newArray = [...donationImgs];
+    newArray.splice(index, 1);
+    setDonationImgs(newArray);
+  }
 
   const onAddImageURL = (e) => {
     e.preventDefault();
@@ -54,6 +77,7 @@ export default function AddDonation() {
       donationImg,
       isMainImage
     );
+    setDonationImg("");
   };
 
   return (
@@ -73,31 +97,6 @@ export default function AddDonation() {
             <div className="card-body">
               <form id="form">
                 <div className="row">
-                  <div className="col-md-12">
-                    <div className="form-group">
-                      <label className="bmd-label-floating">
-                        Select Branch
-                      </label>
-                      <select
-                        className="form-control"
-                        onChange={(e) => setBranch(e.target.value)}
-                      >
-                        <option>Select Branch</option>
-                        {branches.length > 0
-                          ? branches.map((x, i) => {
-                            if (!x.isBranchHq) return;
-                            return (
-                              <option key={i} value={x.id}>
-                                {x.name}
-                              </option>
-                            );
-                          })
-                          : undefined}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="bmd-label-floating">
@@ -116,6 +115,16 @@ export default function AddDonation() {
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="bmd-label-floating">
+                        Select Branch
+                      </label>
+                      <Select options={dropDownOptions()} onChange={onTypeChange} />
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-8">
+                    <div className="form-group">
+                      <label className="bmd-label-floating">
                         Donation Summary
                       </label>
                       <input
@@ -130,7 +139,7 @@ export default function AddDonation() {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-12">
+                  <div className="col-md-8">
                     <div className="form-group">
                       <label className="bmd-label-floating">
                         Donation Description{" "}
@@ -140,66 +149,76 @@ export default function AddDonation() {
                         id="code"
                         name="code"
                         element-data="code"
+                        cols={3}
+                        rows={3}
                         onChange={(e) => setDescription(e.target.value)}
                       />
                     </div>
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-md-6">
+                  <div className="col-md-12">
                     <div className="form-group">
-                      <label className="bmd-label-floating">
-                        Enter Image URL
-                      </label>
-                      <div className="row">
-                        <input
-                          type="text"
-                          className="form-control"
-                          id="location"
-                          name="location"
-                          element-data="description"
-                          onChange={(e) => setDonationImg(e.target.value)}
-                        />
-                        <button
-                          className="btn btn-primary pull-right"
-                          onClick={(e) => onClick(e)}
-                        >
-                          Create Donation
-                        </button>
-                      </div>
+                      <label className="bmd-label-floating">Enter Image URL</label>
+                      <form>
+                        <div className="row pt-3">
+                          <div className="col-md-6">
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="location"
+                              name="location"
+                              element-data="description"
+                              value={donationImg}
+                              onChange={(e) => setDonationImg(e.target.value)}
+                            />
+                          </div>
+                          <div className="col-md-4">
+                            <button
+                              className="btn btn-primary pull-right"
+                              onClick={(e) => onAddImageURL(e)}
+                            >
+                              Add URL
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                      <ImageWrapper>
+                        {donationImgs?.map((x, i) => (
+                          <DonationImageItem
+                            key={i}
+                            id={x.id}
+                            url={x.imageUrl}
+                            isMainImage={x.isMainImage}
+                            onCheck={(x) =>
+                              controller.makeMainImage(
+                                setDonationImgs,
+                                donationImgs,
+                                x
+                              )
+                            }
+                            index={i}
+                            handleDelete={handleDelete}
+                          />
+                        ))}
+                      </ImageWrapper>
                     </div>
                   </div>
-                  <div className="col-md-6 mt-4">
+                </div>
+                <div className="clearfix"></div>
+                <div className="row mt-5">
+                  <div className="col-md-12">
                     <button
                       type="submit"
                       id="submitBtn"
-                      className="btn btn-primary "
-                      onClick={(e) => onAddImageURL(e)}
+                      className="btn btn-primary pull-right"
+                      onClick={(e) => onClick(e)}
+                      disabled={isSaving}
                     >
-                      Add URL
+                      {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Create Donation"}
                     </button>
+                    <div className="clearfix"></div>
                   </div>
-                </div>
-                <div className="row ml-1" style={{ maxWidth: "95%" }}>
-                  {donationImgs.length > 0
-                    ? donationImgs.map((x, i) => {
-                      return (
-                        <DonationImageItem
-                          key={i}
-                          id={x.id}
-                          url={x.imageUrl}
-                          isMainImage={x.isMainImage}
-                          onCheck={(x) =>
-                            controller.makeMainImage(
-                              setDonationImgs,
-                              donationImgs,
-                              x
-                            )
-                          }
-                        />
-                      );
-                    })
-                    : "No Donation images Added"}
                 </div>
               </form>
             </div>

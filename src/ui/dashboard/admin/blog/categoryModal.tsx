@@ -6,7 +6,7 @@ import Modal from '../../../../components/modal';
 import { CategoryItem, CreateCategoryItem } from '../../../../dto/Blog.dto';
 import { statusEnum } from '../../../../enums/util.enum';
 import StyledInput from '../branchDashboard/components/styledInput';
-import { Button, ButtonWrapper, NewUserHeader, SlidersBodyWrapper, SlidersModalContainer, SlidersModalHeaderContainer } from '../branchDashboard/styles';
+import { StyledButton, ButtonWrapper, NewUserHeader, SlidersBodyWrapper, SlidersModalContainer, SlidersModalHeaderContainer } from '../branchDashboard/styles';
 import Entry from './components/entry';
 
 interface props {
@@ -28,7 +28,11 @@ const CategoryModal: React.FC<props> = ({ isOpen, closeModal }) => {
 
     async function getCategories() {
         const response = await getCategoriesApi()
-        setCategories(response.data)
+        if (response.code >= statusEnum.ok) {
+            setCategories(response.data);
+        } else {
+            toast.error("Error fetching categories");
+        }
     }
 
     const handleClose = () => {
@@ -62,23 +66,20 @@ const CategoryModal: React.FC<props> = ({ isOpen, closeModal }) => {
                 </SlidersModalHeaderContainer>
                 <SlidersBodyWrapper>
                     <AddWrapper>
-                        <StyledInput
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="name"
                             name="name"
-                            width={100}
-                            height={45}
                             onChange={handleAddInputChange}
                             value={category.name}
+                            element-data="name"
                         />
                         <AddButton onClick={addCategory}>Add</AddButton>
                     </AddWrapper>
                     <EntryContainer>
-                        {categories?.length > 0 && categories.map((category, index) => (<Entry key={index} category={category} />))}
+                        {categories?.length > 0 && categories.map((category, index) => (<Entry key={index} category={category} handleClose={handleClose} />))}
                     </EntryContainer>
-                    {/* <ButtonWrapper>
-                        <Button onClick={handleSubmit}>
-                            <p>Submit</p>
-                        </Button>
-                    </ButtonWrapper> */}
                 </SlidersBodyWrapper>
             </SlidersModalContainer>
         </Modal>
@@ -98,7 +99,7 @@ const AddWrapper = styled.div`
     }
 `;
 
-const AddButton = styled(Button)`
+const AddButton = styled(StyledButton)`
     color: white;
     width: 120px;
     margin-top: 0;

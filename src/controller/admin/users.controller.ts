@@ -5,60 +5,51 @@ import { CRUDBL } from "../../interfaces/CRUDBL.interface";
 import { ISetUser } from "../../ui/dashboard/admin/user/editUser";
 import { toast } from "react-toastify";
 export class UserController implements CRUDBL {
-    async create(data: UserDTO) {
-        if (!data.email || !data.firstName || !data.lastName || !data.username) {
-            toast.error("Please fill all fields");
-            return;
-        }
-
-        registerUser(data).then((response) => {
-            if (response.code >= statusEnum.ok) {
-                toast.success("User Creation was successful");
-
-            }
-            else {
-                toast.error("User Creation failed");
-            }
-        });
-        // toast.success("User Creation request Sent");
-
+  async create(data: UserDTO, setIsLoading: Function) {
+    if (!data.email || !data.firstName || !data.lastName || !data.username) {
+      toast.error("Please fill all fields");
+      return;
     }
-    async read(set: ISetUser, id: number) {
 
-        const response = await getUserApi(id);
-        if (response.code < statusEnum.ok) {
-            toast.error(response.message);
-        }
-
-        const data: UserDTO = response?.data;
-
-        set.setUsername(data?.username);
-        set.setEmail(data?.email);
-        set.setFirstName(data?.firstName);
-        set.setLastName(data?.lastName);
-
+    setIsLoading(true);
+    const response = await registerUser(data);
+    if (response.code >= statusEnum.ok) {
+      toast.success("User Creation was successful");
+    } else {
+      toast.error("User Creation failed");
     }
-    async update(data: UserDTO, id: number) {
+    setIsLoading(false);
+  }
 
+  async read(set: ISetUser, id: number) {
+    set.setIsLoading && set.setIsLoading(true);
+    const response = await getUserApi(id);
+    if (response.code < statusEnum.ok) {
+      set.setError(response.message);
     }
-    async delete() {
 
+    const data: UserDTO = response?.data;
+
+    set.setUsername(data?.username);
+    set.setEmail(data?.email);
+    set.setFirstName(data?.firstName);
+    set.setLastName(data?.lastName);
+    set.setIsLoading && set.setIsLoading(false);
+  }
+  async update(data: UserDTO, id: number, setIsLoading: Function) {}
+  async delete() {}
+  async bulk() {}
+  async list(setItems: Function, setIsLoading?: Function) {
+    setIsLoading && setIsLoading(true);
+    const response = await getAllUsersApi();
+    if (response.code < statusEnum.ok) {
+      toast.error(response.message);
     }
-    async bulk() {
 
-    }
-    async list(setItems: Function) {
-
-        const response = await getAllUsersApi();
-        console.log("users", response)
-        if (response.code < statusEnum.ok) {
-            toast.error(response.message)
-        }
-
-        const data: UserDTO[] = response?.data?.data;
-        setItems(data);
-
-    }
+    const data: UserDTO[] = response?.data?.data;
+    setItems(data);
+    setIsLoading && setIsLoading(false);
+  }
 }
 
 // export default async function getAllUsers(setItems:Function) {
@@ -76,7 +67,6 @@ export class UserController implements CRUDBL {
 //         setItems(data);
 //     }
 // }
-
 
 // export async function addUser(setItems:Function) {
 //     if (fakeModel) {

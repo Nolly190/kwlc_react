@@ -7,13 +7,17 @@ import { getCategoriesApi, getSingleBlogApi } from "../../../../api/blog.api";
 import styled from "styled-components";
 import { getParam } from "../../../../utils";
 import { useRouter } from "next/router";
+import { LoaderWrapper } from "./getall";
+import DualRing from "../../../../components/loader";
+import { statusEnum } from "../../../../enums/util.enum";
+import { toast } from "react-toastify";
 
 export default function EditBlog() {
-  // const _tmp: BlogItemDTO = new BlogItemDTO();
-
+  const [isLoading, setIsLoading] = useState(false)
   const [tag, setTag] = useState<tagItem>({ name: "" });
   const [categories, setCategories] = useState<CategoryItem[]>([]);
   const [blogData, setBlogData] = useState<BlogItemDTO>();
+  const [isSaving, setIsSaving] = useState(false)
   const editorRef = useRef(null);
   const router = useRouter();
   const idParam = getParam("id");
@@ -23,10 +27,19 @@ export default function EditBlog() {
       if (!idParam) {
         router.push("/admin/");
       } else {
+        setIsLoading(true);
         const categories = await getCategoriesApi();
         const blog = await getSingleBlogApi(parseInt(idParam));
+        if (blog.code >= statusEnum.ok) {
+          setBlogData(blog?.data?.data);
+        } else {
+          toast.error("Error fetching blog data");
+          setTimeout(() => {
+            router.push("/admin/blogs");
+          }, 2000);
+        }
         setCategories(categories.data);
-        setBlogData(blog?.data?.data);
+        setIsLoading(false);
       }
     }
     fetchData();
@@ -42,7 +55,7 @@ export default function EditBlog() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    controller.update(blogData, parseInt(idParam));
+    controller.update(blogData, parseInt(idParam), setIsSaving);
   };
 
   const handleChange = (name: string, value: string) => {
@@ -71,7 +84,7 @@ export default function EditBlog() {
     <AdminLayout
       externalStyles={[]}
       navbar={""}
-      title={"Add Blog"}
+      title={"Edit Blog"}
       withFooter={false}
       withSideBar={true}
     >
@@ -82,181 +95,187 @@ export default function EditBlog() {
               <h4 className="card-title">Edit Blog</h4>
             </div>
             <div className="card-body">
-              <form id="form">
-                <input type="hidden" element-data="key" value="category" />
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label className="bmd-label-floating">Blog Title</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="title"
-                        name="title"
-                        element-data="title"
-                        value={blogData?.title}
-                        onChange={(e) =>
-                          handleChange(e.target.name, e.target.value)
+              {isLoading ?
+                <LoaderWrapper>
+                  <DualRing width="40px" height="40px" color="#0b0146" />
+                </LoaderWrapper> :
+                <form id="form">
+                  <input type="hidden" element-data="key" value="category" />
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label className="bmd-label-floating">Blog Title</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="title"
+                          name="title"
+                          element-data="title"
+                          value={blogData?.title}
+                          onChange={(e) =>
+                            handleChange(e.target.name, e.target.value)
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label className="bmd-label-floating">
+                          Blog Image Url
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="imageUrl"
+                          name="imageUrl"
+                          element-data="imageUrl"
+                          defaultValue={blogData?.blogImages ? blogData.blogImages[0]?.imageUrl : ""}
+                          onChange={(e) =>
+                            handleChange(e.target.name, e.target.value)
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label className="bmd-label-floating">Category</label>
+                        <select
+                          className="form-control"
+                          id="categoryId"
+                          name="categoryId"
+                          element-data="categoryId"
+                          value={blogData?.categoryId}
+                          onChange={(e) =>
+                            handleChange(e.target.name, e.target.value)
+                          }
+                        >
+                          <option value="">Select Category</option>
+                          {categories.map((category) => (
+                            <option key={category.id} value={category.id}>
+                              {category.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label className="bmd-label-floating">Author Name</label>
+                        <input
+                          type="text"
+                          className="form-control mt-1"
+                          id="authorName"
+                          name="authorName"
+                          element-data="authorName"
+                          value={blogData?.authorName}
+                          onChange={(e) =>
+                            handleChange(e.target.name, e.target.value)
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-6">
+                      <div className="form-group">
+                        <label className="bmd-label-floating">About Author</label>
+                        <textarea
+                          className="form-control"
+                          id="aboutAuthor"
+                          name="aboutAuthor"
+                          element-data="aboutAuthor"
+                          value={blogData?.aboutAuthor}
+                          cols={5}
+                          rows={5}
+                          onChange={(e) =>
+                            handleChange(e.target.name, e.target.value)
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-md-12 mt-2 mb-3">
+                      <label>Message</label>
+                      <Editor
+                        apiKey={
+                          "xp4d02qcjritg0ucudzbasrhjribhh7wy9ck49nlxl78l8n0"
                         }
+                        onInit={(evt, editor) => (editorRef.current = editor)}
+                        initialValue={blogData?.message}
+                        init={{
+                          height: 500,
+                          menubar: false,
+                          plugins: [
+                            "advlist autolink lists link image charmap print preview anchor",
+                            "searchreplace visualblocks code fullscreen",
+                            "insertdatetime media table paste code help wordcount",
+                          ],
+                          toolbar:
+                            "undo redo | formatselect | " +
+                            "bold italic backcolor | alignleft aligncenter " +
+                            "alignright alignjustify | bullist numlist outdent indent | " +
+                            "removeformat | help",
+                          content_style:
+                            "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                        }}
+                        onChange={(e) => handleMessageChange(e)}
                       />
                     </div>
                   </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label className="bmd-label-floating">
-                        Blog Image Url
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="imageUrl"
-                        name="imageUrl"
-                        element-data="imageUrl"
-                        defaultValue={blogData?.blogImages ? blogData.blogImages[0]?.imageUrl : ""}
-                        onChange={(e) =>
-                          handleChange(e.target.name, e.target.value)
-                        }
-                      />
+                  <div className="row">
+                    <div className="col-md-12">
+                      <div className="form-group">
+                        <label className="bmd-label-floating">Blog Tags</label>
+                        <form>
+                          <div className="row pt-3">
+                            <div className="col-md-6">
+                              <input
+                                type="text"
+                                className="form-control"
+                                value={tag.name}
+                                onChange={(e) => {
+                                  setTag({ name: e.target.value });
+                                }}
+                              />
+                            </div>
+                            <div className="col-md-6">
+                              <button
+                                className="btn btn-primary pull-right"
+                                onClick={(e) => onClickAddTag(e)}
+                              >
+                                Add Tags
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                        <TagWrapper>
+                          {blogData?.tags?.map((tag, index) => (
+                            <TagItem key={index}>{tag.name}</TagItem>
+                          ))}
+                        </TagWrapper>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label className="bmd-label-floating">Category</label>
-                      <select
-                        className="form-control"
-                        id="categoryId"
-                        name="categoryId"
-                        element-data="categoryId"
-                        value={blogData?.categoryId}
-                        onChange={(e) =>
-                          handleChange(e.target.name, e.target.value)
-                        }
+                  <div className="clearfix"></div>
+                  <div className="row mt-5">
+                    <div className="col-md-12">
+                      <button
+                        type="submit"
+                        id="submitBtn"
+                        className="btn btn-primary pull-right"
+                        onClick={(e) => handleSubmit(e)}
+                        disabled={isSaving}
                       >
-                        <option value="">Select Category</option>
-                        {categories.map((category) => (
-                          <option key={category.id} value={category.id}>
-                            {category.name}
-                          </option>
-                        ))}
-                      </select>
+                        {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Update Blog"}
+                      </button>
+                      <div className="clearfix"></div>
                     </div>
                   </div>
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label className="bmd-label-floating">Author Name</label>
-                      <input
-                        type="text"
-                        className="form-control mt-1"
-                        id="authorName"
-                        name="authorName"
-                        element-data="authorName"
-                        value={blogData?.authorName}
-                        onChange={(e) =>
-                          handleChange(e.target.name, e.target.value)
-                        }
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-6">
-                    <div className="form-group">
-                      <label className="bmd-label-floating">About Author</label>
-                      <textarea
-                        className="form-control"
-                        id="aboutAuthor"
-                        name="aboutAuthor"
-                        element-data="aboutAuthor"
-                        value={blogData?.aboutAuthor}
-                        cols={5}
-                        rows={5}
-                        onChange={(e) =>
-                          handleChange(e.target.name, e.target.value)
-                        }
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-12 mt-2 mb-3">
-                    <label>Message</label>
-                    <Editor
-                      apiKey={
-                        "xp4d02qcjritg0ucudzbasrhjribhh7wy9ck49nlxl78l8n0"
-                      }
-                      onInit={(evt, editor) => (editorRef.current = editor)}
-                      initialValue={blogData?.message}
-                      init={{
-                        height: 500,
-                        menubar: false,
-                        plugins: [
-                          "advlist autolink lists link image charmap print preview anchor",
-                          "searchreplace visualblocks code fullscreen",
-                          "insertdatetime media table paste code help wordcount",
-                        ],
-                        toolbar:
-                          "undo redo | formatselect | " +
-                          "bold italic backcolor | alignleft aligncenter " +
-                          "alignright alignjustify | bullist numlist outdent indent | " +
-                          "removeformat | help",
-                        content_style:
-                          "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
-                      }}
-                      onChange={(e) => handleMessageChange(e)}
-                    />
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-12">
-                    <div className="form-group">
-                      <label className="bmd-label-floating">Blog Tags</label>
-                      <form>
-                        <div className="row pt-3">
-                          <div className="col-md-6">
-                            <input
-                              type="text"
-                              className="form-control"
-                              value={tag.name}
-                              onChange={(e) => {
-                                setTag({ name: e.target.value });
-                              }}
-                            />
-                          </div>
-                          <div className="col-md-6">
-                            <button
-                              className="btn btn-primary pull-right"
-                              onClick={(e) => onClickAddTag(e)}
-                            >
-                              Add Tags
-                            </button>
-                          </div>
-                        </div>
-                      </form>
-                      <TagWrapper>
-                        {blogData?.tags?.map((tag, index) => (
-                          <TagItem key={index}>{tag.name}</TagItem>
-                        ))}
-                      </TagWrapper>
-                    </div>
-                  </div>
-                </div>
-                <div className="clearfix"></div>
-                <div className="row mt-5">
-                  <div className="col-md-12">
-                    <button
-                      type="submit"
-                      id="submitBtn"
-                      className="btn btn-primary pull-right"
-                      onClick={(e) => handleSubmit(e)}
-                    >
-                      Update Blog
-                    </button>
-                    <div className="clearfix"></div>
-                  </div>
-                </div>
-              </form>
+                </form>
+              }
             </div>
           </div>
         </div>

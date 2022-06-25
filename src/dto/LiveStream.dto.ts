@@ -1,14 +1,14 @@
 export class LiveStreamDTO {
-    public constructor(init?:Partial<LiveStreamDTO>) {
-        Object.assign(this, init);
-    }
-    
-    title: string;
-    description: string;
-    id: number;
-    liveStreamUrl: string;
-    isActive: boolean;
-    dateOfStream: string;
-    views: number;
-    preacher: string;
+  public constructor(init?: Partial<LiveStreamDTO>) {
+    Object.assign(this, init);
+  }
+
+  title: string;
+  description: string;
+  id: number;
+  liveStreamUrl: string;
+  isActive: boolean;
+  dateOfStream: string;
+  // views: number;
+  // preacher: string;
 }

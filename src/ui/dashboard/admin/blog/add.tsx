@@ -5,6 +5,9 @@ import AdminLayout from "../admin.layout";
 import { Editor } from "@tinymce/tinymce-react";
 import { getCategoriesApi } from "../../../../api/blog.api";
 import styled from "styled-components";
+import { statusEnum } from "../../../../enums/util.enum";
+import { toast } from "react-toastify";
+import DualRing from "../../../../components/loader";
 
 export default function AddBlog() {
   const _tmp: BlogItemDTO = new BlogItemDTO();
@@ -12,12 +15,18 @@ export default function AddBlog() {
   const [tag, setTag] = useState<tagItem>({ name: "" });
   const [categories, setCategories] = useState<CategoryItem[]>([]);
   const [blogData, setBlogData] = useState<BlogItemDTO>(_tmp);
+  const [isSaving, setIsSaving] = useState(false)
+
   const editorRef = useRef(null);
 
   useEffect(() => {
     async function fetchCategories() {
       const response = await getCategoriesApi();
-      setCategories(response.data);
+      if (response.code >= statusEnum.ok) {
+        setCategories(response.data);
+      } else {
+        toast.error("Error fetching categories");
+      }
     }
     fetchCategories();
   }, []);
@@ -31,7 +40,7 @@ export default function AddBlog() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    controller.create(blogData);
+    controller.create(blogData, setIsSaving);
   };
 
   const handleChange = (name: string, value: string) => {
@@ -44,8 +53,6 @@ export default function AddBlog() {
 
     setBlogData({ ...blogData, [name]: value });
   };
-
-  console.log("blogData", blogData);
 
   const onClickAddTag = (e) => {
     e.preventDefault();
@@ -235,8 +242,9 @@ export default function AddBlog() {
                       id="submitBtn"
                       className="btn btn-primary pull-right"
                       onClick={(e) => handleSubmit(e)}
+                      disabled={isSaving}
                     >
-                      Create Blog
+                      {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Save Blog"}
                     </button>
                     <div className="clearfix"></div>
                   </div>

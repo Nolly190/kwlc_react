@@ -27,27 +27,33 @@ const ButtonDetails = (props: Props) => {
     sliderData,
     setSliderData,
   } = props;
-  const [show, setShow] = useState(false);
+
+  const [isChecked, setIsChecked] = useState(hasButton)
 
   const handleToggle = () => {
+    setIsChecked(!isChecked);
     clearButtonData(index);
-    setShow(!show);
   };
 
   useEffect(() => {
-    sliderData.sliderImages[index].hasButton = show;
+    setIsChecked(hasButton);
+  }, [hasButton])
+
+  useEffect(() => {
+    sliderData.sliderImages[index].hasButton = isChecked;
     setSliderData({
       ...sliderData,
       sliderImages: [...sliderData.sliderImages],
     });
-  }, [show]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isChecked]);
 
   return (
     <Container>
       <label>
-        <input type="checkbox" onChange={() => handleToggle()} /> Add button
+        <input type="checkbox" onChange={() => handleToggle()} checked={isChecked} /> Add button
       </label>
-      {(show || hasButton) && (
+      {isChecked && (
         <Row width="60%">
           <EntryContainer width={37}>
             <p>Button Label</p>

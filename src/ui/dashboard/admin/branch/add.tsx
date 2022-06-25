@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import DualRing from "../../../../components/loader";
 import { BranchServiceTimerItem } from "../../../../components/service-timer-item";
 import { BranchController } from "../../../../controller/admin/branch.controller";
 import { BranchDTO, BranchServiceDTO } from "../../../../dto/Branch.dto";
@@ -18,6 +19,7 @@ export default function AddBranch() {
     const [serviceDay, setServiceDay] = useState("");
     const [serviceTime, setServiceTime] = useState("");
     const [serviceAMPM, setServiceTimeAMPM] = useState("");
+    const [isSaving, setIsSaving] = useState(false)
 
     useEffect(() => {
     }, [services]);
@@ -26,7 +28,7 @@ export default function AddBranch() {
 
     const onClick = (e) => {
         e.preventDefault();
-        controller.create(new BranchDTO({ name: title, address: address, location: location, state: state, contactNumber: contactNumber, services: services, isBranchHq: isBranchHq }));
+        controller.create(new BranchDTO({ name: title, address: address, location: location, state: state, contactNumber: contactNumber, services: services, isBranchHq: isBranchHq }), setIsSaving);
     }
 
     const onClickAddService = (e) => {
@@ -179,8 +181,9 @@ export default function AddBranch() {
                                             id="submitBtn"
                                             className="btn btn-primary pull-right"
                                             onClick={(e) => onClick(e)}
+                                            disabled={isSaving}
                                         >
-                                            Create Branch
+                                            {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Create Branch"}
                                         </button>
                                         <div className="clearfix"></div>
                                     </div>

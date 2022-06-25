@@ -1,173 +1,319 @@
 export interface LayoutProps {
-    children: React.ReactNode;
-    externalStyles: string[];
-    navbar: string;
-    title: string;
-    withFooter: boolean;
-    withSideBar?: boolean;
+  children: React.ReactNode;
+  externalStyles: string[];
+  navbar: string;
+  title: string;
+  withFooter: boolean;
+  withSideBar?: boolean;
 }
 
 export enum CurrencyTypes {
-    NGN, USD, GBP, EUR
+  NGN,
+  USD,
+  GBP,
+  EUR,
 }
 
 export enum OfferingEnum {
-    NORMAL = 1, TITHE, SEED, PROJECT, CHILD_DEDICATION, FIRST_FRUIT, SPECIAL, TESTIMONY, OTHERS
+  NORMAL = 1,
+  TITHE,
+  SEED,
+  PROJECT,
+  CHILD_DEDICATION,
+  FIRST_FRUIT,
+  SPECIAL,
+  TESTIMONY,
+  OTHERS,
 }
 
-
 export interface offeringFormat {
-    amount?: string;
-    currencyCode?: CurrencyTypes;
+  amount?: string;
+  currencyCode?: CurrencyTypes;
 }
 
 export interface offeringsFormat {
-    name?: OfferingEnum;
-    offering?: Array<offeringFormat>;
+  name?: OfferingEnum;
+  offering?: Array<offeringFormat>;
 }
 
 type OfferingType = {
-    offerings?: Array<offeringsFormat>;
+  offerings?: Array<offeringsFormat>;
 };
 
 type ChurchOffering = {
-    [key in keyof OfferingType]: Array<offeringsFormat>;
+  [key in keyof OfferingType]: Array<offeringsFormat>;
 };
 
 export type ChurchInfoTemplate = ChurchOffering & {
-    sermon?: {
-        message?: string;
-        text?: string;
-        preacher?: string;
-        programme?: string;
-        venue?: string;
-        date?: string;
-    }
-    serviceId?: string;
-    attendance?: {
-        male?: string;
-        female?: string;
-        children?: string;
-        converts?: string;
-        visitors?: string;
-        onlineWorshiper?: string;
-    };
+  sermon?: {
+    message?: string;
+    text?: string;
+    preacher?: string;
+    programme?: string;
+    venue?: string;
+    date?: string;
+  };
+  serviceId?: string;
+  attendance?: {
+    male?: string;
+    female?: string;
+    children?: string;
+    converts?: string;
+    visitors?: string;
+    onlineWorshiper?: string;
+  };
 };
 
 type GenericChurchType<Type> = {
-    [Property in keyof Type]: Type[Property];
+  [Property in keyof Type]: Type[Property];
 };
 
 export type ChurchInfoType = GenericChurchType<ChurchInfoTemplate>;
 
 export interface SliderImage {
-    url?: string
-    text?: string
-    bottonUrl?: string
-    buttomName?: string
-    hasButton?: boolean
-    hasText?: boolean
+  url?: string;
+  text?: string;
+  bottonUrl?: string;
+  buttomName?: string;
+  hasButton?: boolean;
+  hasText?: boolean;
 }
 
 export interface SliderType {
-    type: string,
-    isDynamic: boolean,
-    sliderImages?: SliderImage[]
+  type: string;
+  isDynamic: boolean;
+  sliderImages?: SliderImage[];
 }
 
 export interface PastorsDetailsType {
-    pastorImage?: string,
-    message?: string,
-    name?: string
+  pastorImage?: string;
+  message?: string;
+  name?: string;
 }
 
 export interface PastorsUpdateDetailsType {
-    pastorImage?: string,
-    message?: string,
-    name?: string,
-    id?: number
+  pastorImage?: string;
+  message?: string;
+  name?: string;
+  id?: number;
 }
 
 export interface KingdomPublishersResponse {
-    id?: number,
-    firstName?: string,
-    lastName?: string,
-    address?: string,
-    phoneNumber?: string,
-    email?: string,
-    isAccountBlocked?: boolean
+  id?: number;
+  firstName?: string;
+  lastName?: string;
+  address?: string;
+  phoneNumber?: string;
+  email?: string;
+  isAccountBlocked?: boolean;
 }
 
 export interface ContributionType {
-    id?: number,
-    amountPaid?: number,
-    monthPaid?: Date | string,
-    status?: string
+  id?: number;
+  amountPaid?: number;
+  monthPaid?: Date | string;
+  status?: string;
 }
 
 export interface PublishersHistoryResponse {
-    id?: number,
-    firstName?: string,
-    lastName?: string,
-    address?: string,
-    email?: string,
-    phoneNumber?: string,
-    isAccountBlocked?: boolean,
-    contributions?: ContributionType[]
+  id: number;
+  amount: number;
+  currency: string;
+  dateOfBirth: Date | string;
+  dateCreated: Date | string;
+  fullName: string;
+  emailAddress: string;
+  maritalStatus: string;
+  occupation: string;
+  phone: string;
+  residentCountry: string;
+  state: string;
+  uniqueId: string;
+  isActive?: boolean;
+  isBlocked: boolean;
+  contributions?: ContributionType[];
 }
 
 export interface EditPublishersPayload {
-    firstName?: string,
-    lastName?: string,
-    address?: string,
-    phone?: string
+  amount: number;
+  currency: string;
+  dateOfBirth: Date | string;
+  fullName: string;
+  emailAddress: string;
+  maritalStatus: string;
+  occupation: string;
+  phone: string;
 }
 
 export interface RegisterPublishersPayload {
-    firstName?: string,
-    lastName?: string,
-    address?: string,
-    emailAddress?: string,
-    phone?: string
+  emailAddress: string;
+  fullname: string;
+  phone: string;
+  amount: number;
+  maritalStatus: string;
+  residentCountry: string;
+  occupation: string;
+  currency: string;
+  state: string;
+  dateOfBirth: Date | string;
+}
+
+export interface ConfirmManualPaymentPayload {
+  uniqueId: string;
+  amount: number;
+  date: Date | string;
 }
 
 export interface SendMessagePublishersPayload {
-    subject?: string,
-    body?: string
+  subject?: string;
+  body?: string;
 }
 
 export interface SendSMSPublishersPayload {
-    message?: string,
+  message?: string;
 }
 
 export interface ValidatePaymentRefResponse {
-    id?: number,
-    amount?: number,
-    name?: string,
-    status?: boolean
+  id?: number;
+  amount?: number;
+  name?: string;
+  status?: boolean;
 }
 
 export enum PaymentStatusEnum {
-    SUCCESS = 1,
-    PENDING = 2,
-    FAILED = 3
+  SUCCESS = 1,
+  PENDING = 2,
+  FAILED = 3,
 }
 
 interface PermissionPayload {
-    name: string
+  name: string;
 }
 
 export interface CreateRolePayload {
-    name: string,
-    permissions: PermissionPayload[]
+  name: string;
+  permissions: PermissionPayload[];
+}
+
+export interface EditRolePayload {
+  roleId: number;
+  permissions: string[];
 }
 
 export interface AddUserToRolePayload {
-    userId: number,
-    roleId: number
+  userId: number;
+  roleId: number;
 }
 
 export interface UserRolesResponse {
-    id: number,
-    name: string,
+  id: number;
+  name: string;
+}
+
+export interface GetReportResponse {
+  id: number;
+  branchId: number;
+  branchName: string;
+  date: Date;
+  totalOffering: number;
+  sermon: {
+    id: number;
+    message: string;
+    text: string;
+    preacher: string;
+    programme: string;
+    venue: string;
+    date: Date;
+  };
+  attendance: {
+    id: number;
+    female: number;
+    male: number;
+    children: number;
+    onlineWorshiper: number;
+    converts: number;
+    visitors: number;
+    totalAttendance: number;
+  };
+}
+
+export interface EventsResponse {
+  id?: number;
+  name?: string;
+  description?: string;
+  date?: Date;
+  branchId?: number;
+  isActive?: boolean;
+  eventType?: number;
+  eventName?: string;
+  address?: string;
+  phone?: string;
+  location?: string;
+  branchName?: string;
+  event_Images?: EventImageType[];
+}
+
+export interface EventImageType {
+  imageUrl: string;
+}
+
+export interface EventTypeResponse {
+  id: number;
+  type: string;
+}
+
+export interface CreateEventPayload {
+  name?: string;
+  description?: string;
+  date?: Date;
+  eventType?: number;
+  address?: string;
+  phone?: string;
+  location?: string;
+  event_Images?: EventImageType[];
+}
+
+export interface CreateEventTypePayload {
+  type: string;
+}
+
+export interface MailPayload {
+  id: number;
+  emailAddress: string;
+  subject: string;
+  fullName: string;
+  body: string;
+  dateSent: Date | string;
+}
+
+export interface PaymentTypePayload {
+  id: number;
+  emailAddress: string;
+  name: string;
+  phoneNumber: number;
+  amount: number;
+  paymentType: PaymentType;
+  paymentMode: PaymentMode;
+  dateCreated: string;
+  paymentStatus: string;
+}
+
+export enum PaymentType {
+  Tithe = 1,
+  Offering = 2,
+  Donation = 3,
+  Product = 4,
+  Publishers = 5,
+  Others = 6,
+}
+
+export enum PaymentMode {
+  Online = 1,
+  Offline = 2,
+}
+
+export enum PaymentStatus {
+  Success = 1,
+  Pending = 2,
+  Failed = 3,
 }

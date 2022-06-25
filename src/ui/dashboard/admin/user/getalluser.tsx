@@ -1,17 +1,21 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
+import DualRing from "../../../../components/loader";
 import { UserController } from "../../../../controller/admin/users.controller";
 import UserDTO from "../../../../dto/User.dto";
 import AdminLayout from "../admin.layout";
+import { LoaderWrapper } from "../blog/getall";
 export default function GetAllUsers() {
   const tmpUsers: UserDTO[] = [];
   const router = useRouter();
   const [users, setUsers] = useState(tmpUsers);
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     // getAllUsers(setUsers);
-    userController.list(setUsers);
+    userController.list(setUsers, setIsLoading);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const userController: UserController = new UserController();
@@ -47,18 +51,22 @@ export default function GetAllUsers() {
               <div className="card-body">
                 <div className="col-xl-8 col-md-6" id="spinner_loader"></div>
                 <div className="table-responsive" id="table_div">
-                  <table className="table">
-                    <thead className=" text-primary">
-                      <th>First Name</th>
-                      <th>Last Name</th>
-                      <th>User Name</th>
-                      <th>Email</th>
-                      {/* <th></th> */}
-                      <th></th>
-                    </thead>
-                    <tbody id="tbody">
-                      {users?.length > 0
-                        ? users.map((x, index) => {
+                  {isLoading ?
+                    <LoaderWrapper>
+                      <DualRing width="40px" height="40px" color="#0b0146" />
+                    </LoaderWrapper> :
+                    <table className="table">
+                      <thead className=" text-primary">
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        {/* <th></th> */}
+                        {/* <th></th> */}
+                      </thead>
+                      <tbody id="tbody">
+                        {users?.length > 0
+                          ? users.map((x, index) => {
                             return (
                               <tr key={index}>
                                 <td>{x.firstName}</td>
@@ -77,7 +85,7 @@ export default function GetAllUsers() {
                                     Edit
                                   </a>
                                 </td> */}
-                                <td className="text-primary">
+                                {/* <td className="text-primary">
                                   <a
                                     onClick={() => {
                                       alert("delete");
@@ -92,13 +100,13 @@ export default function GetAllUsers() {
                                   >
                                     Delete
                                   </a>
-                                </td>
+                                </td> */}
                               </tr>
                             );
                           })
-                        : undefined}
-                    </tbody>
-                  </table>
+                          : undefined}
+                      </tbody>
+                    </table>}
                 </div>
               </div>
             </div>

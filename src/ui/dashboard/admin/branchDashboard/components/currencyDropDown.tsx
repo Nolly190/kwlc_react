@@ -4,6 +4,7 @@ import { CurrencyTypes } from "../../../../../types/appTypes";
 
 interface DropDownProp {
   name?: string;
+  foreign?: boolean;
   selectedValue: CurrencyTypes | undefined;
   setSelectedValue?: (value: CurrencyTypes) => void;
   handleCurrencyChange: (selectedValue: any, name: string) => void;
@@ -14,6 +15,7 @@ const CurrencyDropDown: React.FC<DropDownProp> = ({
   setSelectedValue,
   handleCurrencyChange,
   name,
+  foreign
 }) => {
   const [show, setshow] = useState(false);
 
@@ -31,7 +33,7 @@ const CurrencyDropDown: React.FC<DropDownProp> = ({
     <Container>
       <UserDropdownBlock onClick={() => toggleShow()}>
         <p>
-          {CurrencyTypes[selectedValue] || CurrencyTypes[CurrencyTypes.NGN]}
+          {CurrencyTypes[selectedValue] || (foreign ? CurrencyTypes[CurrencyTypes.USD] : CurrencyTypes[CurrencyTypes.NGN])}
         </p>
       </UserDropdownBlock>
 
@@ -62,7 +64,7 @@ const UserDropdownBlock = styled.div`
   padding: 0.5rem 0.7rem;
   display: flex;
   width: 100%;
-  height: 55px;
+  height: 52px;
   justify-content: center;
   align-items: center;
   cursor: pointer;

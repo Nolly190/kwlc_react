@@ -9,6 +9,7 @@ import mediaQueries from "../../../mediaQueries";
 import { useRouter } from "next/router";
 import { AdminNavArray } from "../../../strings";
 import AdminHamburger from "./components/adminHamburger";
+// import { userService } from "../../../api/auth.api";
 // import "./../../../../public/assets/view.v1/admin/js/charts";
 
 const AdminLayout: React.FC<LayoutProps> = ({
@@ -23,7 +24,7 @@ const AdminLayout: React.FC<LayoutProps> = ({
 
   if (typeof window !== 'undefined') {
     permissionsArray = JSON.parse(localStorage?.getItem("userData"))?.permissions
-    console.log("permisionsArray", permissionsArray);
+    // console.log("permisionsArray", permissionsArray);
   }
 
   useEffect(() => {
@@ -91,6 +92,26 @@ const AdminLayout: React.FC<LayoutProps> = ({
                   />
                 ))}
                 <AdminNavItem
+                  url="/admin/mails"
+                  iconTitle="mail"
+                  title="Mails"
+                />
+                <AdminNavItem
+                  url="/admin/payments"
+                  iconTitle="timeline"
+                  title="Payment Hstory"
+                />
+                <AdminNavItem
+                  url="/admin/events"
+                  iconTitle="event"
+                  title="Events"
+                />
+                <AdminNavItem
+                  url="/admin/reports"
+                  iconTitle="assessment"
+                  title="Report"
+                />
+                <AdminNavItem
                   action={() => Logout()}
                   url=""
                   iconTitle="exit_to_app"
@@ -101,14 +122,17 @@ const AdminLayout: React.FC<LayoutProps> = ({
           </div>
         )}
 
-        <div className="main-panel">
+        <MainPanel className="main-panel" withSideBar={withSideBar}>
           {withSideBar &&
             <HamburgerWrapper>
               <AdminHamburger title={title} />
             </HamburgerWrapper>
           }
-          <ChildrenWrapper>{children}</ChildrenWrapper>
-        </div>
+          {withSideBar ?
+            <ChildrenWrapper>{children}</ChildrenWrapper>
+            : <NoSideBarWrapper>{children}</NoSideBarWrapper>
+          }
+        </MainPanel>
       </div>
     </>
   );
@@ -134,4 +158,29 @@ const ChildrenWrapper = styled.div`
     margin-top: 0;
     padding: 30px 15px;
   }
+`;
+
+interface panelProps {
+  withSideBar?: boolean;
+}
+
+const MainPanel = styled.div<panelProps>`
+  width: ${(props) => (props.withSideBar ? "calc(100% - 260px)" : "100%")} !important;
+
+  ${mediaQueries.mobile} {
+    width: 100% !important;
+  }
+`;
+
+const NoSideBarWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+
+  & > div {
+    max-width: 500px;
+    width: 50%;
+  }
+ 
 `;

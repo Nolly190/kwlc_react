@@ -33,7 +33,7 @@ export function mmFormat(datetime: string, format: string = "hh:mm a"): string {
    return moment(datetime).format(format);
 }
 
-export function youtubeParser(url) {
+export function youtubeParser(url: string) {
    var regExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#\&\?]*).*/;
    var match = url.match(regExp);
    return (match && match[1].length == 11) ? match[1] : '';
@@ -203,7 +203,7 @@ export async function getRequest(Base, Url, token = undefined, method = "GET", d
       "Access-Control-Allow-Origin": "*",
    }
 
-   token = await getToken();
+   token = getToken();
 
    if (token != "") {
       token = "Bearer " + token;
@@ -298,9 +298,12 @@ export const getFromLocalStorage = (key: string) => {
    }
 }
 
-export const Logout = async () => {
-   localStorage.clear();
-   routerObject?.push("/admin/login")
+export const Logout = () => {
+   if (typeof window !== 'undefined') {
+      localStorage.clear();
+      routerObject?.push("/admin/login")
+   }
+
    return true;
 }
 
@@ -349,7 +352,7 @@ const getToken = (): string => {
    return token;
 }
 
-export function toTitleCase(str) {
+export function toTitleCase(str: string) {
    return str.replace(
       /\w\S*/g,
       function (txt) {
@@ -406,4 +409,20 @@ export const handleFilterByInputName = (name: OfferingEnum, offerings: offerings
       },
       index
    }
+};
+
+export const isValid = (obj: any) => {
+   if (obj === undefined || null) {
+      return false
+   }
+
+   const res = Object.values(obj).every(value => value !== "");
+   return res;
+};
+
+export const truncateText = (text: string, length: number = 30) => {
+   if (text.length > length) {
+      return text.substring(0, length) + "...";
+   }
+   return text;
 };

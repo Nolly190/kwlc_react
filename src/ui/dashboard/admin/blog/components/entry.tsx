@@ -1,20 +1,23 @@
+import { useDisclosure } from '@chakra-ui/react';
 import React, { useState } from 'react'
 import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { deleteCategoryApi, updateCategoryApi } from '../../../../../api/blog.api';
+import ConfirmationModal from '../../../../../components/confirmationModal';
 import { CategoryItem } from '../../../../../dto/Blog.dto';
 import { statusEnum } from '../../../../../enums/util.enum';
-import { showConfirmDialog } from '../../../../../utils';
-import { Button } from '../../branchDashboard/styles';
+import { StyledButton } from '../../branchDashboard/styles';
 
 interface props {
     category: CategoryItem;
+    handleClose: () => void;
 }
 
-const Entry: React.FC<props> = ({ category }) => {
+const Entry: React.FC<props> = ({ category, handleClose }) => {
     const [clickedEdit, setClickedEdit] = useState(false)
     const [changed, setChanged] = useState(false)
     const [categoryItem, setCategoryItem] = useState(category)
+    const { isOpen, onOpen, onClose } = useDisclosure()
 
     const handleEdit = async () => {
         if (changed) {
@@ -32,14 +35,12 @@ const Entry: React.FC<props> = ({ category }) => {
     }
 
     const handleDelete = async () => {
-        const result = showConfirmDialog("Delete this item?");
-        if (result) {
-            const response = await deleteCategoryApi(category.id)
-            if (response.code >= statusEnum.ok) {
-                toast.success("Category Deleted Successfully");
-            } else {
-                toast.error(response.message);
-            }
+        const response = await deleteCategoryApi(category.id)
+        if (response.code >= statusEnum.ok) {
+            toast.success("Category Deleted Successfully");
+            handleClose();
+        } else {
+            toast.error(response.message);
         }
     }
 
@@ -63,8 +64,15 @@ const Entry: React.FC<props> = ({ category }) => {
             />
             <EntryButtonWrapper>
                 <EntryButton onClick={handleEdit}>{changed ? "Save" : "Edit"}</EntryButton>
-                <EntryButton onClick={handleDelete}>Delete</EntryButton>
+                <EntryButton onClick={onOpen}>Delete</EntryButton>
             </EntryButtonWrapper>
+            <ConfirmationModal
+                title={"Delete Item"}
+                description="Are you sure you want to delete this item?"
+                action={handleDelete}
+                isOpen={isOpen}
+                onClose={onClose}
+            />
         </EntryWrapper>
     )
 }
@@ -80,6 +88,7 @@ const EntryWrapper = styled.div`
     
     & > input {
         width: 55%;
+        font-size: 16px;
     }
 
     @media (max-width: 465px) {
@@ -92,9 +101,9 @@ const EntryButtonWrapper = styled.div`
     gap: 15px;
 `;
 
-const EntryButton = styled(Button)`
-    height: 27px;
-    width: 60px;
+const EntryButton = styled(StyledButton)`
+    height: 30px;
+    width: fit-content;
     padding: 0 20px;
     color: white;
     font-size: 14px;

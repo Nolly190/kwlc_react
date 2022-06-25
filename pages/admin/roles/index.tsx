@@ -44,7 +44,7 @@ export default function AssignAdminToBranch() {
                         </div>
                         <div className="card-body">
                             {currentPage === 1 && <CreateRoles setCurrentPage={setCurrentPage} currentPage={currentPage} />}
-                            {currentPage === 2 && <ViewRoles />}
+                            {currentPage === 2 && <ViewRoles setCurrentPage={setCurrentPage}/>}
                             {currentPage === 3 && <AssignRole />}
                         </div>
                     </div>

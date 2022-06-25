@@ -9522,8 +9522,8 @@ a.text-dark:focus {
   color: #fff;
   background-color: #0b0146;
   border-color: #0b0146;
-  box-shadow: 0 2px 2px 0 rgba(156, 39, 176, 0.14),
-    0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
+  box-shadow: 0 3px 4px 0px rgb(0 0 0 / 14%),
+    0 7px 2px -5px rgb(156 39 176 / 35%);
 }
 
 .btn.btn-primary:hover {
@@ -11990,7 +11990,7 @@ form {
   border: 0;
   height: 36px;
   transition: background 0s ease-out;
-  padding-left: 0;
+  padding-left: 7px;
   padding-right: 0;
   border-radius: 0;
   font-size: 14px;
@@ -14491,7 +14491,7 @@ fieldset[disabled] .form-control,
 .form-group .form-control[disabled],
 fieldset[disabled] .form-group .form-control {
   background-color: transparent;
-  cursor: not-allowed;
+  cursor: default;
   border-bottom: 1px dotted #d2d2d2;
   background-repeat: no-repeat;
 }
@@ -16390,8 +16390,8 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 
 .sidebar[data-color="purple"] li.active > a {
   background-color: #0b0146;
-  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
-    0 7px 10px -5px rgba(156, 39, 176, 0.4);
+  box-shadow: 0 3px 4px 0px rgb(0 0 0 / 14%),
+    0 7px 2px -5px rgb(156 39 176 / 35%);
 }
 
 .sidebar[data-color="azure"] li.active > a {
@@ -18635,12 +18635,12 @@ html[dir="rtl"] .form-check .form-check-sign .check:before {
   background: linear-gradient(60deg, #ec407a, #d81b60);
 }
 
-.card .card-header-primary .card-icon,
+/* .card .card-header-primary .card-icon,
 .card .card-header-primary:not(.card-header-icon):not(.card-header-text),
 .card .card-header-primary .card-text {
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
     0 7px 10px -5px rgba(156, 39, 176, 0.4);
-}
+} */
 
 .card .card-header-danger .card-icon,
 .card .card-header-danger:not(.card-header-icon):not(.card-header-text),

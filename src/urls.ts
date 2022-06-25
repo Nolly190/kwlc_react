@@ -4,6 +4,8 @@ export const urls = {
   makeDonation: "Payment/Payment",
   contact: "Contact",
 
+  getAllMails: "Contact/Get",
+
   branch: "Branch",
   getAllBranch: "Branch/GetAllBranches",
   getBranch: "Branch/GetBranch",
@@ -28,6 +30,7 @@ export const urls = {
   registerUser: "User/Register",
   getUser: "User/GetUser/",
   createRole: "User/CreateRole",
+  editPermission: "User/EditPermission",
   addUserToRole: "User/AddUserToRole",
   rolePermission: "User/RolePermission",
   roles: "User/Roles",
@@ -41,18 +44,33 @@ export const urls = {
 
   liveStream: "LiveStream",
   updateLiveStream: "UpdateLiveStream/",
+
   NextEvent: "Event/Next",
+  GetAllEvents: "Event/GetAllBranchEvent",
+  GetEventsByType: "Event/GetEventByType",
+  GetEventType: "Event/GetEventTypes",
+  AddEventType: "Event/AddEventType",
+  GetBranchEvent: "Event/GetBranchEvent/",
+  EndEvent: "Event/EndEvent/",
+  AddEvent: "Event/AddEvent",
+  DeleteEvent: "Event/DeleteEvent/",
+  UpdateEvent: "Event/UpdateEvent",
 
   createReport: "Report/Create",
+  getAllReports: "Report/GetAll",
   uploadPastorDetails: "Message/Create",
   updatePastorDetails: "Message/Update",
   getPastorDetails: "Message/Get",
   uploadSliderDetails: "Slider",
   getById: "Slider/GetById",
+  getBranchSliders: "Slider/GetBranchSliders",
+
+  getAllPaymentHistory: "Payment/GetAllPayment",
 
   getAllPublishers: "KingdomPublishers/Get",
   publishersHistory: "KingdomPublishers/History",
   confirmPayment: "KingdomPublishers/ConfirmPayment",
+  confirmManualPayment: "KingdomPublishers/ConfirmManualPayment",
   paymentRef: "KingdomPublishers/PaymentRef",
   editPublishers: "KingdomPublishers/EditDetails",
   registerPublishers: "KingdomPublishers/Register",

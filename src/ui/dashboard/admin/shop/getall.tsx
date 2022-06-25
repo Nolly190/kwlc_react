@@ -1,25 +1,33 @@
+import { useDisclosure } from "@chakra-ui/react";
 import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-import { BranchController } from "../../../../controller/admin/branch.controller";
-import { DonationController } from "../../../../controller/admin/donation.controller";
+import ConfirmationModal from "../../../../components/confirmationModal";
+import DualRing from "../../../../components/loader";
 import { ShopController } from "../../../../controller/admin/shop.controller";
-import { BranchDTO } from "../../../../dto/Branch.dto";
-import DonateItemDTO from "../../../../dto/Donate.dto";
 import { ShopDTO } from "../../../../dto/ShopItem.dto";
-import UserDTO from "../../../../dto/User.dto";
+import { truncateText } from "../../../../utils";
 import AdminLayout from "../admin.layout";
+import { LoaderWrapper } from "../blog/getall";
 
 export default function GetAllShopItems() {
   const _tmp: ShopDTO[] = [];
   const [items, setItems] = useState(_tmp);
   const router = useRouter();
-  console.log("items", items);
+  const [deleteId, setDeleteId] = useState(0);
+  const [isLoading, setIsLoading] = useState(false)
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   useEffect(() => {
-    controller.list(setItems);
+    controller.list(setItems, setIsLoading);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleOpenModal = (id: number) => {
+    setDeleteId(id);
+    onOpen();
+  }
 
   const controller: ShopController = new ShopController();
 
@@ -54,26 +62,26 @@ export default function GetAllShopItems() {
               <div className="card-body">
                 <div className="col-xl-8 col-md-6" id="spinner_loader"></div>
                 <div className="table-responsive" id="table_div">
-                  <table className="table">
-                    <thead className=" text-primary">
-                      <th>Title</th>
-                      <th>Amount</th>
-                      <th>Quantity</th>
-                      <th>Date Created</th>
-                      <th></th>
-                      <th></th>
-                    </thead>
-                    <tbody id="tbody">
-                      {items?.length > 0
-                        ? items.map((x, index) => {
+                  {isLoading ?
+                    <LoaderWrapper>
+                      <DualRing width="40px" height="40px" color="#0b0146" />
+                    </LoaderWrapper> :
+                    <table className="table">
+                      <thead className=" text-primary">
+                        <th>Title</th>
+                        <th>Amount</th>
+                        <th>Quantity</th>
+                        <th>Date Created</th>
+                        <th></th>
+                        <th></th>
+                      </thead>
+                      <tbody id="tbody">
+                        {items?.length > 0
+                          ? items.map((x, index) => {
                             return (
                               <tr key={index}>
-                                <td
-                                  onClick={() =>
-                                    (window.location.href = `/get-donation?id=${x.id}`)
-                                  }
-                                >
-                                  {x.title}
+                                <td>
+                                  {truncateText(x.title, 35)}
                                 </td>
                                 <td>{x.price}</td>
                                 <td>{x.quantity}</td>
@@ -95,9 +103,7 @@ export default function GetAllShopItems() {
                                 </td>
                                 <td className="text-primary">
                                   <a
-                                    onClick={() => {
-                                      controller.delete(x.id, setItems, items);
-                                    }}
+                                    onClick={() => handleOpenModal(x.id)}
                                     className="btn btn-primary pull-right text-white"
                                   >
                                     Delete
@@ -106,15 +112,22 @@ export default function GetAllShopItems() {
                               </tr>
                             );
                           })
-                        : undefined}
-                    </tbody>
-                  </table>
+                          : undefined}
+                      </tbody>
+                    </table>}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </AdminLayout>
+      <ConfirmationModal title={"Delete Item"} description="Are you sure you want to delete this item?" action={() => {
+        controller.delete(
+          deleteId,
+          setItems,
+          items
+        )
+      }} isOpen={isOpen} onClose={onClose} />
     </>
   );
 }

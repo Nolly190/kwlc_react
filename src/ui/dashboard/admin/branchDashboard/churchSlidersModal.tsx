@@ -13,7 +13,7 @@ import ButtonDetails from "./components/ButtonDetails";
 import StyledInput from "./components/styledInput";
 import { EntryContainer } from "./financialReport";
 import {
-  Button,
+  StyledButton,
   ButtonWrapper,
   EntryWrapper,
   HorizontalDivider,
@@ -175,9 +175,9 @@ const ChurchSlidersModal: React.FC<props> = ({ isOpen, closeModal }) => {
             </EntryWrapper>
           ))}
           <ButtonWrapper>
-            <Button onClick={handleSubmit}>
+            <StyledButton onClick={handleSubmit}>
               <p>Submit</p>
-            </Button>
+            </StyledButton>
           </ButtonWrapper>
         </SlidersBodyWrapper>
       </SlidersModalContainer>

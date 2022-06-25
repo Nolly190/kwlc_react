@@ -202,6 +202,7 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ goToNextPage }) => {
                 name="tithe"
                 width={49}
                 type="number"
+                foreign
                 handleCurrencyChange={handleForeignCurrencyChange}
                 onChange={handleForeignOffering}
                 valueFromContext={
@@ -239,6 +240,7 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ goToNextPage }) => {
                 name="seedFaith"
                 width={49}
                 type="number"
+                foreign
                 handleCurrencyChange={handleForeignCurrencyChange}
                 onChange={handleForeignOffering}
                 valueFromContext={
@@ -274,6 +276,7 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ goToNextPage }) => {
                 name="projectBuilders"
                 width={49}
                 type="number"
+                foreign
                 handleCurrencyChange={handleForeignCurrencyChange}
                 onChange={handleForeignOffering}
                 valueFromContext={
@@ -315,6 +318,7 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ goToNextPage }) => {
                 name="childDedication"
                 width={49}
                 type="number"
+                foreign
                 handleCurrencyChange={handleForeignCurrencyChange}
                 onChange={handleForeignOffering}
                 valueFromContext={
@@ -358,6 +362,7 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ goToNextPage }) => {
                 name="firstFruit"
                 width={49}
                 type="number"
+                foreign
                 handleCurrencyChange={handleForeignCurrencyChange}
                 onChange={handleForeignOffering}
                 valueFromContext={
@@ -399,6 +404,7 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ goToNextPage }) => {
                 name="specialThanksgiving"
                 width={49}
                 type="number"
+                foreign
                 handleCurrencyChange={handleForeignCurrencyChange}
                 onChange={handleForeignOffering}
                 valueFromContext={
@@ -438,6 +444,7 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ goToNextPage }) => {
                 name="testimonyOffering"
                 width={49}
                 type="number"
+                foreign
                 handleCurrencyChange={handleForeignCurrencyChange}
                 onChange={handleForeignOffering}
                 valueFromContext={
@@ -479,6 +486,7 @@ const FinancialReport: React.FC<FinancialReportProps> = ({ goToNextPage }) => {
                 name="others"
                 width={49}
                 type="number"
+                foreign
                 handleCurrencyChange={handleForeignCurrencyChange}
                 onChange={handleForeignOffering}
                 valueFromContext={
