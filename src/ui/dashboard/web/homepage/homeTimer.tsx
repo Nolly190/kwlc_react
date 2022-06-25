@@ -1,3 +1,4 @@
+import { Button, Flex, Spacer, Text } from "@chakra-ui/react";
 import moment from "moment";
 import { EventDTO } from "../../../../dto/Event.dto";
 
@@ -28,7 +29,59 @@ const MONTHS_OF_YEAR = [
 
 export default function HomeTimer({ data }) {
   const nextEvent: EventDTO = data || {};
+  const isLiveStreaming = nextEvent.streamUrl.trim() !== "";
+  return isLiveStreaming ? (
+    <LiveServiceBanner streamUrl={nextEvent.streamUrl} />
+  ) : (
+    <TimerBanner data={data} />
+  );
+}
+
+const LiveServiceBanner = ({ streamUrl }) => {
+  return (
+    <section className="timer_column">
+      <div
+        className="event pd-top"
+        style={{ width: "100%", padding: "16px 16px" }}
+      >
+        <Flex>
+          <div>
+            <div>
+              <b>Join our live streaming service now </b>
+            </div>
+            <div>
+              <Text
+                colorScheme={"red"}
+                style={{ color: "red", padding: 0 }}
+                fontSize="xl"
+              >
+                Live on air
+              </Text>
+            </div>
+          </div>
+          <Spacer />
+          <div>
+            <Button
+              onClick={() => {
+                window.location = streamUrl;
+              }}
+              colorScheme="red"
+              variant="outline"
+            >
+              Watch now
+            </Button>
+          </div>
+        </Flex>
+      </div>
+    </section>
+  );
+};
+
+const TimerBanner = ({ data }) => {
+  const nextEvent: EventDTO = data || {};
   const dateObj = moment(nextEvent.date);
+
+  console.log("nexrt event: ", nextEvent);
 
   const dayInMonth = moment(nextEvent.date).format("DD");
 
@@ -42,11 +95,9 @@ export default function HomeTimer({ data }) {
 
   console.log(dateObj.day());
   return (
-    // <!-- Timer column -->
     <section className="timer_column">
       <div className="event pd-top">
         <p>
-          {" "}
           Our next Live service would be on <br />
           <strong>
             {DAYS_OF_WEEK[dateObj.day()]} {dayInMonth}
@@ -77,6 +128,5 @@ export default function HomeTimer({ data }) {
         / <span className="timer_bd">22</span>
       </div>
     </section>
-    // <!-- Timer column End-->
   );
-}
+};

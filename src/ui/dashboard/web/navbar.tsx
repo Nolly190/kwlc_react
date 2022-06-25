@@ -6,7 +6,7 @@ import {
   MenuItem,
   Button,
   Icon,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { AiFillGift } from "react-icons/ai";
 import Link from "next/link";
@@ -70,7 +70,7 @@ export const NavMenu = ({ alt = false }) => {
       </li>
       <li className="nav_item">
         <Link href={"/web/livestream/"}>
-          <a className="nav_link">Livetream</a>
+          <a className="nav_link">Live Stream</a>
         </Link>
       </li>
       {/* <!-------Dropdown menu-------> */}
@@ -107,4 +107,3 @@ export const NavMenu = ({ alt = false }) => {
     </ul>
   );
 };
-

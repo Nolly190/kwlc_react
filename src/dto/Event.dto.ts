@@ -15,4 +15,5 @@ export class EventDTO {
   location: string;
   branchName: string | null;
   event_Images: { id: number; imageUrl: string }[];
+  streamUrl: string;
 }

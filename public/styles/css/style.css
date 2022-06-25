@@ -739,17 +739,42 @@ span {
 }
 
 .service_col {
-  width: 20rem;
+  width: 30%;
   position: relative;
   margin-bottom: 2rem;
+  height: 220px;
+  border-radius: 16px;
+}
+
+.service_col.bg1,
+.service_col.bg2,
+.service_col.bg3 {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.service_col.bg1 {
+  background-image: url("../../images/service-1.png");
+}
+
+.service_col.bg2 {
+  background-image: url("../../images/service-2.png");
+}
+
+.service_col.bg3 {
+  background-image: url("../../images/service-3.png");
 }
 
 .service_text {
-  position: absolute;
-  top: 4.375rem;
   color: var(--white-color);
   font-size: var(--mfont-midi);
-  left: 44px;
+  font-weight: 700;
+  text-align: center;
 }
 
 .service_area .service_posts {
@@ -774,9 +799,26 @@ span {
   text-align: justify;
 }
 
+.about_col .welcome-title {
+  font-weight: 800;
+  font-size: 40px;
+  color: #000;
+}
+
+.about_col {
+  font-style: italic;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.about_col p {
+  line-height: 28px !important;
+  margin-bottom: 16px !important;
+}
+
 @media (min-width: 900px) {
   .about_col.right {
-    width: 55%;
+    width: 40%;
   }
   .about-right h2 {
     font-size: 2.5rem;

@@ -19,6 +19,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
+import DonateBtn from "../../../../components/donate-btn";
 
 export default function HomeFamilySection() {
   // <!-- family-section-start -->
@@ -202,24 +203,28 @@ export default function HomeFamilySection() {
           </AlertDialogBody>
           <AlertDialogFooter>
             <Stack direction="row" spacing={4}>
-              <Button
-                colorScheme="messenger"
+              <DonateBtn
+                className={"btn"}
+                label="Register"
+                labelStyle={{ color: "black" }}
+                style={{ marginTop: 0 }}
+                withImg={false}
                 onClick={() => {
                   setIsKingdomPublishDialogOpen(false);
                   setIsKingdomPublishDialogRegisterOpen(true);
                 }}
-              >
-                Register
-              </Button>
-              <Button
-                colorScheme="telegram"
+              />
+
+              <DonateBtn
+                className={"btn"}
+                label="Login"
+                labelStyle={{ color: "black" }}
+                withImg={false}
                 onClick={() => {
                   setIsKingdomPublishDialogOpen(false);
                   setIsKingdomPublishDialogLoginOpen(true);
                 }}
-              >
-                Login
-              </Button>
+              />
             </Stack>
           </AlertDialogFooter>
         </AlertDialogContent>

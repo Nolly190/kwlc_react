@@ -37,7 +37,6 @@ export const urls = {
 
   Payment: "Payment/Payment",
 
-
   slider: "Slider",
 
   liveStream: "LiveStream",
@@ -62,8 +61,7 @@ export const urls = {
   sendMessagePublishers: "KingdomPublishers/SendMessage",
   sendSms: "KingdomPublishers/SendSms",
 
-
-  baseUrl: "https://kwlc-web.herokuapp.com/api/",
+  baseUrl: "https://kwlc-app.herokuapp.com/api/",
   v1: "v1/",
 
   ...{
