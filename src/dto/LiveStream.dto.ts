@@ -9,6 +9,8 @@ export class LiveStreamDTO {
   liveStreamUrl: string;
   isActive: boolean;
   dateOfStream: string;
+  preacher: string;
+  views: number;
   // views: number;
   // preacher: string;
 }
