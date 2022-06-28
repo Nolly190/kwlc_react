@@ -29,7 +29,9 @@ const MONTHS_OF_YEAR = [
 
 export default function HomeTimer({ data }) {
   const nextEvent: EventDTO = data || {};
-  const isLiveStreaming = nextEvent.streamUrl.trim() !== "";
+  const isLiveStreaming = !nextEvent.streamUrl
+    ? false
+    : nextEvent?.streamUrl?.trim() !== "";
   return isLiveStreaming ? (
     <LiveServiceBanner streamUrl={nextEvent.streamUrl} />
   ) : (
