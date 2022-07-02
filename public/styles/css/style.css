@@ -321,6 +321,7 @@ span {
   color: var(--white-color);
   margin: 0 0.75rem;
   z-index: 1;
+  padding-top: 12px;
 }
 
 .nav_alt .nav_tog .bar,
@@ -329,7 +330,10 @@ span {
 }
 
 .top_navbar p {
-  font-size: 12px;
+  font-size: 20px;
+}
+.top_navbar a {
+  margin-left: 15px;
 }
 
 .top_right i {
@@ -494,7 +498,6 @@ span {
     display: flex;
     justify-content: space-between;
     width: 92vw;
-    height: 100vh;
     align-items: center;
     margin-top: 2rem;
   }
