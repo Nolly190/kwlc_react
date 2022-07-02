@@ -1,6 +1,4 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { getBranchesApi } from "../../../../api/branch.api";
 import { BranchDTO } from "../../../../dto/Branch.dto";
 import bgPic from "../../../../../public/images/worship-1.png";
 
