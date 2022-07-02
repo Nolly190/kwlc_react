@@ -11,38 +11,43 @@ export default function HeroBanner({ slides }) {
     () => ({
       dots: false,
       infinite: true,
-      speed: 500,
+      slidesToShow: 1,
       slidesToScroll: 1,
-      arrows: true,
-      autoPlay: true,
+      autoplay: true,
+      speed: 1000,
+      autoplaySpeed: 6000,
+      cssEase: "linear",
+      pauseOnHover: false,
     }),
     []
   );
 
   return data && data.length > 0 ? (
-    <Slider {...settings}>
-      {data.map((image, i) => {
-        return (
-          <div key={i}>
-            <section
-              className="hero-banner-area "
-              style={{
-                backgroundImage: `url(${image.url})`,
-              }}
-              key={i}
-            >
-              <AltHomePageHeader />
-              <div className="banner_content">
-                <div
-                  className="slide"
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                ></div>
-              </div>
-            </section>
-          </div>
-        );
-      })}
-    </Slider>
+    <div>
+      <AltHomePageHeader homePosition />
+      <Slider {...settings}>
+        {data.map((image, i) => {
+          return (
+            <div key={i}>
+              <section
+                className="hero-banner-area "
+                style={{
+                  backgroundImage: `url(${image.url})`,
+                }}
+                key={i}
+              >
+                <div className="banner_content">
+                  <div
+                    className="slide"
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  ></div>
+                </div>
+              </section>
+            </div>
+          );
+        })}
+      </Slider>
+    </div>
   ) : (
     <section className="hero-banner-area">
       <AltHomePageHeader />
