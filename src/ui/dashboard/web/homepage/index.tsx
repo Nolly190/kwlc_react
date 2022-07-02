@@ -14,7 +14,7 @@ import Autocomplete from "react-google-autocomplete";
 
 // import styles from './../../styles/Home.module.css'
 
-export default function HomePage({ data, slides }) {
+export default function HomePage({ data, slides, branches }) {
   // return (
   //   <Autocomplete
   //     apiKey={"AIzaSyD3MhJ08jqDq2khuAK4KXR7eSo6TuwwiMA"}
@@ -39,7 +39,7 @@ export default function HomePage({ data, slides }) {
           <HomeTimer data={data} />
           <HomeServiceArea />
           <HomeAboutArea />
-          <HomeWorshipArea />
+          <HomeWorshipArea branches={branches} />
           <HomeDonate />
           <HomeFamilyArea />
           <LocationArea />
