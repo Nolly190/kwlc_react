@@ -30,9 +30,6 @@ export default function HomePage({ data, slides, branches }) {
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
             rel="stylesheet"
           />
-          <link href="/styles/css/style.css" rel="stylesheet" />
-          <link href="/icofont/icofont.min.css" rel="stylesheet" />
-          <link href="/icofont/icofont/fontawesome-all.min" rel="stylesheet" />
         </Head>
         <div className="main_container home-container">
           <HeroBanner slides={slides} />
