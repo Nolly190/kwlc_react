@@ -102,7 +102,7 @@ export default function PreviousLiveStreamContent({ data }) {
               </div>
             </div>
           </div> */}
-          {/* <button className="button">See More</button> */}
+          <button className="button">See More</button>
         </div>
         <div className="copyright">Kingdom Ways Living Church 2021</div>
       </div>

@@ -4,7 +4,11 @@ import DonateBtn from "../../../../components/donate-btn";
 import { NavMenu } from "../navbar";
 import Hamburger from "./HamburgerMenu";
 
-export default function AltHomePageHeader() {
+export default function AltHomePageHeader({
+  homePosition,
+}: {
+  homePosition?: boolean;
+}) {
   const [mediaLinks, setMediaLinks] = useState([]);
 
   const getMediaLink = useCallback(async () => {
@@ -23,31 +27,31 @@ export default function AltHomePageHeader() {
     switch (media.name.toLowerCase()) {
       case "twitter":
         return (
-          <a href={media.link} target="_blank">
+          <a href={media.link} target="_blank" rel="noreferrer">
             <i className="fa fa-twitter" aria-hidden="true"></i>
           </a>
         );
       case "facebook":
         return (
-          <a href={media.link} target="_blank">
+          <a href={media.link} target="_blank" rel="noreferrer">
             <i className="fa fa-facebook" aria-hidden="true"></i>
           </a>
         );
       case "instagram":
         return (
-          <a href={media.link} target="_blank">
+          <a href={media.link} target="_blank" rel="noreferrer">
             <i className="fa fa-instagram" aria-hidden="true"></i>
           </a>
         );
       case "youtube":
         return (
-          <a href={media.link} target="_blank">
+          <a href={media.link} target="_blank" rel="noreferrer">
             <i className="fa fa-youtube" aria-hidden="true"></i>
           </a>
         );
       case "linkedln":
         return (
-          <a href={media.link} target="_blank">
+          <a href={media.link} target="_blank" rel="noreferrer">
             <i className="fa fa-linkedln" aria-hidden="true"></i>
           </a>
         );
@@ -57,7 +61,10 @@ export default function AltHomePageHeader() {
   };
 
   return (
-    <header className="header_wrap" id="header">
+    <header
+      className={`header_wrap ${homePosition && "home_position"}`}
+      id="header"
+    >
       <div className="top_navbar">
         <div className="top_right">
           <p>

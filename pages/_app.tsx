@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
 import type { AppProps } from "next/app";
+import "../public/styles/css/style.css";
+// import "../public/styles/css/donation.css";
+
 // import { userService } from "../src/api/auth.api";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -39,7 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   // }, [userService.userValue])
 
   // function authCheck(url: string) {
-  //   // redirect to login page if accessing a private page and not logged in 
+  //   // redirect to login page if accessing a private page and not logged in
   //   const publicPaths = ['/admin/login'];
   //   const path = url.split('?')[0];
   //   // console.log("check", userService.userValue);

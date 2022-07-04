@@ -297,6 +297,12 @@ span {
   position: relative;
   z-index: 1;
 }
+.home_position {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
 
 /* TOP NAVBAR */
 
@@ -316,6 +322,7 @@ span {
   color: var(--white-color);
   margin: 0 0.75rem;
   z-index: 1;
+  padding-top: 12px;
 }
 
 .nav_alt .nav_tog .bar,
@@ -324,7 +331,10 @@ span {
 }
 
 .top_navbar p {
-  font-size: 12px;
+  font-size: 20px;
+}
+.top_navbar a {
+  margin-left: 15px;
 }
 
 .top_right i {
@@ -489,7 +499,6 @@ span {
     display: flex;
     justify-content: space-between;
     width: 92vw;
-    height: 100vh;
     align-items: center;
     margin-top: 2rem;
   }
@@ -1271,10 +1280,13 @@ textarea {
 }
 
 .live h3 {
-  font-size: var(--mfont-midi);
   color: var(--white-color);
-  font-weight: var(--font-semi);
+  font-weight: var(--font-norm);
   margin: var(--mfont-mini) 0px;
+  border-left: 5px solid #ffffff;
+  padding-left: 20px;
+  line-height: 2.5rem;
+  font-size: 1.875rem !important;
 }
 
 .live hr {
@@ -1293,6 +1305,7 @@ textarea {
   flex-wrap: wrap;
   margin: 0%;
   padding: 0%;
+  align-items: stretch;
 }
 
 .live .livStream .left {
@@ -1344,7 +1357,7 @@ textarea {
 }
 
 .live .previousSundays {
-  height: 450px;
+  height: 360px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -1358,8 +1371,14 @@ textarea {
   max-height: 8.125rem;
 }
 
+.live .sectionTwo .header .text-white {
+  border-left: 0;
+  padding-left: 0;
+}
+
 .live .previousSundays .first {
   width: 55%;
+  padding-left: 0;
 }
 
 .live .previousSundays .first video {
@@ -1395,7 +1414,7 @@ textarea {
 }
 
 .live .share .text {
-  font-size: var(--mfont-reg);
+  font-size: var(--mfont-mini);
   margin-top: var(--mfont-midi);
   margin-bottom: var(--mfont-mini);
   font-weight: var(--font-bold);
@@ -1588,9 +1607,10 @@ textarea {
 }
 
 .thumbnail-iframe {
-  width: 100% !important;
-  max-height: 130px !important;
+  width: 176px !important;
+  height: 130px !important;
   margin-bottom: 20px !important;
+  border-radius: 10px;
 }
 
 .previous-stream-thumbnail {

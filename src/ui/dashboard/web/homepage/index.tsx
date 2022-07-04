@@ -14,7 +14,7 @@ import Autocomplete from "react-google-autocomplete";
 
 // import styles from './../../styles/Home.module.css'
 
-export default function HomePage({ data, slides }) {
+export default function HomePage({ data, slides, branches }) {
   // return (
   //   <Autocomplete
   //     apiKey={"AIzaSyD3MhJ08jqDq2khuAK4KXR7eSo6TuwwiMA"}
@@ -30,16 +30,13 @@ export default function HomePage({ data, slides }) {
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
             rel="stylesheet"
           />
-          <link href="/styles/css/style.css" rel="stylesheet" />
-          <link href="/icofont/icofont.min.css" rel="stylesheet" />
-          <link href="/icofont/icofont/fontawesome-all.min" rel="stylesheet" />
         </Head>
         <div className="main_container home-container">
           <HeroBanner slides={slides} />
           <HomeTimer data={data} />
           <HomeServiceArea />
           <HomeAboutArea />
-          <HomeWorshipArea />
+          <HomeWorshipArea branches={branches} />
           <HomeDonate />
           <HomeFamilyArea />
           <LocationArea />

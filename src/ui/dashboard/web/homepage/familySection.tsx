@@ -26,6 +26,8 @@ export default function HomeFamilySection() {
 
   const [isKingdomPublishDialogOpen, setIsKingdomPublishDialogOpen] =
     useState(false);
+  const [isFellowshipDialogOpen, setIsFellowshipDialogOpen] = useState(false);
+  const [isBibleClassDialogOpen, setIsBibleClassDialogOpen] = useState(false);
 
   const [isKingdomPublishDialogLoginOpen, setIsKingdomPublishDialogLoginOpen] =
     useState(false);
@@ -40,6 +42,12 @@ export default function HomeFamilySection() {
 
   const onKingdomPublisherClose = () => {
     setIsKingdomPublishDialogOpen(false);
+  };
+  const onFellowshipDialogClose = () => {
+    setIsFellowshipDialogOpen(false);
+  };
+  const onBibleClassDialogClose = () => {
+    setIsBibleClassDialogOpen(false);
   };
 
   const onKingdomPublisherLoginClose = () => {
@@ -66,7 +74,7 @@ export default function HomeFamilySection() {
           <path
             d="M185.516 27.5409C204.782 40.0469 222.189 58.2989 221.175 76.2129C219.992 94.2959 200.219 111.872 187.037 131.983C173.686 152.094 167.095 174.909 150.871 188.598C134.478 202.287 108.283 207.019 93.4111 195.358C78.5391 183.528 74.9901 155.474 57.0761 131.983C39.1621 108.492 7.05212 89.5639 1.64412 67.5939C-3.76387 45.6239 17.5301 20.6119 42.3731 9.11993C67.2161 -2.37207 95.6081 -0.344072 120.282 4.04993C145.125 8.44393 166.081 15.0349 185.516 27.5409Z"
             fill="#77B6D5"
-            fill-opacity="0.1"
+            fillOpacity="0.1"
           />
         </svg>
       </div>
@@ -81,7 +89,7 @@ export default function HomeFamilySection() {
           <path
             d="M140.77 21.3265C189.741 0.540493 247.336 -9.23182 280.416 15.9247C313.601 41.6246 321.727 102.359 343.26 153.723C364.573 205.412 399.837 247.626 405.098 296.51C410.141 345.719 385.287 402.142 343.631 415.586C301.65 428.812 243.19 399.279 174.88 403.237C106.57 407.195 28.6274 444.319 -20.5597 426.238C-69.7468 408.156 -90.1788 334.867 -80.0554 272.282C-69.932 209.696 -29.2533 157.814 11.1508 116.135C51.7739 74.1312 91.579 42.437 140.77 21.3265Z"
             fill="#77B6D5"
-            fill-opacity="0.1"
+            fillOpacity="0.1"
           />
         </svg>
       </div>
@@ -112,11 +120,42 @@ export default function HomeFamilySection() {
             color="#000"
             borderRadius="1.675rem"
             borderColor="black.500"
+            onClick={() => setIsFellowshipDialogOpen(true)}
           >
             Learn more
           </Button>
         </div>
       </div>
+      <AlertDialog
+        motionPreset="slideInBottom"
+        onClose={onFellowshipDialogClose}
+        isOpen={isFellowshipDialogOpen}
+        leastDestructiveRef={cancelRef2}
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader> Fellowship with us</AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody>
+            <div className="my-4"></div>
+            <article className="text-center">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It has
+              survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged. It was
+              popularised in the 1960s with the release of Letraset sheets
+              containing Lorem Ipsum passages, and more recently with desktop
+              publishing software like Aldus PageMaker including versions of
+              Lorem Ipsum
+            </article>
+            <div className="my-4"></div>
+          </AlertDialogBody>
+        </AlertDialogContent>
+      </AlertDialog>
       <div className="service_posts row justify_two">
         <div className="service_image">
           <img className="family_img" src="/images/book.png" alt="Book Image" />
@@ -136,11 +175,42 @@ export default function HomeFamilySection() {
             color="#000"
             borderRadius="1.675rem"
             borderColor="black.500"
+            onClick={() => setIsBibleClassDialogOpen(true)}
           >
             Learn more
           </Button>
         </div>
       </div>
+      <AlertDialog
+        motionPreset="slideInBottom"
+        onClose={onBibleClassDialogClose}
+        isOpen={isBibleClassDialogOpen}
+        leastDestructiveRef={cancelRef2}
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader>Bible Classes</AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody>
+            <div className="my-4"></div>
+            <article className="text-center">
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industry standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It has
+              survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged. It was
+              popularised in the 1960s with the release of Letraset sheets
+              containing Lorem Ipsum passages, and more recently with desktop
+              publishing software like Aldus PageMaker including versions of
+              Lorem Ipsum
+            </article>
+            <div className="my-4"></div>
+          </AlertDialogBody>
+        </AlertDialogContent>
+      </AlertDialog>
       <div className="service_posts row justify_one">
         <div className="service_image">
           <img
@@ -189,7 +259,7 @@ export default function HomeFamilySection() {
             <div className="my-4"></div>
             <article className="text-center">
               Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
+              industry. Lorem Ipsum has been the industry standard dummy text
               ever since the 1500s, when an unknown printer took a galley of
               type and scrambled it to make a type specimen book. It has
               survived not only five centuries, but also the leap into
