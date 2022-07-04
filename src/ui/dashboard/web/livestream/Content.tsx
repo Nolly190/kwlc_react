@@ -29,7 +29,7 @@ export default function LiveStreamContent({ data }) {
       <div className="livStream">
         <div className="row">
           <div className="column left">
-            <h3>Stream</h3>
+            <h3>Live</h3>
             {/*                 <video width="100%" height="auto" controls>
                   <source src={item.liveStreamUrl} type="video/mp4" />
                 </video>
@@ -41,8 +41,8 @@ export default function LiveStreamContent({ data }) {
                 </div> */}
             <YouTube
               videoId={currentMovie.liveStreamUrl} // defaults -> null
-              id={item.id?.toString()} // defaults -> null
-              title={item.title} // defaults -> null
+              id={currentMovie.id?.toString()} // defaults -> null
+              title={currentMovie.title} // defaults -> null
               onEnd={() => {
                 setCurrentIndex((state) => state % data?.data?.length);
               }} // defaults -> noop
@@ -54,8 +54,8 @@ export default function LiveStreamContent({ data }) {
               }} // defaults -> noop
             />
             <div className="aboutService">
-              <h4>{item.title}</h4>
-              <p>{item.description}</p>
+              <h4>{currentMovie.title}</h4>
+              <p>{currentMovie.description}</p>
             </div>
           </div>
           <div className="column right">
@@ -79,10 +79,10 @@ export default function LiveStreamContent({ data }) {
                   })
                 : undefined}
             </div>
-            {/* <div className="share" style={{ marginTop: "3rem" }}>
+            <div className="share">
               <div className="text">Share this on all social media page</div>
               <button className="button">Share</button>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
