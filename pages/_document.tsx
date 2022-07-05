@@ -30,6 +30,11 @@ export default class MyDocument extends Document {
             rel="stylesheet"
           />
           <link rel="stylesheet" href="/styles/css/style.css" />
+          <link rel="stylesheet" href="/styles/css/donation.css" />
+          <link
+            rel="stylesheet"
+            href="/assets/view.v1/admin/css/material-dashboard.css"
+          />
         </Head>
         <body>
           <Main />
