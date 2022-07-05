@@ -2169,7 +2169,7 @@ hr {
     grid-template-columns: 48% 48%;
     grid-template-rows: 24rem;
     align-items: center;
-    gap: 2rem;
+    gap: 4rem;
   }
   .event_searcher {
     width: 20rem;
@@ -2193,7 +2193,9 @@ hr {
   align-items: center;
   margin-top: 2rem;
 }
-
+.list_col .list_text {
+  width: 100%;
+}
 .list_text .section_subtitle {
   margin-bottom: 1.5rem;
 }
