@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { BranchDTO } from "../../../../dto/Branch.dto";
 import bgPic from "../../../../../public/images/worship-1.png";
+import { Flex } from "@chakra-ui/react";
 
 export default function HomeWorshipArea({ branches }) {
   return (
@@ -18,13 +19,13 @@ export default function HomeWorshipArea({ branches }) {
               <h4 className="worship_head">{branch.name}</h4>
             </div>
             <div className="worship_content">
-              <div>
+              <Flex gap="8px" alignItems="center" justifyContent="center">
                 {branch.services.map((item) => (
                   <h3 key={item.id}>
                     {item.day} <br></br> {item.time}
                   </h3>
                 ))}
-              </div>
+              </Flex>
               <p>
                 {branch.address + ". " + branch.state + ", " + branch.location}
               </p>

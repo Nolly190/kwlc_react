@@ -34,7 +34,7 @@ export default function HomeTimer({ data }) {
   const isLiveStreaming = !nextEvent.streamUrl
     ? false
     : nextEvent?.streamUrl?.trim() !== "";
-  return !isLiveStreaming ? (
+  return isLiveStreaming ? (
     <LiveServiceBanner streamUrl={nextEvent.streamUrl} />
   ) : (
     <TimerBanner data={data} />

@@ -5,6 +5,7 @@ import HomePage from "../../src/ui/dashboard/web/homepage/index";
 import { initUtilFunc } from "../../src/utils";
 import { getNextEvent } from "../../src/api/event.api";
 import { getSliderAPI } from "../../src/api/slider.api";
+import { getBranchesApi } from "../../src/api/branch.api";
 
 export default function Home(props) {
   const router = useRouter();
@@ -13,7 +14,13 @@ export default function Home(props) {
     initUtilFunc(window.localStorage, router);
   }, []);
 
-  return <HomePage data={props?.data || {}} slides={props.slides} />;
+  return (
+    <HomePage
+      data={props?.data || {}}
+      slides={props.slides}
+      branches={props.branches}
+    />
+  );
 }
 
 export async function getStaticProps() {
@@ -22,7 +29,10 @@ export async function getStaticProps() {
 
   const res = await getNextEvent();
   const slidesResponse = await getSliderAPI();
+  const branchesResponse = await getBranchesApi();
   const data = await res.data;
+
+  const branches = branchesResponse.data.data;
 
   const sliderData = slidesResponse.data;
 
@@ -34,6 +44,7 @@ export async function getStaticProps() {
     props: {
       data,
       slides,
+      branches,
     },
     revalidate: 10,
   };
