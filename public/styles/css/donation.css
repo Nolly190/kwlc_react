@@ -812,13 +812,27 @@ hr {
 
 .payment .content h3 {
   font-style: normal;
-  font-weight: 800;
-  font-size: var(--mfont-mini);
+  font-weight: 800 !important;
+  font-size: 1.875rem !important;
   color: #000000;
 }
 
+.payment .span-first {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.payment .content .select-action {
+  font-weight: var(--font-reg);
+  font-size: 1.875rem !important;
+  color: #000000;
+}
+.payment .box {
+  border: 0.5px solid #d7d7d7;
+}
+
 .payment #pay-form {
-  margin-top: 1.5rem;
+  margin-top: 6.9rem;
   margin-bottom: 6rem;
 }
 
@@ -863,7 +877,6 @@ hr {
   border: 0;
   outline: 0;
   font-size: var(--font-reg);
-  box-shadow: 0 1px 6px 0 rgb(32 33 36 / 15%);
 }
 
 .payment .input.col:first-of-type {
