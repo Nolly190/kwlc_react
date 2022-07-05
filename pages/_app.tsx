@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import type { AppProps } from "next/app";
 import "../public/styles/css/style.css";
 // import "../public/styles/css/donation.css";
+import "../public/assets/view.v1/admin/css/material-dashboard.css";
 
 // import { userService } from "../src/api/auth.api";
 
