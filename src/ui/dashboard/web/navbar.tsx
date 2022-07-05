@@ -16,17 +16,16 @@ export const NavMenu = ({ alt = false }) => {
     <ul className="nav_list nav-list">
       {alt && (
         <li className="nav_item">
-          <Link href="/web/donate" passHref>
-            <span className="nav_link">
-              {/* <Button
+          <Link href="/web/donations">
+            <a className="nav_link">
+              <Button
                 leftIcon={<Icon as={AiFillGift} />}
                 color="white"
                 variant="outline"
               >
                 Donate
-              </Button> */}
-              <a className="nav_link">Donate</a>
-            </span>
+              </Button>
+            </a>
           </Link>
         </li>
       )}
