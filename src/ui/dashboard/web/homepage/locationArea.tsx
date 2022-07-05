@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Img from "../../../../../public/images/Location.png";
 
 export default function LocationArea() {
   return (
@@ -14,7 +15,7 @@ export default function LocationArea() {
         <div className="address_col">
           <div className="address-right">
             <Image
-              src="/images/location.png"
+              src={Img}
               alt="Location Image"
               width="318px"
               height="176px"
