@@ -1,5 +1,7 @@
-import { Button, Flex, Spacer, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Spacer, Text } from "@chakra-ui/react";
 import moment from "moment";
+import { useRouter } from "next/router";
+import YouTube from "react-youtube";
 import { EventDTO } from "../../../../dto/Event.dto";
 
 const DAYS_OF_WEEK = [
@@ -32,7 +34,7 @@ export default function HomeTimer({ data }) {
   const isLiveStreaming = !nextEvent.streamUrl
     ? false
     : nextEvent?.streamUrl?.trim() !== "";
-  return isLiveStreaming ? (
+  return !isLiveStreaming ? (
     <LiveServiceBanner streamUrl={nextEvent.streamUrl} />
   ) : (
     <TimerBanner data={data} />
@@ -40,13 +42,24 @@ export default function HomeTimer({ data }) {
 }
 
 const LiveServiceBanner = ({ streamUrl }) => {
+  const router = useRouter();
   return (
     <section className="timer_column">
+      <Box
+        position="absolute"
+        border="10px solid #FFFFFF"
+        borderRadius="20px"
+        transform="translateY(-100px)"
+        right="68px"
+        display={{ base: "none", lg: "block" }}
+      >
+        <YouTube videoId={streamUrl} opts={{ height: "230", width: "400" }} />
+      </Box>
       <div
         className="event pd-top"
         style={{ width: "100%", padding: "16px 16px" }}
       >
-        <Flex>
+        <Flex gap="5rem">
           <div>
             <div>
               <b>Join our live streaming service now </b>
@@ -61,7 +74,7 @@ const LiveServiceBanner = ({ streamUrl }) => {
               </Text>
             </div>
           </div>
-          <Spacer />
+          <Spacer display={{ base: "block", lg: " none" }} />
           <div>
             <Button
               onClick={() => {

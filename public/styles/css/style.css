@@ -693,6 +693,11 @@ span {
   justify-content: center;
   align-items: center;
   padding-bottom: 1rem;
+  position: relative;
+}
+
+.timer_column iframe {
+  border-radius: 10px;
 }
 
 .timer_bd {
