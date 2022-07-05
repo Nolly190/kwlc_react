@@ -753,6 +753,7 @@ span {
   margin-bottom: 2rem;
   height: 220px;
   border-radius: 16px;
+  cursor: pointer;
 }
 
 .service_col.bg1,
