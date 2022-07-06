@@ -34,6 +34,7 @@ import {
 } from "../../../../dto/familyArea.dto";
 import PrayerPic from "../../../../../public/images/prayer.png";
 import BookPic from "../../../../../public/images/book.png";
+import { StyledDonateBtn } from "../../../../../public/styles/css/trying";
 
 export default function HomeFamilySection() {
   // <!-- family-section-start -->
@@ -363,28 +364,33 @@ export default function HomeFamilySection() {
           </AlertDialogBody>
           <AlertDialogFooter>
             <Stack direction="row" spacing={4}>
-              <DonateBtn
-                className={"btn"}
-                label="Register"
-                labelStyle={{ color: "black" }}
-                style={{ marginTop: 0 }}
-                withImg={false}
-                onClick={() => {
-                  setIsKingdomPublishDialogOpen(false);
-                  setIsKingdomPublishDialogRegisterOpen(true);
-                }}
-              />
+              <StyledDonateBtn>
+                <DonateBtn
+                  className={"btn"}
+                  label="Register"
+                  labelStyle={{ color: "black" }}
+                  style={{ marginTop: 0 }}
+                  withImg={false}
+                  onClick={() => {
+                    setIsKingdomPublishDialogOpen(false);
+                    setIsKingdomPublishDialogRegisterOpen(true);
+                  }}
+                />
+              </StyledDonateBtn>
 
-              <DonateBtn
-                className={"btn"}
-                label="Login"
-                labelStyle={{ color: "black" }}
-                withImg={false}
-                onClick={() => {
-                  setIsKingdomPublishDialogOpen(false);
-                  setIsKingdomPublishDialogLoginOpen(true);
-                }}
-              />
+              <StyledDonateBtn>
+                <DonateBtn
+                  className={"btn"}
+                  label="Login"
+                  labelStyle={{ color: "black" }}
+                  style={{ marginTop: 0 }}
+                  withImg={false}
+                  onClick={() => {
+                    setIsKingdomPublishDialogOpen(false);
+                    setIsKingdomPublishDialogLoginOpen(true);
+                  }}
+                />
+              </StyledDonateBtn>
             </Stack>
           </AlertDialogFooter>
         </AlertDialogContent>

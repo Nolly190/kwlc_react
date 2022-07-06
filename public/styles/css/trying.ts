@@ -1686,3 +1686,21 @@ export const MiniWrapper = styled.div`
     padding: 6.4px 12.8px;
   }
 `;
+
+export const StyledDonateBtn = styled.div`
+  & .btn {
+    display: inline-block;
+    background: transparent;
+    color: var(--text-primary-color);
+    padding: 0.7rem;
+    width: 8rem;
+    height: 3.5rem;
+    border-radius: 0.625rem;
+    font-size: var(--mfont-reg);
+    font-weight: var(--font-semi);
+    margin-top: 1rem;
+    transition: 0.3s;
+    border: 1px solid #000;
+    cursor: pointer;
+  }
+`;
