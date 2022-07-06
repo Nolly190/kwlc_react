@@ -212,6 +212,7 @@ export const HomepageWrapper = styled.div`
     display: block;
     font-weight: var(--font-bold);
     margin-bottom: 0.75rem;
+    font-size: 1.125rem;
   }
 
   /* Layout */
@@ -914,6 +915,7 @@ export const HomepageWrapper = styled.div`
   .worship_content h3 {
     font-size: var(--mfont-mini);
     line-height: 1.7;
+    font-weight: inherit;
   }
 
   .worship_content p {
@@ -1055,6 +1057,12 @@ export const HomepageWrapper = styled.div`
 
   .map_col {
     padding: 2rem;
+  }
+
+  .map_col h3 {
+    font-size: 1.125rem;
+    font-weight: inherit;
+    line-height: 3rem;
   }
 
   .address-right h2 {
