@@ -362,7 +362,7 @@ export default function HomeFamilySection() {
             </article>
             <div className="my-4"></div>
           </AlertDialogBody>
-          <AlertDialogFooter>
+          <AlertDialogFooter bg={"#f1f1f1"}>
             <Stack direction="row" spacing={4}>
               <StyledDonateBtn>
                 <DonateBtn

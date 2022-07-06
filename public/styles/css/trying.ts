@@ -45,14 +45,6 @@ export const HomepageWrapper = styled.div`
   /*------------ [_Reset_Styles] -----------*/
   /*========================================*/
 
-  *,
-  ::before,
-  ::after {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-  }
-
   html {
     scroll-behavior: smooth;
   }
@@ -1121,8 +1113,6 @@ export const HomepageWrapper = styled.div`
 
   footer {
     background: var(--bg-secondary-color);
-    display: grid;
-    grid-template-columns: 1fr;
   }
 
   footer .footer_header .section_title {
