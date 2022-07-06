@@ -11,6 +11,7 @@ import LocationArea from "./locationArea";
 import HomePageFooter from "./../footer";
 import Layout from "../layout";
 import Autocomplete from "react-google-autocomplete";
+import { HomepageWrapper } from "../../../../../public/styles/css/trying";
 
 // import styles from './../../styles/Home.module.css'
 
@@ -30,6 +31,7 @@ export default function HomePage({ data, slides, branches }) {
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
             rel="stylesheet"
           />
+          {/* <link rel="stylesheet" href="/styles/css/style.css" /> */}
         </Head>
         <div className="main_container home-container">
           <HeroBanner slides={slides} />
