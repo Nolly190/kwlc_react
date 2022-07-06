@@ -1,3 +1,35 @@
+:root {
+  /* Colors */
+  --bg-primary-color: #e5e5e5;
+  --bg-secondary-color: #f1f1f1;
+  --text-primary-color: #000000;
+  --text-secondary-color: #c4c4c4;
+  --card-primary-color: #77b6d5;
+  --card-secondary-color: #0f5545;
+  --white-color: #fff;
+  /* Font and Typography */
+  --font: "Poppins", sans-serif;
+  --mfont-max: 2.5rem;
+  --mfont-midi: 1.75rem;
+  --mfont-mini: 1.25rem;
+  --mfont-reg: 0.875rem;
+  --mfont-tiny: 0.75rem;
+  --font-bold: 700;
+  --font-semi: 500;
+  --font-norm: 400;
+  --font-light: 300;
+}
+
+@media screen and (min-width: 768px) {
+  :root {
+    --font-max: 3.75rem;
+    --font-midi: 3rem;
+    --font-mini: 1.5rem;
+    --font-reg: 1.125rem;
+    --font-tiny: 1rem;
+  }
+}
+
 html,
 body {
   padding: 0;

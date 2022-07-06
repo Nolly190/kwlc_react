@@ -391,9 +391,7 @@ export const HomepageWrapper = styled.div`
 
   .nav_item {
     margin-bottom: 1.5rem;
-    /* color: var(--text-primary-color);
-     */
-    color: red;
+    color: var(--text-primary-color);
   }
 
   /* .nav_item:hover {
@@ -424,6 +422,12 @@ export const HomepageWrapper = styled.div`
     font-weight: 600;
   }
 
+  .nav_link .donate_btn svg {
+    margin-right: 0.5rem;
+  }
+  .nav_link .donate_btn {
+    padding: 0 1rem;
+  }
   .nav_link i {
     font-size: 1.75rem;
   }
@@ -480,12 +484,12 @@ export const HomepageWrapper = styled.div`
     }
 
     .nav_bar {
+      height: 400px;
       padding: 1rem 2rem;
       align-items: center;
       display: inline-flex;
       justify-content: space-between;
       align-items: center;
-      height: 5rem;
     }
 
     .nav-logo {
@@ -534,7 +538,6 @@ export const HomepageWrapper = styled.div`
       z-index: 0;
       padding: 0rem;
       left: 0;
-      height: auto;
       transition: 0.5s ease;
       overflow: hidden;
     }
@@ -1645,5 +1648,41 @@ export const HomepageWrapper = styled.div`
 
   .slick-next {
     right: 20px !important;
+  }
+`;
+
+export const Nav_item = styled.li`
+  margin-bottom: 1.5rem;
+  color: var(--text-primary-color);
+  list-style: none;
+
+  & .nav_link {
+    cursor: pointer;
+    color: var(--black-color);
+    font-size: var(--mfont-reg);
+    font-weight: 600;
+  }
+
+  & .nav_link:focus,
+  .nav_link:hover {
+    color: var(--text-secondary-color);
+  }
+  & .dropdown_menu {
+    /* border-bottom: 1px #767676 solid; */
+    cursor: pointer;
+    padding: 1rem 0 0.3rem;
+  }
+  .hamburger_donate-btn span {
+    color: var(--card-primary-color);
+  }
+`;
+
+export const MiniWrapper = styled.div`
+  .list {
+    padding: 8px 0;
+  }
+
+  .menu-item {
+    padding: 6.4px 12.8px;
   }
 `;

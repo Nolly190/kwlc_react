@@ -10,6 +10,9 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { AiFillGift } from "react-icons/ai";
 import Link from "next/link";
+import Logo from "../../../../public/images/KWLClogo.svg";
+import Image from "next/image";
+import { MiniWrapper } from "../../../../public/styles/css/trying";
 
 export const NavMenu = ({ alt = false }) => {
   return (
@@ -22,6 +25,7 @@ export const NavMenu = ({ alt = false }) => {
                 leftIcon={<Icon as={AiFillGift} />}
                 color="white"
                 variant="outline"
+                className="donate_btn"
               >
                 Donate
               </Button>
@@ -48,7 +52,7 @@ export const NavMenu = ({ alt = false }) => {
         <li className="nav_item">
           <Link href={"/web/"}>
             <a className="nav_link">
-              <img src="/images/KWLClogo.svg" alt="KWLC Logo" />
+              <Image src={Logo} alt="KWLC Logo" />
             </a>
           </Link>
         </li>
@@ -79,29 +83,31 @@ export const NavMenu = ({ alt = false }) => {
           <MenuButton>
             <HamburgerIcon color={"white"} />
           </MenuButton>
-          <MenuList>
-            <MenuItem>
-              <li className="dropdown_menu">
-                <Link href={"/web/Payment"}>
-                  <a className="nav_link">Payment</a>
-                </Link>
-              </li>
-            </MenuItem>
-            <MenuItem>
-              <li className="dropdown_menu">
-                <Link href={"/web/404/"}>
-                  <a className="nav_link">About Us </a>
-                </Link>
-              </li>
-            </MenuItem>
-            <MenuItem>
-              <li className="dropdown_menu">
-                <Link href="#">
-                  <a className="nav_link">Our Team</a>
-                </Link>
-              </li>
-            </MenuItem>
-          </MenuList>
+          <MiniWrapper>
+            <MenuList className="list">
+              <MenuItem className="menu-item">
+                <li className="dropdown_menu">
+                  <Link href={"/web/Payment"}>
+                    <a className="nav_link">Payment</a>
+                  </Link>
+                </li>
+              </MenuItem>
+              <MenuItem className="menu-item">
+                <li className="dropdown_menu">
+                  <Link href={"/web/404/"}>
+                    <a className="nav_link">About Us </a>
+                  </Link>
+                </li>
+              </MenuItem>
+              <MenuItem className="menu-item">
+                <li className="dropdown_menu">
+                  <Link href="#">
+                    <a className="nav_link">Our Team</a>
+                  </Link>
+                </li>
+              </MenuItem>
+            </MenuList>
+          </MiniWrapper>
         </Menu>
       </li>
     </ul>

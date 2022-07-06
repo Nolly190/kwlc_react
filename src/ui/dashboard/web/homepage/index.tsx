@@ -31,19 +31,20 @@ export default function HomePage({ data, slides, branches }) {
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
             rel="stylesheet"
           />
-          {/* <link rel="stylesheet" href="/styles/css/style.css" /> */}
         </Head>
-        <div className="main_container home-container">
-          <HeroBanner slides={slides} />
-          <HomeTimer data={data} />
-          <HomeServiceArea />
-          <HomeAboutArea />
-          <HomeWorshipArea branches={branches} />
-          <HomeDonate />
-          <HomeFamilyArea />
-          <LocationArea />
-          <HomePageFooter />
-        </div>
+        <HomepageWrapper>
+          <div className="main_container home-container">
+            <HeroBanner slides={slides} />
+            <HomeTimer data={data} />
+            <HomeServiceArea />
+            <HomeAboutArea />
+            <HomeWorshipArea branches={branches} />
+            <HomeDonate />
+            <HomeFamilyArea />
+            <LocationArea />
+            <HomePageFooter />
+          </div>
+        </HomepageWrapper>
       </div>
     </>
   );

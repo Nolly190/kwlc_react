@@ -1,8 +1,10 @@
+import Image from "next/image";
 import React, { useCallback, useEffect, useState } from "react";
 import { getSocialLinks } from "../../../../api/branch.api";
 import DonateBtn from "../../../../components/donate-btn";
 import { NavMenu } from "../navbar";
 import Hamburger from "./HamburgerMenu";
+import Logo from "../../../../../public/images/KWLClogo.svg";
 
 export default function AltHomePageHeader({
   homePosition,
@@ -84,7 +86,7 @@ export default function AltHomePageHeader({
         </div>
         <div className="mobileMenu">
           <a href={"/web/"} className="nav_link">
-            <img src="/images/KWLClogo.svg" alt="KWLC Logo" />
+            <Image src={Logo} alt="KWLC Logo" />
           </a>
           <Hamburger />
         </div>
