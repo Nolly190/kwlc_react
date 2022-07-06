@@ -18,6 +18,7 @@ import {
   Radio,
   useToast,
 } from "@chakra-ui/react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
@@ -31,6 +32,8 @@ import {
   KingdomPublisherLoginDto,
   KingdomPublisherRegisterDto,
 } from "../../../../dto/familyArea.dto";
+import PrayerPic from "../../../../../public/images/prayer.png";
+import BookPic from "../../../../../public/images/book.png";
 
 export default function HomeFamilySection() {
   // <!-- family-section-start -->
@@ -176,10 +179,12 @@ export default function HomeFamilySection() {
       <h2>Join the family</h2>
       <div className="service_posts row justify_one">
         <div className="service_image">
-          <img
+          <Image
             className="family_img family-left"
-            src="/images/prayer.png"
+            src={PrayerPic}
             alt="Family Image"
+            placeholder="blur"
+            blurDataURL={""}
           />
         </div>
 
@@ -192,8 +197,6 @@ export default function HomeFamilySection() {
             height="3.2rem"
             width="8rem"
             fontSize="14px"
-            padding=".75rem"
-            margin="1rem 0"
             border="1px"
             outline="#000"
             background="transparent"
@@ -201,6 +204,7 @@ export default function HomeFamilySection() {
             borderRadius="1.675rem"
             borderColor="black.500"
             onClick={() => setIsFellowshipDialogOpen(true)}
+            style={{ margin: "1rem 0", padding: "0.75rem" }}
           >
             Learn more
           </Button>
@@ -238,7 +242,13 @@ export default function HomeFamilySection() {
       </AlertDialog>
       <div className="service_posts row justify_two">
         <div className="service_image">
-          <img className="family_img" src="/images/book.png" alt="Book Image" />
+          <Image
+            className="family_img"
+            src={BookPic}
+            alt="Book Image"
+            placeholder="blur"
+            blurDataURL={""}
+          />
         </div>
         <div className="right_text">
           <h3>Join our bible classes today </h3>
@@ -247,8 +257,6 @@ export default function HomeFamilySection() {
             height="3.2rem"
             width="8rem"
             fontSize="14px"
-            padding=".75rem"
-            margin="1rem 0"
             border="1px"
             outline="#000"
             background="transparent"
@@ -256,6 +264,7 @@ export default function HomeFamilySection() {
             borderRadius="1.675rem"
             borderColor="black.500"
             onClick={() => setIsBibleClassDialogOpen(true)}
+            style={{ margin: "1rem 0", padding: "0.75rem" }}
           >
             Learn more
           </Button>
@@ -293,10 +302,12 @@ export default function HomeFamilySection() {
       </AlertDialog>
       <div className="service_posts row justify_one">
         <div className="service_image">
-          <img
+          <Image
             className="family_img family-left"
-            src="/images/prayer.png"
+            src={PrayerPic}
             alt="Family Image"
+            placeholder="blur"
+            blurDataURL={""}
           />
         </div>
 
@@ -307,8 +318,6 @@ export default function HomeFamilySection() {
             height="3.2rem"
             width="8rem"
             fontSize="14px"
-            padding=".75rem"
-            margin="1rem 0"
             border="1px"
             outline="#000"
             background="transparent"
@@ -318,6 +327,7 @@ export default function HomeFamilySection() {
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
             onClick={() => setIsKingdomPublishDialogOpen(true)}
+            style={{ margin: "1rem 0", padding: "0.75rem" }}
           >
             Learn more
           </Button>
