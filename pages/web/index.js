@@ -6,6 +6,7 @@ import { initUtilFunc } from "../../src/utils";
 import { getNextEvent } from "../../src/api/event.api";
 import { getSliderAPI } from "../../src/api/slider.api";
 import { getBranchesApi } from "../../src/api/branch.api";
+import Layout from "../../src/ui/dashboard/web/layout";
 
 export default function Home(props) {
   const router = useRouter();
@@ -15,11 +16,18 @@ export default function Home(props) {
   }, []);
 
   return (
-    <HomePage
-      data={props?.data || {}}
-      slides={props.slides}
-      branches={props.branches}
-    />
+    <Layout
+      externalStyles={[""]}
+      navbar={""}
+      title="Church Blog"
+      withFooter={false}
+    >
+      <HomePage
+        data={props?.data || {}}
+        slides={props.slides}
+        branches={props.branches}
+      />
+    </Layout>
   );
 }
 
