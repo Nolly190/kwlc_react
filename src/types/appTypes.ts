@@ -5,6 +5,7 @@ export interface LayoutProps {
   title: string;
   withFooter: boolean;
   withSideBar?: boolean;
+  page?: string;
 }
 
 export enum CurrencyTypes {

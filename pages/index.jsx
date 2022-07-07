@@ -20,6 +20,7 @@ export default function Home(props) {
       navbar={""}
       title="Church Blog"
       withFooter={false}
+      page="home"
     >
       <HomePage
         data={props?.data || {}}
