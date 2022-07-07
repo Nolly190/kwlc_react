@@ -19,6 +19,8 @@ export default function LocationArea() {
               alt="Location Image"
               width="318px"
               height="176px"
+              placeholder="blur"
+              blurDataURL=""
             />
             <h2>
               Kingdom Ways Living <br /> Church Headquarters

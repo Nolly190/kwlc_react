@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ListMenuIcon from "../../../../components/list-menu-icon";
@@ -5,6 +6,7 @@ import { loadDonations } from "../../../../controller/donation.controller";
 import DonateItemDTO from "../../../../dto/Donate.dto";
 import { fakeModel } from "../../../../utils";
 import Layout from "../layout";
+import donationPic from "../../../../../public/images/donation-hero-banner.png";
 
 import * as styles from "./donate.module.css";
 
@@ -25,7 +27,14 @@ export default function DonationIntro() {
         withSideBar={false}
       >
         <div className="hero-banner-area">
-          <img src="/images/donation-hero-banner.png" alt="" />
+          <Image
+            src={donationPic}
+            alt=""
+            className="img"
+            placeholder="blur"
+            blurDataURL=""
+            layout="fill"
+          />
           <div className="hero-banner-area-text">
             <h2>
               “A gift opens the way and ushers the giver into the presence of
