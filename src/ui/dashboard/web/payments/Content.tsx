@@ -34,7 +34,7 @@ export default function PaymentContent({}) {
         <form id="pay-form">
           <div className="row w-100">
             <div className="col row">
-              <Flex alignItems={"center"}>
+              <Flex alignItems={"center"} mt={4}>
                 <span className="select-action">Select Action</span>
                 <Menu>
                   <MenuButton
@@ -42,7 +42,7 @@ export default function PaymentContent({}) {
                     borderRadius={0}
                     as={Button}
                     rightIcon={
-                      <ChevronDownIcon color="blackAlpha" fontSize="30px" />
+                      <ChevronDownIcon color="black" fontSize="30px" />
                     }
                     px={8}
                     py={8}
@@ -60,7 +60,7 @@ export default function PaymentContent({}) {
               </Flex>
             </div>
             <div className="col row">
-              <Flex alignItems={"center"}>
+              <Flex alignItems={"center"} mt={4}>
                 <span className="select-action">Payment option</span>
                 <Menu>
                   <MenuButton
@@ -68,7 +68,7 @@ export default function PaymentContent({}) {
                     borderRadius={0}
                     as={Button}
                     rightIcon={
-                      <ChevronDownIcon fill="blackAlpha" fontSize="30px" />
+                      <ChevronDownIcon color="black" fontSize="30px" />
                     }
                     px={8}
                     py={8}
@@ -85,12 +85,12 @@ export default function PaymentContent({}) {
           </div>
 
           <div className="row w-100">
-            <div className="input col">
+            <div className="input col" style={{ marginTop: "10px" }}>
               <label htmlFor="email">Email</label>
               <input type="email" name="email" id="email" placeholder="Email" />
             </div>
 
-            <div className="input col">
+            <div className="input col" style={{ marginTop: "10px" }}>
               <div className="payment box">
                 <Grid gridTemplateColumns={"150px 1fr"}>
                   <Flex justifyContent="center" alignItems="center">
@@ -99,7 +99,7 @@ export default function PaymentContent({}) {
                   <div style={{ background: "#f1f1f1", padding: "0 1rem" }}>
                     <Flex alignItems="center">
                       <div>&#8358;</div>
-                      <input type="number" />
+                      <input type="number" className="amount_input" />
                     </Flex>
                   </div>
                 </Grid>

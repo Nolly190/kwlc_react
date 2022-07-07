@@ -87,7 +87,7 @@ export const NavMenu = ({ alt = false }) => {
             <MenuList className="list">
               <MenuItem className="menu-item">
                 <li className="dropdown_menu">
-                  <Link href={"/web/Payment"}>
+                  <Link href={"/web/payment"}>
                     <a className="nav_link">Payment</a>
                   </Link>
                 </li>

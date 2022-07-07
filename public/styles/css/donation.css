@@ -829,6 +829,15 @@ hr {
   font-size: 1.875rem !important;
   color: #000000;
 }
+@media screen and (max-width: 600px) {
+  .payment .content .select-action {
+    font-size: 1rem !important;
+  }
+
+  .payment .input .amount_input {
+    width: 100%;
+  }
+}
 .payment .box {
   border: 0.5px solid #d7d7d7;
 }
