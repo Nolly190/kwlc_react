@@ -1,21 +1,24 @@
+import Image from "next/image";
 import Link from "next/link";
+import DonatePic from "../../../../../public/images/donate.png";
 
 export default function HomeDonate() {
   return (
     // <!-- donate_area-start -->
     <section className="donate_area">
-      <div className="row" style={{ height: 400 }}>
+      <div className="row">
         <div className="donate_img" style={{ height: "100%" }}>
-          <img
-            className=""
+          <Image
             style={{
               width: "100%",
               objectFit: "cover",
-              height: "100%",
               borderRadius: 24,
             }}
-            src="images/donate.png"
+            height={1150}
+            src={DonatePic}
             alt="Donate Image"
+            placeholder="blur"
+            blurDataURL=""
           />
         </div>
 

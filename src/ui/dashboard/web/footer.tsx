@@ -6,6 +6,7 @@ import { LiveStreamDTO } from "../../../dto/LiveStream.dto";
 import { ContactDto } from "../../../dto/contact.dto";
 import { submitContactForm } from "../../../api/contact.api";
 import { getSocialLinks } from "../../../api/branch.api";
+import Logo from "../../../../public/images/KWLClogo.svg";
 
 export default function HomePageFooter(props) {
   const _tmp: LiveStreamDTO[] = [];
@@ -65,31 +66,31 @@ export default function HomePageFooter(props) {
     switch (media.name.toLowerCase()) {
       case "twitter":
         return (
-          <a href={media.link} target="_blank">
+          <a href={media.link} target="_blank" rel="noreferrer">
             <i className="fa fa-twitter" aria-hidden="true"></i>
           </a>
         );
       case "facebook":
         return (
-          <a href={media.link} target="_blank">
+          <a href={media.link} target="_blank" rel="noreferrer">
             <i className="fa fa-facebook" aria-hidden="true"></i>
           </a>
         );
       case "instagram":
         return (
-          <a href={media.link} target="_blank">
+          <a href={media.link} target="_blank" rel="noreferrer">
             <i className="fa fa-instagram" aria-hidden="true"></i>
           </a>
         );
       case "youtube":
         return (
-          <a href={media.link} target="_blank">
+          <a href={media.link} target="_blank" rel="noreferrer">
             <i className="fa fa-youtube" aria-hidden="true"></i>
           </a>
         );
       case "linkedln":
         return (
-          <a href={media.link} target="_blank">
+          <a href={media.link} target="_blank" rel="noreferrer">
             <i className="fa fa-linkedln" aria-hidden="true"></i>
           </a>
         );
@@ -104,7 +105,7 @@ export default function HomePageFooter(props) {
       <div className="footer_col col_address">
         <div className="footer_header logo_text">
           <div className="footer_logo">
-            <img src="/images/KWLClogo.svg" alt="KWLC Logo" />
+            <Image src={Logo} alt="KWLC Logo" />
           </div>
           <h5 className="section_subtitle">Kingdom Ways Living Church</h5>
         </div>

@@ -18,8 +18,23 @@ import {
   Radio,
   useToast,
 } from "@chakra-ui/react";
+import Image from "next/image";
+import { useRouter } from "next/router";
 import { useRef, useState } from "react";
+import { toast } from "react-toastify";
+import {
+  KingdomPublisherLogin,
+  KingdomPublisherRegister,
+} from "../../../../api/familyArea.api";
 import DonateBtn from "../../../../components/donate-btn";
+import DualRing from "../../../../components/loader";
+import {
+  KingdomPublisherLoginDto,
+  KingdomPublisherRegisterDto,
+} from "../../../../dto/familyArea.dto";
+import PrayerPic from "../../../../../public/images/prayer.png";
+import BookPic from "../../../../../public/images/book.png";
+import { StyledDonateBtn } from "../../../../../public/styles/css/trying";
 
 export default function HomeFamilySection() {
   // <!-- family-section-start -->
@@ -28,7 +43,26 @@ export default function HomeFamilySection() {
     useState(false);
   const [isFellowshipDialogOpen, setIsFellowshipDialogOpen] = useState(false);
   const [isBibleClassDialogOpen, setIsBibleClassDialogOpen] = useState(false);
-
+  const [isRegistrationNotifyOpen, setIsRegistrationNotifyOpen] =
+    useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  // login
+  const [TkpID, setTkpID] = useState("");
+  const [emailLogin, setEmailLogin] = useState("");
+  // register
+  const [fullname, setFullname] = useState("");
+  const [emailRegister, setEmailRegister] = useState("");
+  const [phone, setPhone] = useState("");
+  const [amount, setAmount] = useState("");
+  const [maritalStatus, setMaritalStatus] = useState("");
+  const [residentCountry, setResidentCountry] = useState("");
+  const [occupation, setOccupation] = useState("");
+  const [currency, setCurrency] = useState("");
+  const [state, setState] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  //
+  const router = useRouter();
+  //
   const [isKingdomPublishDialogLoginOpen, setIsKingdomPublishDialogLoginOpen] =
     useState(false);
   const [
@@ -39,6 +73,7 @@ export default function HomeFamilySection() {
   const cancelRef2 = useRef();
   const cancelRef3 = useRef();
   const cancelRef4 = useRef();
+  const cancelRef5 = useRef();
 
   const onKingdomPublisherClose = () => {
     setIsKingdomPublishDialogOpen(false);
@@ -49,6 +84,9 @@ export default function HomeFamilySection() {
   const onBibleClassDialogClose = () => {
     setIsBibleClassDialogOpen(false);
   };
+  const onRegistrationNotifyClose = () => {
+    setIsBibleClassDialogOpen(false);
+  };
 
   const onKingdomPublisherLoginClose = () => {
     setIsKingdomPublishDialogLoginOpen(false);
@@ -57,9 +95,55 @@ export default function HomeFamilySection() {
     setIsKingdomPublishDialogRegisterOpen(false);
   };
 
-  const handleFormRegister = () => {};
+  const handleFormRegister = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    setIsLoading(true);
+    const payload: KingdomPublisherRegisterDto = {
+      emailAddress: emailRegister,
+      fullname,
+      phone,
+      amount: Number(amount),
+      maritalStatus,
+      residentCountry,
+      occupation,
+      currency,
+      state,
+      dateOfBirth: new Date(dateOfBirth),
+    };
+    const response = await KingdomPublisherRegister(payload);
+    // console.log(response, payload, "ppp reggg");
+    //TKP0004
+    if (response?.status) {
+      setTkpID(response.data);
+      setEmailLogin(emailRegister);
+      setIsRegistrationNotifyOpen(true);
+    } else {
+      toast.error(response.responseMessage);
+    }
+    setIsLoading(false);
+  };
 
-  const handleFormLogin = () => {};
+  const handleFormLogin = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    setIsLoading(true);
+    const payload: KingdomPublisherLoginDto = {
+      uniqueId: TkpID,
+      email: emailLogin,
+    };
+    const response = await KingdomPublisherLogin(payload);
+    // console.log(response, payload, "ppp loogg");
+    if (response.status) {
+      localStorage.setItem("TKPID", TkpID);
+      router.push("/web/kingdom");
+    } else {
+      toast.error(response.message);
+    }
+    setIsLoading(false);
+  };
 
   return (
     <section className="family_section_area pr">
@@ -96,10 +180,12 @@ export default function HomeFamilySection() {
       <h2>Join the family</h2>
       <div className="service_posts row justify_one">
         <div className="service_image">
-          <img
+          <Image
             className="family_img family-left"
-            src="/images/prayer.png"
+            src={PrayerPic}
             alt="Family Image"
+            placeholder="blur"
+            blurDataURL={""}
           />
         </div>
 
@@ -112,8 +198,6 @@ export default function HomeFamilySection() {
             height="3.2rem"
             width="8rem"
             fontSize="14px"
-            padding=".75rem"
-            margin="1rem 0"
             border="1px"
             outline="#000"
             background="transparent"
@@ -121,6 +205,7 @@ export default function HomeFamilySection() {
             borderRadius="1.675rem"
             borderColor="black.500"
             onClick={() => setIsFellowshipDialogOpen(true)}
+            style={{ margin: "1rem 0", padding: "0.75rem" }}
           >
             Learn more
           </Button>
@@ -158,7 +243,13 @@ export default function HomeFamilySection() {
       </AlertDialog>
       <div className="service_posts row justify_two">
         <div className="service_image">
-          <img className="family_img" src="/images/book.png" alt="Book Image" />
+          <Image
+            className="family_img"
+            src={BookPic}
+            alt="Book Image"
+            placeholder="blur"
+            blurDataURL={""}
+          />
         </div>
         <div className="right_text">
           <h3>Join our bible classes today </h3>
@@ -167,8 +258,6 @@ export default function HomeFamilySection() {
             height="3.2rem"
             width="8rem"
             fontSize="14px"
-            padding=".75rem"
-            margin="1rem 0"
             border="1px"
             outline="#000"
             background="transparent"
@@ -176,6 +265,7 @@ export default function HomeFamilySection() {
             borderRadius="1.675rem"
             borderColor="black.500"
             onClick={() => setIsBibleClassDialogOpen(true)}
+            style={{ margin: "1rem 0", padding: "0.75rem" }}
           >
             Learn more
           </Button>
@@ -213,10 +303,12 @@ export default function HomeFamilySection() {
       </AlertDialog>
       <div className="service_posts row justify_one">
         <div className="service_image">
-          <img
+          <Image
             className="family_img family-left"
-            src="/images/prayer.png"
+            src={PrayerPic}
             alt="Family Image"
+            placeholder="blur"
+            blurDataURL={""}
           />
         </div>
 
@@ -227,8 +319,6 @@ export default function HomeFamilySection() {
             height="3.2rem"
             width="8rem"
             fontSize="14px"
-            padding=".75rem"
-            margin="1rem 0"
             border="1px"
             outline="#000"
             background="transparent"
@@ -238,6 +328,7 @@ export default function HomeFamilySection() {
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
             onClick={() => setIsKingdomPublishDialogOpen(true)}
+            style={{ margin: "1rem 0", padding: "0.75rem" }}
           >
             Learn more
           </Button>
@@ -271,30 +362,35 @@ export default function HomeFamilySection() {
             </article>
             <div className="my-4"></div>
           </AlertDialogBody>
-          <AlertDialogFooter>
+          <AlertDialogFooter bg={"#f1f1f1"}>
             <Stack direction="row" spacing={4}>
-              <DonateBtn
-                className={"btn"}
-                label="Register"
-                labelStyle={{ color: "black" }}
-                style={{ marginTop: 0 }}
-                withImg={false}
-                onClick={() => {
-                  setIsKingdomPublishDialogOpen(false);
-                  setIsKingdomPublishDialogRegisterOpen(true);
-                }}
-              />
+              <StyledDonateBtn>
+                <DonateBtn
+                  className={"btn"}
+                  label="Register"
+                  labelStyle={{ color: "black" }}
+                  style={{ marginTop: 0 }}
+                  withImg={false}
+                  onClick={() => {
+                    setIsKingdomPublishDialogOpen(false);
+                    setIsKingdomPublishDialogRegisterOpen(true);
+                  }}
+                />
+              </StyledDonateBtn>
 
-              <DonateBtn
-                className={"btn"}
-                label="Login"
-                labelStyle={{ color: "black" }}
-                withImg={false}
-                onClick={() => {
-                  setIsKingdomPublishDialogOpen(false);
-                  setIsKingdomPublishDialogLoginOpen(true);
-                }}
-              />
+              <StyledDonateBtn>
+                <DonateBtn
+                  className={"btn"}
+                  label="Login"
+                  labelStyle={{ color: "black" }}
+                  style={{ marginTop: 0 }}
+                  withImg={false}
+                  onClick={() => {
+                    setIsKingdomPublishDialogOpen(false);
+                    setIsKingdomPublishDialogLoginOpen(true);
+                  }}
+                />
+              </StyledDonateBtn>
             </Stack>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -317,42 +413,82 @@ export default function HomeFamilySection() {
               <Stack direction="row" spacing={"4"}>
                 <FormControl>
                   <FormLabel htmlFor="name">Name</FormLabel>
-                  <Input id="name" type="text" placeholder="Name" />
+                  <Input
+                    id="name"
+                    type="text"
+                    placeholder="Name"
+                    onChange={(e) => setFullname(e.target.value)}
+                  />
                 </FormControl>
 
                 <FormControl>
                   <FormLabel htmlFor="email">Email address</FormLabel>
-                  <Input id="email" type="email" placeholder="Email" />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="Email"
+                    onChange={(e) => setEmailRegister(e.target.value)}
+                  />
                 </FormControl>
               </Stack>
               <Stack direction="row" spacing={"4"}>
                 <FormControl>
                   <FormLabel htmlFor="phone">Phonenumber</FormLabel>
-                  <Input id="phone" type="text" placeholder="Phone" />
+                  <Input
+                    id="phone"
+                    type="text"
+                    placeholder="Phone"
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
                 </FormControl>
                 <FormControl>
                   <FormLabel htmlFor="age">Age</FormLabel>
-                  <Input id="age" type="number" placeholder="Age" />
+                  <Input
+                    id="age"
+                    type="number"
+                    placeholder="Age"
+                    onChange={(e) => setDateOfBirth(e.target.value)}
+                  />
                 </FormControl>
               </Stack>
               <Stack direction="row" spacing={"4"}>
                 <FormControl>
                   <FormLabel htmlFor="city">City</FormLabel>
-                  <Input id="city" type="text" placeholder="City" />
+                  <Input
+                    id="city"
+                    type="text"
+                    placeholder="City"
+                    onChange={(e) => setState(e.target.value)}
+                  />
                 </FormControl>
                 <FormControl>
                   <FormLabel htmlFor="country">Country</FormLabel>
-                  <Input id="country" type="text" placeholder="Country" />
+                  <Input
+                    id="country"
+                    type="text"
+                    placeholder="Country"
+                    onChange={(e) => setResidentCountry(e.target.value)}
+                  />
                 </FormControl>
               </Stack>
               <Stack direction="row" spacing={"4"}>
                 <FormControl>
                   <FormLabel htmlFor="occupation">Occupation</FormLabel>
-                  <Input id="occupation" type="text" placeholder="Occupation" />
+                  <Input
+                    id="occupation"
+                    type="text"
+                    placeholder="Occupation"
+                    onChange={(e) => setOccupation(e.target.value)}
+                  />
                 </FormControl>
                 <FormControl>
                   <FormLabel htmlFor="amount">Contribution Amount</FormLabel>
-                  <Input id="amount" type="number" placeholder="Amount" />
+                  <Input
+                    id="amount"
+                    type="number"
+                    placeholder="Amount"
+                    onChange={(e) => setAmount(e.target.value)}
+                  />
                 </FormControl>
               </Stack>
             </Stack>
@@ -361,6 +497,28 @@ export default function HomeFamilySection() {
             <Stack direction="row" spacing={4}>
               <Button colorScheme="messenger" onClick={handleFormRegister}>
                 Signup
+              </Button>
+            </Stack>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog
+        motionPreset="slideInBottom"
+        onClose={onRegistrationNotifyClose}
+        isOpen={isRegistrationNotifyOpen}
+        leastDestructiveRef={cancelRef5}
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader>Registeration Successful!</AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogFooter>
+            <Stack direction="row" spacing={4}>
+              <Button colorScheme="telegram" onClick={handleFormLogin}>
+                Login Now
               </Button>
             </Stack>
           </AlertDialogFooter>
@@ -383,19 +541,33 @@ export default function HomeFamilySection() {
             <Stack direction="column" spacing={"4"}>
               <FormControl>
                 <FormLabel htmlFor="email">TKP ID</FormLabel>
-                <Input id="email" type="email" placeholder="TKP ID" />
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="TKP ID"
+                  onChange={(e) => setTkpID(e.target.value)}
+                />
               </FormControl>
 
               <FormControl>
                 <FormLabel htmlFor="email">Email address/Phone</FormLabel>
-                <Input id="email" type="text" placeholder="Email/Phone" />
+                <Input
+                  id="email"
+                  type="text"
+                  placeholder="Email/Phone"
+                  onChange={(e) => setEmailLogin(e.target.value)}
+                />
               </FormControl>
             </Stack>
           </AlertDialogBody>
           <AlertDialogFooter>
             <Stack direction="row" spacing={4}>
               <Button colorScheme="telegram" onClick={handleFormLogin}>
-                Login
+                {isLoading ? (
+                  <DualRing width="20px" height="20px" color="#fff" />
+                ) : (
+                  "Login"
+                )}
               </Button>
             </Stack>
           </AlertDialogFooter>

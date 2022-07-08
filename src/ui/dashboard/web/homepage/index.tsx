@@ -11,6 +11,7 @@ import LocationArea from "./locationArea";
 import HomePageFooter from "./../footer";
 import Layout from "../layout";
 import Autocomplete from "react-google-autocomplete";
+import { HomepageWrapper } from "../../../../../public/styles/css/trying";
 
 // import styles from './../../styles/Home.module.css'
 
@@ -31,17 +32,19 @@ export default function HomePage({ data, slides, branches }) {
             rel="stylesheet"
           />
         </Head>
-        <div className="main_container home-container">
-          <HeroBanner slides={slides} />
-          <HomeTimer data={data} />
-          <HomeServiceArea />
-          <HomeAboutArea />
-          <HomeWorshipArea branches={branches} />
-          <HomeDonate />
-          <HomeFamilyArea />
-          <LocationArea />
-          <HomePageFooter />
-        </div>
+        <HomepageWrapper>
+          <div className="main_container home-container">
+            <HeroBanner slides={slides} />
+            <HomeTimer data={data} />
+            <HomeServiceArea />
+            <HomeAboutArea />
+            <HomeWorshipArea branches={branches} />
+            <HomeDonate />
+            <HomeFamilyArea />
+            <LocationArea />
+            <HomePageFooter />
+          </div>
+        </HomepageWrapper>
       </div>
     </>
   );

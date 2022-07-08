@@ -693,6 +693,11 @@ span {
   justify-content: center;
   align-items: center;
   padding-bottom: 1rem;
+  position: relative;
+}
+
+.timer_column iframe {
+  border-radius: 10px;
 }
 
 .timer_bd {
@@ -753,6 +758,7 @@ span {
   margin-bottom: 2rem;
   height: 220px;
   border-radius: 16px;
+  cursor: pointer;
 }
 
 .service_col.bg1,

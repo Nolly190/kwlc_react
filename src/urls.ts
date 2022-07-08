@@ -3,6 +3,10 @@ export const urls = {
   updateDonation: "Donation/UpdateDonation",
   makeDonation: "Payment/Payment",
   contact: "Contact",
+  KingdomPublisherLogin: "KingdomPublishers/KingdomPublishersLogin",
+  KingdomPublisherRegister: "KingdomPublishers/Register",
+  GetUserHistory: "KingdomPublishers/GetUserHistory",
+  ConfirmPayment: "KingdomPublishers/ConfirmPayment",
 
   getAllMails: "Contact/Get",
 
