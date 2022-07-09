@@ -53,7 +53,10 @@ const LiveServiceBanner = ({ streamUrl }) => {
         right="68px"
         display={{ base: "none", lg: "block" }}
       >
-        <YouTube videoId={streamUrl} opts={{ height: "230", width: "400" }} />
+        <YouTube
+          videoId={streamUrl.split("=")[1]}
+          opts={{ height: "210", width: "400" }}
+        />
       </Box>
       <div
         className="event pd-top"

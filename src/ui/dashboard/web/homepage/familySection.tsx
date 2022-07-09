@@ -4,6 +4,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Select,
 } from "@chakra-ui/react";
 import {
   AlertDialog,
@@ -34,7 +35,8 @@ import {
 } from "../../../../dto/familyArea.dto";
 import PrayerPic from "../../../../../public/images/prayer.png";
 import BookPic from "../../../../../public/images/book.png";
-import { StyledDonateBtn } from "../../../../../public/styles/css/trying";
+import { StyledDonateBtn } from "../../../../../public/styles/css/homepageStyle";
+import { writeToLocalStorage } from "../../../../utils";
 
 export default function HomeFamilySection() {
   // <!-- family-section-start -->
@@ -85,7 +87,7 @@ export default function HomeFamilySection() {
     setIsBibleClassDialogOpen(false);
   };
   const onRegistrationNotifyClose = () => {
-    setIsBibleClassDialogOpen(false);
+    setIsRegistrationNotifyOpen(false);
   };
 
   const onKingdomPublisherLoginClose = () => {
@@ -99,6 +101,11 @@ export default function HomeFamilySection() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+
+    if (phone.length < 11) {
+      return toast.error("phone number must be at least 11 digits");
+    }
+
     setIsLoading(true);
     const payload: KingdomPublisherRegisterDto = {
       emailAddress: emailRegister,
@@ -113,14 +120,14 @@ export default function HomeFamilySection() {
       dateOfBirth: new Date(dateOfBirth),
     };
     const response = await KingdomPublisherRegister(payload);
-    // console.log(response, payload, "ppp reggg");
-    //TKP0004
-    if (response?.status) {
+    if (response.status) {
       setTkpID(response.data);
       setEmailLogin(emailRegister);
+      setIsKingdomPublishDialogRegisterOpen(false);
       setIsRegistrationNotifyOpen(true);
+      setIsLoading(false);
     } else {
-      toast.error(response.responseMessage);
+      toast.error(response.message);
     }
     setIsLoading(false);
   };
@@ -135,9 +142,8 @@ export default function HomeFamilySection() {
       email: emailLogin,
     };
     const response = await KingdomPublisherLogin(payload);
-    // console.log(response, payload, "ppp loogg");
     if (response.status) {
-      localStorage.setItem("TKPID", TkpID);
+      writeToLocalStorage("userData", JSON.stringify({ token: response.data }));
       router.push("/web/kingdom");
     } else {
       toast.error(response.message);
@@ -442,11 +448,13 @@ export default function HomeFamilySection() {
                   />
                 </FormControl>
                 <FormControl>
-                  <FormLabel htmlFor="age">Age</FormLabel>
+                  <FormLabel htmlFor="DOB">Age</FormLabel>
                   <Input
-                    id="age"
-                    type="number"
-                    placeholder="Age"
+                    placeholder="Select Date and Time"
+                    id="DOB"
+                    size="md"
+                    backgroundColor="#ffffff"
+                    type="date"
                     onChange={(e) => setDateOfBirth(e.target.value)}
                   />
                 </FormControl>
@@ -482,6 +490,32 @@ export default function HomeFamilySection() {
                   />
                 </FormControl>
                 <FormControl>
+                  <FormLabel htmlFor="maritalStatus">Marital Status</FormLabel>
+                  <Select
+                    placeholder="Select option"
+                    id="maritalStatus"
+                    onChange={(e) => setMaritalStatus(e.target.value)}
+                  >
+                    <option value="single">Single</option>
+                    <option value="married">Married</option>
+                  </Select>
+                </FormControl>
+              </Stack>
+              <Stack direction="row" spacing={"4"}>
+                <FormControl>
+                  <FormLabel htmlFor="currency">Currency</FormLabel>
+                  <Select
+                    placeholder="Select option"
+                    id="currency"
+                    onChange={(e) => setCurrency(e.target.value)}
+                  >
+                    <option value="Dollars">Dollars</option>
+                    <option value="Euros">Euros</option>
+                    <option value="Pounds">Pounds</option>
+                    <option value="Naira">Naira</option>
+                  </Select>
+                </FormControl>
+                <FormControl>
                   <FormLabel htmlFor="amount">Contribution Amount</FormLabel>
                   <Input
                     id="amount"
@@ -496,7 +530,11 @@ export default function HomeFamilySection() {
           <AlertDialogFooter>
             <Stack direction="row" spacing={4}>
               <Button colorScheme="messenger" onClick={handleFormRegister}>
-                Signup
+                {isLoading ? (
+                  <DualRing width="20px" height="20px" color="#fff" />
+                ) : (
+                  "Signup"
+                )}
               </Button>
             </Stack>
           </AlertDialogFooter>
@@ -515,10 +553,17 @@ export default function HomeFamilySection() {
         <AlertDialogContent>
           <AlertDialogHeader>Registeration Successful!</AlertDialogHeader>
           <AlertDialogCloseButton />
+          <AlertDialogBody style={{ marginBottom: 20 }}>
+            Your TKP ID is: {TkpID}
+          </AlertDialogBody>
           <AlertDialogFooter>
             <Stack direction="row" spacing={4}>
               <Button colorScheme="telegram" onClick={handleFormLogin}>
-                Login Now
+                {isLoading ? (
+                  <DualRing width="20px" height="20px" color="#fff" />
+                ) : (
+                  "Login Now"
+                )}
               </Button>
             </Stack>
           </AlertDialogFooter>

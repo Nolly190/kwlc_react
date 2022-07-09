@@ -346,6 +346,7 @@ export const HomepageWrapper = styled.div`
     justify-content: space-between;
     margin: 1rem;
     align-items: center;
+    width: 100%;
   }
   /*  */
 

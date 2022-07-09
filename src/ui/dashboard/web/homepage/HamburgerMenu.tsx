@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { AiFillGift } from "react-icons/ai";
-import { Nav_item } from "../../../../../public/styles/css/trying";
+import { Nav_item } from "../../../../../public/styles/css/homepageStyle";
 
 export default function Hamburger() {
   const { isOpen, onOpen, onClose } = useDisclosure();

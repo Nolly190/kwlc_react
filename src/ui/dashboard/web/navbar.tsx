@@ -12,7 +12,7 @@ import { AiFillGift } from "react-icons/ai";
 import Link from "next/link";
 import Logo from "../../../../public/images/KWLClogo.svg";
 import Image from "next/image";
-import { MiniWrapper } from "../../../../public/styles/css/trying";
+import { MiniWrapper } from "../../../../public/styles/css/homepageStyle";
 
 export const NavMenu = ({ alt = false }) => {
   return (
