@@ -155,7 +155,7 @@ const KingdomPage = () => {
                     <Box as="span" color="inherit" fontWeight="bold">
                       Amount:{" "}
                     </Box>{" "}
-                    {data.user.currency.toUpperCase()} {data?.user.amount}
+                    {data?.user.currency.toUpperCase()} {data?.user.amount}
                   </Box>
                 </Flex>
               </Flex>
