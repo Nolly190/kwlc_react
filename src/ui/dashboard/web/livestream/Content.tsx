@@ -23,7 +23,6 @@ export default function LiveStreamContent({ data }) {
   }, []);
 
   const currentMovie = data?.data[currentIndex] || {};
-
   return (
     <>
       <div className="livStream">
