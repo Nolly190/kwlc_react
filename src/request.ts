@@ -21,6 +21,18 @@ export const getToken = (): string => {
 
   return token;
 };
+export const getKingdomData = (): string => {
+  let token = "";
+  let rawData: string = getFromLocalStorage("kingdomData");
+
+  if (rawData) {
+    const result: any = rawData;
+
+    token = result;
+  }
+
+  return token;
+};
 
 const request = axios.create({
   baseURL: baseUrl,
@@ -28,6 +40,7 @@ const request = axios.create({
 
 request.interceptors.request.use((config) => {
   const token = getToken();
+  const kingdomData = getKingdomData();
 
   const newConfig = { ...config };
 
@@ -35,6 +48,13 @@ request.interceptors.request.use((config) => {
     newConfig.headers = {
       ...newConfig.headers,
       Authorization: `Bearer ${token}`,
+    };
+  }
+
+  if (kingdomData) {
+    newConfig.headers = {
+      ...newConfig.headers,
+      AuthKey: `${kingdomData}`,
     };
   }
 

@@ -101,9 +101,16 @@ export default function HomeFamilySection() {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+    var phoneRGEX = /^([0]\d{10})|([\+]?[2][3][4]\d{10})$/;
+    var emailRGEX = /^\S+@\S+\.\S+$/;
+    var phoneResult = phoneRGEX.test(phone);
+    var emailResult = emailRGEX.test(emailRegister);
+    if (!phoneResult) {
+      return toast.error("Invalid Phone Number");
+    }
 
-    if (phone.length < 11) {
-      return toast.error("phone number must be at least 11 digits");
+    if (!emailResult) {
+      return toast.error("Invalid Email Address");
     }
 
     setIsLoading(true);
@@ -143,7 +150,7 @@ export default function HomeFamilySection() {
     };
     const response = await KingdomPublisherLogin(payload);
     if (response.status) {
-      writeToLocalStorage("userData", JSON.stringify({ token: response.data }));
+      localStorage.setItem("kingdomData", response.data);
       router.push("/web/kingdom");
     } else {
       toast.error(response.message);
@@ -448,7 +455,7 @@ export default function HomeFamilySection() {
                   />
                 </FormControl>
                 <FormControl>
-                  <FormLabel htmlFor="DOB">Age</FormLabel>
+                  <FormLabel htmlFor="DOB">Date of Birth</FormLabel>
                   <Input
                     placeholder="Select Date and Time"
                     id="DOB"
@@ -595,11 +602,11 @@ export default function HomeFamilySection() {
               </FormControl>
 
               <FormControl>
-                <FormLabel htmlFor="email">Email address/Phone</FormLabel>
+                <FormLabel htmlFor="email">Email address</FormLabel>
                 <Input
                   id="email"
                   type="text"
-                  placeholder="Email/Phone"
+                  placeholder="Email"
                   onChange={(e) => setEmailLogin(e.target.value)}
                 />
               </FormControl>
