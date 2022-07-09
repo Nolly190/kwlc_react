@@ -35,7 +35,7 @@ import {
 } from "../../../../dto/familyArea.dto";
 import PrayerPic from "../../../../../public/images/prayer.png";
 import BookPic from "../../../../../public/images/book.png";
-import { StyledDonateBtn } from "../../../../../public/styles/css/trying";
+import { StyledDonateBtn } from "../../../../../public/styles/css/homepageStyle";
 import { writeToLocalStorage } from "../../../../utils";
 
 export default function HomeFamilySection() {

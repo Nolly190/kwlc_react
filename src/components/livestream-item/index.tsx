@@ -23,7 +23,7 @@ const LiveStreamItem: FC<SingleLiveStreamItem> = (
       <div className="column first">
         <YouTube
           className={"vid thumbnail-iframe"}
-          videoId={videoUrl} // defaults -> null https://www.youtube.com/watch?v=
+          videoId={videoUrl.split("=")[1]} // defaults -> null https://www.youtube.com/watch?v=
           title={title} // defaults -> null
           onEnd={() => {
             console.log("ended");

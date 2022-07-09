@@ -39,7 +39,7 @@ export default function LiveStreamContent({ data }) {
                     <div className="amount">{item.views}k</div>
                 </div> */}
             <YouTube
-              videoId={currentMovie.liveStreamUrl} // defaults -> null
+              videoId={currentMovie.liveStreamUrl.split("=")[1]} // defaults -> null
               id={currentMovie.id?.toString()} // defaults -> null
               title={currentMovie.title} // defaults -> null
               onEnd={() => {

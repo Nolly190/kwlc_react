@@ -11,7 +11,7 @@ import LocationArea from "./locationArea";
 import HomePageFooter from "./../footer";
 import Layout from "../layout";
 import Autocomplete from "react-google-autocomplete";
-import { HomepageWrapper } from "../../../../../public/styles/css/trying";
+import { HomepageWrapper } from "../../../../../public/styles/css/homepageStyle";
 
 // import styles from './../../styles/Home.module.css'
 

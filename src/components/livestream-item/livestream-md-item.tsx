@@ -18,7 +18,7 @@ const LiveStreamMDItem: FC<SingleLiveStreamItem> = (
           <YouTube
             // className={'vid'}
             className="previous-stream-thumbnail"
-            videoId={videoUrl} // defaults -> null https://www.youtube.com/watch?v=
+            videoId={videoUrl.split("=")[1]} // defaults -> null https://www.youtube.com/watch?v=
             title={title} // defaults -> null
             onEnd={() => {
               console.log("ended");
