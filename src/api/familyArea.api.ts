@@ -62,7 +62,7 @@ export async function getUserHistory(): Promise<ResponseDTO> {
     let res = await request.get(`${urls.baseUrl}${urls.GetUserHistory}`);
     let data;
     if (res.status) {
-      data = res.data.data;
+      data = res.data;
       response.data = data;
     }
 

@@ -10,7 +10,6 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -21,155 +20,196 @@ import {
   Box,
   Flex,
 } from "@chakra-ui/react";
+import Layout from "../layout";
+import moment from "moment";
 
-const KingdomPage = ({ data }) => {
+interface Props {
+  user: {
+    uniqueId: string;
+    amount: number;
+    fullName: string;
+    emailAddress: string;
+    occupation: string;
+    phone: number;
+    currency: string;
+  };
+  contributions: {
+    amountPaid: number;
+    id: number;
+    monthPaid: string;
+    status: string;
+  }[];
+}
+
+const KingdomPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  console.log(data);
+  const [isBtnLoading, setIsBtnLoading] = useState(false);
+  const [data, setData] = useState<Props>();
 
-  const [items, setItems] = useState([]);
   const router = useRouter();
 
   const handlePayNow = async (
-    e: React.MouseEvent<HTMLLIElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    setIsLoading(true);
-    // const payload: KingdomPublisherConfirmPaymentDto = {
-    //   uniqueId: string,
-    // amount: 0,
-    //   date: new Date()
-    // };
-    // const response = await ConfirmPayment(payload);
-    // console.log(response, payload, "ppp loogg");
-    // if (response.status) {
-    //   toast.success(response.responseMessage);
-    // } else {
-    //   toast.error(response.responseMessage);
-    // }
-    setIsLoading(false);
+    setIsBtnLoading(true);
+    const payload: KingdomPublisherConfirmPaymentDto = {
+      uniqueId: data.user.uniqueId,
+      amount: data.user.amount,
+      date: new Date(),
+    };
+    const response = await ConfirmPayment(payload);
+    if (response.status) {
+      toast.success("Payment Successful");
+    } else {
+      toast.error(response.responseMessage);
+    }
+    setIsBtnLoading(false);
+  };
+
+  const fetch = async () => {
+    try {
+      setIsLoading(true);
+      const res = await getUserHistory();
+      const data = res.data.data;
+      setData(data);
+      setIsLoading(false);
+    } catch (error) {
+      toast.error(error);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
-    if (localStorage.getItem("userData") === null) router.push("/web");
+    fetch();
+    if (localStorage.getItem("kingdomData") === null) router.push("/web");
   }, [router]);
   return (
-    <Box bg={"whitesmoke"} width="100vw" height={"100vh"} pt={10}>
-      <Flex
-        flexDir={"column"}
-        justifyContent="space-between"
-        boxShadow="base"
-        bg={"white"}
-        m={10}
-        mt={0}
-        borderRadius="lg"
-      >
-        <Stack
-          bg="teal"
-          borderRadius={"sm"}
-          marginTop="-20px"
-          padding={"15px"}
-          mx={8}
-        >
-          <Box color={"white"}>Kingdom Publisher History</Box>
-          <Button width={"fit-content"}>Pay Now</Button>
-        </Stack>
-        <TableContainer px={10}>
-          <Table variant={"striped"}>
-            <TableCaption> Kingdom Publisher History</TableCaption>
-            <Thead>
-              <Tr>
-                <Th>id</Th>
-                <Th isNumeric>amountPaid</Th>
-                <Th isNumeric>monthPaid</Th>
-                <Th>status</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td>inches</Td>
-                <Td isNumeric>25.4</Td>
-                <Td isNumeric>25.4</Td>
-                <Td>millimetres (mm)</Td>
-              </Tr>
-              <Tr>
-                <Td>inches</Td>
-                <Td isNumeric>25.4</Td>
-                <Td isNumeric>25.4</Td>
-                <Td>millimetres (mm)</Td>
-              </Tr>
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </Flex>
-    </Box>
-
-    // <div className="row">
-    //   <div className="col-md-12">
-    //     <div className="card">
-    //       <div className="card-header card-header-primary">
-    //         <div className="nav-tabs-navigation">
-    //           <div className="nav-tabs-wrapper">
-    //             <span className="nav-tabs-title">
-    //               Kingdom Publisher History
-    //             </span>
-    //             <ul className="nav nav-tabs" data-tabs="tabs">
-    //               <li className="nav-item" onClick={(e) => handlePayNow(e)}>
-    //                 <a className="nav-link active" data-toggle="tab">
-    //                   Pay Now
-    //                 </a>
-    //               </li>
-    //             </ul>
-    //           </div>
-    //         </div>
-    //       </div>
-    //       <div className="card-body">
-    //         <div className="col-xl-8 col-md-6" id="spinner_loader"></div>
-    //         <div className="table-responsive" id="table_div">
-    //           {isLoading ? (
-    //             <LoaderWrapper>
-    //               <DualRing width="40px" height="40px" color="#0b0146" />
-    //             </LoaderWrapper>
-    //           ) : (
-    //             <table className="table">
-    //               <thead className=" text-primary">
-    //                 <th>Title</th>
-    //                 <th>State</th>
-    //                 <th>Pastor</th>
-    //                 <th>Is HQ</th>
-    //                 <th>Date Created</th>
-    //                 <th></th>
-    //                 <th></th>
-    //               </thead>
-    //               <tbody id="tbody">
-    //                 {items?.length > 0 ? (
-    //                   items.map((x, index) => {
-    //                     return (
-    //                       <tr key={index}>
-    //                         <td>{x.name}</td>
-    //                         <td> {x.state}</td>
-    //                         <td>
-    //                           yyyy
-    //                           {/* {branchController.renderPastor(pastors, x.id)} */}
-    //                         </td>
-    //                         <td> {x.isBranchHq ? "Yes" : "No"}</td>
-    //                         <td>
-    //                           kjnjknnjk
-    //                           {/* {moment(x.dateCreated).format("DD/MMM/yyyy")} */}
-    //                         </td>
-    //                       </tr>
-    //                     );
-    //                   })
-    //                 ) : (
-    //                   <div>no data available</div>
-    //                 )}
-    //               </tbody>
-    //             </table>
-    //           )}
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
+    <Layout
+      externalStyles={[""]}
+      navbar={"web"}
+      title={"Kingdom Publisher"}
+      withFooter={true}
+    >
+      <div className="live">
+        <Box bg={"whitesmoke"} width="100vw" pt={10}>
+          <Flex
+            flexDir={"column"}
+            justifyContent="space-between"
+            boxShadow="base"
+            bg={"white"}
+            m={10}
+            mt={0}
+            borderRadius="lg"
+          >
+            <Stack
+              bg="teal"
+              borderRadius={"sm"}
+              marginTop="-20px"
+              padding={"15px"}
+              mx={8}
+            >
+              <Flex
+                justifyContent={"space-between"}
+                color="white"
+                // flexDir="column"
+              >
+                <Box color={"white"}>Kingdom Publisher History</Box>
+                <Flex
+                  justifyContent={"space-between"}
+                  color="white"
+                  flexDir="column"
+                >
+                  <Box>
+                    <Box as="span" color="inherit" fontWeight="bold">
+                      Unique Id:{" "}
+                    </Box>
+                    {data?.user.uniqueId}
+                  </Box>
+                  <Box>
+                    <Box as="span" color="inherit" fontWeight="bold">
+                      FullName:
+                    </Box>{" "}
+                    {data?.user.fullName}
+                  </Box>
+                  <Box>
+                    <Box as="span" color="inherit" fontWeight="bold">
+                      {" "}
+                      Email:{" "}
+                    </Box>{" "}
+                    {data?.user.emailAddress}
+                  </Box>
+                  <Box>
+                    <Box as="span" color="inherit" fontWeight="bold">
+                      Occupation:{" "}
+                    </Box>{" "}
+                    {data?.user.occupation}
+                  </Box>
+                  <Box>
+                    <Box as="span" color="inherit" fontWeight="bold">
+                      Phone:{" "}
+                    </Box>{" "}
+                    {data?.user.phone}
+                  </Box>
+                  <Box>
+                    <Box as="span" color="inherit" fontWeight="bold">
+                      Amount:{" "}
+                    </Box>{" "}
+                    {data?.user.currency.toUpperCase()} {data?.user.amount}
+                  </Box>
+                </Flex>
+              </Flex>
+              <Button width={"fit-content"} onClick={(e) => handlePayNow(e)}>
+                {isBtnLoading ? (
+                  <DualRing width="20px" height="20px" color="black" />
+                ) : (
+                  "Pay Now"
+                )}
+              </Button>
+            </Stack>
+            <TableContainer px={10}>
+              {isLoading ? (
+                <LoaderWrapper>
+                  <DualRing width="40px" height="40px" color="#0b0146" />
+                </LoaderWrapper>
+              ) : (
+                <>
+                  {data?.contributions.length ? (
+                    <Table variant={"striped"}>
+                      <TableCaption> Kingdom Publisher History</TableCaption>
+                      <Thead>
+                        <Tr>
+                          <Th>id</Th>
+                          <Th isNumeric>amountPaid</Th>
+                          <Th isNumeric>monthPaid</Th>
+                          <Th>status</Th>
+                        </Tr>
+                      </Thead>
+                      <Tbody>
+                        {data.contributions.map((item) => (
+                          <Tr key={item.id}>
+                            <Td>{item.id}</Td>
+                            <Td isNumeric>{item.amountPaid}</Td>
+                            <Td isNumeric>
+                              {moment(item.monthPaid).format("DD MMM,yyyy")}
+                            </Td>
+                            <Td>{item.status}</Td>
+                          </Tr>
+                        ))}
+                      </Tbody>
+                    </Table>
+                  ) : (
+                    <Box textAlign={"center"} my={8}>
+                      No Contribution Data Available
+                    </Box>
+                  )}
+                </>
+              )}
+            </TableContainer>
+          </Flex>
+        </Box>
+      </div>
+    </Layout>
   );
 };
 
