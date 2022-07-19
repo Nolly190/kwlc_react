@@ -314,7 +314,7 @@ export default function HomeFamilySection() {
           </AlertDialogBody>
         </AlertDialogContent>
       </AlertDialog>
-      <div className="service_posts row justify_one">
+      <div className="service_posts row justify_one last_post">
         <div className="service_image">
           <Image
             className="family_img family-left"

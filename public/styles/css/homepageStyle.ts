@@ -1009,7 +1009,6 @@ export const HomepageWrapper = styled.div`
   }
 
   .family_section_area .service_posts {
-    margin-bottom: 4.68rem;
     padding: 0 1rem;
   }
 
@@ -1020,6 +1019,7 @@ export const HomepageWrapper = styled.div`
 
   .right_text {
     margin-left: 1.5rem;
+    margin-bottom: 2rem;
   }
 
   .right_text h3 {
@@ -1037,8 +1037,7 @@ export const HomepageWrapper = styled.div`
   .service_image {
     width: 25rem;
   }
-
-  @media screen and (min-width: 768px) {
+  @media screen and (max-width: 1369px) {
     .family_section_area {
       padding: 0 3rem;
     }
@@ -1047,6 +1046,57 @@ export const HomepageWrapper = styled.div`
     }
     .justify_two {
       justify-content: flex-end;
+    }
+
+    .family_section_area .service_posts {
+      margin-bottom: 4.68rem;
+    }
+
+    .right_text {
+      margin-bottom: 0;
+    }
+  }
+
+  @media screen and (min-width: 1370px) {
+    .family_section_area {
+      padding: 0 3rem;
+    }
+    .justify_one {
+      justify-content: flex-start;
+      gap: 30rem;
+    }
+    .last_post {
+      margin-top: -3rem;
+      .right_text {
+        margin-top: 3rem;
+      }
+    }
+    .justify_two {
+      margin-left: 20rem;
+      margin-top: -3rem;
+      justify-content: flex-start;
+      gap: 10rem;
+      position: relative;
+    }
+    .justify_two::before {
+      content: " ";
+      position: absolute;
+      top: 6px;
+      left: 0;
+      height: 0.5px;
+      background: #1e1e1e;
+      width: 100%;
+      z-index: -10;
+    }
+    .justify_two::after {
+      content: " ";
+      position: absolute;
+      bottom: 18px;
+      left: 0;
+      height: 0.5px;
+      background: #1e1e1e;
+      width: 100%;
+      z-index: -10;
     }
   }
 
