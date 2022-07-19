@@ -255,6 +255,7 @@ export interface EventsResponse {
 }
 
 export interface EventImageType {
+  id: number;
   imageUrl: string;
 }
 

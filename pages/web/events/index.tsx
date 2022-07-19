@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
-import { getEventsApi } from "../../src/api/event.api";
-import Events from "../../src/ui/dashboard/web/events";
+import { getEventsApi } from "../../../src/api/event.api";
+import Events from "../../../src/ui/dashboard/web/events";
 
 export default function Event(props) {
   return <Events data={props.data} totalPages={props.totalPages} />;
