@@ -62,7 +62,7 @@ const SingleEventPage: React.FC<{ data: EventsResponse }> = ({ data }) => {
             Event Details
           </Heading>
           <Grid
-            templateColumns="1fr 2fr 1fr"
+            templateColumns="1fr 1fr 1fr"
             gap={6}
             color="#5A5A5A"
             fontSize="20px"

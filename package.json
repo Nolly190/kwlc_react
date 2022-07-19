@@ -22,6 +22,7 @@
     "babel-preset-react": "^6.24.1",
     "crypto-js": "^4.1.1",
     "framer-motion": "^6",
+    "google-map-react": "^2.2.0",
     "hashids": "^2.2.10",
     "moment": "^2.29.1",
     "next": "^12.2.0",
