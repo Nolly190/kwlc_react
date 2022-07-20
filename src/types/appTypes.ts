@@ -272,7 +272,7 @@ export interface CreateEventPayload {
   address?: string;
   phone?: string;
   location?: string;
-  event_Images?: EventImageType[];
+  event_Images?: Omit<EventImageType, "id">[];
 }
 
 export interface CreateEventTypePayload {
