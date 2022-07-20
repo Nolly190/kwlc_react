@@ -255,7 +255,6 @@ export interface EventsResponse {
 }
 
 export interface EventImageType {
-  id: number;
   imageUrl: string;
 }
 
@@ -272,7 +271,7 @@ export interface CreateEventPayload {
   address?: string;
   phone?: string;
   location?: string;
-  event_Images?: Omit<EventImageType, "id">[];
+  event_Images?: EventImageType[];
 }
 
 export interface CreateEventTypePayload {

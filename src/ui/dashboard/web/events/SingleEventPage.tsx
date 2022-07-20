@@ -123,8 +123,8 @@ const SingleEventPage: React.FC<{ data: EventsResponse }> = ({ data }) => {
           </Grid>
           {data.event_Images.length > 0 && (
             <Grid templateColumns="1fr 1fr" gap={10} mt="76px">
-              {data.event_Images.map((ev) => (
-                <Box key={ev.id} position="relative" height={"500px"}>
+              {data.event_Images.map((ev, i) => (
+                <Box key={i} position="relative" height={"500px"}>
                   <Image
                     src={ev.imageUrl}
                     alt="events"

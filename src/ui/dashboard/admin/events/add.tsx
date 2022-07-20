@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 import DualRing from "../../../../components/loader";
 
 export default function AddEvent() {
-  const [image, setImage] = useState<Omit<EventImageType, "id">>({
+  const [image, setImage] = useState<EventImageType>({
     imageUrl: "",
   });
   const [eventTypes, setEventTypes] = useState<EventTypeResponse[]>([]);
