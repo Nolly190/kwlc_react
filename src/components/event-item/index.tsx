@@ -80,7 +80,7 @@ const EventItem: FC<SingleEventItem> = (data: SingleEventItem) => {
         <div className="col">
           <div className="read_more">
             <div className="line_bar"></div>
-            <a href={`/web/event?id=${id}`}>
+            <a href={`/web/events/${id}`}>
               <h5>Read More</h5>
             </a>
           </div>

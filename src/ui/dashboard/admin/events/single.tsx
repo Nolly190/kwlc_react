@@ -1,12 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import AdminLayout from "../admin.layout";
 import { Editor } from "@tinymce/tinymce-react";
-import Select, { ActionMeta } from 'react-select'
+import Select, { ActionMeta } from "react-select";
 import styled from "styled-components";
 import { getParam } from "../../../../utils";
 import { useRouter } from "next/router";
-import { EventImageType, EventsResponse, EventTypeResponse } from "../../../../types/appTypes";
-import { endEventApi, getEventTypesApi, getSingleEventApi } from "../../../../api/event.api";
+import {
+  EventImageType,
+  EventsResponse,
+  EventTypeResponse,
+} from "../../../../types/appTypes";
+import {
+  endEventApi,
+  getEventTypesApi,
+  getSingleEventApi,
+} from "../../../../api/event.api";
 import { EventsController } from "../../../../controller/admin/events.controller";
 import { ImageItem, ImageWrapper } from "./add";
 import { statusEnum } from "../../../../enums/util.enum";
@@ -20,21 +28,23 @@ import DualRing from "../../../../components/loader";
 export default function EditEvent() {
   const [image, setImage] = useState<EventImageType>({ imageUrl: "" });
   const [eventTypes, setEventTypes] = useState<EventTypeResponse[]>([]);
-  const [eventData, setEventData] = useState<EventsResponse>({ event_Images: [] });
-  const [fieldsBlocked, setFieldsBlocked] = useState(false)
+  const [eventData, setEventData] = useState<EventsResponse>({
+    event_Images: [],
+  });
+  const [fieldsBlocked, setFieldsBlocked] = useState(false);
   const router = useRouter();
   const idParam = parseInt(getParam("id"));
-  const [date, setDate] = useState("")
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [isLoading, setIsLoading] = useState(false)
-  const [isSaving, setIsSaving] = useState(false)
+  const [date, setDate] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       if (!idParam) {
         router.push("/admin/");
       } else {
-        setIsLoading(true)
+        setIsLoading(true);
         const event = await getSingleEventApi(idParam);
         const response = await getEventTypesApi();
         setEventTypes(response.data);
@@ -46,7 +56,7 @@ export default function EditEvent() {
             router.push("/admin/events");
           }, 2000);
         }
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
     fetchData();
@@ -61,14 +71,17 @@ export default function EditEvent() {
   };
 
   const handleOpen = (e: any) => {
-    e.preventDefault()
+    e.preventDefault();
     onOpen();
-  }
+  };
 
   const handleChange = (name: string, value: string) => {
     if (name === "imageUrl") {
       const newArray = { [name]: value };
-      setEventData({ ...eventData, event_Images: [...eventData.event_Images, newArray] });
+      setEventData({
+        ...eventData,
+        event_Images: [...eventData.event_Images, newArray],
+      });
       return;
     }
 
@@ -76,27 +89,28 @@ export default function EditEvent() {
   };
 
   useEffect(() => {
-    eventData?.date && setDate(new Date(eventData?.date)?.toISOString().substring(0, 10))
-  }, [eventData])
+    eventData?.date &&
+      setDate(new Date(eventData?.date)?.toISOString().substring(0, 10));
+  }, [eventData]);
 
   const dropDownOptions = () => {
     const arr = [];
     eventTypes.map((x, i) => {
       arr.push({ value: x?.id, label: x?.type });
-    })
+    });
 
-    return arr
-  }
+    return arr;
+  };
 
   const onTypeChange = (newValue: any, actionMeta: ActionMeta<any>) => {
     setEventData({ ...eventData, eventType: newValue.value });
-  }
+  };
 
   const handleDelete = (index: number) => {
     const newArray = [...eventData.event_Images];
     newArray.splice(index, 1);
     setEventData({ ...eventData, event_Images: newArray });
-  }
+  };
 
   const handleEndEvent = async () => {
     const response = await endEventApi(idParam);
@@ -106,11 +120,14 @@ export default function EditEvent() {
     } else {
       toast.error(response.message.toString());
     }
-  }
+  };
 
   const handleAddImage = (e: any) => {
     e.preventDefault();
-    setEventData({ ...eventData, event_Images: [...eventData.event_Images, image] });
+    setEventData({
+      ...eventData,
+      event_Images: [...eventData.event_Images, image],
+    });
     setImage({ imageUrl: "" });
   };
 
@@ -130,10 +147,11 @@ export default function EditEvent() {
                 <h4 className="card-title">Update Event</h4>
               </div>
               <div className="card-body">
-                {isLoading ?
+                {isLoading ? (
                   <LoaderWrapper>
                     <DualRing width="40px" height="40px" color="#0b0146" />
-                  </LoaderWrapper> :
+                  </LoaderWrapper>
+                ) : (
                   <form id="form">
                     <input type="hidden" element-data="key" value="category" />
                     <div className="row">
@@ -156,7 +174,9 @@ export default function EditEvent() {
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
-                          <label className="bmd-label-floating">Phone Number</label>
+                          <label className="bmd-label-floating">
+                            Phone Number
+                          </label>
                           <input
                             type="text"
                             className="form-control"
@@ -175,9 +195,17 @@ export default function EditEvent() {
                     <div className="row">
                       <div className="col-md-6">
                         <div className="form-group">
-                          <label className="bmd-label-floating">Select Type</label>
-                          <Select options={dropDownOptions()} onChange={onTypeChange} isDisabled={fieldsBlocked}
-                            value={dropDownOptions().find((x) => (x.value === eventData.eventType))} />
+                          <label className="bmd-label-floating">
+                            Select Type
+                          </label>
+                          <Select
+                            options={dropDownOptions()}
+                            onChange={onTypeChange}
+                            isDisabled={fieldsBlocked}
+                            value={dropDownOptions().find(
+                              (x) => x.value === eventData.eventType
+                            )}
+                          />
                         </div>
                       </div>
                       <div className="col-md-6">
@@ -218,9 +246,7 @@ export default function EditEvent() {
                       </div>
                       <div className="col-md-6">
                         <div className="form-group">
-                          <label className="bmd-label-floating">
-                            Location
-                          </label>
+                          <label className="bmd-label-floating">Location</label>
                           <input
                             type="text"
                             className="form-control"
@@ -239,7 +265,9 @@ export default function EditEvent() {
                     <div className="row">
                       <div className="col-md-6">
                         <div className="form-group">
-                          <label className="bmd-label-floating">Description</label>
+                          <label className="bmd-label-floating">
+                            Description
+                          </label>
                           <textarea
                             className="form-control"
                             id="description"
@@ -259,7 +287,9 @@ export default function EditEvent() {
                     <div className="row">
                       <div className="col-md-12">
                         <div className="form-group">
-                          <label className="bmd-label-floating">Event Images</label>
+                          <label className="bmd-label-floating">
+                            Event Images
+                          </label>
                           <form>
                             <div className="row pt-3">
                               <div className="col-md-6">
@@ -288,7 +318,9 @@ export default function EditEvent() {
                             {eventData?.event_Images?.map((image, index) => (
                               <ImageItem key={index}>
                                 <img src={image.imageUrl} />
-                                <span onClick={() => handleDelete(index)}>x</span>
+                                <span onClick={() => handleDelete(index)}>
+                                  x
+                                </span>
                               </ImageItem>
                             ))}
                           </ImageWrapper>
@@ -311,11 +343,15 @@ export default function EditEvent() {
                         onClick={(e) => handleSubmit(e)}
                         disabled={isSaving}
                       >
-                        {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Update Event"}
+                        {isSaving ? (
+                          <DualRing width="15px" height="15px" color="#fff" />
+                        ) : (
+                          "Update Event"
+                        )}
                       </button>
                     </ButtonWrapper>
                   </form>
-                }
+                )}
               </div>
             </div>
           </div>

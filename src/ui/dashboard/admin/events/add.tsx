@@ -2,9 +2,13 @@ import { MouseEvent, useEffect, useRef, useState } from "react";
 import { BlogController } from "../../../../controller/admin/blog.controller";
 import { BlogItemDTO, CategoryItem, tagItem } from "../../../../dto/Blog.dto";
 import AdminLayout from "../admin.layout";
-import Select, { ActionMeta } from 'react-select'
+import Select, { ActionMeta } from "react-select";
 import styled from "styled-components";
-import { CreateEventPayload, EventImageType, EventTypeResponse } from "../../../../types/appTypes";
+import {
+  CreateEventPayload,
+  EventImageType,
+  EventTypeResponse,
+} from "../../../../types/appTypes";
 import { EventsController } from "../../../../controller/admin/events.controller";
 import { getEventTypesApi } from "../../../../api/event.api";
 import { statusEnum } from "../../../../enums/util.enum";
@@ -12,16 +16,20 @@ import { toast } from "react-toastify";
 import DualRing from "../../../../components/loader";
 
 export default function AddEvent() {
-  const [image, setImage] = useState<EventImageType>({ imageUrl: "" });
+  const [image, setImage] = useState<EventImageType>({
+    imageUrl: "",
+  });
   const [eventTypes, setEventTypes] = useState<EventTypeResponse[]>([]);
-  const [eventData, setEventData] = useState<CreateEventPayload>({ event_Images: [] });
-  const [isSaving, setIsSaving] = useState(false)
+  const [eventData, setEventData] = useState<CreateEventPayload>({
+    event_Images: [],
+  });
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     async function fetchEventTypes() {
       const response = await getEventTypesApi();
       if (response.code >= statusEnum.ok) {
-        setEventTypes(response.data)
+        setEventTypes(response.data);
       } else {
         toast.error("Error getting event types");
       }
@@ -39,7 +47,10 @@ export default function AddEvent() {
   const handleChange = (name: string, value: string) => {
     if (name === "imageUrl") {
       const newArray = { [name]: value };
-      setEventData({ ...eventData, event_Images: [...eventData.event_Images, newArray] });
+      setEventData({
+        ...eventData,
+        event_Images: [...eventData.event_Images, newArray],
+      });
       return;
     }
 
@@ -50,24 +61,27 @@ export default function AddEvent() {
     const arr = [];
     eventTypes.map((x, i) => {
       arr.push({ value: x?.id, label: x?.type });
-    })
+    });
 
-    return arr
-  }
+    return arr;
+  };
 
   const onTypeChange = (newValue: any, actionMeta: ActionMeta<any>) => {
     setEventData({ ...eventData, eventType: newValue.value });
-  }
+  };
 
   const handleDelete = (index: number) => {
     const newArray = [...eventData.event_Images];
     newArray.splice(index, 1);
     setEventData({ ...eventData, event_Images: newArray });
-  }
+  };
 
   const handleAddImage = (e: any) => {
     e.preventDefault();
-    setEventData({ ...eventData, event_Images: [...eventData.event_Images, image] });
+    setEventData({
+      ...eventData,
+      event_Images: [...eventData.event_Images, image],
+    });
     setImage({ imageUrl: "" });
   };
 
@@ -124,7 +138,10 @@ export default function AddEvent() {
                   <div className="col-md-6">
                     <div className="form-group">
                       <label className="bmd-label-floating">Select Type</label>
-                      <Select options={dropDownOptions()} onChange={onTypeChange} />
+                      <Select
+                        options={dropDownOptions()}
+                        onChange={onTypeChange}
+                      />
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -161,9 +178,7 @@ export default function AddEvent() {
                   </div>
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label className="bmd-label-floating">
-                        Location
-                      </label>
+                      <label className="bmd-label-floating">Location</label>
                       <input
                         type="text"
                         className="form-control"
@@ -242,7 +257,11 @@ export default function AddEvent() {
                       onClick={(e) => handleSubmit(e)}
                       disabled={isSaving}
                     >
-                      {isSaving ? <DualRing width="15px" height="15px" color="#fff" /> : "Create Event"}
+                      {isSaving ? (
+                        <DualRing width="15px" height="15px" color="#fff" />
+                      ) : (
+                        "Create Event"
+                      )}
                     </button>
                     <div className="clearfix"></div>
                   </div>
@@ -270,7 +289,7 @@ export const ImageWrapper = styled.div`
 
   &::-webkit-scrollbar-thumb {
     background: #073375;
-  }  
+  }
 `;
 
 export const ImageItem = styled.div`

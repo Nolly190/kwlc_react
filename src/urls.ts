@@ -12,6 +12,8 @@ export const urls = {
 
   branch: "Branch",
   getAllBranch: "Branch/GetAllBranches",
+  getAllBranchBasedOnLocation:
+    "Branch/GetAllBranches/GetAllBranchesBasedOnLocation?",
   getBranch: "Branch/GetBranch",
   createBranch: "Branch/CreateBranch",
   updateBranch: "Branch/UpdateBranch",

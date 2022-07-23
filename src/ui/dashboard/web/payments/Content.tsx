@@ -17,14 +17,87 @@ import {
   AlertDialogCloseButton,
   AlertDialogBody,
   AlertDialogFooter,
+  Spinner,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { toast } from "react-toastify";
+import { PaymentDTO } from "../../../../dto/PaymentDTO";
+import { makeDonationApi } from "../../../../api/donate.api";
 
 export default function PaymentContent({}) {
   const [isOpen, setIsOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [amount, setAmount] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastname, setLastName] = useState("");
+  const [paymentOption, setPaymentOption] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const cancelRef = React.useRef();
   const onPaymentModalClose = () => {
     setIsOpen(false);
+  };
+
+  const clickedPay = () => {
+    var emailRGEX = /^\S+@\S+\.\S+$/;
+    var emailResult = emailRGEX.test(email);
+
+    if (!emailResult) {
+      return toast.error("Invalid Email Address");
+    }
+
+    if (amount.trim() === "") {
+      return toast.error("Invalid Amount");
+    }
+    setIsOpen(true);
+  };
+
+  const processPayment = async () => {
+    try {
+      if (paymentOption.trim() === "") {
+        return toast.error("Select Payment Method", {
+          position: "top-right",
+        });
+      }
+      if (firstName.trim() === "") {
+        return toast.error("First name is required", {
+          position: "top-right",
+        });
+      }
+      if (lastname.trim() === "") {
+        return toast.error("Last name is required", {
+          position: "top-right",
+        });
+      }
+
+      const payload: PaymentDTO = new PaymentDTO();
+      payload.emailAddress = email;
+      payload.amount = +amount;
+      payload.paymentType = 3;
+      payload.paymentMode = +paymentOption;
+      payload.name = `${firstName} ${lastname}`;
+      payload.phoneNumber = "";
+      payload.productId = 0;
+      payload.quantity = 1;
+
+      setIsLoading(true);
+
+      console.log("payload: ", payload);
+      const response = await makeDonationApi(payload);
+      setIsLoading(false);
+      console.log("response: ", response);
+
+      setIsOpen(false);
+
+      if (paymentOption === "1") {
+        return (window.location = response.data.data);
+      }
+    } catch (error) {
+      console.log("error: ", error);
+      setIsLoading(false);
+      return toast.error("Something went wrong", {
+        position: "top-right",
+      });
+    }
   };
 
   return (
@@ -87,7 +160,14 @@ export default function PaymentContent({}) {
           <div className="row w-100">
             <div className="input col" style={{ marginTop: "10px" }}>
               <label htmlFor="email">Email</label>
-              <input type="email" name="email" id="email" placeholder="Email" />
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email"
+              />
             </div>
 
             <div className="input col" style={{ marginTop: "10px" }}>
@@ -99,7 +179,12 @@ export default function PaymentContent({}) {
                   <div style={{ background: "#f1f1f1", padding: "0 1rem" }}>
                     <Flex alignItems="center">
                       <div>&#8358;</div>
-                      <input type="number" className="amount_input" />
+                      <input
+                        type="number"
+                        className="amount_input"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                      />
                     </Flex>
                   </div>
                 </Grid>
@@ -107,7 +192,7 @@ export default function PaymentContent({}) {
             </div>
           </div>
 
-          <Flex alignSelf="flex-end" onClick={() => setIsOpen(true)}>
+          <Flex alignSelf="flex-end" onClick={clickedPay}>
             <button type="button" id="donate" className="button">
               <i
                 className="fa fa-gift"
@@ -138,7 +223,7 @@ export default function PaymentContent({}) {
             >
               <Text px={2}>&#8358;</Text>
               <Text bg="#F1F1F1" px={2} py={1}>
-                1000
+                {amount}
               </Text>
             </Flex>
           </AlertDialogHeader>
@@ -147,14 +232,28 @@ export default function PaymentContent({}) {
             <h3>Select Payment Method</h3>
             <Flex gap="2rem" mb={8}>
               <Flex gap={2} alignItems="center">
-                <input type="radio" name="payment-method" id="flutter" />
+                <input
+                  type="radio"
+                  name="payment-method"
+                  id="flutter"
+                  value="1"
+                  onChange={(e) => setPaymentOption(e.target.value)}
+                  checked={paymentOption === "1"}
+                />
                 <Text>Flutter wave</Text>
               </Flex>
 
-              <Flex gap={2} alignItems="center">
-                <input type="radio" name="payment-method" id="flutter" />
-                <Text>Pay Offline</Text>
-              </Flex>
+              {/* <Flex gap={2} alignItems="center">
+                <input
+                  type="radio"
+                  name="payment-method"
+                  id="offline"
+                  value="2"
+                  onChange={(e) => setPaymentOption(e.target.value)}
+                  checked={paymentOption === "2"}
+                />
+                <Text>Paystack</Text>
+              </Flex> */}
             </Flex>
             <h3>Personal Info</h3>
 
@@ -171,6 +270,8 @@ export default function PaymentContent({}) {
                   name="fname"
                   id=""
                   placeholder="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
               </Flex>
               <Flex flexDir="column">
@@ -185,6 +286,8 @@ export default function PaymentContent({}) {
                   name="fname"
                   id=""
                   placeholder="Last Name"
+                  value={lastname}
+                  onChange={(e) => setLastName(e.target.value)}
                 />
               </Flex>
 
@@ -200,6 +303,8 @@ export default function PaymentContent({}) {
                   name="email"
                   id=""
                   placeholder="Email Address"
+                  value={email}
+                  disabled
                 />
               </Flex>
             </Grid>
@@ -211,25 +316,32 @@ export default function PaymentContent({}) {
             >
               <Text px={2}>Donation Amount:</Text>
               <Text bg="#F1F1F1" px={2} py={1}>
-                &#8358; 1000
+                &#8358; {amount}
               </Text>
             </Flex>
           </AlertDialogBody>
           <AlertDialogFooter>
-            <button type="button" id="donate" className="button">
-              <i
-                className="fa fa-gift"
-                aria-hidden="true"
-                style={{ marginRight: ".5rem" }}
-              ></i>
-              Pay
+            <button
+              type="button"
+              id="donate"
+              className="button"
+              onClick={processPayment}
+            >
+              {isLoading ? (
+                <span style={{ padding: "0 8px" }}>
+                  <Spinner />
+                </span>
+              ) : (
+                <>
+                  <i
+                    className="fa fa-gift"
+                    aria-hidden="true"
+                    style={{ marginRight: ".5rem" }}
+                  ></i>{" "}
+                  Pay
+                </>
+              )}
             </button>
-            {/* <DonateBtn
-              className={"button"}
-              style={{ color: "white", padding: "12px 16px" }}
-              labelStyle={{ color: "white" }}
-              onClick={() => {}}
-            /> */}
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

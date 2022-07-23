@@ -61,6 +61,7 @@ export class BranchDTO {
   sliderVm: SliderType[];
   services: BranchServiceDTO[];
   city?: any;
+  googleMap?: string;
 }
 
 export class BranchAssignAdminDTO {

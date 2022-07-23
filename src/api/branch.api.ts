@@ -44,6 +44,36 @@ export async function getBranchesApi(): Promise<ResponseDTO> {
   return response.getResponse();
 }
 
+export async function getBranchesBasedOnLocation(
+  lat?: number,
+  long?: number
+): Promise<ResponseDTO> {
+  const response = new ResponseDTO();
+
+  try {
+    const url = `${urls.baseUrl}${urls.getAllBranchBasedOnLocation}`;
+    let res = await request.get(url, {
+      params: {
+        latitude: lat,
+        longitude: long,
+      },
+    });
+    let data: BranchDTO[];
+    if (res.status) {
+      data = res.data.data;
+      response.data = data;
+      response.code = statusEnum.ok;
+    }
+
+    return response;
+  } catch (e) {
+    console.log("catch", e);
+
+    response.message = e.toString();
+  }
+  return response.getResponse();
+}
+
 export async function getSocialLinks(): Promise<ResponseDTO> {
   const response = new ResponseDTO();
 
