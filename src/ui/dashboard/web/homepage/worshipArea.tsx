@@ -2,8 +2,21 @@ import Image from "next/image";
 import { BranchDTO } from "../../../../dto/Branch.dto";
 import bgPic from "../../../../../public/images/worship-1.png";
 import { Flex } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { getBranchesBasedOnLocation } from "../../../../api/branch.api";
 
 export default function HomeWorshipArea({ branches }) {
+  const [data, setData] = useState(branches);
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(async function (position) {
+      const lat = position.coords.latitude;
+      const long = position.coords.longitude;
+      const branchesResponse = await getBranchesBasedOnLocation(lat, long);
+      const branches = branchesResponse.data;
+      setData(branches);
+    });
+  }, []);
+
   return (
     // <!-- Worship-section-area-start -->
     <section className="worship_section">
@@ -12,7 +25,7 @@ export default function HomeWorshipArea({ branches }) {
         <p>Choose a branch closest to you</p>
       </div>
       <div className="service_posts row">
-        {(branches as BranchDTO[])?.map((branch) => (
+        {(data as BranchDTO[])?.map((branch) => (
           <div className="worship_col" key={branch.id}>
             <div className="img_text">
               <Image className="service_img" src={bgPic} alt="worship Image" />
