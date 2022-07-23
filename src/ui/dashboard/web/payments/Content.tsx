@@ -243,7 +243,7 @@ export default function PaymentContent({}) {
                 <Text>Flutter wave</Text>
               </Flex>
 
-              <Flex gap={2} alignItems="center">
+              {/* <Flex gap={2} alignItems="center">
                 <input
                   type="radio"
                   name="payment-method"
@@ -253,7 +253,7 @@ export default function PaymentContent({}) {
                   checked={paymentOption === "2"}
                 />
                 <Text>Paystack</Text>
-              </Flex>
+              </Flex> */}
             </Flex>
             <h3>Personal Info</h3>
 
