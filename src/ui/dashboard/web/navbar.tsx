@@ -94,7 +94,7 @@ export const NavMenu = ({ alt = false }) => {
               </MenuItem>
               <MenuItem className="menu-item">
                 <li className="dropdown_menu">
-                  <Link href={"/web/404/"}>
+                  <Link href={"/web/about-us"}>
                     <a className="nav_link">About Us </a>
                   </Link>
                 </li>
